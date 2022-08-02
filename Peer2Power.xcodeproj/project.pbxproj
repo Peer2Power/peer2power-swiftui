@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5002899CA8500796313 /* Peer2PowerApp.swift */; };
+		009CE5032899CA8500796313 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5022899CA8500796313 /* ContentView.swift */; };
+		009CE5052899CA8A00796313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 009CE5042899CA8A00796313 /* Assets.xcassets */; };
+		009CE5082899CA8A00796313 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 009CE5072899CA8A00796313 /* Preview Assets.xcassets */; };
+		009CE5122899CA8B00796313 /* Peer2PowerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5112899CA8B00796313 /* Peer2PowerTests.swift */; };
+		009CE51C2899CA8B00796313 /* Peer2PowerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE51B2899CA8B00796313 /* Peer2PowerUITests.swift */; };
+		009CE51E2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		009CE50E2899CA8B00796313 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 009CE4F52899CA8500796313 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 009CE4FC2899CA8500796313;
+			remoteInfo = Peer2Power;
+		};
+		009CE5182899CA8B00796313 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 009CE4F52899CA8500796313 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 009CE4FC2899CA8500796313;
+			remoteInfo = Peer2Power;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		009CE4FD2899CA8500796313 /* Peer2Power.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peer2Power.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		009CE5002899CA8500796313 /* Peer2PowerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerApp.swift; sourceTree = "<group>"; };
+		009CE5022899CA8500796313 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		009CE5042899CA8A00796313 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		009CE5072899CA8A00796313 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		009CE50D2899CA8B00796313 /* Peer2PowerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Peer2PowerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		009CE5112899CA8B00796313 /* Peer2PowerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerTests.swift; sourceTree = "<group>"; };
+		009CE5172899CA8B00796313 /* Peer2PowerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Peer2PowerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		009CE51B2899CA8B00796313 /* Peer2PowerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITests.swift; sourceTree = "<group>"; };
+		009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		009CE4FA2899CA8500796313 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		009CE50A2899CA8B00796313 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		009CE5142899CA8B00796313 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		009CE4F42899CA8500796313 = {
+			isa = PBXGroup;
+			children = (
+				009CE4FF2899CA8500796313 /* Peer2Power */,
+				009CE5102899CA8B00796313 /* Peer2PowerTests */,
+				009CE51A2899CA8B00796313 /* Peer2PowerUITests */,
+				009CE4FE2899CA8500796313 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		009CE4FE2899CA8500796313 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				009CE4FD2899CA8500796313 /* Peer2Power.app */,
+				009CE50D2899CA8B00796313 /* Peer2PowerTests.xctest */,
+				009CE5172899CA8B00796313 /* Peer2PowerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		009CE4FF2899CA8500796313 /* Peer2Power */ = {
+			isa = PBXGroup;
+			children = (
+				009CE5002899CA8500796313 /* Peer2PowerApp.swift */,
+				009CE5022899CA8500796313 /* ContentView.swift */,
+				009CE5042899CA8A00796313 /* Assets.xcassets */,
+				009CE5062899CA8A00796313 /* Preview Content */,
+			);
+			path = Peer2Power;
+			sourceTree = "<group>";
+		};
+		009CE5062899CA8A00796313 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				009CE5072899CA8A00796313 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		009CE5102899CA8B00796313 /* Peer2PowerTests */ = {
+			isa = PBXGroup;
+			children = (
+				009CE5112899CA8B00796313 /* Peer2PowerTests.swift */,
+			);
+			path = Peer2PowerTests;
+			sourceTree = "<group>";
+		};
+		009CE51A2899CA8B00796313 /* Peer2PowerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				009CE51B2899CA8B00796313 /* Peer2PowerUITests.swift */,
+				009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */,
+			);
+			path = Peer2PowerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		009CE4FC2899CA8500796313 /* Peer2Power */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 009CE5212899CA8B00796313 /* Build configuration list for PBXNativeTarget "Peer2Power" */;
+			buildPhases = (
+				009CE4F92899CA8500796313 /* Sources */,
+				009CE4FA2899CA8500796313 /* Frameworks */,
+				009CE4FB2899CA8500796313 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Peer2Power;
+			productName = Peer2Power;
+			productReference = 009CE4FD2899CA8500796313 /* Peer2Power.app */;
+			productType = "com.apple.product-type.application";
+		};
+		009CE50C2899CA8B00796313 /* Peer2PowerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 009CE5242899CA8B00796313 /* Build configuration list for PBXNativeTarget "Peer2PowerTests" */;
+			buildPhases = (
+				009CE5092899CA8B00796313 /* Sources */,
+				009CE50A2899CA8B00796313 /* Frameworks */,
+				009CE50B2899CA8B00796313 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				009CE50F2899CA8B00796313 /* PBXTargetDependency */,
+			);
+			name = Peer2PowerTests;
+			productName = Peer2PowerTests;
+			productReference = 009CE50D2899CA8B00796313 /* Peer2PowerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		009CE5162899CA8B00796313 /* Peer2PowerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 009CE5272899CA8B00796313 /* Build configuration list for PBXNativeTarget "Peer2PowerUITests" */;
+			buildPhases = (
+				009CE5132899CA8B00796313 /* Sources */,
+				009CE5142899CA8B00796313 /* Frameworks */,
+				009CE5152899CA8B00796313 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				009CE5192899CA8B00796313 /* PBXTargetDependency */,
+			);
+			name = Peer2PowerUITests;
+			productName = Peer2PowerUITests;
+			productReference = 009CE5172899CA8B00796313 /* Peer2PowerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		009CE4F52899CA8500796313 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					009CE4FC2899CA8500796313 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					009CE50C2899CA8B00796313 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 009CE4FC2899CA8500796313;
+					};
+					009CE5162899CA8B00796313 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 009CE4FC2899CA8500796313;
+					};
+				};
+			};
+			buildConfigurationList = 009CE4F82899CA8500796313 /* Build configuration list for PBXProject "Peer2Power" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 009CE4F42899CA8500796313;
+			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				009CE4FC2899CA8500796313 /* Peer2Power */,
+				009CE50C2899CA8B00796313 /* Peer2PowerTests */,
+				009CE5162899CA8B00796313 /* Peer2PowerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		009CE4FB2899CA8500796313 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				009CE5082899CA8A00796313 /* Preview Assets.xcassets in Resources */,
+				009CE5052899CA8A00796313 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		009CE50B2899CA8B00796313 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		009CE5152899CA8B00796313 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		009CE4F92899CA8500796313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				009CE5032899CA8500796313 /* ContentView.swift in Sources */,
+				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		009CE5092899CA8B00796313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				009CE5122899CA8B00796313 /* Peer2PowerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		009CE5132899CA8B00796313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				009CE51C2899CA8B00796313 /* Peer2PowerUITests.swift in Sources */,
+				009CE51E2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		009CE50F2899CA8B00796313 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 009CE4FC2899CA8500796313 /* Peer2Power */;
+			targetProxy = 009CE50E2899CA8B00796313 /* PBXContainerItemProxy */;
+		};
+		009CE5192899CA8B00796313 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 009CE4FC2899CA8500796313 /* Peer2Power */;
+			targetProxy = 009CE5182899CA8B00796313 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		009CE51F2899CA8B00796313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		009CE5202899CA8B00796313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		009CE5222899CA8B00796313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
+				DEVELOPMENT_TEAM = 85Q84CPFAN;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dejajackson.Peer2Power;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		009CE5232899CA8B00796313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
+				DEVELOPMENT_TEAM = 85Q84CPFAN;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dejajackson.Peer2Power;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		009CE5252899CA8B00796313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85Q84CPFAN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dejajackson.Peer2PowerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peer2Power.app/Peer2Power";
+			};
+			name = Debug;
+		};
+		009CE5262899CA8B00796313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85Q84CPFAN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dejajackson.Peer2PowerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peer2Power.app/Peer2Power";
+			};
+			name = Release;
+		};
+		009CE5282899CA8B00796313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85Q84CPFAN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dejajackson.Peer2PowerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Peer2Power;
+			};
+			name = Debug;
+		};
+		009CE5292899CA8B00796313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85Q84CPFAN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dejajackson.Peer2PowerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Peer2Power;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		009CE4F82899CA8500796313 /* Build configuration list for PBXProject "Peer2Power" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				009CE51F2899CA8B00796313 /* Debug */,
+				009CE5202899CA8B00796313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		009CE5212899CA8B00796313 /* Build configuration list for PBXNativeTarget "Peer2Power" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				009CE5222899CA8B00796313 /* Debug */,
+				009CE5232899CA8B00796313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		009CE5242899CA8B00796313 /* Build configuration list for PBXNativeTarget "Peer2PowerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				009CE5252899CA8B00796313 /* Debug */,
+				009CE5262899CA8B00796313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		009CE5272899CA8B00796313 /* Build configuration list for PBXNativeTarget "Peer2PowerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				009CE5282899CA8B00796313 /* Debug */,
+				009CE5292899CA8B00796313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 009CE4F52899CA8500796313 /* Project object */;
+}
