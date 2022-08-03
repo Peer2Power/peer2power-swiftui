@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
+
+let app = RealmSwift.App(id: realmAppID)
 
 @main
-struct Peer2PowerApp: App {
+struct Peer2PowerApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
             ContentView()

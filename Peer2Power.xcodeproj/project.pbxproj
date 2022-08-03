@@ -16,6 +16,7 @@
 		009CE51E2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */; };
 		009CE5352899F20C00796313 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5342899F20C00796313 /* Realm */; };
 		009CE5372899F20C00796313 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5362899F20C00796313 /* RealmSwift */; };
+		009CE53B2899F44D00796313 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53A2899F44D00796313 /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		009CE5172899CA8B00796313 /* Peer2PowerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Peer2PowerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		009CE51B2899CA8B00796313 /* Peer2PowerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITests.swift; sourceTree = "<group>"; };
 		009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		009CE53A2899F44D00796313 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				009CE5022899CA8500796313 /* ContentView.swift */,
 				009CE5042899CA8A00796313 /* Assets.xcassets */,
 				009CE5062899CA8A00796313 /* Preview Content */,
+				009CE53A2899F44D00796313 /* Secrets.swift */,
 			);
 			path = Peer2Power;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				009CE5032899CA8500796313 /* ContentView.swift in Sources */,
+				009CE53B2899F44D00796313 /* Secrets.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
