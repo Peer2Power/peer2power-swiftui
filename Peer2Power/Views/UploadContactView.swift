@@ -23,7 +23,10 @@ struct UploadContactView: View {
         NavigationView {
             Form {
                 TextField("Name", text: $contact.name)
+                    .textContentType(.name)
+                    .autocapitalization(.words)
                 TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
+                    .keyboardType(.emailAddress)
                 Toggle(isOn: $isAdult) {
                     Text("I certify that this person is 18 or older.")
                 }
