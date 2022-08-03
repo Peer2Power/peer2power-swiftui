@@ -19,6 +19,12 @@
 		009CE53B2899F44D00796313 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53A2899F44D00796313 /* Secrets.swift */; };
 		009CE53D2899F6B800796313 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53C2899F6B800796313 /* LoginView.swift */; };
 		009CE53F289A04DF00796313 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53E289A04DE00796313 /* AppState.swift */; };
+		009CE541289B017A00796313 /* CandidatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE540289B017900796313 /* CandidatesView.swift */; };
+		009CE543289B064900796313 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE542289B064900796313 /* Candidate.swift */; };
+		009CE545289B088300796313 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE544289B088300796313 /* LoggedInView.swift */; };
+		009CE547289B0A1300796313 /* ContactsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE546289B0A1300796313 /* ContactsListView.swift */; };
+		009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE548289B0A6A00796313 /* UploadContactView.swift */; };
+		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +58,12 @@
 		009CE53A2899F44D00796313 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		009CE53C2899F6B800796313 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		009CE53E289A04DE00796313 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		009CE540289B017900796313 /* CandidatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesView.swift; sourceTree = "<group>"; };
+		009CE542289B064900796313 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
+		009CE544289B088300796313 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
+		009CE546289B0A1300796313 /* ContactsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListView.swift; sourceTree = "<group>"; };
+		009CE548289B0A6A00796313 /* UploadContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadContactView.swift; sourceTree = "<group>"; };
+		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				009CE52B2899D13E00796313 /* Views */,
-				009CE52A2899D13100796313 /* Models */,
+				009CE52A2899D13100796313 /* Model */,
 				009CE53E289A04DE00796313 /* AppState.swift */,
 				009CE5002899CA8500796313 /* Peer2PowerApp.swift */,
 				009CE5022899CA8500796313 /* ContentView.swift */,
@@ -141,17 +153,23 @@
 			path = Peer2PowerUITests;
 			sourceTree = "<group>";
 		};
-		009CE52A2899D13100796313 /* Models */ = {
+		009CE52A2899D13100796313 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				009CE542289B064900796313 /* Candidate.swift */,
+				009CE54A289B0C2B00796313 /* Contact.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		009CE52B2899D13E00796313 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				009CE53C2899F6B800796313 /* LoginView.swift */,
+				009CE540289B017900796313 /* CandidatesView.swift */,
+				009CE544289B088300796313 /* LoggedInView.swift */,
+				009CE546289B0A1300796313 /* ContactsListView.swift */,
+				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -294,9 +312,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				009CE5032899CA8500796313 /* ContentView.swift in Sources */,
+				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
 				009CE53F289A04DF00796313 /* AppState.swift in Sources */,
 				009CE53B2899F44D00796313 /* Secrets.swift in Sources */,
+				009CE547289B0A1300796313 /* ContactsListView.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
+				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,
+				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
+				009CE543289B064900796313 /* Candidate.swift in Sources */,
+				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

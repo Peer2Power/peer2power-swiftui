@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             if state.loggedIn {
-                Text("A user is currently logged in.")
+                LoggedInView()
             } else {
                 LoginView()
             }
