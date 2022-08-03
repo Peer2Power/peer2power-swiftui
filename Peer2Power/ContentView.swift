@@ -6,11 +6,19 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ContentView: View {
+    @EnvironmentObject var state: AppState
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            if state.loggedIn {
+                Text("A user is currently logged in.")
+            } else {
+                LoginView()
+            }
+        }
     }
 }
 

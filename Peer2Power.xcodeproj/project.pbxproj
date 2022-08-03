@@ -17,6 +17,8 @@
 		009CE5352899F20C00796313 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5342899F20C00796313 /* Realm */; };
 		009CE5372899F20C00796313 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5362899F20C00796313 /* RealmSwift */; };
 		009CE53B2899F44D00796313 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53A2899F44D00796313 /* Secrets.swift */; };
+		009CE53D2899F6B800796313 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53C2899F6B800796313 /* LoginView.swift */; };
+		009CE53F289A04DF00796313 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53E289A04DE00796313 /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		009CE51B2899CA8B00796313 /* Peer2PowerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITests.swift; sourceTree = "<group>"; };
 		009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		009CE53A2899F44D00796313 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		009CE53C2899F6B800796313 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		009CE53E289A04DE00796313 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 			children = (
 				009CE52B2899D13E00796313 /* Views */,
 				009CE52A2899D13100796313 /* Models */,
+				009CE53E289A04DE00796313 /* AppState.swift */,
 				009CE5002899CA8500796313 /* Peer2PowerApp.swift */,
 				009CE5022899CA8500796313 /* ContentView.swift */,
 				009CE5042899CA8A00796313 /* Assets.xcassets */,
@@ -146,6 +151,7 @@
 		009CE52B2899D13E00796313 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				009CE53C2899F6B800796313 /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,7 +294,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				009CE5032899CA8500796313 /* ContentView.swift in Sources */,
+				009CE53F289A04DF00796313 /* AppState.swift in Sources */,
 				009CE53B2899F44D00796313 /* Secrets.swift in Sources */,
+				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
