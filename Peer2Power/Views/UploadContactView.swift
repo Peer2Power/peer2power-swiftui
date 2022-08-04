@@ -69,11 +69,14 @@ struct UploadForm: View {
                     }
                 }
             }
+            .onAppear(perform: setSubscription)
             .navigationTitle("Upload Contact")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
+                        newContact.owner_id = app.currentUser!.id
+                        
                         do {
                             try realm.write {
                                 realm.add(newContact)
@@ -93,6 +96,23 @@ struct UploadForm: View {
                         Text("Cancel")
                     }
                 }
+            }
+        }
+    }
+}
+
+extension UploadForm {
+    private func setSubscription() {
+        let subscriptions = realm.subscriptions
+        subscriptions.update {
+            if subscriptions.first(named: "user_contacts") != nil {
+                print("Contact subscription already exists.")
+                return
+            } else {
+                print("Appending new Contact subscription.")
+                subscriptions.append(QuerySubscription<Contact>(name: "user_contacts") { contact in
+                    contact.owner_id == app.currentUser!.id
+                })
             }
         }
     }
