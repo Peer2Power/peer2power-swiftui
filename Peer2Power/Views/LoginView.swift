@@ -37,7 +37,7 @@ struct LoginView: View {
 }
 
 extension LoginView {
-    func loginUser() {
+    private func loginUser() {
         Task {
             if newUser {
                 do {

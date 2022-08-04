@@ -25,6 +25,7 @@
 		009CE547289B0A1300796313 /* ContactsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE546289B0A1300796313 /* ContactsListView.swift */; };
 		009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE548289B0A6A00796313 /* UploadContactView.swift */; };
 		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
+		009CE54D289B41E900796313 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54C289B41E800796313 /* ErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		009CE546289B0A1300796313 /* ContactsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListView.swift; sourceTree = "<group>"; };
 		009CE548289B0A6A00796313 /* UploadContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadContactView.swift; sourceTree = "<group>"; };
 		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		009CE54C289B41E800796313 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				009CE544289B088300796313 /* LoggedInView.swift */,
 				009CE546289B0A1300796313 /* ContactsListView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
+				009CE54C289B41E800796313 /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				009CE547289B0A1300796313 /* ContactsListView.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
 				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,
+				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
 				009CE543289B064900796313 /* Candidate.swift in Sources */,
 				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,

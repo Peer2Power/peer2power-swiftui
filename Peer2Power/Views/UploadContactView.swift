@@ -9,11 +9,32 @@ import SwiftUI
 import RealmSwift
 
 struct UploadContactView: View {
+    @AsyncOpen(appId: realmAppID, timeout: 4000) var asyncOpen
+    
+    var body: some View {
+        switch asyncOpen {
+        case .connecting:
+            ProgressView()
+        case .waitingForUser:
+            ProgressView("Waiting for user to log in...")
+        case .open(let realm):
+            UploadForm(realm: realm)
+        case .progress(let progress):
+            ProgressView(progress)
+        case .error(let error):
+            ErrorView(error: error, retryAction: { })
+        }
+    }
+}
+
+struct UploadForm: View {
     @Environment (\.dismiss) var dismiss
     
-    @ObservedRealmObject var contact: Contact
+    @State private var newContact = Contact()
     
     @State private var isAdult: Bool = false
+    
+    let realm: Realm
     
     let ageBrackets = ["18 - 25", "26-39", "40+"]
     let relationships = ["Friend", "Family"]
@@ -22,26 +43,26 @@ struct UploadContactView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Name", text: $contact.name)
+                TextField("Name", text: $newContact.name)
                     .textContentType(.name)
                     .autocapitalization(.words)
-                TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
+                TextField("Email", text: $newContact.email).textContentType(.emailAddress).autocapitalization(.none)
                     .keyboardType(.emailAddress)
                 Toggle(isOn: $isAdult) {
                     Text("I certify that this person is 18 or older.")
                 }
                 Section("Optional Information") {
-                    Picker("Likelihood to Volunteer", selection: $contact.volunteerLikelihood) {
+                    Picker("Likelihood to Volunteer", selection: $newContact.volunteerLikelihood) {
                         ForEach(likelihoods, id: \.self) { likelihood in
                             Text("\(likelihood)")
                         }
                     }
-                    Picker("Age Bracket", selection: $contact.ageBracket) {
+                    Picker("Age Bracket", selection: $newContact.ageBracket) {
                         ForEach(ageBrackets, id: \.self) { ageBracket in
                             Text("\(ageBracket)")
                         }
                     }
-                    Picker("Relationship", selection: $contact.relationship) {
+                    Picker("Relationship", selection: $newContact.relationship) {
                         ForEach(relationships, id: \.self) { relationship in
                             Text("\(relationship)")
                         }
@@ -52,8 +73,18 @@ struct UploadContactView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save", action: saveContact)
-                        .disabled(true)
+                    Button("Save") {
+                        do {
+                            try realm.write {
+                                realm.add(newContact)
+                            }
+                        } catch {
+                            print("An error occurred while trying to upload the contact: \(error)")
+                        }
+                        
+                        dismiss()
+                    }
+                    .disabled(false)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
@@ -64,18 +95,11 @@ struct UploadContactView: View {
                 }
             }
         }
-        
-    }
-}
-
-extension UploadContactView {
-    func saveContact() {
-        
     }
 }
 
 struct UploadContactView_Previews: PreviewProvider {
     static var previews: some View {
-        UploadContactView(contact: Contact())
+        UploadContactView()
     }
 }
