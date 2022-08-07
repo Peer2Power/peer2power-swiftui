@@ -13,15 +13,11 @@ struct LoggedInView: View {
     @State private var showingContactList = false
     @State private var showingCollegesList = false
     
-    var flexSyncConfig = app.currentUser!.flexibleSyncConfiguration { subs in
+    var contactsFlexSyncConfig = app.currentUser!.flexibleSyncConfiguration { subs in
         if subs.first(named: "user_contacts") == nil {
             subs.append(QuerySubscription<Contact>(name: "user_contacts") { contact in
                 contact.owner_id == app.currentUser!.id
             })
-        }
-            
-        if subs.first(named: "all_colleges") == nil {
-            subs.append(QuerySubscription<college>(name: "all_colleges"))
         }
     }
     
@@ -31,20 +27,20 @@ struct LoggedInView: View {
                 showingContactForm.toggle()
             }
             .sheet(isPresented: $showingContactForm) {
-                UploadContactView().environment(\.realmConfiguration, flexSyncConfig)
+                UploadContactView().environment(\.realmConfiguration, contactsFlexSyncConfig)
             }
             Button("View Contacts List") {
                 showingContactList.toggle()
                 
             }
             .sheet(isPresented: $showingContactList) {
-                ContactsListView().environment(\.realmConfiguration, flexSyncConfig)
+                ContactsListView().environment(\.realmConfiguration, contactsFlexSyncConfig)
             }
             Button("Choose a Team") {
                 showingCollegesList.toggle()
             }
             .sheet(isPresented: $showingCollegesList) {
-                CollegeListView().environment(\.realmConfiguration, flexSyncConfig)
+                CollegeListView().environment(\.realmConfiguration, app.currentUser!.flexibleSyncConfiguration())
             }
         }
     }
