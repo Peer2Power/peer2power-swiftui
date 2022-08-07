@@ -26,11 +26,13 @@ struct LoginView: View {
             Toggle(isOn: $newUser) {
                 Text("Register New User?")
             }
+            Spacer(minLength: 16.0)
             Button(action: loginUser) {
                 Text(newUser ? "Sign Up" : "Log In")
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
+            Spacer(minLength: 16.0)
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
     }
