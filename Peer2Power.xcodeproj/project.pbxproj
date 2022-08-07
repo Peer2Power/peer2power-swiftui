@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000CD2C5289F965D00A004FA /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C4289F965D00A004FA /* College.swift */; };
+		000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* CollegeListView.swift */; };
 		009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5002899CA8500796313 /* Peer2PowerApp.swift */; };
 		009CE5032899CA8500796313 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5022899CA8500796313 /* ContentView.swift */; };
 		009CE5052899CA8A00796313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 009CE5042899CA8A00796313 /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		000CD2C4289F965D00A004FA /* College.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = College.swift; sourceTree = "<group>"; };
+		000CD2C6289F974200A004FA /* CollegeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeListView.swift; sourceTree = "<group>"; };
 		009CE4FD2899CA8500796313 /* Peer2Power.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peer2Power.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009CE5002899CA8500796313 /* Peer2PowerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerApp.swift; sourceTree = "<group>"; };
 		009CE5022899CA8500796313 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 			children = (
 				009CE542289B064900796313 /* Candidate.swift */,
 				009CE54A289B0C2B00796313 /* Contact.swift */,
+				000CD2C4289F965D00A004FA /* College.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				009CE546289B0A1300796313 /* ContactsListView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
+				000CD2C6289F974200A004FA /* CollegeListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,7 +330,9 @@
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
 				009CE543289B064900796313 /* Candidate.swift in Sources */,
+				000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */,
 				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,
+				000CD2C5289F965D00A004FA /* College.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
