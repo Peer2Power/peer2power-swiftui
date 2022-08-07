@@ -14,14 +14,18 @@ struct ContactsListView: View {
     @ObservedResults(Contact.self) var contacts
     
     var body: some View {
-        List {
-            if (contacts.isEmpty) {
-                Text("Add some contacts")
-                    .foregroundColor(.gray)
+        NavigationView {
+            List {
+                if (contacts.isEmpty) {
+                    Text("Add some contacts")
+                        .foregroundColor(.gray)
+                }
+                ForEach(contacts) { contact in
+                    Text("\(contact.name)")
+                }.onDelete(perform: $contacts.remove)
             }
-            ForEach(contacts) { contact in
-                Text("\(contact.name)")
-            }.onDelete(perform: $contacts.remove)
+            .navigationTitle("Contacts")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

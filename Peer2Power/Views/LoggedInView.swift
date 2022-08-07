@@ -43,6 +43,8 @@ struct LoggedInView: View {
                 CollegeListView().environment(\.realmConfiguration, app.currentUser!.flexibleSyncConfiguration())
             }
         }
+        .navigationBarTitle("Peer2Power")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
