@@ -12,8 +12,8 @@ class College: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
 
     @Persisted var name: String = ""
-
-    @Persisted var owner_id: String = ""
+    
+    @Persisted var owner_id: String?
 
     @Persisted var state: String?
 

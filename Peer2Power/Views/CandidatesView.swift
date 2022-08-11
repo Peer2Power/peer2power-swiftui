@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct CandidatesView: View {
-    var party: CandidateParty = .democrat
+    var party: Party = .democrat
     
     var body: some View {
         if party == .democrat {

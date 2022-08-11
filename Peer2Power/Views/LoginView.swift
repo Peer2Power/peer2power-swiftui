@@ -20,19 +20,19 @@ struct LoginView: View {
                 .textContentType(.emailAddress)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
+                .textFieldStyle(.roundedBorder)
             SecureField("Password", text: $password)
                 .submitLabel(.go)
+                .textFieldStyle(.roundedBorder)
                 .onSubmit(loginUser)
             Toggle(isOn: $newUser) {
                 Text("Register New User?")
             }
-            Spacer(minLength: 16.0)
             Button(action: loginUser) {
                 Text(newUser ? "Sign Up" : "Log In")
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            Spacer(minLength: 16.0)
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
     }
