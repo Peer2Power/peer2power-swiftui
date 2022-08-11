@@ -9,22 +9,36 @@ import SwiftUI
 import RealmSwift
 
 struct CollegeListView: View {
-    @ObservedResults(College.self) var colleges
+    @Environment (\.dismiss) var dismiss
     
-    @State private var selectedCollege: College = College()
-    @State private var selectedParty: Party = .democrat
+    @ObservedResults(College.self) var colleges
+    @ObservedResults(UserInfo.self) var userGoodies
+    
+    @State private var userInfo = UserInfo()
     
     var body: some View {
         NavigationView {
             List {
-                Picker("College", selection: $selectedCollege) {
+                Picker("College", selection: $userInfo.college) {
                     ForEach(colleges, id: \.self) { college in
                         Text("\(college.name)")
                     }
                 }
-                Picker("Party", selection: $selectedParty) {
+                Picker("Party", selection: $userInfo.party) {
                     Text("Democratic").tag(Party.democrat)
                     Text("Republican").tag(Party.republican)
+                }
+            }
+            .navigationBarTitle("Choose a Team")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        $userGoodies.append(userInfo)
+                        dismiss()
+                    } label: {
+                        Text("Choose")
+                    }
                 }
             }
         }

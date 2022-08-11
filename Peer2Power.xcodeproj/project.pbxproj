@@ -22,13 +22,13 @@
 		009CE53D2899F6B800796313 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53C2899F6B800796313 /* LoginView.swift */; };
 		009CE53F289A04DF00796313 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53E289A04DE00796313 /* AppState.swift */; };
 		009CE541289B017A00796313 /* CandidatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE540289B017900796313 /* CandidatesView.swift */; };
-		009CE543289B064900796313 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE542289B064900796313 /* Candidate.swift */; };
 		009CE545289B088300796313 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE544289B088300796313 /* LoggedInView.swift */; };
 		009CE547289B0A1300796313 /* ContactsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE546289B0A1300796313 /* ContactsListView.swift */; };
 		009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE548289B0A6A00796313 /* UploadContactView.swift */; };
 		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
 		009CE54D289B41E900796313 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54C289B41E800796313 /* ErrorView.swift */; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
+		00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EE28A58F7800FC007E /* UserInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,13 +65,13 @@
 		009CE53C2899F6B800796313 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		009CE53E289A04DE00796313 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		009CE540289B017900796313 /* CandidatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesView.swift; sourceTree = "<group>"; };
-		009CE542289B064900796313 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		009CE544289B088300796313 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 		009CE546289B0A1300796313 /* ContactsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListView.swift; sourceTree = "<group>"; };
 		009CE548289B0A6A00796313 /* UploadContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadContactView.swift; sourceTree = "<group>"; };
 		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		009CE54C289B41E800796313 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
+		00FA96EE28A58F7800FC007E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,10 +164,10 @@
 		009CE52A2899D13100796313 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				009CE542289B064900796313 /* Candidate.swift */,
 				009CE54A289B0C2B00796313 /* Contact.swift */,
 				000CD2C4289F965D00A004FA /* College.swift */,
 				00FA96EC28A588E800FC007E /* Party.swift */,
+				00FA96EE28A58F7800FC007E /* UserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,9 +331,9 @@
 				009CE547289B0A1300796313 /* ContactsListView.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
 				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,
+				00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */,
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
-				009CE543289B064900796313 /* Candidate.swift in Sources */,
 				000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */,
 				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,
 				000CD2C5289F965D00A004FA /* College.swift in Sources */,

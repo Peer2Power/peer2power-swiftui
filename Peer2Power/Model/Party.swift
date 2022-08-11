@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 enum Party: String, PersistableEnum {
-    case independent
     case democrat
     case republican
 }
