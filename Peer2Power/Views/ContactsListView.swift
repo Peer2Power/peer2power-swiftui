@@ -9,9 +9,9 @@ import SwiftUI
 import RealmSwift
 
 struct ContactsListView: View {
-    @AsyncOpen(appId: realmAppID, timeout: 4000) var asyncOpen
     
     @ObservedResults(Contact.self) var contacts
+    @Environment (\.realm) var realm
     
     var body: some View {
         NavigationView {
@@ -26,6 +26,18 @@ struct ContactsListView: View {
             }
             .navigationTitle("Contacts")
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            let subs = realm.subscriptions
+            
+            if (subs.first(ofType: Contact.self, where: { contact in
+                contact.owner_id == app.currentUser!.id
+            }) != nil) {
+                print("A subscription to the Contact type already exists.")
+                print("There are \(contacts.count) contacts.")
+            } else {
+                print("A subscription to the Contact type does not exist.")
+            }
         }
     }
 }

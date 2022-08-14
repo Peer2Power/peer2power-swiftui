@@ -27,6 +27,7 @@
 		009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE548289B0A6A00796313 /* UploadContactView.swift */; };
 		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
 		009CE54D289B41E900796313 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54C289B41E800796313 /* ErrorView.swift */; };
+		00C17F9628A8906400778E25 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C17F9528A8906400778E25 /* Team.swift */; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
 		00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EE28A58F7800FC007E /* UserInfo.swift */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		009CE548289B0A6A00796313 /* UploadContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadContactView.swift; sourceTree = "<group>"; };
 		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		009CE54C289B41E800796313 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		00FA96EE28A58F7800FC007E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,6 +170,7 @@
 				000CD2C4289F965D00A004FA /* College.swift */,
 				00FA96EC28A588E800FC007E /* Party.swift */,
 				00FA96EE28A58F7800FC007E /* UserInfo.swift */,
+				00C17F9528A8906400778E25 /* Team.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
 				000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */,
+				00C17F9628A8906400778E25 /* Team.swift in Sources */,
 				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,
 				000CD2C5289F965D00A004FA /* College.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,

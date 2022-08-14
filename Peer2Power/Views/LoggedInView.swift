@@ -23,12 +23,6 @@ struct LoggedInView: View {
         if subs.first(named: "all_colleges") == nil {
             subs.append(QuerySubscription<College>(name: "all_colleges"))
         }
-        
-        if subs.first(named: "user_info") == nil {
-            subs.append(QuerySubscription<UserInfo>(name: "user_info") { info in
-                info.owner_id == app.currentUser!.id
-            })
-        }
     }
     
     var body: some View {
