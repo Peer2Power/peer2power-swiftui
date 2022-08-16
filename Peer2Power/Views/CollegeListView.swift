@@ -11,7 +11,10 @@ import RealmSwift
 struct CollegeListView: View {
     @Environment (\.dismiss) var dismiss
     
-    @ObservedResults(College.self) var colleges
+    @ObservedResults(
+        College.self,
+        sortDescriptor: SortDescriptor(keyPath: "name", ascending: true))
+    var colleges
     @ObservedResults(Team.self) var teams
     @ObservedResults(UserInfo.self) var userGoodies
     
