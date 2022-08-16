@@ -10,13 +10,13 @@ import RealmSwift
 
 struct CollegeListView: View {
     @Environment (\.dismiss) var dismiss
-    @Environment (\.realm) var realm
     
     @ObservedResults(College.self) var colleges
+    @ObservedResults(Team.self) var teams
     @ObservedResults(UserInfo.self) var userGoodies
     
     @State private var selectedCollege: College = College()
-    @State private var userInfo = UserInfo()
+    @State private var selectedParty: Party = .selectParty
     
     var body: some View {
         NavigationView {
@@ -26,7 +26,8 @@ struct CollegeListView: View {
                         Text("\(college.name)")
                     }
                 }
-                Picker("Party", selection: $userInfo.party) {
+                Picker("Party", selection: $selectedParty) {
+                    Text("Select Party").tag(Party.selectParty)
                     Text("Democratic").tag(Party.democrat)
                     Text("Republican").tag(Party.republican)
                 }
@@ -35,35 +36,54 @@ struct CollegeListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        userInfo.college_id = selectedCollege._id.stringValue
-                        userInfo.owner_id = app.currentUser!.id
-                        
-                        $userGoodies.append(userInfo)
-                        
-                        dismiss()
-                    } label: {
+                    Button(action: chooseTeam) {
                         Text("Choose")
                     }
                 }
             }
         }
-        .onAppear(perform: setSubscription)
+        // .onAppear(perform: setSubscription)
     }
 }
 
 extension CollegeListView {
-    private func setSubscription() {
-        let subs = realm.subscriptions
-        if subs.first(named: "user_info") == nil {
-            subs.update {
-                subs.append(QuerySubscription<UserInfo>(name: "user_info") { info in
-                    info.owner_id == app.currentUser!.id
-                })
-            }
-        } else {
-            print("A subscription to the UserInfo type already exists.")
+    private func fetchTeam() -> Team? {
+        let teamQuery = teams.where {
+            ($0.school_id == selectedCollege._id.stringValue) && ($0.party == selectedParty)
         }
+        
+        return teamQuery.first
+    }
+    
+    private func chooseTeam() {
+        if let userInfo = userGoodies.first {
+            print("A user's record exists.")
+        }
+        
+        let newUserGoody = UserInfo()
+        newUserGoody.owner_id = app.currentUser!.id
+        
+        if let userTeam = fetchTeam() {
+            
+        }
+        
+        let newTeam = Team()
+        newTeam.school_id = selectedCollege._id.stringValue
+        
+        guard selectedParty != .selectParty else {
+            print("This user has committed a great heresy.")
+            return
+        }
+        
+        newTeam.party = selectedParty
+        
+        $teams.append(newTeam)
+        
+        newUserGoody.team_id = newTeam._id.stringValue
+        
+        $userGoodies.append(newUserGoody)
+        
+        dismiss()
     }
 }
 

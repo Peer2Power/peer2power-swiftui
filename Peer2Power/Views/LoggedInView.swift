@@ -14,14 +14,24 @@ struct LoggedInView: View {
     @State private var showingCollegesList = false
     
     var flexSyncConfig = app.currentUser!.flexibleSyncConfiguration { subs in
-        if subs.first(named: "user_contacts") == nil {
-            subs.append(QuerySubscription<Contact>(name: "user_contacts") { contact in
+        if subs.first(named: contactSubName) == nil {
+            subs.append(QuerySubscription<Contact>(name: contactSubName) { contact in
                 contact.owner_id == app.currentUser!.id
             })
         }
         
-        if subs.first(named: "all_colleges") == nil {
-            subs.append(QuerySubscription<College>(name: "all_colleges"))
+        if subs.first(named: collegeSubName) == nil {
+            subs.append(QuerySubscription<College>(name: collegeSubName))
+        }
+        
+        if subs.first(named: teamSubName) == nil {
+            subs.append(QuerySubscription<Team>(name: teamSubName))
+        }
+        
+        if subs.first(named: userInfoSubName) == nil {
+            subs.append(QuerySubscription<UserInfo>(name: userInfoSubName) { info in
+                info.owner_id == app.currentUser!.id
+            })
         }
     }
     

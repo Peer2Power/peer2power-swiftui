@@ -27,6 +27,7 @@
 		009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE548289B0A6A00796313 /* UploadContactView.swift */; };
 		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
 		009CE54D289B41E900796313 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54C289B41E800796313 /* ErrorView.swift */; };
+		00BA93E928AC074A00A434FF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA93E828AC074A00A434FF /* Constants.swift */; };
 		00C17F9628A8906400778E25 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C17F9528A8906400778E25 /* Team.swift */; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
 		00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EE28A58F7800FC007E /* UserInfo.swift */; };
@@ -71,6 +72,7 @@
 		009CE548289B0A6A00796313 /* UploadContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadContactView.swift; sourceTree = "<group>"; };
 		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		009CE54C289B41E800796313 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		00BA93E828AC074A00A434FF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		00FA96EE28A58F7800FC007E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				009CE5022899CA8500796313 /* ContentView.swift */,
 				009CE5042899CA8A00796313 /* Assets.xcassets */,
 				009CE5062899CA8A00796313 /* Preview Content */,
+				00BA93E828AC074A00A434FF /* Constants.swift */,
 				009CE53A2899F44D00796313 /* Secrets.swift */,
 			);
 			path = Peer2Power;
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				009CE5032899CA8500796313 /* ContentView.swift in Sources */,
+				00BA93E928AC074A00A434FF /* Constants.swift in Sources */,
 				00FA96ED28A588E800FC007E /* Party.swift in Sources */,
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
 				009CE53F289A04DF00796313 /* AppState.swift in Sources */,
