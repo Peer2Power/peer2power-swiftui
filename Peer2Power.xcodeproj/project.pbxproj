@@ -20,7 +20,6 @@
 		009CE5372899F20C00796313 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5362899F20C00796313 /* RealmSwift */; };
 		009CE53B2899F44D00796313 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53A2899F44D00796313 /* Secrets.swift */; };
 		009CE53D2899F6B800796313 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53C2899F6B800796313 /* LoginView.swift */; };
-		009CE53F289A04DF00796313 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53E289A04DE00796313 /* AppState.swift */; };
 		009CE541289B017A00796313 /* CandidatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE540289B017900796313 /* CandidatesView.swift */; };
 		009CE545289B088300796313 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE544289B088300796313 /* LoggedInView.swift */; };
 		009CE547289B0A1300796313 /* ContactsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE546289B0A1300796313 /* ContactsListView.swift */; };
@@ -65,7 +64,6 @@
 		009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		009CE53A2899F44D00796313 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		009CE53C2899F6B800796313 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		009CE53E289A04DE00796313 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		009CE540289B017900796313 /* CandidatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesView.swift; sourceTree = "<group>"; };
 		009CE544289B088300796313 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 		009CE546289B0A1300796313 /* ContactsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListView.swift; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			children = (
 				009CE52B2899D13E00796313 /* Views */,
 				009CE52A2899D13100796313 /* Model */,
-				009CE53E289A04DE00796313 /* AppState.swift */,
 				009CE5002899CA8500796313 /* Peer2PowerApp.swift */,
 				009CE5022899CA8500796313 /* ContentView.swift */,
 				009CE5042899CA8A00796313 /* Assets.xcassets */,
@@ -333,7 +330,6 @@
 				00BA93E928AC074A00A434FF /* Constants.swift in Sources */,
 				00FA96ED28A588E800FC007E /* Party.swift in Sources */,
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
-				009CE53F289A04DF00796313 /* AppState.swift in Sources */,
 				009CE53B2899F44D00796313 /* Secrets.swift in Sources */,
 				009CE547289B0A1300796313 /* ContactsListView.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,

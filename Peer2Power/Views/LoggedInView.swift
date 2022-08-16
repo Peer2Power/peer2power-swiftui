@@ -33,6 +33,8 @@ struct LoggedInView: View {
                 info.owner_id == app.currentUser!.id
             })
         }
+        
+        return
     }
     
     var body: some View {

@@ -9,11 +9,11 @@ import SwiftUI
 import RealmSwift
 
 struct ContentView: View {
-    @EnvironmentObject var state: AppState
+    @ObservedObject var app: RealmSwift.App
     
     var body: some View {
         NavigationView {
-            if state.loggedIn {
+            if app.currentUser != nil && app.currentUser?.state == .loggedIn {
                 LoggedInView()
             } else {
                 LoginView()
@@ -24,6 +24,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(app: RealmSwift.App(id: realmAppID))
     }
 }

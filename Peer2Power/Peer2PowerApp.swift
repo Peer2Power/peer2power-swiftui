@@ -12,11 +12,9 @@ let app = RealmSwift.App(id: realmAppID)
 
 @main
 struct Peer2PowerApp: SwiftUI.App {
-    @StateObject var state = AppState()
-    
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(state)
+            ContentView(app: app)
         }
     }
 }

@@ -58,32 +58,35 @@ extension CollegeListView {
     private func chooseTeam() {
         if let userInfo = userGoodies.first {
             print("A user's record exists.")
-        }
-        
-        let newUserGoody = UserInfo()
-        newUserGoody.owner_id = app.currentUser!.id
-        
-        if let userTeam = fetchTeam() {
+        } else {            
+            print("Creating new user goody...")
+            let newUserGoody = UserInfo()
+            newUserGoody.owner_id = app.currentUser!.id
             
+            if let userTeam = fetchTeam() {
+                
+            }
+            
+            let newTeam = Team()
+            newTeam.school_id = selectedCollege._id.stringValue
+            
+            guard selectedParty != .selectParty else {
+                print("This user has committed a great heresy.")
+                return
+            }
+            
+            newTeam.party = selectedParty
+            
+            $teams.append(newTeam)
+            
+            newUserGoody.team_id = newTeam._id.stringValue
+            
+            $userGoodies.append(newUserGoody)
+            
+            dismiss()
         }
         
-        let newTeam = Team()
-        newTeam.school_id = selectedCollege._id.stringValue
-        
-        guard selectedParty != .selectParty else {
-            print("This user has committed a great heresy.")
-            return
-        }
-        
-        newTeam.party = selectedParty
-        
-        $teams.append(newTeam)
-        
-        newUserGoody.team_id = newTeam._id.stringValue
-        
-        $userGoodies.append(newUserGoody)
-        
-        dismiss()
+       
     }
 }
 

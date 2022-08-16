@@ -16,4 +16,6 @@ class Team: Object, ObjectKeyIdentifiable {
     @Persisted var party: Party = .democrat
     
     @Persisted var score: Int = 0
+    
+    @Persisted var owner_id: String = ""
 }
