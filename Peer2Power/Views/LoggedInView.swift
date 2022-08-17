@@ -58,6 +58,9 @@ struct LoggedInView: View {
             .sheet(isPresented: $showingCollegesList) {
                 CollegeListView().environment(\.realmConfiguration, flexSyncConfig)
             }
+            NavigationLink("View Your Team") {
+                TeamView().environment(\.realmConfiguration, flexSyncConfig)
+            }
         }
         .navigationBarTitle("Peer2Power")
         .navigationBarTitleDisplayMode(.large)

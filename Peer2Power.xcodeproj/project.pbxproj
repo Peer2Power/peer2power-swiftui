@@ -27,6 +27,7 @@
 		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
 		009CE54D289B41E900796313 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54C289B41E800796313 /* ErrorView.swift */; };
 		00BA93E928AC074A00A434FF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA93E828AC074A00A434FF /* Constants.swift */; };
+		00BA93EB28AD532300A434FF /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA93EA28AD532300A434FF /* TeamView.swift */; };
 		00C17F9628A8906400778E25 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C17F9528A8906400778E25 /* Team.swift */; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
 		00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EE28A58F7800FC007E /* UserInfo.swift */; };
@@ -71,6 +72,7 @@
 		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		009CE54C289B41E800796313 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		00BA93E828AC074A00A434FF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		00BA93EA28AD532300A434FF /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
 		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		00FA96EE28A58F7800FC007E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				000CD2C6289F974200A004FA /* CollegeListView.swift */,
+				00BA93EA28AD532300A434FF /* TeamView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,
 				000CD2C5289F965D00A004FA /* College.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
+				00BA93EB28AD532300A434FF /* TeamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
