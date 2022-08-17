@@ -11,6 +11,7 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var newUser = false
+    @State private var loggingIn = false
     
     var body: some View {
         VStack(spacing: 16.0) {
@@ -35,11 +36,18 @@ struct LoginView: View {
             .controlSize(.large)
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
+        
+        if loggingIn {
+            ProgressView()
+            Text("Logging In...")
+        }
     }
 }
 
 extension LoginView {
     private func loginUser() {
+        loggingIn.toggle()
+        
         Task {
             // TODO: add visual feedback that app is logging user in.
             if newUser {

@@ -13,5 +13,5 @@ class UserInfo: Object, ObjectKeyIdentifiable {
     
     @Persisted var owner_id: String = ""
     
-    @Persisted var team_id: String?
+    @Persisted var team_id: String = ""
 }
