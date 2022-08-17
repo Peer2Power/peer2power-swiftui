@@ -12,6 +12,7 @@ struct LoggedInView: View {
     @State private var showingContactForm = false
     @State private var showingContactList = false
     @State private var showingCollegesList = false
+    @State private var showingLogOutreachSurvey = false
     
     var flexSyncConfig = app.currentUser!.flexibleSyncConfiguration { subs in
         if subs.first(named: contactSubName) == nil {
@@ -47,7 +48,6 @@ struct LoggedInView: View {
             }
             Button("View Contacts List") {
                 showingContactList.toggle()
-                
             }
             .sheet(isPresented: $showingContactList) {
                 ContactsListView().environment(\.realmConfiguration, flexSyncConfig)
@@ -60,6 +60,12 @@ struct LoggedInView: View {
             }
             NavigationLink("View Your Team") {
                 TeamView().environment(\.realmConfiguration, flexSyncConfig)
+            }
+            Button("Log Outreach Attempt") {
+                showingLogOutreachSurvey.toggle()
+            }
+            .sheet(isPresented: $showingLogOutreachSurvey) {
+                
             }
         }
         .navigationBarTitle("Peer2Power")
