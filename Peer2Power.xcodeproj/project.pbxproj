@@ -33,6 +33,7 @@
 		00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA93FC28AF1AE600A434FF /* LogOutreachView.swift */; };
 		00BA93FF28AF1F5B00A434FF /* LogOutreachTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA93FE28AF1F5A00A434FF /* LogOutreachTask.swift */; };
 		00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA940028AF1FDF00A434FF /* Identifier.swift */; };
+		00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA940228AFFAAD00A434FF /* OutreachAttempt.swift */; };
 		00C17F9628A8906400778E25 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C17F9528A8906400778E25 /* Team.swift */; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
 		00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EE28A58F7800FC007E /* UserInfo.swift */; };
@@ -110,6 +111,7 @@
 		00BA93FC28AF1AE600A434FF /* LogOutreachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutreachView.swift; sourceTree = "<group>"; };
 		00BA93FE28AF1F5A00A434FF /* LogOutreachTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutreachTask.swift; sourceTree = "<group>"; };
 		00BA940028AF1FDF00A434FF /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
+		00BA940228AFFAAD00A434FF /* OutreachAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachAttempt.swift; sourceTree = "<group>"; };
 		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		00FA96EE28A58F7800FC007E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				00FA96EC28A588E800FC007E /* Party.swift */,
 				00FA96EE28A58F7800FC007E /* UserInfo.swift */,
 				00C17F9528A8906400778E25 /* Team.swift */,
+				00BA940228AFFAAD00A434FF /* OutreachAttempt.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
 				009CE53B2899F44D00796313 /* Secrets.swift in Sources */,
 				009CE547289B0A1300796313 /* ContactsListView.swift in Sources */,
+				00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */,
 				00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
 				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,

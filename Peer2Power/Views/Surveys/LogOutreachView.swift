@@ -37,13 +37,18 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 print("User discarded survey.")
             case .completed:
                 print("Log attempt survey completed.")
+                uploadResult(from: taskViewController)
             case .failed:
-                print("Log attempt survey failed with the following error: \(error?.localizedDescription)")
+                print("Log attempt survey failed with the following error: \(String(describing: error?.localizedDescription))")
             @unknown default:
                 print("Unknown")
             }
             
             taskViewController.dismiss(animated: true, completion: nil)
+        }
+        
+        private func uploadResult(from taskViewController: ORKTaskViewController) {
+            // TODO: upload survey results.
         }
     }
 }
