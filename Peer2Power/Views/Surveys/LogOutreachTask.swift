@@ -26,7 +26,6 @@ class LogOutreachTask: ORKOrderedTask {
                                       title: nil,
                                       question: "How did you contact this person?",
                                       answer: contactMethodAnswerFormat)
-        howStep.isOptional = false
         
         return howStep
     }
@@ -39,7 +38,6 @@ class LogOutreachTask: ORKOrderedTask {
                                            title: nil,
                                            question: "What word or phrase would you use to describe the outreach attempt?",
                                            answer: volunteerInterestAnswerFormat)
-        interestStep.isOptional = false
         
         return interestStep
     }
@@ -65,7 +63,6 @@ class LogOutreachTask: ORKOrderedTask {
                                          title: nil,
                                          question: "Great! How did they volunteer?",
                                          answer: volunteerMethodFormat)
-        methodStep.isOptional = false
         
         return methodStep
     }

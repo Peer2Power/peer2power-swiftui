@@ -61,9 +61,9 @@ extension TeamView {
                 var partyText: String
                 switch userTeam.party {
                 case .democrat:
-                    partyText = "Democrats"
+                    partyText = "College Democrats"
                 case .republican:
-                    partyText = "Republicans"
+                    partyText = "College Republicans"
                 case .selectParty:
                     partyText = "Select Party"
                 }

@@ -9,7 +9,7 @@ import RealmSwift
 
 class Contact: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var owner_id: String = ""
+    @Persisted var owner_id: String = "" // TODO: get contacts to be tied to a team with team_id rather than an individual's owner_id
     
     @Persisted var name: String = ""
     @Persisted var email: String = ""
