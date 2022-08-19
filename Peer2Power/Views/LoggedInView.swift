@@ -64,8 +64,8 @@ struct LoggedInView: View {
             Button("Log Outreach Attempt") {
                 showingLogOutreachSurvey.toggle()
             }
-            .sheet(isPresented: $showingLogOutreachSurvey) {
-                
+            .fullScreenCover(isPresented: $showingLogOutreachSurvey) {
+                LogOutreachView()
             }
         }
         .navigationBarTitle("Peer2Power")
