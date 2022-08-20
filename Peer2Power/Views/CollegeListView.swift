@@ -18,38 +18,39 @@ struct CollegeListView: View {
     @ObservedResults(Team.self) var teams
     @ObservedResults(UserInfo.self) var userGoodies
     
-    @State private var selectedCollege: College = College()
     @State private var selectedParty: Party = .selectParty
     
     var body: some View {
         NavigationView {
             List {
-                Picker("College", selection: $selectedCollege) {
-                    ForEach(colleges, id: \.self) { college in
+                ForEach(colleges, id: \.self) { college in
+                    NavigationLink {
+                        List {
+                            Picker("Select a Party", selection: $selectedParty) {
+                                Text("Select Party").tag(Party.selectParty)
+                                Text("Democratic").tag(Party.democrat)
+                                Text("Republican").tag(Party.republican)
+                            }
+                        }
+                    } label: {
                         Text("\(college.name)")
                     }
                 }
-                Picker("Party", selection: $selectedParty) {
-                    Text("Select Party").tag(Party.selectParty)
-                    Text("Democratic").tag(Party.democrat)
-                    Text("Republican").tag(Party.republican)
-                }
             }
-            .navigationBarTitle("Choose a Team")
+            .navigationBarTitle("Choose Your School")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(action: chooseTeam) {
-                        Text("Choose")
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
                     }
                 }
             }
         }
-        // .onAppear(perform: setSubscription)
     }
 }
 
-extension CollegeListView {
+/* extension CollegeListView {
     private func fetchTeam() -> Team? {
         let teamQuery = teams.where {
             ($0.school_id == selectedCollege._id.stringValue) && ($0.party == selectedParty)
@@ -92,7 +93,8 @@ extension CollegeListView {
        
     }
 }
-
+*/
+ 
 struct CollegeListView_Previews: PreviewProvider {
     static var previews: some View {
         CollegeListView()
