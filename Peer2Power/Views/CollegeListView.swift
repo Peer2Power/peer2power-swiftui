@@ -19,6 +19,7 @@ struct CollegeListView: View {
     @ObservedResults(UserInfo.self) var userGoodies
     
     @State private var selectedParty: Party = .selectParty
+    @State private var showingConfirmAlert = false
     
     var body: some View {
         NavigationView {
@@ -26,9 +27,23 @@ struct CollegeListView: View {
                 ForEach(colleges, id: \.self) { college in
                     NavigationLink {
                         List {
-                            Picker("Select a Party", selection: $selectedParty) {
-                                Text("Select Party").tag(Party.selectParty)
+                            Button {
+                                showingConfirmAlert.toggle()
+                            } label: {
                                 Text("Democratic").tag(Party.democrat)
+                            }
+                            .alert("Are You Sure You Want to Join This Team?", isPresented: $showingConfirmAlert) {
+                                Button("Cancel", role: .cancel) {}
+                                Button("Choose") {
+                                    print("The user's team should be chosen here.")
+                                }
+                            } message: {
+                                Text("You won't be able to change teams after confirming your choice.")
+                            }
+
+                            Button {
+                                showingConfirmAlert.toggle()
+                            } label: {
                                 Text("Republican").tag(Party.republican)
                             }
                         }

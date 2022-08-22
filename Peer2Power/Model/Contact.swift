@@ -6,6 +6,7 @@
 //
 
 import RealmSwift
+import Foundation
 
 class Contact: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
@@ -17,4 +18,7 @@ class Contact: Object, ObjectKeyIdentifiable {
     @Persisted var ageBracket: String = "Select Age Bracket"
     @Persisted var relationship: String = "Select Relationship"
     @Persisted var volunteerLikelihood: String = "Select Likelihood"
+    
+    @Persisted var createdAt: Date = Date()
+    @Persisted var updatedAt: Date?
 }
