@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		000CD2C5289F965D00A004FA /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C4289F965D00A004FA /* College.swift */; };
 		000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* CollegeListView.swift */; };
+		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5002899CA8500796313 /* Peer2PowerApp.swift */; };
 		009CE5032899CA8500796313 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5022899CA8500796313 /* ContentView.swift */; };
 		009CE5052899CA8A00796313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 009CE5042899CA8A00796313 /* Assets.xcassets */; };
@@ -87,6 +88,7 @@
 /* Begin PBXFileReference section */
 		000CD2C4289F965D00A004FA /* College.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = College.swift; sourceTree = "<group>"; };
 		000CD2C6289F974200A004FA /* CollegeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeListView.swift; sourceTree = "<group>"; };
+		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		009CE4FD2899CA8500796313 /* Peer2Power.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peer2Power.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009CE5002899CA8500796313 /* Peer2PowerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerApp.swift; sourceTree = "<group>"; };
 		009CE5022899CA8500796313 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				009CE52B2899D13E00796313 /* Views */,
 				009CE52A2899D13100796313 /* Model */,
 				009CE5002899CA8500796313 /* Peer2PowerApp.swift */,
+				004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */,
 				009CE5022899CA8500796313 /* ContentView.swift */,
 				009CE5042899CA8A00796313 /* Assets.xcassets */,
 				009CE5062899CA8A00796313 /* Preview Content */,
@@ -436,6 +439,7 @@
 				00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */,
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
+				004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */,
 				000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */,
 				00BA93FF28AF1F5B00A434FF /* LogOutreachTask.swift in Sources */,
 				00C17F9628A8906400778E25 /* Team.swift in Sources */,

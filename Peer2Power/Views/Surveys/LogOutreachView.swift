@@ -48,7 +48,14 @@ struct LogOutreachView: UIViewControllerRepresentable {
         }
         
         private func uploadResult(from taskViewController: ORKTaskViewController) {
-            // TODO: upload survey results.
+            let newOutreach = OutreachAttempt()
+            
+            guard let currentUser = app.currentUser else {
+                print("The current user could not be found.")
+                return
+            }
+            
+            // TODO: add this to the contact list view or have some other way to select which contact the outreach attempt was made to.
         }
     }
 }
