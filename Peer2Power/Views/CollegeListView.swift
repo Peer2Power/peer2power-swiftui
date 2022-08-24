@@ -24,12 +24,12 @@ struct CollegeListView: View {
     @State private var searchText = ""
     
     var searchResults: Results<College> {
-        if colleges.isEmpty {
+        if searchText.isEmpty {
             return colleges
-        } else {
-            return colleges.where {
-                $0.name.contains(searchText, options: .caseInsensitive)
-            }
+        }
+        
+        return colleges.where {
+            $0.name.contains(searchText, options: .caseInsensitive)
         }
     }
     
