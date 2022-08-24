@@ -21,10 +21,22 @@ struct CollegeListView: View {
     @State private var selectedParty: Party = .selectParty
     @State private var showingConfirmAlert = false
     
+    @State private var searchText = ""
+    
+    var searchResults: Results<College> {
+        if colleges.isEmpty {
+            return colleges
+        } else {
+            return colleges.where {
+                $0.name.contains(searchText, options: .caseInsensitive)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                ForEach(colleges, id: \.self) { college in
+                ForEach(searchResults, id: \.self) { college in
                     NavigationLink {
                         List {
                             Button {
@@ -54,6 +66,7 @@ struct CollegeListView: View {
             }
             .navigationBarTitle("Choose Your School")
             .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
