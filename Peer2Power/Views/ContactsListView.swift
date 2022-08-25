@@ -22,11 +22,10 @@ struct ContactsListView: View {
                 }
                 ForEach(contacts) { contact in
                     NavigationLink {
-                        <#code#>
+                        OutreachAttemptsListView(contact: contact)
                     } label: {
                         Text("\(contact.name)")
                     }
-
                 }
                 .onDelete(perform: $contacts.remove)
             }
