@@ -17,6 +17,8 @@ class OutreachAttempt: Object, ObjectKeyIdentifiable {
     
     @Persisted var owner_id: String = ""
     
+    @Persisted var team_id: String = ""
+    
     @Persisted var to: String = ""
     
     @Persisted var updatedAt: Date?

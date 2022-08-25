@@ -21,8 +21,14 @@ struct ContactsListView: View {
                         .foregroundColor(.gray)
                 }
                 ForEach(contacts) { contact in
-                    Text("\(contact.name)")
-                }.onDelete(perform: $contacts.remove)
+                    NavigationLink {
+                        <#code#>
+                    } label: {
+                        Text("\(contact.name)")
+                    }
+
+                }
+                .onDelete(perform: $contacts.remove)
             }
             .navigationTitle("Contacts")
             .navigationBarTitleDisplayMode(.inline)

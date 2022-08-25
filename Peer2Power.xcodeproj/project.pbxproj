@@ -12,6 +12,7 @@
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */; };
 		00953C5628B5E28C00B6CBB6 /* AnimationCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */; };
+		00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */; };
 		009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5002899CA8500796313 /* Peer2PowerApp.swift */; };
 		009CE5032899CA8500796313 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5022899CA8500796313 /* ContentView.swift */; };
 		009CE5052899CA8A00796313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 009CE5042899CA8A00796313 /* Assets.xcassets */; };
@@ -93,6 +94,7 @@
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableShape.swift; sourceTree = "<group>"; };
 		00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationCompletion.swift; sourceTree = "<group>"; };
+		00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachAttemptsListView.swift; sourceTree = "<group>"; };
 		009CE4FD2899CA8500796313 /* Peer2Power.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peer2Power.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009CE5002899CA8500796313 /* Peer2PowerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerApp.swift; sourceTree = "<group>"; };
 		009CE5022899CA8500796313 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				000CD2C6289F974200A004FA /* CollegeListView.swift */,
 				00BA93EA28AD532300A434FF /* TeamView.swift */,
+				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */,
 				000CD2C5289F965D00A004FA /* College.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
+				00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */,
 				00BA93EB28AD532300A434FF /* TeamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
