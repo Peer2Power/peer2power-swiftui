@@ -1,0 +1,3 @@
+[submodule "ResearchKit-minus-HealthKit"]
+	path = ResearchKit-minus-HealthKit
+	url = https://github.com/jacksodl23/ResearchKit-minus-HealthKit
