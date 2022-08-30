@@ -66,7 +66,6 @@ struct CollegeListView: View {
             }
             .navigationBarTitle("Choose Your School")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText, prompt: "Enter the name of your college")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
@@ -75,6 +74,7 @@ struct CollegeListView: View {
                 }
             }
         }
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your college")
     }
 }
 
