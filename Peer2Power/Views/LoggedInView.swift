@@ -39,37 +39,20 @@ struct LoggedInView: View {
     }
     
     var body: some View {
-        VStack(spacing: 10.0) {
-            Button("Upload a Contact") {
-                showingContactForm.toggle()
-            }
-            .sheet(isPresented: $showingContactForm) {
-                UploadContactView().environment(\.realmConfiguration, flexSyncConfig)
-            }
-            Button("View Contacts List") {
-                showingContactList.toggle()
-            }
-            .sheet(isPresented: $showingContactList) {
-                ContactsListView().environment(\.realmConfiguration, flexSyncConfig)
-            }
-            Button("Choose a Team") {
-                showingCollegesList.toggle()
-            }
-            .sheet(isPresented: $showingCollegesList) {
-                CollegeListView().environment(\.realmConfiguration, flexSyncConfig)
-            }
-            NavigationLink("View Your Team") {
-                TeamView().environment(\.realmConfiguration, flexSyncConfig)
-            }
-            Button("Log Outreach Attempt") {
-                showingLogOutreachSurvey.toggle()
-            }
-            .fullScreenCover(isPresented: $showingLogOutreachSurvey) {
-                LogOutreachView()
-            }
-        }
-        .navigationBarTitle("Peer2Power")
-        .navigationBarTitleDisplayMode(.large)
+      TabView {
+          HomeView()
+              .environment(\.realmConfiguration, flexSyncConfig)
+              .tabItem {
+                  Label("Contacts", systemImage: "person.3.sequence")
+              }
+          LeaderboardView()
+              .environment(\.realmConfiguration, flexSyncConfig)
+              .tabItem {
+                  Label("Leaderoard", systemImage: "chart.bar")
+              }
+      }
+      .navigationBarTitle("Peer2Power")
+      .navigationBarTitleDisplayMode(.large)
     }
 }
 
