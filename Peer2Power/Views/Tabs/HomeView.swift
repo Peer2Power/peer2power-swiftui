@@ -14,7 +14,7 @@ struct HomeView: View {
     @State private var closeDateString = ""
     @State private var pastCloseDate: Bool?
     
-    @ObservedResults(Contact.self) var contacts
+    @ObservedResults(Contact.self) var contacts // FIXME: figure out how to handle contacts
     @ObservedRealmObject var userTeam: Team
     
     var body: some View {
