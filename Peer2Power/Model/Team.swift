@@ -18,4 +18,10 @@ class Team: Object, ObjectKeyIdentifiable {
     @Persisted var score: Int = 0
     
     @Persisted var owner_id: String = ""
+    
+    @Persisted var member_ids: List<String>
+    
+    @Persisted var contacts: List<Contact>
+    
+    @Persisted var outreachAttempts: List<OutreachAttempt>
 }

@@ -10,6 +10,7 @@ import RealmSwift
 
 struct ContactsListView: View {
     
+    // @ObservedRealmObject var userTeam: Team
     @ObservedResults(Contact.self) var contacts
     @Environment (\.realm) var realm
     

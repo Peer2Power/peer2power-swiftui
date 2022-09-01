@@ -14,7 +14,13 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             if app.currentUser != nil && app.currentUser?.state == .loggedIn {
-                LoggedInView()
+                LoggedInView().environment(\.realmConfiguration, app.currentUser!.flexibleSyncConfiguration(initialSubscriptions: { subs in
+                    if subs.first(named: userTeamSubName) == nil {
+                        subs.append(QuerySubscription<Team>(name: userTeamSubName) {
+                            $0.member_ids.contains(app.currentUser!.id)
+                        })
+                    }
+                }))
             } else {
                 LoginView()
             }

@@ -11,14 +11,12 @@ import Firebase
 
 let app = RealmSwift.App(id: realmAppID)
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        FirebaseApp.configure()
-    }
-}
-
 @main
 struct Peer2PowerApp: SwiftUI.App {
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(app)

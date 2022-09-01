@@ -14,13 +14,9 @@ struct LoggedInView: View {
     @State private var showingCollegesList = false
     @State private var showingLogOutreachSurvey = false
     
+    @ObservedResults(Team.self) var teams
+    
     var flexSyncConfig = app.currentUser!.flexibleSyncConfiguration { subs in
-        if subs.first(named: contactSubName) == nil {
-            subs.append(QuerySubscription<Contact>(name: contactSubName) { contact in
-                contact.owner_id == app.currentUser!.id
-            })
-        }
-        
         if subs.first(named: collegeSubName) == nil {
             subs.append(QuerySubscription<College>(name: collegeSubName))
         }
@@ -40,16 +36,22 @@ struct LoggedInView: View {
     
     var body: some View {
       TabView {
-          HomeView()
-              .environment(\.realmConfiguration, flexSyncConfig)
-              .tabItem {
-                  Label("Contacts", systemImage: "person.3.sequence")
-              }
-          LeaderboardView()
-              .environment(\.realmConfiguration, flexSyncConfig)
-              .tabItem {
-                  Label("Leaderoard", systemImage: "chart.bar")
-              }
+          if teams.isEmpty {
+              Text("Your team could not be found.")
+                  .multilineTextAlignment(.center)
+                  .font(.callout)
+          } else {
+              HomeView(userTeam: teams.first!)
+                  .environment(\.realmConfiguration, flexSyncConfig)
+                  .tabItem {
+                      Label("Contacts", systemImage: "person.3.sequence")
+                  }
+              LeaderboardView()
+                  .environment(\.realmConfiguration, flexSyncConfig)
+                  .tabItem {
+                      Label("Leaderoard", systemImage: "chart.bar")
+                  }
+          }
       }
       .navigationBarTitle("Peer2Power")
       .navigationBarTitleDisplayMode(.large)
