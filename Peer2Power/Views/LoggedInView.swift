@@ -21,8 +21,8 @@ struct LoggedInView: View {
             subs.append(QuerySubscription<College>(name: collegeSubName))
         }
         
-        if subs.first(named: teamSubName) == nil {
-            subs.append(QuerySubscription<Team>(name: teamSubName))
+        if subs.first(named: allTeamsSubName) == nil {
+            subs.append(QuerySubscription<Team>(name: allTeamsSubName))
         }
         
         if subs.first(named: userInfoSubName) == nil {

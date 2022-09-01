@@ -14,14 +14,15 @@ struct HomeView: View {
     @State private var closeDateString = ""
     @State private var pastCloseDate: Bool?
     
+    @Environment(\.realm) var realm
+    
     @ObservedResults(Contact.self) var contacts // FIXME: figure out how to handle contacts
     @ObservedRealmObject var userTeam: Team
     
     var body: some View {
         NavigationView {
             VStack {
-                Text(userTeam.party.rawValue)
-                /* if pastCloseDate == false {
+                if pastCloseDate == false {
                     Text("The upload window is open.")
                         .font(.title)
                 } else if contacts.isEmpty {
@@ -38,15 +39,29 @@ struct HomeView: View {
                             print("The upload button was pressed.")
                         }
                     }
-                } */
+                }
             }
-            .onAppear(perform: handleCloseDate)
+            .onAppear(perform: performSetup)
         }
     }
 }
 
 extension HomeView {
-    private func handleCloseDate() {
+    private func setupContactSub() {
+        let subs = realm.subscriptions
+        
+        if subs.first(named: contactSubName) == nil {
+            subs.update {
+                subs.append(QuerySubscription<Contact>(name: contactSubName) {
+                    $0.in(userTeam.contacts) // FIXME: this causes a crash.
+                })
+            }
+        }
+    }
+    
+    private func performSetup() {
+        setupContactSub()
+        
         Task {
             try await fetchRemoteConfig()
             
