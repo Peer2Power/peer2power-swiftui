@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class Contact: EmbeddedObject, ObjectKeyIdentifiable {
-    @Persisted var ageBracket: String?
+    @Persisted var ageBracket: String = "Select Age Bracket"
 
     @Persisted var contact_id: ObjectId = ObjectId()
 
@@ -21,11 +21,11 @@ class Contact: EmbeddedObject, ObjectKeyIdentifiable {
 
     @Persisted var owner_id: String = ""
 
-    @Persisted var relationship: String?
+    @Persisted var relationship: String = "Select Relationship"
 
     @Persisted var updatedAt: Date?
 
-    @Persisted var volunteerLikelihood: String?
+    @Persisted var volunteerLikelihood: String = "Select Likelihood to Volunteer"
 
     @Persisted var volunteered: Bool = false
 }
