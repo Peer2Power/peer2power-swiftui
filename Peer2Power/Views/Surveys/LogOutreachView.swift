@@ -57,6 +57,30 @@ struct LogOutreachView: UIViewControllerRepresentable {
             taskViewController.dismiss(animated: true, completion: nil)
         }
         
+        fileprivate func getHowContactAnswer(_ taskViewController: ORKTaskViewController) -> String? {
+            if let howContactStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.howContact)) {
+                if let howContactFirstResult = howContactStepResult.firstResult as? ORKChoiceQuestionResult {
+                    if let howContactFirstAnswer = howContactFirstResult.choiceAnswers?.first as? String {
+                        return howContactFirstAnswer
+                    }
+                }
+            }
+            
+            return nil
+        }
+        
+        fileprivate func getDescribeAttemptAnswer(_ taskViewController: ORKTaskViewController) -> String? {
+            if let describeAttemptStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.describeAttempt)) {
+                if let describeAttemptFirstResult = describeAttemptStepResult.firstResult as? ORKTextQuestionResult {
+                    if let describeAttemptAnswer = describeAttemptFirstResult.textAnswer {
+                        return describeAttemptAnswer
+                    }
+                }
+            }
+            
+            return nil
+        }
+        
         private func uploadResult(from taskViewController: ORKTaskViewController) {
             let newOutreach = OutreachAttempt()
             
@@ -68,20 +92,12 @@ struct LogOutreachView: UIViewControllerRepresentable {
             newOutreach.owner_id = currentUser.id
             newOutreach.to = parent.contact.contact_id
             
-            if let howContactStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.howContact)) {
-                if let howContactFirstResult = howContactStepResult.firstResult as? ORKChoiceQuestionResult {
-                    if let howContactFirstAnswer = howContactFirstResult.choiceAnswers?.first as? String {
-                        newOutreach.contactMethod = howContactFirstAnswer
-                    }
-                }
+            if let howContactAnswer = getHowContactAnswer(taskViewController) {
+                newOutreach.contactMethod = howContactAnswer
             }
             
-            if let describeAttemptStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.describeAttempt)) {
-                if let describeAttemptFirstResult = describeAttemptStepResult.firstResult as? ORKTextQuestionResult {
-                    if let describeAttemptAnswer = describeAttemptFirstResult.textAnswer {
-                        newOutreach.attemptDescription = describeAttemptAnswer
-                    }
-                }
+            if let attemptDescription = getDescribeAttemptAnswer(taskViewController) {
+                newOutreach.attemptDescription = attemptDescription
             }
             
             guard let volunteerStatusStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus)) else {
@@ -100,8 +116,6 @@ struct LogOutreachView: UIViewControllerRepresentable {
             }
             
             newOutreach.volunteerStatus = volunteerStatusFirstAnswer
-            
-            
         }
     }
 }
