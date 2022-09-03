@@ -15,8 +15,11 @@ struct ContactListRow: View {
     var body: some View {
         HStack {
             Text("\(contact.name)")
+                .font(.title2)
             Spacer()
             Text("\(team.outreachAttempts.count) outreach attempts")
+                .font(.title3)
+                .foregroundColor(.secondary)
         }
     }
 }
