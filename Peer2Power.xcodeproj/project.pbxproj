@@ -18,6 +18,7 @@
 		0094744B28C01D8900D50140 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094744A28C01D8900D50140 /* HomeView.swift */; };
 		0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094744C28C0314300D50140 /* LeaderboardView.swift */; };
 		0094744F28C0323500D50140 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094744E28C0323500D50140 /* SettingsView.swift */; };
+		0094745228C3930100D50140 /* ContactListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094745128C3930100D50140 /* ContactListRow.swift */; };
 		00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */; };
 		00953C5628B5E28C00B6CBB6 /* AnimationCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */; };
 		00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */; };
@@ -104,6 +105,7 @@
 		0094744A28C01D8900D50140 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0094744C28C0314300D50140 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		0094744E28C0323500D50140 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		0094745128C3930100D50140 /* ContactListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListRow.swift; sourceTree = "<group>"; };
 		00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableShape.swift; sourceTree = "<group>"; };
 		00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationCompletion.swift; sourceTree = "<group>"; };
 		00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachAttemptsListView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			children = (
 				0094745028C0325200D50140 /* Tabs */,
 				00BA93FB28AF1ACE00A434FF /* Surveys */,
+				0094745128C3930100D50140 /* ContactListRow.swift */,
 				009CE53C2899F6B800796313 /* LoginView.swift */,
 				009CE540289B017900796313 /* CandidatesView.swift */,
 				009CE544289B088300796313 /* LoggedInView.swift */,
@@ -476,6 +479,7 @@
 			files = (
 				009CE5032899CA8500796313 /* ContentView.swift in Sources */,
 				00BA93E928AC074A00A434FF /* Constants.swift in Sources */,
+				0094745228C3930100D50140 /* ContactListRow.swift in Sources */,
 				00FA96ED28A588E800FC007E /* Party.swift in Sources */,
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
 				00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */,

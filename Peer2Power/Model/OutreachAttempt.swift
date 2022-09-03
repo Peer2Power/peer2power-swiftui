@@ -8,24 +8,22 @@
 import Foundation
 import RealmSwift
 
-class OutreachAttempt: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var _id: ObjectId
-    
-    @Persisted var contactMethod: String = ""
-    
+class OutreachAttempt: EmbeddedObject, ObjectKeyIdentifiable {
+    @Persisted var contactMethod: String?
+
     @Persisted var createdAt: Date = Date()
-    
+
+    @Persisted var outreachAttempt_id: ObjectId = ObjectId.generate()
+
     @Persisted var owner_id: String = ""
-    
-    @Persisted var team_id: String = ""
-    
-    @Persisted var to: String = ""
-    
+
+    @Persisted var to: ObjectId
+
     @Persisted var updatedAt: Date?
-    
-    @Persisted var volunteerInterest: String = ""
-    
+
+    @Persisted var volunteerInterest: String?
+
     @Persisted var volunteerMethod: String?
-    
+
     @Persisted var volunteerStatus: String = ""
 }

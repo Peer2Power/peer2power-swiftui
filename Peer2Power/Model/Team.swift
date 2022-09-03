@@ -14,6 +14,8 @@ class Team: Object, ObjectKeyIdentifiable {
     @Persisted var contacts: List<Contact>
 
     @Persisted var member_ids: List<String>
+    
+    @Persisted var outreachAttempts: List<OutreachAttempt>
 
     @Persisted var owner_id: String = ""
 

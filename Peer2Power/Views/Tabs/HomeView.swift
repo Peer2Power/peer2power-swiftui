@@ -28,7 +28,11 @@ struct HomeView: View {
                 } else { */
                     List {
                         ForEach(userTeam.contacts) { contact in
-                            Text("\(contact.name)")
+                            NavigationLink {
+                                OutreachAttemptsListView(contact: contact, team: userTeam)
+                            } label: {
+                                ContactListRow(contact: contact, team: userTeam)
+                            }
                         }
                     }
                     HStack {

@@ -21,11 +21,7 @@ struct ContactsListView: View {
                         .foregroundColor(.gray)
                 }
                 ForEach(userTeam.contacts) { contact in
-                    NavigationLink {
-                        OutreachAttemptsListView(contact: contact)
-                    } label: {
-                        Text("\(contact.name)")
-                    }
+                    Text("\(contact.name)")
                 }
                 .onDelete(perform: $userTeam.contacts.remove)
             }

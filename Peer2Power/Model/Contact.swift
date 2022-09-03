@@ -11,7 +11,7 @@ import RealmSwift
 class Contact: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var ageBracket: String = "Select Age Bracket"
 
-    @Persisted var contact_id: ObjectId = ObjectId()
+    @Persisted var contact_id: ObjectId = ObjectId.generate()
 
     @Persisted var createdAt: Date = Date()
 
