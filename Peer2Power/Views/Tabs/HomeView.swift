@@ -13,8 +13,7 @@ import RealmSwift
 struct HomeView: View {
     @State private var closeDateString = ""
     @State private var pastCloseDate: Bool?
-    
-    @Environment(\.realm) var realm
+    @State private var showingUploadForm = false
     
     @ObservedRealmObject var userTeam: Team
     
@@ -33,13 +32,15 @@ struct HomeView: View {
                         }
                     }
                     HStack {
-                        Spacer()
                         Button {
-                            print("DO SOMETHING Twitter be like")
+                            showingUploadForm.toggle()
                         } label: {
-                            Image(systemName: "person.crop.circle.badge.plus")
+                            Label("Upload a Contact", systemImage: "person.badge.plus")
                         }
-
+                        .buttonStyle(.borderedProminent)
+                        .sheet(isPresented: $showingUploadForm) {
+                            UploadContactView(userTeam: userTeam)
+                        }
                     }
                 // }
             }
@@ -52,19 +53,6 @@ struct HomeView: View {
 
 extension HomeView {
     private func handleRemoteConfig() {
-        let subs = realm.subscriptions
-        print("This view has \(subs.count) subscriptions.")
-        
-        if let sub = subs.first {
-            print("This view has a subscription named \(sub.name)")
-        }
-        
-        if subs.first(named: allContactsSubName) != nil {
-            print("A subscription to the Contact type already exists.")
-        } else {
-            print("No subscription to the Contact type exists.")
-        }
-        
         Task {
             try await fetchRemoteConfig()
             
