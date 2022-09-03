@@ -6,7 +6,8 @@
 //
 
 let contactSubName = "team_contacts"
-let collegeSubName = "all_colleges"
+let allContactsSubName = "all_contacts"
+let allCollegesSubName = "all_colleges"
 let allTeamsSubName = "all_teams"
 let userInfoSubName = "user_info"
 let userTeamSubName = "user_team"

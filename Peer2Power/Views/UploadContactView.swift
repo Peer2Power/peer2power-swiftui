@@ -11,7 +11,7 @@ import RealmSwift
 struct UploadContactView: View {
     @Environment (\.dismiss) var dismiss
     
-    @ObservedResults(Contact.self) var contacts
+    @ObservedRealmObject var userTeam: Team
     
     @State private var newContact = Contact()
     
@@ -58,7 +58,7 @@ struct UploadContactView: View {
                     Button("Save") {
                         newContact.owner_id = app.currentUser!.id
                         
-                        $contacts.append(newContact)
+                        $userTeam.contacts.append(newContact)
                         
                         dismiss()
                     }
@@ -78,6 +78,6 @@ struct UploadContactView: View {
 
 struct UploadContactView_Previews: PreviewProvider {
     static var previews: some View {
-        UploadContactView()
+        UploadContactView(userTeam: Team())
     }
 }

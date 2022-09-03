@@ -5,21 +5,28 @@
 //  Created by Deja Jackson on 8/3/22.
 //
 
-import RealmSwift
 import Foundation
+import RealmSwift
 
-class Contact: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var owner_id: String = ""
-    @Persisted var team_id: String = ""
-    
-    @Persisted var name: String = ""
-    @Persisted var email: String = ""
-    
-    @Persisted var ageBracket: String = "Select Age Bracket"
-    @Persisted var relationship: String = "Select Relationship"
-    @Persisted var volunteerLikelihood: String = "Select Likelihood"
-    
+class Contact: EmbeddedObject, ObjectKeyIdentifiable {
+    @Persisted var ageBracket: String?
+
+    @Persisted var contact_id: ObjectId = ObjectId()
+
     @Persisted var createdAt: Date = Date()
+
+    @Persisted var email: String = ""
+
+    @Persisted var name: String = ""
+
+    @Persisted var owner_id: String = ""
+
+    @Persisted var relationship: String?
+
     @Persisted var updatedAt: Date?
+
+    @Persisted var volunteerLikelihood: String?
+
+    @Persisted var volunteered: Bool = false
 }
+

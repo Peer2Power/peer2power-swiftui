@@ -15,10 +15,11 @@ struct LoggedInView: View {
     @State private var showingLogOutreachSurvey = false
     
     @ObservedResults(Team.self) var teams
+    @Environment(\.realm) var realm
     
     var flexSyncConfig = app.currentUser!.flexibleSyncConfiguration { subs in
-        if subs.first(named: collegeSubName) == nil {
-            subs.append(QuerySubscription<College>(name: collegeSubName))
+        if subs.first(named: allCollegesSubName) == nil {
+            subs.append(QuerySubscription<College>(name: allCollegesSubName))
         }
         
         if subs.first(named: allTeamsSubName) == nil {
@@ -35,26 +36,24 @@ struct LoggedInView: View {
     }
     
     var body: some View {
-      TabView {
-          if teams.isEmpty {
-              Text("Your team could not be found.")
-                  .multilineTextAlignment(.center)
-                  .font(.callout)
-          } else {
-              HomeView(userTeam: teams.first!)
-                  .environment(\.realmConfiguration, flexSyncConfig)
-                  .tabItem {
-                      Label("Contacts", systemImage: "person.3.sequence")
-                  }
-              LeaderboardView()
-                  .environment(\.realmConfiguration, flexSyncConfig)
-                  .tabItem {
-                      Label("Leaderoard", systemImage: "chart.bar")
-                  }
-          }
-      }
-      .navigationBarTitle("Peer2Power")
-      .navigationBarTitleDisplayMode(.large)
+        TabView {
+            if teams.isEmpty {
+                Text("Your team could not be found.")
+                    .multilineTextAlignment(.center)
+                    .font(.callout)
+            } else {
+                HomeView(userTeam: teams.first!)
+                    .environment(\.realmConfiguration, flexSyncConfig)
+                    .tabItem {
+                        Label("Contacts", systemImage: "person.3.sequence")
+                    }
+                LeaderboardView()
+                    .environment(\.realmConfiguration, flexSyncConfig)
+                    .tabItem {
+                        Label("Leaderboard", systemImage: "chart.bar")
+                    }
+            }
+        }
     }
 }
 

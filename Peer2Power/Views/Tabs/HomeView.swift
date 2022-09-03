@@ -16,51 +16,54 @@ struct HomeView: View {
     
     @Environment(\.realm) var realm
     
-    @ObservedResults(Contact.self) var contacts // FIXME: figure out how to handle contacts
     @ObservedRealmObject var userTeam: Team
     
     var body: some View {
         NavigationView {
             VStack {
-                if pastCloseDate == false {
+                /* if pastCloseDate == false {
                     Text("The upload window is open.")
                         .font(.title)
                 } else if contacts.isEmpty {
                     Text("Upload some contacts.")
-                } else {
+                } else { */
                     List {
-                        ForEach(contacts) { contact in
+                        ForEach(userTeam.contacts) { contact in
                             Text("\(contact.name)")
                         }
                     }
                     HStack {
                         Spacer()
-                        Button("Upload a Contact") {
-                            print("The upload button was pressed.")
+                        Button {
+                            print("DO SOMETHING Twitter be like")
+                        } label: {
+                            Image(systemName: "person.crop.circle.badge.plus")
                         }
+
                     }
-                }
+                // }
             }
-            .onAppear(perform: performSetup)
+            .onAppear(perform: handleRemoteConfig)
+            .navigationTitle("Peer2Power")
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 }
 
 extension HomeView {
-    private func setupContactSub() {
+    private func handleRemoteConfig() {
         let subs = realm.subscriptions
+        print("This view has \(subs.count) subscriptions.")
         
-        if subs.first(named: contactSubName) == nil {
-            subs.update {
-                subs.append(QuerySubscription<Contact>(name: contactSubName) {
-                    $0.in(userTeam.contacts) // FIXME: this causes a crash.
-                })
-            }
+        if let sub = subs.first {
+            print("This view has a subscription named \(sub.name)")
         }
-    }
-    
-    private func performSetup() {
-        setupContactSub()
+        
+        if subs.first(named: allContactsSubName) != nil {
+            print("A subscription to the Contact type already exists.")
+        } else {
+            print("No subscription to the Contact type exists.")
+        }
         
         Task {
             try await fetchRemoteConfig()
