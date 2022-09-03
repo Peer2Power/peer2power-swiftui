@@ -30,16 +30,16 @@ class LogOutreachTask: ORKOrderedTask {
         return howStep
     }
     
-    static func volunteerInterestStep() -> ORKQuestionStep {
-        let volunteerInterestAnswerFormat = ORKTextAnswerFormat()
-        volunteerInterestAnswerFormat.multipleLines = true
+    static func describeAttemptStep() -> ORKQuestionStep {
+        let describeAttemptAnswerFormat = ORKTextAnswerFormat()
+        describeAttemptAnswerFormat.multipleLines = true
         
-        let interestStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerInterest),
+        let describeStep = ORKQuestionStep(identifier: String(describing: Identifier.describeAttempt),
                                            title: nil,
                                            question: "What word or phrase would you use to describe the outreach attempt?",
-                                           answer: volunteerInterestAnswerFormat)
+                                           answer: describeAttemptAnswerFormat)
         
-        return interestStep
+        return describeStep
     }
     
     static func volunteerStatusStep() -> ORKQuestionStep {
@@ -95,10 +95,10 @@ class LogOutreachTask: ORKOrderedTask {
         let identifier = step?.identifier
         
         switch identifier {
-        case String(describing: Identifier.volunteerInterest):
+        case String(describing: Identifier.describeAttempt):
             return LogOutreachTask.howContactStep()
         case String(describing: Identifier.volunteerStatus):
-            return LogOutreachTask.volunteerInterestStep()
+            return LogOutreachTask.describeAttemptStep()
         case String(describing: Identifier.planVolunteerCompletion):
             return LogOutreachTask.volunteerStatusStep()
         case String(describing: Identifier.stillWorkingCompletion):

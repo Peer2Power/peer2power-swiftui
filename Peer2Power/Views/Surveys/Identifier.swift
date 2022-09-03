@@ -26,7 +26,7 @@ enum Identifier {
   case consentConclusion
   
   case howContact
-  case volunteerInterest
+  case describeAttempt
   case volunteerStatus
   case volunteerMethod
   

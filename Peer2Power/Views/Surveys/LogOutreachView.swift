@@ -9,10 +9,14 @@ import Foundation
 import SwiftUI
 import UIKit
 import ResearchKit
+import RealmSwift
 
 struct LogOutreachView: UIViewControllerRepresentable {
+    @ObservedRealmObject var contact: Contact
+    @ObservedRealmObject var team: Team
+    
     func makeUIViewController(context: Context) -> ORKTaskViewController {
-        let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.howContactStep(), LogOutreachTask.volunteerInterestStep(), LogOutreachTask.volunteerStatusStep()])
+        let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.howContactStep(), LogOutreachTask.describeAttemptStep(), LogOutreachTask.volunteerStatusStep()])
         
         let taskViewController = ORKTaskViewController(task: task, taskRun: nil)
         taskViewController.delegate = context.coordinator
@@ -25,10 +29,16 @@ struct LogOutreachView: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        return Coordinator(self)
     }
     
     class Coordinator: NSObject, ORKTaskViewControllerDelegate {
+        var parent: LogOutreachView
+        
+        init(_ parent: LogOutreachView) {
+            self.parent = parent
+        }
+        
         func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
             switch reason {
             case .saved:
@@ -55,13 +65,49 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 return
             }
             
-            // TODO: add this to the contact list view or have some other way to select which contact the outreach attempt was made to.
+            newOutreach.owner_id = currentUser.id
+            newOutreach.to = parent.contact.contact_id
+            
+            if let howContactStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.howContact)) {
+                if let howContactFirstResult = howContactStepResult.firstResult as? ORKChoiceQuestionResult {
+                    if let howContactFirstAnswer = howContactFirstResult.choiceAnswers?.first as? String {
+                        newOutreach.contactMethod = howContactFirstAnswer
+                    }
+                }
+            }
+            
+            if let describeAttemptStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.describeAttempt)) {
+                if let describeAttemptFirstResult = describeAttemptStepResult.firstResult as? ORKTextQuestionResult {
+                    if let describeAttemptAnswer = describeAttemptFirstResult.textAnswer {
+                        newOutreach.attemptDescription = describeAttemptAnswer
+                    }
+                }
+            }
+            
+            guard let volunteerStatusStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus)) else {
+                print("The volunteer status answer could not be found.")
+                return
+            }
+            
+            guard let volunteerStatusFirstResult = volunteerStatusStepResult.firstResult as? ORKChoiceQuestionResult else {
+                print("The first result of the volunteer status step could not be found.")
+                return
+            }
+            
+            guard let volunteerStatusFirstAnswer = volunteerStatusFirstResult.choiceAnswers?.first as? String else {
+                print("The answer to the volunteer status step could not be found.")
+                return
+            }
+            
+            newOutreach.volunteerStatus = volunteerStatusFirstAnswer
+            
+            
         }
     }
 }
 
 struct LogOutreachView_Previews: PreviewProvider {
     static var previews: some View {
-        LogOutreachView()
+        LogOutreachView(contact: Contact(), team: Team())
     }
 }

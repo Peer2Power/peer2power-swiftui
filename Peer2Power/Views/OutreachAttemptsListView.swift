@@ -14,8 +14,6 @@ struct OutreachAttemptsListView: View {
     
     @State private var presentingOutreachForm = false
     
-    // FIXME: Here's how to do this. Pass in a flexible sync subscription with some title. This subscription should then be removed before this view disappears (in the onDisappear modifier). That way, you can keep adding subscriptions for each contact.
-    
     var body: some View {
         if team.outreachAttempts.isEmpty {
             VStack(spacing: 10.0) {
@@ -26,15 +24,6 @@ struct OutreachAttemptsListView: View {
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 20)
-                Button {
-                    presentingOutreachForm.toggle()
-                } label: {
-                    Label("Log Outreach Attempt", systemImage: "square.and.pencil")
-                }
-                .buttonStyle(.borderedProminent)
-                .sheet(isPresented: $presentingOutreachForm) {
-                    LogOutreachView()
-                }
             }
         } else {
             List {
@@ -44,6 +33,15 @@ struct OutreachAttemptsListView: View {
             }
             .navigationTitle(contact.name)
             .navigationBarTitleDisplayMode(.inline)
+        }
+        Button {
+            presentingOutreachForm.toggle()
+        } label: {
+            Label("Log Outreach Attempt", systemImage: "square.and.pencil")
+        }
+        .buttonStyle(.borderedProminent)
+        .sheet(isPresented: $presentingOutreachForm) {
+            LogOutreachView(contact: contact, team: team)
         }
     }
 }
