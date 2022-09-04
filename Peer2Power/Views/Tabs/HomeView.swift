@@ -23,7 +23,7 @@ struct HomeView: View {
                 // TODO: add handling of upload window by checking if it's past the window close date.
                 
                 if userTeam.contacts.isEmpty {
-                    VStack {
+                    VStack(spacing: 10.0) {
                         Text("No Contacts Uploaded")
                             .font(.title)
                             .multilineTextAlignment(.center)
