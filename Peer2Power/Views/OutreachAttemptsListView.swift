@@ -20,11 +20,12 @@ struct OutreachAttemptsListView: View {
                 Text("No Outreach Attempts Logged")
                     .font(.title)
                     .multilineTextAlignment(.center)
-                Text("Your team hasn't logged any attempts to get this contact to volunteer yet. Talk to them using your contact method of choice, then come back here to log how the interaction went.")
+                Text("Your team hasn't logged any attempts to get this contact to volunteer yet. Talk to them using your contact method of choice, then return here to log how the interaction went.")
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 20)
             }
+            .padding([.leading, .trailing], 15.0)
         } else {
             List {
                 ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id)) { attempt in

@@ -42,7 +42,6 @@ struct LoggedInView: View {
                 .multilineTextAlignment(.center)
         } else {
             TabView {
-                
                 HomeView(userTeam: teams.first!)
                     .environment(\.realmConfiguration, flexSyncConfig)
                     .tabItem {

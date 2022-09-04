@@ -19,7 +19,7 @@ struct LeaderboardView: View {
             Image("Democrats")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .opacity(0.3)
+                .opacity(0.2)
                 .overlay(alignment: .center) {
                     VStack {
                         Text("Democrats have")
@@ -35,7 +35,7 @@ struct LeaderboardView: View {
             Image("Republicans")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .opacity(0.3)
+                .opacity(0.2)
                 .overlay(alignment: .leading) {
                     VStack {
                         Text("Republicans have")

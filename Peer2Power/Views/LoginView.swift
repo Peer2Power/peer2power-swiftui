@@ -35,13 +35,14 @@ struct LoginView: View {
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
+            
+            if loggingIn {
+                ProgressView {
+                    Text("Logging in...")
+                }
+            }
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
-        
-        if loggingIn {
-            ProgressView()
-            Text("Logging In...")
-        }
     }
 }
 
@@ -66,6 +67,7 @@ extension LoginView {
                     print("An error occurred while logging in the user: \(error.localizedDescription)")
                 case .success(let user):
                     print("Logged in user with ID \(user.id)")
+                    loggingIn.toggle()
                 }
             }
         }

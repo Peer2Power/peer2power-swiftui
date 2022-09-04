@@ -6,10 +6,29 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SettingsView: View {
+    @State private var showingLogOutAlert = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            Button("Log Out", role: .destructive) {
+                showingLogOutAlert.toggle()
+            }
+            .alert(Text("Are you sure you want to log out?"), isPresented: $showingLogOutAlert) {
+                Button("Cancel", role: .cancel, action: {})
+                Button("Log Out", role: .destructive) {
+                    app.currentUser!.logOut(completion: { error in
+                        if let error = error {
+                            print("An error occured while logging out: \(error.localizedDescription)")
+                        }
+                        
+                        print("Current user logged out successfully.")
+                    })
+                }
+            }
+        }
     }
 }
 
