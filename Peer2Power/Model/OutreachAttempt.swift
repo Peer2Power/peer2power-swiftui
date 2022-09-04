@@ -13,7 +13,7 @@ class OutreachAttempt: EmbeddedObject, ObjectKeyIdentifiable {
 
     @Persisted var createdAt: Date = Date()
 
-    @Persisted var outreachAttempt_id: ObjectId = ObjectId.generate()
+    @Persisted(indexed: true) var outreachAttempt_id: ObjectId = ObjectId.generate()
 
     @Persisted var owner_id: String = ""
 

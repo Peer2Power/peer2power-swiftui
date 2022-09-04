@@ -15,6 +15,8 @@ struct LogOutreachView: UIViewControllerRepresentable {
     @ObservedRealmObject var contact: Contact
     @ObservedRealmObject var team: Team
     
+    @Environment(\.realm) var realm
+    
     func makeUIViewController(context: Context) -> ORKTaskViewController {
         let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.howContactStep(), LogOutreachTask.describeAttemptStep(), LogOutreachTask.volunteerStatusStep()])
         
@@ -34,6 +36,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, ORKTaskViewControllerDelegate {
         var parent: LogOutreachView
+        let newOutreach = OutreachAttempt()
         
         init(_ parent: LogOutreachView) {
             self.parent = parent
@@ -82,8 +85,6 @@ struct LogOutreachView: UIViewControllerRepresentable {
         }
         
         private func uploadResult(from taskViewController: ORKTaskViewController) {
-            let newOutreach = OutreachAttempt()
-            
             guard let currentUser = app.currentUser else {
                 print("The current user could not be found.")
                 return
@@ -116,6 +117,22 @@ struct LogOutreachView: UIViewControllerRepresentable {
             }
             
             newOutreach.volunteerStatus = volunteerStatusFirstAnswer
+            
+            // Very confused about how this works, but it somehow fixed the problem.
+            guard let userTeam = parent.team.thaw() else {
+                print("Could not thaw the user's team.")
+                return
+            }
+            
+            do {
+                try parent.realm.write {
+                    userTeam.outreachAttempts.append(newOutreach)
+                    
+                    print("Uploaded outreach attempt.")
+                }
+            } catch {
+                print("Error uploading outreach attempt: \(error.localizedDescription)")
+            }
         }
     }
 }
