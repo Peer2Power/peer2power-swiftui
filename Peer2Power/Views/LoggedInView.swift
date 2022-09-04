@@ -36,12 +36,13 @@ struct LoggedInView: View {
     }
     
     var body: some View {
-        TabView {
-            if teams.isEmpty {
-                Text("Your team could not be found.")
-                    .multilineTextAlignment(.center)
-                    .font(.callout)
-            } else {
+        if teams.isEmpty {
+            Text("Your team could not be found.")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+        } else {
+            TabView {
+                
                 HomeView(userTeam: teams.first!)
                     .environment(\.realmConfiguration, flexSyncConfig)
                     .tabItem {
@@ -51,6 +52,10 @@ struct LoggedInView: View {
                     .environment(\.realmConfiguration, flexSyncConfig)
                     .tabItem {
                         Label("Leaderboard", systemImage: "chart.bar")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gear")
                     }
             }
         }
