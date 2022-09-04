@@ -12,10 +12,10 @@ struct OutreachAttemptsListView: View {
     @ObservedRealmObject var contact: Contact
     @ObservedRealmObject var team: Team
     
-    @State private var presentingOutreachForm = false
+    @State private var presentingLogOutreachForm = false
     
     var body: some View {
-        if team.outreachAttempts.isEmpty {
+        if team.outreachAttempts.filter("to = %@", contact.contact_id).isEmpty {
             VStack(spacing: 10.0) {
                 Text("No Outreach Attempts Logged")
                     .font(.title)
@@ -27,7 +27,7 @@ struct OutreachAttemptsListView: View {
             }
         } else {
             List {
-                ForEach(team.outreachAttempts) { attempt in
+                ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id)) { attempt in
                     Text("Here's an outreach attempt")
                 }
             }
@@ -35,12 +35,12 @@ struct OutreachAttemptsListView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         Button {
-            presentingOutreachForm.toggle()
+            presentingLogOutreachForm.toggle()
         } label: {
             Label("Log Outreach Attempt", systemImage: "square.and.pencil")
         }
         .buttonStyle(.borderedProminent)
-        .sheet(isPresented: $presentingOutreachForm) {
+        .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team)
         }
     }
