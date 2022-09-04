@@ -20,12 +20,20 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                /* if pastCloseDate == false {
-                    Text("The upload window is open.")
-                        .font(.title)
-                } else if contacts.isEmpty {
-                    Text("Upload some contacts.")
-                } else { */
+                // TODO: add handling of upload window by checking if it's past the window close date.
+                
+                if userTeam.contacts.isEmpty {
+                    VStack {
+                        Text("No Contacts Uploaded")
+                            .font(.title)
+                            .multilineTextAlignment(.center)
+                        Text("Your team hasn't uploaded any contacts to recruit to volunteer yet.")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom, 20)
+                    }
+                    .padding([.leading, .trailing], 15.0)
+                } else {
                     List {
                         ForEach(userTeam.contacts) { contact in
                             NavigationLink {
@@ -35,18 +43,17 @@ struct HomeView: View {
                             }
                         }
                     }
-                    HStack {
-                        Button {
-                            showingUploadForm.toggle()
-                        } label: {
-                            Label("Upload a Contact", systemImage: "person.badge.plus")
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .sheet(isPresented: $showingUploadForm) {
-                            UploadContactView(userTeam: userTeam)
-                        }
-                    }
-                // }
+                }
+                    
+                Button {
+                    showingUploadForm.toggle()
+                } label: {
+                    Label("Upload a Contact", systemImage: "person.badge.plus")
+                }
+                .buttonStyle(.borderedProminent)
+                .sheet(isPresented: $showingUploadForm) {
+                    UploadContactView(userTeam: userTeam)
+                }
             }
             .onAppear(perform: handleRemoteConfig)
             .navigationTitle("Peer2Power")

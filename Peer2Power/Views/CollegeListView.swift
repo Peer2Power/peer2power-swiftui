@@ -40,24 +40,27 @@ struct CollegeListView: View {
                 ForEach(searchResults, id: \.self) { college in
                     NavigationLink {
                         List {
-                            Button {
-                                showingConfirmAlert.toggle()
-                            } label: {
+                            Picker("Party", selection: $selectedParty) {
                                 Text("Democratic").tag(Party.democrat)
-                            }
-                            .alert("Are You Sure You Want to Join This Team?", isPresented: $showingConfirmAlert) {
-                                Button("Cancel", role: .cancel) {}
-                                Button("Choose") {
-                                    print("The user's team should be chosen here.")
-                                }
-                            } message: {
-                                Text("You won't be able to change teams after confirming your choice.")
-                            }
-
-                            Button {
-                                showingConfirmAlert.toggle()
-                            } label: {
                                 Text("Republican").tag(Party.republican)
+                            }
+                            .toolbar {
+                                ToolbarItem(placement: .confirmationAction) {
+                                    Button("Choose") {
+                                        showingConfirmAlert.toggle()
+                                    }
+                                    .disabled(selectedParty == .selectParty)
+                                    .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
+                                        Button(role: .cancel, action: {}) {
+                                            Text("Cancel")
+                                        }
+                                        Button("Choose") {
+                                            handleTeamSelection(college: college)
+                                        }
+                                    } message: {
+                                        Text("You won't be able to change your team after joining.")
+                                    }
+                                }
                             }
                         }
                     } label: {
@@ -73,8 +76,39 @@ struct CollegeListView: View {
 }
 
 extension CollegeListView {
-    private func handleTeamSelection() {
+    private func handleTeamSelection(college: College) {
+        let filteredTeams = teams.where {
+            $0.party == selectedParty && $0.school_id == college._id.stringValue
+        }
         
+        guard let currentUser = app.currentUser else { return }
+
+        if filteredTeams.isEmpty {
+            print("No team exists for this school and party.")
+            
+            
+            
+            let newTeam = Team()
+            newTeam.school_id = college._id.stringValue
+            newTeam.member_ids.append(currentUser.id)
+            newTeam.party = selectedParty
+            
+            $teams.append(newTeam)
+        } else {
+            print("A team already exists for this school and party.")
+            
+            guard let team = filteredTeams.first?.thaw() else { return }
+            
+            do {
+                try realm.write {
+                    team.member_ids.append(currentUser.id)
+                    
+                    print("The current user was added to an existing team.")
+                }
+            } catch {
+                print("Error adding user to team: \(error.localizedDescription)")
+            }
+        }
     }
 }
  
