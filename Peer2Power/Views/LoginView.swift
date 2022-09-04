@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var newUser = false
     @State private var loggingIn = false
+    @State private var showingEmailConfirmAlert = false
     
     var body: some View {
         VStack(spacing: 16.0) {
@@ -43,31 +44,38 @@ struct LoginView: View {
             }
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
+        .alert(Text("Confirm Your Email"), isPresented: $showingEmailConfirmAlert) {
+            Button("OK", role: .cancel, action: {})
+        } message: {
+            Text("Before you can proceed, you will have to confirm your email address. Return here to log in after confirming your email address.")
+        }
     }
 }
 
 extension LoginView {
     private func loginUser() {
-        loggingIn.toggle()
-        
         Task {
             // TODO: add visual feedback that app is logging user in.
             if newUser {
                 do {
                     try await app.emailPasswordAuth.registerUser(email: email, password: password)
+                    
+                    showingEmailConfirmAlert.toggle()
+                    newUser.toggle()
                 } catch {
                     print("An error occurred while signing up the user: \(error.localizedDescription)")
                     return
                 }
-            }
-            
-            app.login(credentials: .emailPassword(email: email, password: password)) { result in
-                switch result {
-                case .failure(let error):
-                    print("An error occurred while logging in the user: \(error.localizedDescription)")
-                case .success(let user):
-                    print("Logged in user with ID \(user.id)")
-                    loggingIn.toggle()
+            } else {
+                app.login(credentials: .emailPassword(email: email, password: password)) { result in
+                    switch result {
+                    case .failure(let error):
+                        print("An error occurred while logging in the user: \(error.localizedDescription)")
+                        loggingIn.toggle()
+                    case .success(let user):
+                        print("Logged in user with ID \(user.id)")
+                        loggingIn.toggle()
+                    }
                 }
             }
         }

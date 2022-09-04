@@ -22,6 +22,8 @@ struct CollegeListView: View {
     
     @State private var searchText = ""
     
+    @Environment(\.realm) var realm
+    
     var searchResults: Results<College> {
         if searchText.isEmpty {
             return colleges
@@ -65,13 +67,6 @@ struct CollegeListView: View {
             }
             .navigationBarTitle("Choose Your School")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your college")
     }

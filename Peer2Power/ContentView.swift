@@ -15,10 +15,12 @@ struct ContentView: View {
         NavigationView {
             if app.currentUser != nil && app.currentUser?.state == .loggedIn {
                 LoggedInView().environment(\.realmConfiguration, app.currentUser!.flexibleSyncConfiguration(initialSubscriptions: { subs in
-                    if subs.first(named: userTeamSubName) == nil {
-                        subs.append(QuerySubscription<Team>(name: userTeamSubName) {
-                            $0.member_ids.contains(app.currentUser!.id)
-                        })
+                    if subs.first(named: allCollegesSubName) == nil {
+                        subs.append(QuerySubscription<College>(name: allCollegesSubName))
+                    }
+                    
+                    if subs.first(named: allTeamsSubName) == nil {
+                        subs.append(QuerySubscription<Team>(name: allTeamsSubName))
                     }
                 }))
             } else {
