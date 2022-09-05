@@ -17,9 +17,6 @@ struct LeaderboardView: View {
                      where: {$0.party == .republican})
     var repTeams
     
-    @State private var demPointsText = ""
-    @State private var repPointsText = ""
-    
     var body: some View {
         HStack {
             Image("Democrats")
@@ -30,7 +27,7 @@ struct LeaderboardView: View {
                     VStack {
                         Text("Democrats have")
                             .multilineTextAlignment(.center)
-                        Text(demPointsText)
+                        Text("\(demTeams.sum(of: \Team.score))")
                             .font(.title)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
@@ -45,7 +42,7 @@ struct LeaderboardView: View {
                 .overlay(alignment: .leading) {
                     VStack {
                         Text("Republicans have")
-                        Text(repPointsText)
+                        Text("\(repTeams.sum(of: \Team.score))")
                             .font(.title)
                             .fontWeight(.bold)
                         Text("points")
@@ -53,14 +50,6 @@ struct LeaderboardView: View {
                 }
         }
         .padding([.leading, .trailing], 15.0)
-        .onAppear(perform: populatePointLabels)
-    }
-}
-
-extension LeaderboardView {
-    private func populatePointLabels() {
-        demPointsText = "\(demTeams.sum(of: \Team.score))"
-        repPointsText = "\(repTeams.sum(of: \Team.score))"
     }
 }
 
