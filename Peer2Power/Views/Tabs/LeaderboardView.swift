@@ -9,10 +9,16 @@ import SwiftUI
 import RealmSwift
 
 struct LeaderboardView: View {
-    @ObservedResults(Team.self) var teams
+    @ObservedResults(Team.self,
+                     where: {$0.party == .democrat})
+    var demTeams
     
-    @State private var demPoints = ""
-    @State private var repPoints = ""
+    @ObservedResults(Team.self,
+                     where: {$0.party == .republican})
+    var repTeams
+    
+    @State private var demPointsText = ""
+    @State private var repPointsText = ""
     
     var body: some View {
         HStack {
@@ -24,7 +30,7 @@ struct LeaderboardView: View {
                     VStack {
                         Text("Democrats have")
                             .multilineTextAlignment(.center)
-                        Text("1,000,000")
+                        Text(demPointsText)
                             .font(.title)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
@@ -39,7 +45,7 @@ struct LeaderboardView: View {
                 .overlay(alignment: .leading) {
                     VStack {
                         Text("Republicans have")
-                        Text("2")
+                        Text(repPointsText)
                             .font(.title)
                             .fontWeight(.bold)
                         Text("points")
@@ -53,7 +59,8 @@ struct LeaderboardView: View {
 
 extension LeaderboardView {
     private func populatePointLabels() {
-        
+        demPointsText = "\(demTeams.sum(of: \Team.score))"
+        repPointsText = "\(repTeams.sum(of: \Team.score))"
     }
 }
 
