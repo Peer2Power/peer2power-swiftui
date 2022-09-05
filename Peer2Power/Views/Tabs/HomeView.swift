@@ -14,8 +14,12 @@ struct HomeView: View {
     @State private var closeDateString = ""
     @State private var pastCloseDate: Bool?
     @State private var showingUploadForm = false
+    @State private var showingDeleteAlert = false
+    @State private var offsetsToDelete: IndexSet?
     
     @ObservedRealmObject var userTeam: Team
+    
+    @Environment(\.realm) var realm
     
     var body: some View {
         NavigationView {
@@ -42,6 +46,17 @@ struct HomeView: View {
                                 ContactListRow(contact: contact, team: userTeam)
                             }
                         }
+                        .onDelete { offsets in
+                            showingDeleteAlert.toggle()
+                            offsetsToDelete = offsets
+                        }
+                    }
+                    .toolbar {
+                        EditButton()
+                    }
+                    .alert("Are you sure you want to delete this contact?", isPresented: $showingDeleteAlert) {
+                        Button("Cancel", role: .cancel, action: {})
+                        Button("Delete", role: .destructive, action: deleteContact)
                     }
                 }
                     
@@ -63,6 +78,19 @@ struct HomeView: View {
 }
 
 extension HomeView {
+    private func deleteContact() {
+        guard let team = userTeam.thaw() else { return }
+        guard let offsets = offsetsToDelete else { return }
+        
+        do {
+            try realm.write {
+                team.contacts.remove(atOffsets: offsets)
+            }
+        } catch {
+            print("Error deleting contact: \(error.localizedDescription)")
+        }
+    }
+    
     private func handleRemoteConfig() {
         Task {
             try await fetchRemoteConfig()
