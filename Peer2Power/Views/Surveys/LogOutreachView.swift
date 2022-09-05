@@ -60,7 +60,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
             taskViewController.dismiss(animated: true, completion: nil)
         }
         
-        fileprivate func getHowContactAnswer(_ taskViewController: ORKTaskViewController) -> String? {
+        fileprivate func getHowContactAnswer(_ taskViewController: ORKTaskViewController) -> String {
             if let howContactStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.howContact)) {
                 if let howContactFirstResult = howContactStepResult.firstResult as? ORKChoiceQuestionResult {
                     if let howContactFirstAnswer = howContactFirstResult.choiceAnswers?.first as? String {
@@ -69,10 +69,10 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 }
             }
             
-            return nil
+            return ""
         }
         
-        fileprivate func getDescribeAttemptAnswer(_ taskViewController: ORKTaskViewController) -> String? {
+        fileprivate func getDescribeAttemptAnswer(_ taskViewController: ORKTaskViewController) -> String {
             if let describeAttemptStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.describeAttempt)) {
                 if let describeAttemptFirstResult = describeAttemptStepResult.firstResult as? ORKTextQuestionResult {
                     if let describeAttemptAnswer = describeAttemptFirstResult.textAnswer {
@@ -81,7 +81,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 }
             }
             
-            return nil
+            return ""
         }
         
         private func uploadResult(from taskViewController: ORKTaskViewController) {
@@ -93,11 +93,13 @@ struct LogOutreachView: UIViewControllerRepresentable {
             newOutreach.owner_id = currentUser.id
             newOutreach.to = parent.contact.contact_id
             
-            if let howContactAnswer = getHowContactAnswer(taskViewController) {
+            let howContactAnswer = getHowContactAnswer(taskViewController)
+            if !howContactAnswer.isEmpty {
                 newOutreach.contactMethod = howContactAnswer
             }
-            
-            if let attemptDescription = getDescribeAttemptAnswer(taskViewController) {
+                
+            let attemptDescription = getDescribeAttemptAnswer(taskViewController)
+            if !attemptDescription.isEmpty {
                 newOutreach.attemptDescription = attemptDescription
             }
             

@@ -95,20 +95,16 @@ class LogOutreachTask: ORKOrderedTask {
         let identifier = step?.identifier
         
         switch identifier {
-        case String(describing: Identifier.describeAttempt):
-            return LogOutreachTask.howContactStep()
-        case String(describing: Identifier.volunteerStatus):
-            return LogOutreachTask.describeAttemptStep()
-        case String(describing: Identifier.planVolunteerCompletion):
-            return LogOutreachTask.volunteerStatusStep()
-        case String(describing: Identifier.stillWorkingCompletion):
-            return LogOutreachTask.volunteerStatusStep()
         case String(describing: Identifier.volunteerMethod):
             return LogOutreachTask.volunteerStatusStep()
         case String(describing: Identifier.theyVolunteeredCompletion):
             return LogOutreachTask.volunteerMethodStep()
+        case String(describing: Identifier.stillWorkingCompletion):
+            return LogOutreachTask.volunteerStatusStep()
+        case String(describing: Identifier.planVolunteerCompletion):
+            return LogOutreachTask.volunteerStatusStep()
         default:
-            return nil
+            return super.step(before: step, with: result)
         }
     }
     
