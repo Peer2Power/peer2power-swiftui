@@ -8,7 +8,7 @@
 import SwiftUI
 import RealmSwift
 
-struct CollegeListView: View {
+struct ChooseTeamView: View {
     @Environment (\.dismiss) var dismiss
     
     @ObservedResults(
@@ -75,7 +75,7 @@ struct CollegeListView: View {
     }
 }
 
-extension CollegeListView {
+extension ChooseTeamView {
     private func handleTeamSelection(college: College) {
         let filteredTeams = teams.where {
             $0.party == selectedParty && $0.school_id == college._id.stringValue
@@ -114,6 +114,6 @@ extension CollegeListView {
  
 struct CollegeListView_Previews: PreviewProvider {
     static var previews: some View {
-        CollegeListView()
+        ChooseTeamView()
     }
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		000CD2C5289F965D00A004FA /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C4289F965D00A004FA /* College.swift */; };
-		000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* CollegeListView.swift */; };
+		000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ChooseTeamView.swift */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -98,7 +98,7 @@
 
 /* Begin PBXFileReference section */
 		000CD2C4289F965D00A004FA /* College.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = College.swift; sourceTree = "<group>"; };
-		000CD2C6289F974200A004FA /* CollegeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeListView.swift; sourceTree = "<group>"; };
+		000CD2C6289F974200A004FA /* ChooseTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamView.swift; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -278,7 +278,7 @@
 				009CE546289B0A1300796313 /* ContactsListView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
-				000CD2C6289F974200A004FA /* CollegeListView.swift */,
+				000CD2C6289F974200A004FA /* ChooseTeamView.swift */,
 				00BA93EA28AD532300A434FF /* TeamView.swift */,
 				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
 			);
@@ -494,7 +494,7 @@
 				00953C5628B5E28C00B6CBB6 /* AnimationCompletion.swift in Sources */,
 				004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */,
 				0094744B28C01D8900D50140 /* HomeView.swift in Sources */,
-				000CD2C7289F974200A004FA /* CollegeListView.swift in Sources */,
+				000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */,
 				007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */,
 				00BA93FF28AF1F5B00A434FF /* LogOutreachTask.swift in Sources */,
 				00C17F9628A8906400778E25 /* Team.swift in Sources */,

@@ -17,7 +17,7 @@ struct LoggedInView: View {
     
     var body: some View {
         if teams.isEmpty {
-            CollegeListView()
+            ChooseTeamView()
         } else {
             TabView {
                 HomeView(userTeam: teams.first!)

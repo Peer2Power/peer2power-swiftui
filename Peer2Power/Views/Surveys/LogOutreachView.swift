@@ -129,6 +129,9 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     userTeam.outreachAttempts.append(newOutreach)
                     
                     print("Uploaded outreach attempt.")
+                    
+                    userTeam.score += 4
+                    print("Awarded 4 points for logging an outreach attempt.")
                 }
             } catch {
                 print("Error uploading outreach attempt: \(error.localizedDescription)")
