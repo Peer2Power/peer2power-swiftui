@@ -14,6 +14,9 @@ struct LoginView: View {
     @State private var loggingIn = false
     @State private var showingEmailConfirmAlert = false
     
+    @State private var showingErrorAlert = false
+    @State private var errorText = ""
+    
     var body: some View {
         VStack(spacing: 16.0) {
             Image("LoginLogo")
@@ -49,6 +52,11 @@ struct LoginView: View {
         } message: {
             Text("Before you can proceed, you will have to confirm your email address. Return here to log in after confirming your email address.")
         }
+        .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
+            Button("OK", role: .cancel, action: {})
+        } message: {
+            Text(errorText)
+        }
     }
 }
 
@@ -67,11 +75,14 @@ extension LoginView {
                     return
                 }
             } else {
+                loggingIn.toggle()
+                
                 app.login(credentials: .emailPassword(email: email, password: password)) { result in
                     switch result {
                     case .failure(let error):
-                        print("An error occurred while logging in the user: \(error.localizedDescription)")
+                        errorText = error.localizedDescription
                         loggingIn.toggle()
+                        showingErrorAlert.toggle()
                     case .success(let user):
                         print("Logged in user with ID \(user.id)")
                         loggingIn.toggle()
