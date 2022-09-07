@@ -132,6 +132,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     
                     print("Uploaded outreach attempt.")
                     
+                    // TODO: add support for multipliers based on student population
                     userTeam.score += 4
                     print("Awarded 4 points for logging an outreach attempt.")
                 }

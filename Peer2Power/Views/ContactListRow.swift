@@ -18,10 +18,12 @@ struct ContactListRow: View {
         HStack {
             Text("\(contact.name)")
                 .font(.title2)
+                .minimumScaleFactor(0.25)
             Spacer()
             Text(countText)
                 .font(.title3)
                 .foregroundColor(.secondary)
+                .minimumScaleFactor(0.25)
         }
         .onAppear(perform: populateCountLabel)
     }

@@ -11,10 +11,6 @@ import RealmSwift
 struct ChooseTeamView: View {
     @Environment (\.dismiss) var dismiss
     
-    @ObservedResults(
-        College.self,
-        sortDescriptor: SortDescriptor(keyPath: "name", ascending: true))
-    var colleges
     @ObservedResults(Team.self) var teams
     
     @State private var selectedParty: Party = .selectParty
@@ -24,20 +20,20 @@ struct ChooseTeamView: View {
     
     @Environment(\.realm) var realm
     
-    var searchResults: Results<College> {
+    var searchResults: Results<Team> {
         if searchText.isEmpty {
-            return colleges
+            return teams.sorted(byKeyPath: "school_name", ascending: true).distinct(by: [\Team.school_name])
         }
         
-        return colleges.where {
-            $0.name.contains(searchText, options: .caseInsensitive)
-        }
+        return teams.where {
+            $0.school_name.contains(searchText, options: .caseInsensitive)
+        }.distinct(by: [\Team.school_name]).sorted(byKeyPath: "school_name", ascending: true)
     }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(searchResults, id: \.self) { college in
+                ForEach(searchResults, id: \.self) { team in
                     NavigationLink {
                         List {
                             Picker("Party", selection: $selectedParty) {
@@ -55,7 +51,7 @@ struct ChooseTeamView: View {
                                             Text("Cancel")
                                         }
                                         Button("Choose") {
-                                            handleTeamSelection(college: college)
+                                            handleTeamSelection(for: team.school_name)
                                         }
                                     } message: {
                                         Text("You won't be able to change your team after joining.")
@@ -63,8 +59,9 @@ struct ChooseTeamView: View {
                                 }
                             }
                         }
+                        .navigationBarTitle("Choose Your Party")
                     } label: {
-                        Text("\(college.name)")
+                        Text("\(team.school_name)")
                     }
                 }
             }
@@ -76,38 +73,27 @@ struct ChooseTeamView: View {
 }
 
 extension ChooseTeamView {
-    private func handleTeamSelection(college: College) {
+    private func handleTeamSelection(for schoolName: String) {
         let filteredTeams = teams.where {
-            $0.party == selectedParty && $0.school_id == college._id.stringValue
+            $0.party == selectedParty && $0.school_name == schoolName
         }
+        
+        guard !filteredTeams.isEmpty else { return }
         
         guard let currentUser = app.currentUser else { return }
 
-        if filteredTeams.isEmpty {
-            print("No team exists for this school and party.")
-            
-            
-            
-            let newTeam = Team()
-            newTeam.school_id = college._id.stringValue
-            newTeam.member_ids.append(currentUser.id)
-            newTeam.party = selectedParty
-            
-            $teams.append(newTeam)
-        } else {
-            print("A team already exists for this school and party.")
-            
-            guard let team = filteredTeams.first?.thaw() else { return }
-            
-            do {
-                try realm.write {
-                    team.member_ids.append(currentUser.id)
-                    
-                    print("The current user was added to an existing team.")
-                }
-            } catch {
-                print("Error adding user to team: \(error.localizedDescription)")
+        print("A team already exists for this school and party.")
+        
+        guard let team = filteredTeams.first?.thaw() else { return }
+        
+        do {
+            try realm.write {
+                team.member_ids.append(currentUser.id)
+                
+                print("The current user was added to an existing team.")
             }
+        } catch {
+            print("Error adding user to team: \(error.localizedDescription)")
         }
     }
 }

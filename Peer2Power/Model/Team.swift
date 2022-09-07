@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class Team: Object {
+class Team: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
 
     @Persisted var contacts: List<Contact>
@@ -16,8 +16,6 @@ class Team: Object {
     @Persisted var member_ids: List<String>
 
     @Persisted var outreachAttempts: List<OutreachAttempt>
-
-    @Persisted var owner_id: String = ""
 
     @Persisted var party: Party = .selectParty
 
