@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000CD2C5289F965D00A004FA /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C4289F965D00A004FA /* College.swift */; };
 		000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ChooseTeamView.swift */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
@@ -48,7 +47,6 @@
 		00DDAC4228BC19D10073DF85 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; platformFilter = ios; };
 		00DDAC4328BC19D10073DF85 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
-		00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EE28A58F7800FC007E /* UserInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +95,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		000CD2C4289F965D00A004FA /* College.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = College.swift; sourceTree = "<group>"; };
 		000CD2C6289F974200A004FA /* ChooseTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamView.swift; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -135,7 +132,6 @@
 		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-minus-HealthKit/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
-		00FA96EE28A58F7800FC007E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,9 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				009CE54A289B0C2B00796313 /* Contact.swift */,
-				000CD2C4289F965D00A004FA /* College.swift */,
 				00FA96EC28A588E800FC007E /* Party.swift */,
-				00FA96EE28A58F7800FC007E /* UserInfo.swift */,
 				00C17F9528A8906400778E25 /* Team.swift */,
 				00BA940228AFFAAD00A434FF /* OutreachAttempt.swift */,
 			);
@@ -488,7 +482,6 @@
 				00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
 				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,
-				00FA96EF28A58F7800FC007E /* UserInfo.swift in Sources */,
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
 				00953C5628B5E28C00B6CBB6 /* AnimationCompletion.swift in Sources */,
@@ -502,7 +495,6 @@
 				0094744F28C0323500D50140 /* SettingsView.swift in Sources */,
 				00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */,
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
-				000CD2C5289F965D00A004FA /* College.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 				00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */,
 				00BA93EB28AD532300A434FF /* TeamView.swift in Sources */,

@@ -10,6 +10,6 @@ import RealmSwift
 
 enum Party: String, PersistableEnum {
     case selectParty
-    case democrat
-    case republican
+    case democrat = "Democrats"
+    case republican = "Republicans"
 }
