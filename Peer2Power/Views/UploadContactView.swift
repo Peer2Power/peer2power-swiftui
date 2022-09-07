@@ -9,7 +9,8 @@ import SwiftUI
 import RealmSwift
 
 struct UploadContactView: View {
-    @Environment (\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.realm) var realm
     
     @ObservedRealmObject var userTeam: Team
     
@@ -59,6 +60,17 @@ struct UploadContactView: View {
                         newContact.owner_id = app.currentUser!.id
                         
                         $userTeam.contacts.append(newContact)
+                        
+                        guard let team = userTeam.thaw() else { return }
+                        
+                        do {
+                            try realm.write {
+                                team.score += 2
+                                print("Awarded 2 points for uploading a contact.")
+                            }
+                        } catch {
+                            print("Error awarding points for uploading a contact: \(error.localizedDescription)")
+                        }
                         
                         dismiss()
                     }

@@ -89,6 +89,7 @@ extension ChooseTeamView {
         do {
             try realm.write {
                 team.member_ids.append(currentUser.id)
+                team.score += 1
                 
                 print("The current user was added to an existing team.")
             }
