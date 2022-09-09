@@ -10,6 +10,7 @@ import RealmSwift
 
 struct SettingsView: View {
     @State private var showingLogOutAlert = false
+    @State private var showingDeleteAccountAlert = false
     
     var body: some View {
         List {
@@ -26,6 +27,22 @@ struct SettingsView: View {
                         
                         print("Current user logged out successfully.")
                     })
+                }
+            }
+            Button("Delete Account", role: .destructive) {
+                showingDeleteAccountAlert.toggle()
+            }
+            .alert(Text("Are you sure you want to delete your account?"), isPresented: $showingDeleteAccountAlert) {
+                Button("Cancel", role: .cancel, action: {})
+                Button("Delete Account", role: .destructive) {
+                    // FIXME: remove all associated data after account deletion
+                    app.currentUser!.delete { error in
+                        if let error = error {
+                            print("An error occurred while logging out: \(error.localizedDescription)")
+                        }
+                        
+                        print("Current user deleted successfully.")
+                    }
                 }
             }
         }
