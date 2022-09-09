@@ -24,7 +24,7 @@ struct LoggedInView: View {
                     .tabItem {
                         Label("Contacts", systemImage: "person.3.sequence")
                     }
-                LeaderboardView()
+                LeaderboardView(userTeam: teams.first!)
                     .tabItem {
                         Label("Leaderboard", systemImage: "chart.bar")
                     }
