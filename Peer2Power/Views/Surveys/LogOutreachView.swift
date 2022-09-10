@@ -133,8 +133,13 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     print("Uploaded outreach attempt.")
                     
                     // TODO: add support for multipliers based on student population
-                    userTeam.score += 4
-                    print("Awarded 4 points for logging an outreach attempt.")
+                    if volunteerStatusFirstAnswer == "They volunteered!" {
+                        userTeam.score += 7
+                        print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
+                    } else {
+                        userTeam.score += 4
+                        print("Awarded 4 points for logging an outreach attempt.")
+                    }
                 }
             } catch {
                 print("Error uploading outreach attempt: \(error.localizedDescription)")
