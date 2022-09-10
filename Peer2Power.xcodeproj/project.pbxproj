@@ -43,6 +43,7 @@
 		00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA940028AF1FDF00A434FF /* Identifier.swift */; };
 		00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA940228AFFAAD00A434FF /* OutreachAttempt.swift */; };
 		00C17F9628A8906400778E25 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C17F9528A8906400778E25 /* Team.swift */; };
+		00CD5FB228CD2D0E00E19AA7 /* OutreachListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */; };
 		00DDAC4228BC19D10073DF85 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; platformFilter = ios; };
 		00DDAC4328BC19D10073DF85 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
@@ -128,6 +129,7 @@
 		00BA940028AF1FDF00A434FF /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		00BA940228AFFAAD00A434FF /* OutreachAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachAttempt.swift; sourceTree = "<group>"; };
 		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachListRow.swift; sourceTree = "<group>"; };
 		00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-minus-HealthKit/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -264,6 +266,7 @@
 				0094745028C0325200D50140 /* Tabs */,
 				00BA93FB28AF1ACE00A434FF /* Surveys */,
 				0094745128C3930100D50140 /* ContactListRow.swift */,
+				00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */,
 				009CE53C2899F6B800796313 /* LoginView.swift */,
 				009CE540289B017900796313 /* CandidatesView.swift */,
 				009CE544289B088300796313 /* LoggedInView.swift */,
@@ -478,6 +481,7 @@
 				00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */,
 				00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
+				00CD5FB228CD2D0E00E19AA7 /* OutreachListRow.swift in Sources */,
 				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,

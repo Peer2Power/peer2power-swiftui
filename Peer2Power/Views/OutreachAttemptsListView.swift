@@ -29,7 +29,7 @@ struct OutreachAttemptsListView: View {
         } else {
             List {
                 ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id)) { attempt in
-                    Text("Here's an outreach attempt")
+                    OutreachListRow(attempt: attempt)
                 }
             }
             .navigationTitle(contact.name)
@@ -44,11 +44,5 @@ struct OutreachAttemptsListView: View {
         .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team)
         }
-    }
-}
-
-struct OutreachAttemptsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        OutreachAttemptsListView(contact: Contact(), team: Team())
     }
 }
