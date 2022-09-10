@@ -68,6 +68,7 @@ extension OutreachAttemptsListView {
     private func deleteOutreachAttempt() {
         guard let team = team.thaw() else { return }
         guard let offsets = offsetsToDelete else { return }
+        // TODO: get the outreach attempt by figuring out its index using the provided IndexSet.
         
         do {
             try realm.write {
