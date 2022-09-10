@@ -47,8 +47,8 @@ struct HomeView: View {
                             }
                         }
                         .onDelete { offsets in
-                            showingDeleteAlert.toggle()
                             offsetsToDelete = offsets
+                            showingDeleteAlert.toggle()
                         }
                     }
                     .toolbar {
