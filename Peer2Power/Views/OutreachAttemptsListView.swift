@@ -13,6 +13,7 @@ struct OutreachAttemptsListView: View {
     @ObservedRealmObject var team: Team
     
     @State private var presentingLogOutreachForm = false
+    @State private var presentingEditContactInfoForm = false
     
     @State private var showingDeleteAttemptAlert = false
     @State private var offsetsToDelete: IndexSet?
@@ -51,16 +52,29 @@ struct OutreachAttemptsListView: View {
             }
 
         }
-        Button {
-            presentingLogOutreachForm.toggle()
-        } label: {
-            Label("Log Outreach Attempt", systemImage: "square.and.pencil")
+        HStack {
+            Button {
+                presentingLogOutreachForm.toggle()
+            } label: {
+                Label("Log Outreach Attempt", systemImage: "square.and.pencil")
+            }
+            .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "They volunteered!").count > 0)
+            .buttonStyle(.borderedProminent)
+            .sheet(isPresented: $presentingLogOutreachForm) {
+                LogOutreachView(contact: contact, team: team)
+            }
+            Spacer()
+            Button {
+                presentingEditContactInfoForm.toggle()
+            } label: {
+                Label("Edit Contact Info", systemImage: "person.text.rectangle")
+            }
+            .buttonStyle(.bordered)
+            .sheet(isPresented: $presentingEditContactInfoForm) {
+                UploadContactView(userTeam: team)
+            }
         }
-        .disabled(team.outreachAttempts.filter("volunteerStatus = %@", "They volunteered!").count > 0)
-        .buttonStyle(.borderedProminent)
-        .sheet(isPresented: $presentingLogOutreachForm) {
-            LogOutreachView(contact: contact, team: team)
-        }
+        .padding([.leading, .trailing], 15.0)
     }
 }
 
