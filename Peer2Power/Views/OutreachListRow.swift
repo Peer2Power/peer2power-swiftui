@@ -22,7 +22,7 @@ struct OutreachListRow: View {
                 }
                 Text("Asked whether this person had volunteered, the person who logged this attempt said \(attempt.volunteerStatus)")
             }
-            Button("Edit This Attempt") {
+            Button("Change Your Answers") {
                 
             }
         }
