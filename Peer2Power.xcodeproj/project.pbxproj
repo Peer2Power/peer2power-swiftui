@@ -31,9 +31,7 @@
 		009CE5352899F20C00796313 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5342899F20C00796313 /* Realm */; };
 		009CE5372899F20C00796313 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 009CE5362899F20C00796313 /* RealmSwift */; };
 		009CE53D2899F6B800796313 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE53C2899F6B800796313 /* LoginView.swift */; };
-		009CE541289B017A00796313 /* CandidatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE540289B017900796313 /* CandidatesView.swift */; };
 		009CE545289B088300796313 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE544289B088300796313 /* LoggedInView.swift */; };
-		009CE547289B0A1300796313 /* ContactsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE546289B0A1300796313 /* ContactsListView.swift */; };
 		009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE548289B0A6A00796313 /* UploadContactView.swift */; };
 		009CE54B289B0C2B00796313 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54A289B0C2B00796313 /* Contact.swift */; };
 		009CE54D289B41E900796313 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE54C289B41E800796313 /* ErrorView.swift */; };
@@ -117,9 +115,7 @@
 		009CE51B2899CA8B00796313 /* Peer2PowerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITests.swift; sourceTree = "<group>"; };
 		009CE51D2899CA8B00796313 /* Peer2PowerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		009CE53C2899F6B800796313 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		009CE540289B017900796313 /* CandidatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesView.swift; sourceTree = "<group>"; };
 		009CE544289B088300796313 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
-		009CE546289B0A1300796313 /* ContactsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListView.swift; sourceTree = "<group>"; };
 		009CE548289B0A6A00796313 /* UploadContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadContactView.swift; sourceTree = "<group>"; };
 		009CE54A289B0C2B00796313 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		009CE54C289B41E800796313 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -268,9 +264,7 @@
 				0094745128C3930100D50140 /* ContactListRow.swift */,
 				00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */,
 				009CE53C2899F6B800796313 /* LoginView.swift */,
-				009CE540289B017900796313 /* CandidatesView.swift */,
 				009CE544289B088300796313 /* LoggedInView.swift */,
-				009CE546289B0A1300796313 /* ContactsListView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				000CD2C6289F974200A004FA /* ChooseTeamView.swift */,
@@ -477,7 +471,6 @@
 				00FA96ED28A588E800FC007E /* Party.swift in Sources */,
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
 				00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */,
-				009CE547289B0A1300796313 /* ContactsListView.swift in Sources */,
 				00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */,
 				00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
@@ -492,7 +485,6 @@
 				007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */,
 				00BA93FF28AF1F5B00A434FF /* LogOutreachTask.swift in Sources */,
 				00C17F9628A8906400778E25 /* Team.swift in Sources */,
-				009CE541289B017A00796313 /* CandidatesView.swift in Sources */,
 				0094744F28C0323500D50140 /* SettingsView.swift in Sources */,
 				00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */,
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
@@ -667,6 +659,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -697,6 +690,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
