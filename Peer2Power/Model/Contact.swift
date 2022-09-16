@@ -16,6 +16,8 @@ class Contact: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var createdAt: Date = Date()
 
     @Persisted var email: String = ""
+    
+    @Persisted var group: Int?
 
     @Persisted var name: String = ""
 
