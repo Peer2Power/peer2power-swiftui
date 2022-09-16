@@ -17,6 +17,13 @@ struct LoginView: View {
     @State private var showingErrorAlert = false
     @State private var errorText = ""
     
+    @FocusState private var focusedField: Field?
+    
+    enum Field: Hashable {
+        case email
+        case password
+    }
+    
     var body: some View {
         VStack(spacing: 16.0) {
             Image("LoginLogo")
@@ -27,19 +34,21 @@ struct LoginView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .textFieldStyle(.roundedBorder)
+                .onSubmit {
+                    focusedField = .password
+                }
             SecureField("Password", text: $password)
                 .submitLabel(.go)
                 .textFieldStyle(.roundedBorder)
+                .focused($focusedField, equals: .password)
                 .onSubmit(loginUser)
-            Toggle(isOn: $newUser) {
-                Text("Register New User?")
+            Button("Login", action: loginUser)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+            Button("Sign Up") {
+                newUser.toggle()
+                loginUser()
             }
-            Button(action: loginUser) {
-                Text(newUser ? "Sign Up" : "Log In")
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            
             if loggingIn {
                 ProgressView {
                     Text("Logging in...")
