@@ -49,6 +49,7 @@ struct LoginView: View {
                 newUser.toggle()
                 loginUser()
             }
+                .buttonStyle(.bordered)
             if loggingIn {
                 ProgressView {
                     Text("Logging in...")
