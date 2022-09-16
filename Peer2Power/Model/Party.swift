@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 enum Party: String, PersistableEnum {
-    case selectParty
+    case selectParty = "Select Party"
     case democrat = "Democrats"
     case republican = "Republicans"
 }

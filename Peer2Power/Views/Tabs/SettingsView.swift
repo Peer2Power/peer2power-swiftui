@@ -11,37 +11,50 @@ import RealmSwift
 struct SettingsView: View {
     @State private var showingLogOutAlert = false
     @State private var showingDeleteAccountAlert = false
+    @State private var showingEndOfStudySurvey = false
+    
+    @ObservedRealmObject var userTeam: Team
     
     var body: some View {
         List {
-            Button("Log Out", role: .destructive) {
-                showingLogOutAlert.toggle()
-            }
-            .alert(Text("Are you sure you want to log out?"), isPresented: $showingLogOutAlert) {
-                Button("Cancel", role: .cancel, action: {})
-                Button("Log Out", role: .destructive) {
-                    app.currentUser!.logOut(completion: { error in
-                        if let error = error {
-                            print("An error occured while logging out: \(error.localizedDescription)")
-                        }
-                        
-                        print("Current user logged out successfully.")
-                    })
+            Section {
+                Button("Show End Of Study Survey") {
+                    showingEndOfStudySurvey.toggle()
+                }
+                .sheet(isPresented: $showingEndOfStudySurvey) {
+                    EndOfStudySurveyView(userTeam: userTeam)
                 }
             }
-            Button("Delete Account", role: .destructive) {
-                showingDeleteAccountAlert.toggle()
-            }
-            .alert(Text("Are you sure you want to delete your account?"), isPresented: $showingDeleteAccountAlert) {
-                Button("Cancel", role: .cancel, action: {})
+            Section {
+                Button("Log Out", role: .destructive) {
+                    showingLogOutAlert.toggle()
+                }
+                .alert(Text("Are you sure you want to log out?"), isPresented: $showingLogOutAlert) {
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Log Out", role: .destructive) {
+                        app.currentUser!.logOut(completion: { error in
+                            if let error = error {
+                                print("An error occured while logging out: \(error.localizedDescription)")
+                            }
+                            
+                            print("Current user logged out successfully.")
+                        })
+                    }
+                }
                 Button("Delete Account", role: .destructive) {
-                    // FIXME: remove all associated data after account deletion
-                    app.currentUser!.delete { error in
-                        if let error = error {
-                            print("An error occurred while logging out: \(error.localizedDescription)")
+                    showingDeleteAccountAlert.toggle()
+                }
+                .alert(Text("Are you sure you want to delete your account?"), isPresented: $showingDeleteAccountAlert) {
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Delete Account", role: .destructive) {
+                        // FIXME: remove all associated data after account deletion
+                        app.currentUser!.delete { error in
+                            if let error = error {
+                                print("An error occurred while logging out: \(error.localizedDescription)")
+                            }
+                            
+                            print("Current user deleted successfully.")
                         }
-                        
-                        print("Current user deleted successfully.")
                     }
                 }
             }
@@ -51,6 +64,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(userTeam: Team())
     }
 }

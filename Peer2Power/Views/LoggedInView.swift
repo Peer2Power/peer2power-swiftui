@@ -28,7 +28,7 @@ struct LoggedInView: View {
                     .tabItem {
                         Label("Leaderboard", systemImage: "chart.bar")
                     }
-                SettingsView()
+                SettingsView(userTeam: teams.first!)
                     .tabItem {
                         Label("Settings", systemImage: "gear")
                     }

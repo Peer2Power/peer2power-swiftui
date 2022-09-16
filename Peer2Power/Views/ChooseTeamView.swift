@@ -37,8 +37,9 @@ struct ChooseTeamView: View {
                     NavigationLink {
                         List {
                             Picker("Party", selection: $selectedParty) {
-                                Text("Democratic").tag(Party.democrat)
-                                Text("Republican").tag(Party.republican)
+                                ForEach(Party.allCases, id: \.self) { party in
+                                    Text(party.rawValue).tag(party)
+                                }
                             }
                             .toolbar {
                                 ToolbarItem(placement: .confirmationAction) {
@@ -65,10 +66,10 @@ struct ChooseTeamView: View {
                     }
                 }
             }
-            .navigationBarTitle("Choose Your School")
+            .navigationTitle("Choose Your School")
             .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your college")
         }
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your college")
     }
 }
 
