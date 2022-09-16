@@ -14,7 +14,7 @@ struct EndOfStudySurveyView: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> ORKTaskViewController {
         let task = EndOfStudyTask(identifier: String(describing: Identifier.endOfStudyTask),
-                                  steps: [EndOfStudyTask.knowContactsStep(contacts: userTeam.contacts)])
+                                  steps: [EndOfStudyTask.knowContactsStep(contacts: userTeam.contacts), EndOfStudyTask.volunteerMethodStep()])
         
         let taskViewController = ORKTaskViewController(task: task, taskRun: nil)
         taskViewController.delegate = context.coordinator
