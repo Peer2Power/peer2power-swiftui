@@ -70,7 +70,7 @@ class EndOfStudyTask: ORKOrderedTask {
         guard let prevStepFormItems = prevStep.formItems else { return nil }
         var formItems = [ORKFormItem]()
         
-        for _ in 0...prevStepFormItems.count {
+        for _ in prevStepFormItems {
             let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "State Legislative", value: "State Legislative" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther(text: "Other Local", value: "Other Local" as NSCoding & NSCopying & NSObjectProtocol)]
             let answerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
             
@@ -93,7 +93,7 @@ class EndOfStudyTask: ORKOrderedTask {
         guard let prevStepFormItems = prevStep.formItems else { return nil }
         var formItems = [ORKFormItem]()
         
-        for _ in 0...prevStepFormItems.count {
+        for _ in prevStepFormItems {
             let answerFormat = ORKTextAnswerFormat()
             answerFormat.multipleLines = true
             
