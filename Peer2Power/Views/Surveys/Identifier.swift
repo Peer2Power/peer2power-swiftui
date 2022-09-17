@@ -38,4 +38,5 @@ enum Identifier {
     case knownContactsFormStep
     case knownContactFormItem
     case volunteerMethodFormStep
+    case campaignTypeFormStep
 }

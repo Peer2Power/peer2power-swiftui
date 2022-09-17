@@ -10,7 +10,7 @@ import RealmSwift
 
 class EndOfStudyTask: ORKOrderedTask {
     static func knowContactsStep(contacts: List<Contact>) -> ORKFormStep {
-        let step = ORKFormStep(identifier: String(describing: Identifier.knownContactsFormStep), title: nil, text: nil)
+        let step = ORKFormStep(identifier: String(describing: Identifier.knownContactsFormStep))
         var formItems = [ORKFormItem]()
         
         for contact in contacts {
@@ -35,7 +35,7 @@ class EndOfStudyTask: ORKOrderedTask {
     }
     
     static func volunteerMethodStep(stepResult: ORKStepResult) -> ORKFormStep? {
-        let step = ORKFormStep(identifier: String(String(describing: Identifier.volunteerMethodFormStep)), title: nil, text: nil)
+        let step = ORKFormStep(identifier: String(describing: Identifier.volunteerMethodFormStep))
         
         guard let results = stepResult.results else { return nil }
         var formItems = [ORKFormItem]()
@@ -66,6 +66,31 @@ class EndOfStudyTask: ORKOrderedTask {
         return step
     }
     
+    static func campaignTypeStep(prevStep: ORKFormStep) -> ORKFormStep? {
+        let step = ORKFormStep(identifier: String(describing: Identifier.campaignTypeFormStep))
+        
+        guard let prevStepItems = prevStep.formItems else { return nil }
+        var formItems = [ORKFormItem]()
+        
+        for _ in 0...prevStepItems.count {
+            print("Looping through previous step's form items...")
+            
+            let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "State Legislative", value: "State Legislative" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther(text: "Other Local", value: "Other Local" as NSCoding & NSCopying & NSObjectProtocol)]
+            let answerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
+            
+            let formItemText = "What kind of campaign?"
+            let formItem = ORKFormItem(identifier: "\(arc4random())",
+                                       text: formItemText,
+                                       answerFormat: answerFormat)
+            
+            formItems.append(formItem)
+        }
+        
+        step.formItems = formItems
+        
+        return step
+    }
+    
     override func step(after step: ORKStep?, with result: ORKTaskResult) -> ORKStep? {
         let identifier = step?.identifier
         
@@ -85,6 +110,9 @@ class EndOfStudyTask: ORKOrderedTask {
                     return EndOfStudyTask.volunteerMethodStep(stepResult: stepResult)
                 }
             }
+        case String(describing: Identifier.volunteerMethodFormStep):
+            guard let prevStep = step as? ORKFormStep else { return nil }
+            return EndOfStudyTask.campaignTypeStep(prevStep: prevStep)
         default:
             break
         }
