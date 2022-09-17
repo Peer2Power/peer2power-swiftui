@@ -23,5 +23,5 @@ class Team: Object, ObjectKeyIdentifiable {
 
     @Persisted var score: Int = 0
 
-    @Persisted var state: String?
+    @Persisted var state: String = ""
 }

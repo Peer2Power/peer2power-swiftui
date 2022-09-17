@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var newUser = false
     @State private var loggingIn = false
+    @State private var signingUp = false
     @State private var showingEmailConfirmAlert = false
     
     @State private var showingErrorAlert = false
@@ -55,6 +56,11 @@ struct LoginView: View {
                     Text("Logging in...")
                 }
             }
+            if signingUp {
+                ProgressView {
+                    Text("Signing up...")
+                }
+            }
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
         .alert(Text("Confirm Your Email"), isPresented: $showingEmailConfirmAlert) {
@@ -78,6 +84,7 @@ extension LoginView {
                 do {
                     try await app.emailPasswordAuth.registerUser(email: email, password: password)
                     
+                    signingUp.toggle()
                     showingEmailConfirmAlert.toggle()
                     newUser.toggle()
                 } catch {
