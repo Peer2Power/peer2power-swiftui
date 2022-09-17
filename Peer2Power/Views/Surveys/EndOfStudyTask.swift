@@ -10,7 +10,7 @@ import RealmSwift
 
 class EndOfStudyTask: ORKOrderedTask {
     static func knowContactsStep(contacts: List<Contact>) -> ORKFormStep {
-        let step = ORKFormStep(identifier: String(describing: Identifier.knownContactsFormStep), title: "Who Volunteered?", text: "Please indicate which of your contacts volunteered.")
+        let step = ORKFormStep(identifier: String(describing: Identifier.knownContactsFormStep), title: nil, text: nil)
         var formItems = [ORKFormItem]()
         
         for contact in contacts {
@@ -37,7 +37,7 @@ class EndOfStudyTask: ORKOrderedTask {
     }
     
     static func volunteerMethodStep(result: ORKChoiceQuestionResult) -> ORKFormStep {
-        let step = ORKFormStep(identifier: String(String(describing: Identifier.volunteerMethodFormStep)), title: "How Did They Volunteer?", text: "Please indicate how the contacts you know volunteered.")
+        let step = ORKFormStep(identifier: String(String(describing: Identifier.volunteerMethodFormStep)), title: nil, text: nil)
         
         guard let choiceAnswers = result.choiceAnswers else { return ORKFormStep(identifier: "uhoh") }
         
