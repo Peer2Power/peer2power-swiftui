@@ -48,7 +48,7 @@ class EndOfStudyTask: ORKOrderedTask {
                 if choiceAnswer.isEqual("Yes" as NSCoding & NSCopying & NSObjectProtocol) {
                     print("Adding a form item for an answer in the affirmative...")
                     
-                    let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Canvass", value: "Canvass" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone bank", value: "Phone bank" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Text Bank", value: "Text bank" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Write postcards", value: "Write postcards" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: false, textViewPlaceholderText: "Please specify")]
+                    let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Canvass", value: "Canvass" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone bank", value: "Phone bank" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Text bank", value: "Text bank" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Write postcards", value: "Write postcards" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: false, textViewPlaceholderText: "Please specify")]
                     let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: textChoices)
                     
                     let formItemText = "How did they volunteer?"
@@ -60,26 +60,6 @@ class EndOfStudyTask: ORKOrderedTask {
                 }
             }
         }
-        
-        /*
-        print("Scanning \(choiceAnswers.count) answers.")
-        
-        for choiceAnswer in choiceAnswers {
-            if choiceAnswer.isEqual("Yes" as NSCoding & NSCopying & NSObjectProtocol) {
-                print("Adding a form item for an answer in the affirmative...")
-                
-                let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Canvass", value: "Canvass" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone bank", value: "Phone bank" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Text Bank", value: "Text bank" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Write postcards", value: "Write postcards" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: false, textViewPlaceholderText: "Please specify")]
-                let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: textChoices)
-                
-                let formItemText = "How did they volunteer?"
-                let formItem = ORKFormItem(identifier: "\(arc4random())",
-                                           text: formItemText,
-                                           answerFormat: answerFormat)
-                
-                formItems.append(formItem)
-            }
-        }
-         */
         
         step.formItems = formItems
         
