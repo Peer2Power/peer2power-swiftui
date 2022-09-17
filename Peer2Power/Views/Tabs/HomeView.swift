@@ -12,7 +12,7 @@ import RealmSwift
 
 struct HomeView: View {
     @State private var closeDateString = ""
-    @State private var pastCloseDate: Bool?
+    @State private var pastCloseDate = true
     @State private var showingUploadForm = false
     @State private var showingDeleteAlert = false
     @State private var offsetsToDelete: IndexSet?
@@ -24,8 +24,6 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // TODO: add handling of upload window by checking if it's past the window close date.
-                
                 if userTeam.contacts.isEmpty {
                     VStack(spacing: 10.0) {
                         Text("No Contacts Uploaded")
@@ -38,17 +36,35 @@ struct HomeView: View {
                     }
                     .padding([.leading, .trailing], 15.0)
                 } else {
-                    List {
-                        ForEach(userTeam.contacts) { contact in
-                            NavigationLink {
-                                OutreachAttemptsListView(contact: contact, team: userTeam)
-                            } label: {
-                                ContactListRow(contact: contact, team: userTeam)
-                            }
+                    if !pastCloseDate {
+                        VStack {
+                            Text("The upload window is open.")
                         }
-                        .onDelete { offsets in
-                            offsetsToDelete = offsets
-                            showingDeleteAlert.toggle()
+                    }
+                    
+                    List {
+                        if pastCloseDate {
+                            ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
+                                NavigationLink {
+                                    OutreachAttemptsListView(contact: contact, team: userTeam)
+                                } label: {
+                                    ContactListRow(contact: contact, team: userTeam)
+                                }
+                            }
+                            .onDelete { offsets in
+                                offsetsToDelete = offsets
+                                showingDeleteAlert.toggle()
+                            }
+                        } else {
+                            ForEach(userTeam.contacts) { contact in
+                                Text("\(contact.name)")
+                                    .font(.title2)
+                                    .minimumScaleFactor(0.25)
+                            }
+                            .onDelete { offsets in
+                                offsetsToDelete = offsets
+                                showingDeleteAlert.toggle()
+                            }
                         }
                     }
                     .toolbar {
@@ -59,7 +75,7 @@ struct HomeView: View {
                         Button("Delete", role: .destructive, action: deleteContact)
                     }
                 }
-                    
+                
                 Button {
                     showingUploadForm.toggle()
                 } label: {
