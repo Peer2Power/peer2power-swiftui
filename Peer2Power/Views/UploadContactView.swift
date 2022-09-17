@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SPAlert
 
 struct UploadContactView: View {
     @Environment(\.dismiss) var dismiss
@@ -16,7 +17,8 @@ struct UploadContactView: View {
     
     @State private var newContact = Contact()
     
-    @State private var isAdult: Bool = false
+    @State private var isAdult = false
+    @State private var showingContactUploadedAlert = false
     
     let ageBrackets = ["Select age bracket", "18 - 25", "26-39", "40+"]
     let relationships = ["Select relationship", "Friend", "Family"]
@@ -66,12 +68,11 @@ struct UploadContactView: View {
                             try realm.write {
                                 team.score += 2
                                 print("Awarded 2 points for uploading a contact.")
+                                showingContactUploadedAlert.toggle()
                             }
                         } catch {
                             print("Error awarding points for uploading a contact: \(error.localizedDescription)")
                         }
-                        
-                        dismiss()
                     }
                     .disabled(newContact.name.isEmpty && newContact.email.isEmpty && !isAdult)
                 }
@@ -82,6 +83,12 @@ struct UploadContactView: View {
                         Text("Cancel")
                     }
                 }
+            }
+            .SPAlert(isPresent: $showingContactUploadedAlert,
+                     message: "Your team received 2 points for uploading a contact.",
+                     duration: 3.0,
+                     haptic: .success) {
+                dismiss()
             }
         }
     }
