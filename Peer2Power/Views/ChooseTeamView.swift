@@ -22,18 +22,18 @@ struct ChooseTeamView: View {
     
     var searchResults: Results<Team> {
         if searchText.isEmpty {
-            return teams.sorted(byKeyPath: "school_name", ascending: true).distinct(by: [\Team.school_name])
+            return teams.sorted(by: \Team.school_name, ascending: true).distinct(by: [\Team.school_name])
         }
         
         return teams.where {
             $0.school_name.contains(searchText, options: .caseInsensitive)
-        }.distinct(by: [\Team.school_name]).sorted(byKeyPath: "school_name", ascending: true)
+        }.distinct(by: [\Team.school_name]).sorted(by: \Team.school_name, ascending: true)
     }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(teams.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
+                ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
                     Section {
                         ForEach(searchResults.filter("state = %@", stateTeam.state)) { team in
                             NavigationLink {
