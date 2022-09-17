@@ -69,6 +69,8 @@ struct UploadContactView: View {
                                 team.score += 2
                                 print("Awarded 2 points for uploading a contact.")
                                 showingContactUploadedAlert.toggle()
+                                
+                                dismiss()
                             }
                         } catch {
                             print("Error awarding points for uploading a contact: \(error.localizedDescription)")
@@ -87,9 +89,8 @@ struct UploadContactView: View {
             .SPAlert(isPresent: $showingContactUploadedAlert,
                      message: "Your team received 2 points for uploading a contact.",
                      duration: 3.0,
-                     haptic: .success) {
-                dismiss()
-            }
+                     preset: .custom(UIImage(systemName: "plus.circle")!),
+                     haptic: .success)
         }
     }
 }
