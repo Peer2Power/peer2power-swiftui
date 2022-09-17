@@ -39,4 +39,10 @@ enum Identifier {
     case knownContactFormItem
     case volunteerMethodFormStep
     case campaignTypeFormStep
+    case whyVolunteerFormStep
+    case isFirstTimeStep
+    case volunteeringEasierStep
+    case futureRecruitLikelihoodStep
+    case didUserVolunteerStep
+    case endOfStudyCompletionStep
 }
