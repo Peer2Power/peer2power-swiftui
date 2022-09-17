@@ -72,10 +72,11 @@ struct ChooseTeamView: View {
                     }
                 }
             }
+            .listStyle(.insetGrouped)
             .navigationTitle("Choose Your School")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your college")
         }
+        .searchable(text: $searchText, placement: .navigationBarDrawer, prompt: "Enter the name of your school")
     }
 }
 
