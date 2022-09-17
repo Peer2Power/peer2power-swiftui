@@ -18,9 +18,9 @@ struct UploadContactView: View {
     
     @State private var isAdult: Bool = false
     
-    let ageBrackets = ["18 - 25", "26-39", "40+"]
-    let relationships = ["Friend", "Family"]
-    let likelihoods = ["Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
+    let ageBrackets = ["Select age bracket", "18 - 25", "26-39", "40+"]
+    let relationships = ["Select relationship", "Friend", "Family"]
+    let likelihoods = ["Select likelihood to volunteer", "Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
     
     var body: some View {
         NavigationView {
@@ -51,7 +51,6 @@ struct UploadContactView: View {
                     }
                 }
             }
-            // .onAppear(perform: setSubscription)
             .navigationTitle("Upload Contact")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -74,7 +73,7 @@ struct UploadContactView: View {
                         
                         dismiss()
                     }
-                    .disabled(false)
+                    .disabled(newContact.name.isEmpty && newContact.email.isEmpty && !isAdult)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
