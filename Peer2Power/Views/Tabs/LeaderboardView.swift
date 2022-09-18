@@ -20,6 +20,7 @@ struct LeaderboardView: View {
     @ObservedRealmObject var userTeam: Team
     
     var body: some View {
+        // FIXME: hide the leaderboard when the upload window is still open.
         VStack {
             Text("Your team, the \(userTeam.school_name) \(userTeam.party.rawValue), has contributed \(userTeam.score) points to the national \(userTeam.party.rawValue) total.")
                 .multilineTextAlignment(.center)
