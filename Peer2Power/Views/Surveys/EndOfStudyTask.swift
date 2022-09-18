@@ -110,29 +110,37 @@ class EndOfStudyTask: ORKOrderedTask {
         return step
     }
     
-    static func isFirstTimeStep() -> ORKQuestionStep {
-        let step = ORKQuestionStep(identifier: String(describing: Identifier.isFirstTimeStep), title: nil, question: "Is this your first time recruiting people to volunteer for a campaign?", answer: ORKBooleanAnswerFormat())
+    static func questionsAboutUserStep() -> ORKFormStep {
+        let step = ORKFormStep(identifier: String(describing: Identifier.aboutUserFormStep))
         
-        return step
-    }
-    
-    static func volunteeringEasierStep() -> ORKQuestionStep {
-        let step = ORKQuestionStep(identifier: String(describing: Identifier.volunteeringEasierStep), title: nil, question: "Did the Peer2Power app make volunteering more accessible to you?", answer: ORKBooleanAnswerFormat())
+        let isFirstTimeFormItem = ORKFormItem(identifier: String(describing: Identifier.isFirstTimeFormItem),
+                                              text: "Is this your first time recruiting people to volunteer for a campaign?",
+                                              answerFormat: ORKBooleanAnswerFormat())
         
-        return step
-    }
-    
-    static func futureRecruitLikelihoodStep() -> ORKQuestionStep {
         let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Very likely", value: "Very likely" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Somewhat likely", value: "Somewhat likely" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Neither likely nor unlikely", value: "Neither likely nor unlikley" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Somewhat unlikely", value: "Somewhat unlikely" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Very unlikely", value: "Very unlikely" as NSCoding & NSCopying & NSObjectProtocol)]
         let answerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
-        let step = ORKQuestionStep(identifier: String(describing: Identifier.futureRecruitLikelihoodStep), title: nil, question: "How likely are you to recruit volunteers again in the future?", answer: answerFormat)
+        let futureRecruitLikelihoodFormItem = ORKFormItem(identifier: String(describing: Identifier.futureRecruitLikelihoodFormItem),
+                                                          text: "How likely are you to recruit volunteers again in the future?",
+                                                          answerFormat: answerFormat)
         
-        return step
-    }
-    
-    static func didUserVolunteerStep() -> ORKQuestionStep {
-        let step = ORKQuestionStep(identifier: String(describing: Identifier.didUserVolunteerStep), title: nil, question: "Did you volunteer for a campaign during your participation in this study?", answer: ORKBooleanAnswerFormat())
+        let didUserVolunteerFormItem = ORKFormItem(identifier: String(describing: Identifier.didUserVolunteerFormItem),
+                                                   text: "Did you volunteer for a campaign during your participation in this study?",
+                                                   answerFormat: ORKBooleanAnswerFormat())
+        
+        let friendsOrFamTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Yes", value: "Yes" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "No", value: "No" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther(text: "This does not apply to me.", value: "This does not apply to me." as NSCoding & NSCopying & NSObjectProtocol)]
+        let friendsOrFamAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: friendsOrFamTextChoices)
+        
+        let didVolunteerWithFriendsOrFamilyFormItem = ORKFormItem(identifier: String(describing: Identifier.didVolunteerWithFriendsOrFamilyFormItem),
+                                                                  text: "If you did volunteer with a campaign during this study, did you volunteer with friends or family?",
+                                                                  answerFormat: friendsOrFamAnswerFormat)
+        
+        step.formItems = [
+            isFirstTimeFormItem,
+            futureRecruitLikelihoodFormItem,
+            didUserVolunteerFormItem,
+            didVolunteerWithFriendsOrFamilyFormItem
+        ]
         
         return step
     }
@@ -172,14 +180,8 @@ class EndOfStudyTask: ORKOrderedTask {
             guard let prevStep = step as? ORKFormStep else { return nil }
             return EndOfStudyTask.whyVolunteerStep(prevStep: prevStep)
         case String(describing: Identifier.whyVolunteerFormStep):
-            return EndOfStudyTask.isFirstTimeStep()
-        case String(describing: Identifier.isFirstTimeStep):
-            return EndOfStudyTask.volunteeringEasierStep()
-        case String(describing: Identifier.volunteeringEasierStep):
-            return EndOfStudyTask.futureRecruitLikelihoodStep()
-        case String(describing: Identifier.futureRecruitLikelihoodStep):
-            return EndOfStudyTask.didUserVolunteerStep()
-        case String(describing: Identifier.didUserVolunteerStep):
+            return EndOfStudyTask.questionsAboutUserStep()
+        case String(describing: Identifier.aboutUserFormStep):
             return EndOfStudyTask.makeCompletionStep()
         default:
             break
