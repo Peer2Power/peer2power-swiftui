@@ -99,6 +99,7 @@
 		000CD2C6289F974200A004FA /* ChooseTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamView.swift; sourceTree = "<group>"; };
 		0026166728D530360070FF11 /* EndOfStudyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudyTask.swift; sourceTree = "<group>"; };
 		0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudySurveyView.swift; sourceTree = "<group>"; };
+		0026166E28D763690070FF11 /* Peer2Power.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peer2Power.entitlements; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -212,6 +213,7 @@
 		009CE4FF2899CA8500796313 /* Peer2Power */ = {
 			isa = PBXGroup;
 			children = (
+				0026166E28D763690070FF11 /* Peer2Power.entitlements */,
 				00953C4F28B5E27000B6CBB6 /* CocentricOnboarding */,
 				009CE52B2899D13E00796313 /* Views */,
 				009CE52A2899D13100796313 /* Model */,
@@ -659,13 +661,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Peer2Power/Peer2Power.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Peer2Power will never use your camera. This should be removed after any parts using the camera are removed from ResearchKit.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Peer2Power will never share your health data. This should be removed after any parts sharing health data are removed from ResearchKit.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Peer2Power will never update your health information. This should be removed after any parts updating health information are removed from ResearchKit.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Peer2Power will never use your location. This should be removed after any parts using your location are removed from ResearchKit.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Peer2Power will never use your microphone. This should be removed after any parts using the microphone are removed from ResearchKit.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Peer2Power will never use your motion data. This should be removed after any parts using the motion sensor are removed from ResearchKit.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Peer2Power will never use speech recognition. This should be removed after any parts using speech recognition are removed from ResearchKit.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -691,13 +700,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Peer2Power/Peer2Power.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Peer2Power will never use your camera. This should be removed after any parts using the camera are removed from ResearchKit.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Peer2Power will never share your health data. This should be removed after any parts sharing health data are removed from ResearchKit.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Peer2Power will never update your health information. This should be removed after any parts updating health information are removed from ResearchKit.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Peer2Power will never use your location. This should be removed after any parts using your location are removed from ResearchKit.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Peer2Power will never use your microphone. This should be removed after any parts using the microphone are removed from ResearchKit.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Peer2Power will never use your motion data. This should be removed after any parts using the motion sensor are removed from ResearchKit.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Peer2Power will never use speech recognition. This should be removed after any parts using speech recognition are removed from ResearchKit.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
