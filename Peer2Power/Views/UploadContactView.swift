@@ -87,8 +87,7 @@ struct UploadContactView: View {
                 }
             }
             .SPAlert(isPresent: $showingContactUploadedAlert,
-                     message: "Your team received 2 points for uploading a contact.",
-                     duration: 3.0,
+                     message: "Your team received 2 points for uploading a contact!",
                      preset: .custom(UIImage(systemName: "plus.circle")!),
                      haptic: .success)
         }

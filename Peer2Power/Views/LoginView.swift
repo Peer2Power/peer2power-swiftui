@@ -82,6 +82,7 @@ extension LoginView {
             // TODO: add visual feedback that app is logging user in.
             if newUser {
                 do {
+                    signingUp.toggle()
                     try await app.emailPasswordAuth.registerUser(email: email, password: password)
                     
                     signingUp.toggle()

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SPAlert
 
 struct ChooseTeamView: View {
     @Environment (\.dismiss) var dismiss
@@ -15,6 +16,7 @@ struct ChooseTeamView: View {
     
     @State private var selectedParty: Party = .selectParty
     @State private var showingConfirmAlert = false
+    @State private var showingDidSignUpAlert = false
     
     @State private var searchText = ""
     
@@ -77,6 +79,10 @@ struct ChooseTeamView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer, prompt: "Enter the name of your school")
+        .SPAlert(isPresent: $showingDidSignUpAlert,
+                 message: "Your team received 1 point because you signed up!",
+                 preset: .custom(UIImage(systemName: "plus.circle")!),
+                 haptic: .success)
     }
 }
 
@@ -100,6 +106,7 @@ extension ChooseTeamView {
                 team.score += 1
                 
                 print("The current user was added to an existing team.")
+                showingDidSignUpAlert.toggle()
             }
         } catch {
             print("Error adding user to team: \(error.localizedDescription)")
