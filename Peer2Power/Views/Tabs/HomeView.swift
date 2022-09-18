@@ -36,6 +36,18 @@ struct HomeView: View {
                     }
                     .padding([.leading, .trailing], 15.0)
                 } else {
+                    // For testing assuming upload window has already closed.
+                    /*
+                    List {
+                        ForEach(userTeam.contacts) { contact in
+                            NavigationLink {
+                                OutreachAttemptsListView(contact: contact, team: userTeam)
+                            } label: {
+                                ContactListRow(contact: contact, team: userTeam)
+                            }
+                        }
+                    }
+                    */
                     if !pastCloseDate {
                         VStack {
                             Text("The upload window is open.")

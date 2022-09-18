@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import ResearchKit
 import RealmSwift
+import SPAlert
 
 struct LogOutreachView: UIViewControllerRepresentable {
     @ObservedRealmObject var contact: Contact
@@ -136,9 +137,19 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     if volunteerStatusFirstAnswer == "They volunteered!" {
                         userTeam.score += 7
                         print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
+                        
+                        let alertView = SPAlertView(title: "Points Received!",
+                                                    message: "Your team received 7 points for getting this contact to volunteer!",
+                                                    preset: .custom(UIImage(systemName: "plus.circle")!))
+                        alertView.present(haptic: .success)
                     } else {
                         userTeam.score += 4
                         print("Awarded 4 points for logging an outreach attempt.")
+                        
+                        let alertView = SPAlertView(title: "Points Received!",
+                                                    message: "Your team received 4 points for logging this outreach attempt!",
+                                                    preset: .custom(UIImage(systemName: "plus.circle")!))
+                        alertView.present(haptic: .success)
                     }
                 }
             } catch {

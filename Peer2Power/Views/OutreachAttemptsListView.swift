@@ -50,7 +50,6 @@ struct OutreachAttemptsListView: View {
             } message: {
                 Text("Your team will lose the 4 points it gained for logging this outreach attempt.")
             }
-
         }
         HStack {
             Button {
@@ -60,9 +59,11 @@ struct OutreachAttemptsListView: View {
             }
             .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "They volunteered!").count > 0)
             .buttonStyle(.borderedProminent)
-            .sheet(isPresented: $presentingLogOutreachForm) {
+            .fullScreenCover(isPresented: $presentingLogOutreachForm) {
                 LogOutreachView(contact: contact, team: team)
             }
+            // FIXME: give this button functionality.
+            /*
             Spacer()
             Button {
                 presentingEditContactInfoForm.toggle()
@@ -73,6 +74,7 @@ struct OutreachAttemptsListView: View {
             .sheet(isPresented: $presentingEditContactInfoForm) {
                 UploadContactView(userTeam: team)
             }
+            */
         }
         .padding([.leading, .trailing], 15.0)
     }
