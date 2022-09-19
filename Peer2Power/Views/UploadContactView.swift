@@ -76,7 +76,7 @@ struct UploadContactView: View {
                             print("Error awarding points for uploading a contact: \(error.localizedDescription)")
                         }
                     }
-                    .disabled(newContact.name.isEmpty && newContact.email.isEmpty && !isAdult)
+                    .disabled(newContact.name.isEmpty || newContact.email.isEmpty || !isAdult)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button {

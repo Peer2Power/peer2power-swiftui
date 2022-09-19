@@ -23,7 +23,7 @@ struct ForgotPasswordView: View {
                     .textContentType(.emailAddress)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled(true)
-                    .textInputAutocapitalization(.never)
+                    .autocapitalization(.none)
                     .submitLabel(.done)
                     .onSubmit(sendPasswordResetEmail)
             }

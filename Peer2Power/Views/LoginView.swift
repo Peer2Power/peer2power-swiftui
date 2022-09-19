@@ -34,7 +34,7 @@ struct LoginView: View {
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
-                .textInputAutocapitalization(.none)
+                .autocapitalization(.none)
                 .textFieldStyle(.roundedBorder)
                 .onSubmit {
                     focusedField = .password
@@ -42,6 +42,7 @@ struct LoginView: View {
             SecureField("Password", text: $password)
                 .submitLabel(.go)
                 .textFieldStyle(.roundedBorder)
+                .autocapitalization(.none)
                 .focused($focusedField, equals: .password)
                 .onSubmit(loginUser)
             Button("Login", action: loginUser)
