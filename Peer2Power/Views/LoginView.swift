@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var loggingIn = false
     @State private var signingUp = false
     @State private var showingEmailConfirmAlert = false
+    @State private var showingPasswordResetForm = false
     
     @State private var showingErrorAlert = false
     @State private var errorText = ""
@@ -32,8 +33,8 @@ struct LoginView: View {
                 .submitLabel(.next)
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
+                .autocorrectionDisabled(true)
+                .textInputAutocapitalization(.none)
                 .textFieldStyle(.roundedBorder)
                 .onSubmit {
                     focusedField = .password
@@ -46,11 +47,19 @@ struct LoginView: View {
             Button("Login", action: loginUser)
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
+                .disabled(email.isEmpty || password.isEmpty)
             Button("Sign Up") {
                 newUser.toggle()
                 loginUser()
             }
                 .buttonStyle(.bordered)
+                .disabled(email.isEmpty || password.isEmpty)
+            Button("Forgot your password?") {
+                showingPasswordResetForm.toggle()
+            }
+            .sheet(isPresented: $showingPasswordResetForm) {
+                ForgotPasswordView()
+            }
             if loggingIn {
                 ProgressView {
                     Text("Logging in...")
@@ -68,7 +77,7 @@ struct LoginView: View {
         } message: {
             Text("Before you can proceed, you will have to confirm your email address. Return here to log in after confirming your email address.")
         }
-        .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
+        .alert(Text("Error Logging In or Signing Up"), isPresented: $showingErrorAlert) {
             Button("OK", role: .cancel, action: {})
         } message: {
             Text(errorText)
@@ -78,6 +87,8 @@ struct LoginView: View {
 
 extension LoginView {
     private func loginUser() {
+        focusedField = nil
+        
         Task {
             // TODO: add visual feedback that app is logging user in.
             if newUser {
@@ -89,7 +100,11 @@ extension LoginView {
                     showingEmailConfirmAlert.toggle()
                     newUser.toggle()
                 } catch {
-                    print("An error occurred while signing up the user: \(error.localizedDescription)")
+                    signingUp.toggle()
+                    
+                    errorText = error.localizedDescription
+                    showingErrorAlert.toggle()
+                    
                     return
                 }
             } else {
