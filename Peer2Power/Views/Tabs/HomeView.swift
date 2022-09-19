@@ -56,16 +56,29 @@ struct HomeView: View {
                     
                     List {
                         if pastCloseDate {
-                            ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
-                                NavigationLink {
-                                    OutreachAttemptsListView(contact: contact, team: userTeam)
-                                } label: {
-                                    ContactListRow(contact: contact, team: userTeam)
+                            if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
+                                VStack(spacing: 10.0) {
+                                    Text("Contacts Not Assigned")
+                                        .font(.title)
+                                        .multilineTextAlignment(.center)
+                                    Text("Thank you for uploading contacts! The contacts you should recruit have not been randomly assigned yet. Please come back after your contacts have been assigned.")
+                                        .font(.callout)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.bottom, 20)
                                 }
-                            }
-                            .onDelete { offsets in
-                                offsetsToDelete = offsets
-                                showingDeleteAlert.toggle()
+                                .padding([.leading, .trailing], 15.0)
+                            } else {
+                                ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
+                                    NavigationLink {
+                                        OutreachAttemptsListView(contact: contact, team: userTeam)
+                                    } label: {
+                                        ContactListRow(contact: contact, team: userTeam)
+                                    }
+                                }
+                                .onDelete { offsets in
+                                    offsetsToDelete = offsets
+                                    showingDeleteAlert.toggle()
+                                }
                             }
                         } else {
                             ForEach(userTeam.contacts) { contact in
