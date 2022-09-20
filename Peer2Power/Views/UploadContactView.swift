@@ -20,9 +20,9 @@ struct UploadContactView: View {
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
     
-    let ageBrackets = ["Select age bracket", "18 - 25", "26-39", "40+"]
-    let relationships = ["Select relationship", "Friend", "Family"]
-    let likelihoods = ["Select likelihood to volunteer", "Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
+    let ageBrackets = ["18 - 25", "26-39", "40+"]
+    let relationships = ["Friend", "Family"]
+    let likelihoods = ["Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
     
     var body: some View {
         NavigationView {

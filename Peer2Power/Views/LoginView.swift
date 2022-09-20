@@ -73,11 +73,12 @@ struct LoginView: View {
             }
         }
         .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
-        .alert(Text("Confirm Your Email"), isPresented: $showingEmailConfirmAlert) {
+        // FIXME: restore this alert once email addresses can be confirmed again.
+        /* .alert(Text("Confirm Your Email"), isPresented: $showingEmailConfirmAlert) {
             Button("OK", role: .cancel, action: {})
         } message: {
             Text("Before you can proceed, you will have to confirm your email address. Return here to log in after confirming your email address.")
-        }
+        } */
         .alert(Text("Error Logging In or Signing Up"), isPresented: $showingErrorAlert) {
             Button("OK", role: .cancel, action: {})
         } message: {
@@ -100,6 +101,9 @@ extension LoginView {
                     signingUp.toggle()
                     showingEmailConfirmAlert.toggle()
                     newUser.toggle()
+                    
+                    // FIXME: remove this once email address can be confirmed again.
+                    loginUser()
                 } catch {
                     signingUp.toggle()
                     
