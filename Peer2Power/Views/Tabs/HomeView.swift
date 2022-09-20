@@ -97,7 +97,7 @@ struct HomeView: View {
                     .toolbar {
                         EditButton()
                     }
-                    .alert("Are you sure you want to delete this contact?", isPresented: $showingDeleteAlert) {
+                    .alert("Are you sure you want to delete this contact? Your team will lose any points it was awarded for this contact.", isPresented: $showingDeleteAlert) {
                         Button("Cancel", role: .cancel, action: {})
                         Button("Delete", role: .destructive, action: deleteContact)
                     }
@@ -128,6 +128,7 @@ extension HomeView {
         do {
             try realm.write {
                 team.contacts.remove(atOffsets: offsets)
+                team.score -= 2
             }
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")
