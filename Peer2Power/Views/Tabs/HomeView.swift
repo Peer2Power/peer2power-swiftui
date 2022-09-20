@@ -50,8 +50,10 @@ struct HomeView: View {
                     */
                     if !pastCloseDate {
                         VStack {
-                            Text("The upload window is open.")
+                            Text("The upload window is open. After it closes, you will only be able to see the half of your team's contacts assigned to the treatment group.")
+                                .multilineTextAlignment(.center)
                         }
+                        .padding([.leading, .trailing], 15.0)
                     }
                     
                     List {
