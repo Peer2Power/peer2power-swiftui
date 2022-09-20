@@ -108,7 +108,7 @@ struct HomeView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .sheet(isPresented: $showingUploadForm) {
-                    UploadContactView(userTeam: userTeam)
+                    UploadContactView(userTeam: userTeam, contact: Contact())
                 }
             }
             .onAppear(perform: handleRemoteConfig)

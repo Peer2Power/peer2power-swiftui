@@ -15,7 +15,7 @@ struct UploadContactView: View {
     
     @ObservedRealmObject var userTeam: Team
     
-    @State private var newContact = Contact()
+    @ObservedRealmObject var contact: Contact
     
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
@@ -27,26 +27,26 @@ struct UploadContactView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Name", text: $newContact.name)
+                TextField("Name", text: $contact.name)
                     .textContentType(.name)
                     .autocapitalization(.words)
-                TextField("Email", text: $newContact.email).textContentType(.emailAddress).autocapitalization(.none)
+                TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
                     .keyboardType(.emailAddress)
                 Toggle(isOn: $isAdult) {
                     Text("I certify that this person is 18 or older.")
                 }
                 Section("Optional Information") {
-                    Picker("Likelihood to Volunteer", selection: $newContact.volunteerLikelihood) {
+                    Picker("Likelihood to Volunteer", selection: $contact.volunteerLikelihood) {
                         ForEach(likelihoods, id: \.self) { likelihood in
                             Text("\(likelihood)")
                         }
                     }
-                    Picker("Age Bracket", selection: $newContact.ageBracket) {
+                    Picker("Age Bracket", selection: $contact.ageBracket) {
                         ForEach(ageBrackets, id: \.self) { ageBracket in
                             Text("\(ageBracket)")
                         }
                     }
-                    Picker("Relationship", selection: $newContact.relationship) {
+                    Picker("Relationship", selection: $contact.relationship) {
                         ForEach(relationships, id: \.self) { relationship in
                             Text("\(relationship)")
                         }
@@ -58,9 +58,9 @@ struct UploadContactView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        newContact.owner_id = app.currentUser!.id
+                        contact.owner_id = app.currentUser!.id
                         
-                        $userTeam.contacts.append(newContact)
+                        $userTeam.contacts.append(contact)
                         
                         guard let team = userTeam.thaw() else { return }
                         
@@ -76,7 +76,7 @@ struct UploadContactView: View {
                             print("Error awarding points for uploading a contact: \(error.localizedDescription)")
                         }
                     }
-                    .disabled(newContact.name.isEmpty || newContact.email.isEmpty || !isAdult)
+                    .disabled(contact.name.isEmpty || contact.email.isEmpty || !isAdult)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
@@ -92,11 +92,5 @@ struct UploadContactView: View {
                      preset: .custom(UIImage(systemName: "plus.circle")!),
                      haptic: .success)
         }
-    }
-}
-
-struct UploadContactView_Previews: PreviewProvider {
-    static var previews: some View {
-        UploadContactView(userTeam: Team())
     }
 }
