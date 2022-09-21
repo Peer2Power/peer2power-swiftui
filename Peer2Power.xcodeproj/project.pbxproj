@@ -323,6 +323,7 @@
 				009CE4FA2899CA8500796313 /* Frameworks */,
 				009CE4FB2899CA8500796313 /* Resources */,
 				00BA93FA28AF130F00A434FF /* Embed Frameworks */,
+				0026167528DB6FEE0070FF11 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -474,6 +475,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0026167528DB6FEE0070FF11 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		009CE4F92899CA8500796313 /* Sources */ = {
@@ -668,6 +691,7 @@
 				CODE_SIGN_ENTITLEMENTS = Peer2Power/Peer2Power.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 45;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
