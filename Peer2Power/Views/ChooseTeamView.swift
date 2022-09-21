@@ -76,9 +76,8 @@ struct ChooseTeamView: View {
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
             .listStyle(.insetGrouped)
-            .navigationTitle("Choose Your School")
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Choose Your School")
         .SPAlert(isPresent: $showingDidSignUpAlert,
                  title: "Points Received!",
                  message: "Your team received 1 point because you signed up!",

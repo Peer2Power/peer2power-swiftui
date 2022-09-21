@@ -15,6 +15,7 @@ struct LoggedInView: View {
                      where: {$0.member_ids.contains(app.currentUser!.id)})
     var teams
     
+    @ViewBuilder
     var body: some View {
         if teams.isEmpty {
             ChooseTeamView()
