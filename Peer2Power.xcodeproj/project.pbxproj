@@ -102,6 +102,7 @@
 		0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudySurveyView.swift; sourceTree = "<group>"; };
 		0026166E28D763690070FF11 /* Peer2Power.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peer2Power.entitlements; sourceTree = "<group>"; };
 		0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		0026167A28DB8B0F0070FF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -215,6 +216,7 @@
 		009CE4FF2899CA8500796313 /* Peer2Power */ = {
 			isa = PBXGroup;
 			children = (
+				0026167A28DB8B0F0070FF11 /* Info.plist */,
 				0026166E28D763690070FF11 /* Peer2Power.entitlements */,
 				00953C4F28B5E27000B6CBB6 /* CocentricOnboarding */,
 				009CE52B2899D13E00796313 /* Views */,
@@ -696,6 +698,7 @@
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Peer2Power/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Peer2Power will never use your camera. This should be removed after any parts using the camera are removed from ResearchKit.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Peer2Power will never share your health data. This should be removed after any parts sharing health data are removed from ResearchKit.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Peer2Power will never update your health information. This should be removed after any parts updating health information are removed from ResearchKit.";
@@ -735,6 +738,7 @@
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Peer2Power/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Peer2Power will never use your camera. This should be removed after any parts using the camera are removed from ResearchKit.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Peer2Power will never share your health data. This should be removed after any parts sharing health data are removed from ResearchKit.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Peer2Power will never update your health information. This should be removed after any parts updating health information are removed from ResearchKit.";
