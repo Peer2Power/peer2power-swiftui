@@ -36,6 +36,7 @@ struct UploadContactView: View {
                 Toggle(isOn: $isAdult) {
                     Text("I certify that this person is 18 or older.")
                 }
+                // FIXME: figure this out
                 /*
                 Section("Optional Information") {
                     Picker("Likelihood to Volunteer", selection: $contact.volunteerLikelihood) {
@@ -68,8 +69,10 @@ struct UploadContactView: View {
                             
                             if randomFloat > 0.5 {
                                 contact.group = 1
+                                print("Contact was assigned to the treatment group.")
                             } else {
                                 contact.group = 0
+                                print("Contact was assigned to the control group.")
                             }
                         }
                         
