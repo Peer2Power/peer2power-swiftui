@@ -19,6 +19,7 @@ struct UploadContactView: View {
     
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
+    @Binding var isPastCloseDate: Bool
     
     let ageBrackets = ["18 - 25", "26-39", "40+"]
     let relationships = ["Friend", "Family"]
@@ -35,6 +36,7 @@ struct UploadContactView: View {
                 Toggle(isOn: $isAdult) {
                     Text("I certify that this person is 18 or older.")
                 }
+                /*
                 Section("Optional Information") {
                     Picker("Likelihood to Volunteer", selection: $contact.volunteerLikelihood) {
                         ForEach(likelihoods, id: \.self) { likelihood in
@@ -52,6 +54,7 @@ struct UploadContactView: View {
                         }
                     }
                 }
+                 */
             }
             .navigationTitle("Upload Contact")
             .navigationBarTitleDisplayMode(.inline)
@@ -59,6 +62,16 @@ struct UploadContactView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         contact.owner_id = app.currentUser!.id
+                        
+                        if isPastCloseDate {
+                            let randomFloat = Float.random(in: 0..<1)
+                            
+                            if randomFloat > 0.5 {
+                                contact.group = 1
+                            } else {
+                                contact.group = 0
+                            }
+                        }
                         
                         $userTeam.contacts.append(contact)
                         
