@@ -12,32 +12,32 @@ struct ContactListRow: View {
     @ObservedRealmObject var contact: Contact
     @ObservedRealmObject var team: Team
     
-    @State private var countText = ""
-    
     var body: some View {
         HStack {
             Text("\(contact.name)")
                 .font(.title2)
                 .minimumScaleFactor(0.25)
             Spacer()
-            Text(countText)
+            Text("\(populateCountLabel())")
                 .font(.title3)
                 .foregroundColor(.secondary)
                 .minimumScaleFactor(0.25)
         }
-        .onAppear(perform: populateCountLabel)
     }
 }
 
 extension ContactListRow {
-    private func populateCountLabel() {
+    private func populateCountLabel() -> String {
         let attemptCount = team.outreachAttempts.filter("to = %@", contact.contact_id).count
+        var countText = ""
         
         if attemptCount == 1 {
             countText = "1 outreach attempt"
         } else {
             countText = "\(attemptCount) outreach attempts"
         }
+        
+        return countText
     }
 }
 

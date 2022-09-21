@@ -92,7 +92,7 @@ extension LoginView {
         focusedField = nil
         
         Task {
-            // TODO: add visual feedback that app is logging user in.
+            /*
             if newUser {
                 do {
                     signingUp.toggle()
@@ -101,9 +101,6 @@ extension LoginView {
                     signingUp.toggle()
                     showingEmailConfirmAlert.toggle()
                     newUser.toggle()
-                    
-                    // FIXME: remove this once email address can be confirmed again.
-                    loginUser()
                 } catch {
                     signingUp.toggle()
                     
@@ -126,6 +123,34 @@ extension LoginView {
                         loggingIn.toggle()
                     }
                 }
+            }
+             */
+            
+            // FIXME: remove this once email confirmation is working again.
+            if newUser {
+                signingUp.toggle()
+                do {
+                    try await app.emailPasswordAuth.registerUser(email: email, password: password)
+                    
+                    signingUp.toggle()
+                } catch {
+                    signingUp.toggle()
+                    
+                    errorText = error.localizedDescription
+                    showingErrorAlert.toggle()
+                    
+                    return
+                }
+            }
+            
+            loggingIn.toggle()
+            do {
+                let user = try await app.login(credentials: .emailPassword(email: email, password: password))
+                
+                print("Logged in user with ID \(user.id)")
+                loggingIn.toggle()
+            } catch {
+                loggingIn.toggle()
             }
         }
     }
