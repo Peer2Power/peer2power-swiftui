@@ -114,8 +114,13 @@ struct HomeView: View {
                 }
             }
             .onAppear(perform: handleRemoteConfig)
-            .navigationTitle("Peer2Power")
-            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Image("LoginLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+            }
         }
     }
 }
