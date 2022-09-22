@@ -22,6 +22,7 @@ struct LeaderboardView: View {
     var body: some View {
         VStack {
             Text("Your team, the \(userTeam.school_name) \(userTeam.party.rawValue), has contributed \(userTeam.score) points to the national \(userTeam.party.rawValue) total.")
+                .font(.title2)
                 .multilineTextAlignment(.center)
             HStack {
                 Image("Democrats")
@@ -31,6 +32,7 @@ struct LeaderboardView: View {
                     .overlay(alignment: .center) {
                         VStack {
                             Text("Democrats have")
+                                .font(.title3)
                                 .multilineTextAlignment(.center)
                             Text("\(demTeams.sum(of: \Team.score))")
                                 .font(.title)
@@ -38,6 +40,7 @@ struct LeaderboardView: View {
                                 .multilineTextAlignment(.center)
                             Text("points")
                                 .multilineTextAlignment(.center)
+                                .font(.title3)
                         }
                     }
                 Image("Republicans")
@@ -47,10 +50,12 @@ struct LeaderboardView: View {
                     .overlay(alignment: .leading) {
                         VStack {
                             Text("Republicans have")
+                                .font(.title3)
                             Text("\(repTeams.sum(of: \Team.score))")
                                 .font(.title)
                                 .fontWeight(.bold)
                             Text("points")
+                                .font(.title3)
                         }
                     }
             }
@@ -63,7 +68,8 @@ struct LeaderboardView_Previews: PreviewProvider {
     static var previews: some View {
         LeaderboardView( userTeam: Team(value: [
             "school_name": "Lafayette College",
-            "party": "Democrats"
+            "party": "Democrats",
+            "score": 42
         ]))
     }
 }
