@@ -12,19 +12,14 @@ struct OutreachListRow: View {
     @ObservedRealmObject var attempt: OutreachAttempt
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 10.0) {
-                if let method = attempt.contactMethod {
-                    Text("This person was contacted via \(method)")
-                }
-                if let desc = attempt.attemptDescription {
-                    Text("This attempt was described as \(desc)")
-                }
-                Text("Asked whether this person had volunteered, the person who logged this attempt said \(attempt.volunteerStatus)")
+        VStack(alignment: .leading, spacing: 10.0) {
+            if let method = attempt.contactMethod {
+                Text("This person was contacted via \(method)")
             }
-            Button("Change Your Answers") {
-                
+            if let desc = attempt.attemptDescription {
+                Text("This attempt was described as \(desc)")
             }
+            Text("Asked whether this person had volunteered, the person who logged this attempt said \(attempt.volunteerStatus)")
         }
     }
 }

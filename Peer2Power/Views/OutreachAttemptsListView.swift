@@ -50,6 +50,9 @@ struct OutreachAttemptsListView: View {
             } message: {
                 Text("Your team will lose the 4 points it gained for logging this outreach attempt.")
             }
+            .toolbar {
+                EditButton()
+            }
         }
         HStack {
             Button {
