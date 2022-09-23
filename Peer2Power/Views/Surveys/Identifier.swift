@@ -35,6 +35,7 @@ enum Identifier {
     case stillWorkingCompletion
     
     case endOfStudyTask
+    case whichVolunteeredStep
     case knownContactsFormStep
     case knownContactFormItem
     case volunteerMethodFormStep

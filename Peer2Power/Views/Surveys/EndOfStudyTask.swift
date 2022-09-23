@@ -9,25 +9,25 @@ import ResearchKit
 import RealmSwift
 
 class EndOfStudyTask: ORKOrderedTask {
-    static func knowContactsStep(contacts: List<Contact>) -> ORKFormStep {
-        let step = ORKFormStep(identifier: String(describing: Identifier.knownContactsFormStep))
-        var formItems = [ORKFormItem]()
+    static func whoVolunteeredStep(team: Team) -> ORKQuestionStep {
+        let step = ORKQuestionStep(identifier: String(describing: Identifier.whichVolunteeredStep),
+                                   title: nil,
+                                   question: "Please talk to these contacts and confirm whether they volunteered.",
+                                   answer: nil)
+        var textChoices = [ORKTextChoice]()
         
-        for contact in contacts {
-            let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Yes", value: "Yes" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "No", value: "No" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I was not able to find out.", value: "I was not able to find out." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I don't know this person.", value: "I don't know this person." as NSCoding & NSCopying & NSObjectProtocol)]
-            let answerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
+        for contact in team.contacts {
+            let filteredOutreachAttempts = team.outreachAttempts.filter("to = %@", contact.contact_id)
+                .filter("volunteerStatus = %@", "They volunteered!")
             
-            let formItemText = "Did " + contact.name + " volunteer for a 2022 general election campaign?"
-            let formItem = ORKFormItem(identifier: "know" + contact.contact_id.stringValue,
-                                       text: formItemText,
-                                       answerFormat: answerFormat)
-            
-            formItem.isOptional = false
-            
-            formItems.append(formItem)
+            if filteredOutreachAttempts.isEmpty {
+                let textChoice = ORKTextChoice(text: contact.name, value: contact.name as NSCoding & NSCopying & NSObjectProtocol)
+                textChoices.append(textChoice)
+            }
         }
         
-        step.formItems = formItems
+        let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: textChoices)
+        step.answerFormat = answerFormat
         
         step.isOptional = false
         
@@ -155,8 +155,9 @@ class EndOfStudyTask: ORKOrderedTask {
     }
     
     override func step(after step: ORKStep?, with result: ORKTaskResult) -> ORKStep? {
-        let identifier = step?.identifier
+        // let identifier = step?.identifier
         
+        /*
         switch identifier {
         case String(describing: Identifier.knownContactsFormStep):
             guard let stepResult = result.stepResult(forStepIdentifier: String(describing: Identifier.knownContactsFormStep)) else { return nil }
@@ -186,6 +187,7 @@ class EndOfStudyTask: ORKOrderedTask {
         default:
             break
         }
+         */
         
         return super.step(after: step, with: result)
     }
