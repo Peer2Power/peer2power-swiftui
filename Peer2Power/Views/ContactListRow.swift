@@ -12,16 +12,25 @@ struct ContactListRow: View {
     @ObservedRealmObject var contact: Contact
     @ObservedRealmObject var team: Team
     
+    @State private var showingEditContactForm = false
+    
     var body: some View {
         HStack {
-            Text("\(contact.name)")
-                .font(.title2)
-                .minimumScaleFactor(0.25)
+            Button {
+                showingEditContactForm.toggle()
+            } label: {
+                Text("\(contact.name)")
+                    .font(.title2)
+                    .minimumScaleFactor(0.25)
+            }
             Spacer()
             Text("\(populateCountLabel())")
                 .font(.title3)
                 .foregroundColor(.secondary)
                 .minimumScaleFactor(0.25)
+        }
+        .sheet(isPresented: $showingEditContactForm) {
+            UploadContactView(userTeam: team, contact: contact, isPastCloseDate: .constant(true))
         }
     }
 }
