@@ -42,6 +42,7 @@ struct OutreachAttemptsListView: View {
                     showingDeleteAttemptAlert.toggle()
                 }
             }
+            .buttonStyle(.plain)
             .navigationTitle(contact.name)
             .navigationBarTitleDisplayMode(.inline)
             .alert("Are you sure you want to delete this outreach attempt?", isPresented: $showingDeleteAttemptAlert) {

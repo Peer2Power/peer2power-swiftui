@@ -10,12 +10,16 @@ import RealmSwift
 import SPAlert
 
 struct UploadContactView: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.realm) var realm
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.realm) private var realm
     
     @ObservedRealmObject var userTeam: Team
     
     @ObservedRealmObject var contact: Contact
+    
+    var isUpdating: Bool {
+        contact.realm != nil
+    }
     
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
@@ -61,35 +65,11 @@ struct UploadContactView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        contact.owner_id = app.currentUser!.id
-                        
-                        if isPastCloseDate {
-                            let randomFloat = Float.random(in: 0..<1)
-                            
-                            if randomFloat > 0.5 {
-                                contact.group = 1
-                                print("Contact was assigned to the treatment group.")
-                            } else {
-                                contact.group = 0
-                                print("Contact was assigned to the control group.")
-                            }
-                        }
-                        
-                        $userTeam.contacts.append(contact)
-                        
-                        guard let team = userTeam.thaw() else { return }
-                        
-                        do {
-                            try realm.write {
-                                team.score += 2
-                                print("Awarded 2 points for uploading a contact.")
-                                showingContactUploadedAlert.toggle()
-                                
-                                dismiss()
-                            }
-                        } catch {
-                            print("Error awarding points for uploading a contact: \(error.localizedDescription)")
+                    Button(isUpdating ? "Done" : "Save") {
+                        if isUpdating {
+                            dismiss()
+                        } else {
+                            uploadNewContact()
                         }
                     }
                     .disabled(contact.name.isEmpty || contact.email.isEmpty || !isAdult)
@@ -107,6 +87,40 @@ struct UploadContactView: View {
                      message: "Your team received 2 points for uploading a contact!",
                      preset: .custom(UIImage(systemName: "plus.circle")!),
                      haptic: .success)
+        }
+    }
+}
+
+extension UploadContactView {
+    private func uploadNewContact() {
+        contact.owner_id = app.currentUser!.id
+        
+        if isPastCloseDate {
+            let randomFloat = Float.random(in: 0..<1)
+            
+            if randomFloat > 0.5 {
+                contact.group = 1
+                print("Contact was assigned to the treatment group.")
+            } else {
+                contact.group = 0
+                print("Contact was assigned to the control group.")
+            }
+        }
+        
+        $userTeam.contacts.append(contact)
+        
+        guard let team = userTeam.thaw() else { return }
+        
+        do {
+            try realm.write {
+                team.score += 2
+                print("Awarded 2 points for uploading a contact.")
+                showingContactUploadedAlert.toggle()
+                
+                dismiss()
+            }
+        } catch {
+            print("Error awarding points for uploading a contact: \(error.localizedDescription)")
         }
     }
 }
