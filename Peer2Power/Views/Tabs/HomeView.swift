@@ -19,7 +19,7 @@ struct HomeView: View {
     
     @ObservedRealmObject var userTeam: Team
     
-    @Environment(\.realm) var realm
+    @Environment(\.realm) private var realm
     
     var body: some View {
         NavigationView {

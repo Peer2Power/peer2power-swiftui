@@ -37,8 +37,10 @@ struct UploadContactView: View {
                     .autocapitalization(.words)
                 TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
                     .keyboardType(.emailAddress)
-                Toggle(isOn: $isAdult) {
-                    Text("I certify that this person is 18 or older.")
+                if !isUpdating {
+                    Toggle(isOn: $isAdult) {
+                        Text("I certify that this person is 18 or older.")
+                    }
                 }
                 // FIXME: figure this out
                 /*
@@ -61,7 +63,7 @@ struct UploadContactView: View {
                 }
                  */
             }
-            .navigationTitle("Upload Contact")
+            .navigationTitle(isUpdating ? "Edit Contact" : "Upload Contact")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -75,11 +77,14 @@ struct UploadContactView: View {
                     .disabled(contact.name.isEmpty || contact.email.isEmpty || !isAdult)
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
+                    if !isUpdating {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
+                        }
                     }
+                    
                 }
             }
             .SPAlert(isPresent: $showingContactUploadedAlert,
