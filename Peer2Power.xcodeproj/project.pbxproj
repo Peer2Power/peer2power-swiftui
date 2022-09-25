@@ -13,6 +13,7 @@
 		0026166D28D68CF60070FF11 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 0026166C28D68CF60070FF11 /* SPAlert */; };
 		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
 		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
+		0026168228E0FFBD0070FF11 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 0026168128E0FFBD0070FF11 /* AlertToast */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -151,6 +152,7 @@
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
 				0094744928C01CBA00D50140 /* FirebaseRemoteConfigSwift in Frameworks */,
+				0026168228E0FFBD0070FF11 /* AlertToast in Frameworks */,
 				00DDAC4228BC19D10073DF85 /* ResearchKit.framework in Frameworks */,
 				0094744728C01CBA00D50140 /* FirebaseRemoteConfig in Frameworks */,
 			);
@@ -366,6 +368,7 @@
 				0094744628C01CBA00D50140 /* FirebaseRemoteConfig */,
 				0094744828C01CBA00D50140 /* FirebaseRemoteConfigSwift */,
 				0026166C28D68CF60070FF11 /* SPAlert */,
+				0026168128E0FFBD0070FF11 /* AlertToast */,
 			);
 			productName = Peer2Power;
 			productReference = 009CE4FD2899CA8500796313 /* Peer2Power.app */;
@@ -443,6 +446,7 @@
 				009CE5332899F20C00796313 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0026166B28D68CF60070FF11 /* XCRemoteSwiftPackageReference "SPAlert" */,
+				0026168028E0FFBD0070FF11 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
 			projectDirPath = "";
@@ -920,6 +924,14 @@
 				minimumVersion = 4.2.0;
 			};
 		};
+		0026168028E0FFBD0070FF11 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -943,6 +955,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0026166B28D68CF60070FF11 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
+		};
+		0026168128E0FFBD0070FF11 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0026168028E0FFBD0070FF11 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 		0094744428C01CBA00D50140 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
