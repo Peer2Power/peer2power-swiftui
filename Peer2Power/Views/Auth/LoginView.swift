@@ -25,7 +25,7 @@ struct LoginView: View {
     }
     
     var body: some View {
-        VStack(spacing: 15.0) {
+        VStack(alignment: .center, spacing: 15.0) {
             Image("LoginLogo")
             TextField("Email Address", text: $email)
                 .submitLabel(.next)
@@ -89,6 +89,9 @@ extension LoginView {
                 loggingIn.toggle()
             } catch {
                 loggingIn.toggle()
+                
+                errorText = error.localizedDescription
+                showingErrorAlert.toggle()
             }
         }
     }
