@@ -31,7 +31,7 @@ struct OutreachAttemptsListView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 20)
             }
-            .padding([.leading, .trailing], 15.0)
+            .padding(.horizontal, 15.0)
         } else {
             List {
                 ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id)) { attempt in
@@ -80,7 +80,7 @@ struct OutreachAttemptsListView: View {
             }
             */
         }
-        .padding([.leading, .trailing], 15.0)
+        .padding(.horizontal, 15.0)
     }
 }
 

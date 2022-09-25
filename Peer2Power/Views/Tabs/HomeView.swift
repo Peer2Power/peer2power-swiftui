@@ -34,7 +34,7 @@ struct HomeView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 20)
                     }
-                    .padding([.leading, .trailing], 15.0)
+                    .padding(.horizontal, 15.0)
                 } else {
                     // For testing assuming upload window has already closed.
                     /*
@@ -53,7 +53,7 @@ struct HomeView: View {
                             Text("The upload window is open. After it closes, you will only be able to see the half of your team's contacts assigned to the treatment group.")
                                 .multilineTextAlignment(.center)
                         }
-                        .padding([.leading, .trailing], 15.0)
+                        .padding(.horizontal, 15.0)
                     }
                     
                     List {
@@ -68,7 +68,7 @@ struct HomeView: View {
                                         .multilineTextAlignment(.center)
                                         .padding(.bottom, 20)
                                 }
-                                .padding([.leading, .trailing], 15.0)
+                                .padding(.horizontal, 15.0)
                             } else {
                                 ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
                                     NavigationLink {

@@ -60,7 +60,7 @@ struct LeaderboardView: View {
                     }
             }
         }
-        .padding([.leading, .trailing], 15.0)
+        .padding(.horizontal, 15.0)
     }
 }
 

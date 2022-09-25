@@ -12,6 +12,7 @@
 		0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */; };
 		0026166D28D68CF60070FF11 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 0026166C28D68CF60070FF11 /* SPAlert */; };
 		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
+		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -103,6 +104,7 @@
 		0026166E28D763690070FF11 /* Peer2Power.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peer2Power.entitlements; sourceTree = "<group>"; };
 		0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		0026167A28DB8B0F0070FF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0026167B28E0E2A90070FF11 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -171,6 +173,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0026167D28E0E2BC0070FF11 /* List Rows */ = {
+			isa = PBXGroup;
+			children = (
+				0094745128C3930100D50140 /* ContactListRow.swift */,
+				00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */,
+			);
+			path = "List Rows";
+			sourceTree = "<group>";
+		};
+		0026167E28E0E2D20070FF11 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				009CE53C2899F6B800796313 /* LoginView.swift */,
+				0026167B28E0E2A90070FF11 /* SignUpView.swift */,
+				0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		0026167F28E0E2F00070FF11 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				00BA93FE28AF1F5A00A434FF /* LogOutreachTask.swift */,
+				0026166728D530360070FF11 /* EndOfStudyTask.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
 		0094745028C0325200D50140 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,12 +301,10 @@
 		009CE52B2899D13E00796313 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0026167E28E0E2D20070FF11 /* Auth */,
+				0026167D28E0E2BC0070FF11 /* List Rows */,
 				0094745028C0325200D50140 /* Tabs */,
 				00BA93FB28AF1ACE00A434FF /* Surveys */,
-				0094745128C3930100D50140 /* ContactListRow.swift */,
-				00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */,
-				009CE53C2899F6B800796313 /* LoginView.swift */,
-				0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */,
 				009CE544289B088300796313 /* LoggedInView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
@@ -296,10 +324,9 @@
 		00BA93FB28AF1ACE00A434FF /* Surveys */ = {
 			isa = PBXGroup;
 			children = (
-				00BA93FE28AF1F5A00A434FF /* LogOutreachTask.swift */,
+				0026167F28E0E2F00070FF11 /* Tasks */,
 				00BA93FC28AF1AE600A434FF /* LogOutreachView.swift */,
 				00BA940028AF1FDF00A434FF /* Identifier.swift */,
-				0026166728D530360070FF11 /* EndOfStudyTask.swift */,
 				0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */,
 			);
 			path = Surveys;
@@ -531,6 +558,7 @@
 				00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */,
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
+				0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */,
 				00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */,
 				0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */,
 			);
