@@ -67,6 +67,19 @@ class LogOutreachTask: ORKOrderedTask {
         return methodStep
     }
     
+    // TODO: combine questions about campaign and volunteer method into a single screen with form items.
+    static func campaignTypeStep() -> ORKQuestionStep {
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSCoding & NSCopying & NSObjectProtocol)]
+        let volunteerMethodFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
+        
+        let methodStep = ORKQuestionStep(identifier: String(describing: Identifier.campaignTypeStep),
+                                         title: nil,
+                                         question: "Great! How did they volunteer?",
+                                         answer: volunteerMethodFormat)
+        
+        return methodStep
+    }
+    
     static func theyVolunteeredStep() -> ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.theyVolunteeredCompletion))
         completionStep.title = "Thank you for logging this outreach attempt!"

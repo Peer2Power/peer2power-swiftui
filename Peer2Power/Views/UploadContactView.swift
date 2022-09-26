@@ -29,6 +29,10 @@ struct UploadContactView: View {
     let relationships = ["Friend", "Family"]
     let likelihoods = ["Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
     
+    @State private var selectedAgeBracket = "Select age bracket"
+    @State private var selectedRelationship = "Select relationship"
+    @State private var selectedLikelihood = "Select likelihood"
+    
     var body: some View {
         NavigationView {
             Form {
@@ -42,26 +46,26 @@ struct UploadContactView: View {
                         Text("I certify that this person is 18 or older.")
                     }
                 }
-                // FIXME: figure this out
-                /*
                 Section("Optional Information") {
-                    Picker("Likelihood to Volunteer", selection: $contact.volunteerLikelihood) {
+                    Picker("Likelihood to Volunteer", selection: $selectedLikelihood) {
+                        Text("Select likelihood").tag("Select likelihood")
                         ForEach(likelihoods, id: \.self) { likelihood in
                             Text("\(likelihood)")
                         }
                     }
-                    Picker("Age Bracket", selection: $contact.ageBracket) {
+                    Picker("Age Bracket", selection: $selectedAgeBracket) {
+                        Text("Select age bracket").tag("Select age bracket")
                         ForEach(ageBrackets, id: \.self) { ageBracket in
                             Text("\(ageBracket)")
                         }
                     }
-                    Picker("Relationship", selection: $contact.relationship) {
+                    Picker("Relationship", selection: $selectedRelationship) {
+                        Text("Select relationship").tag("Select relationship")
                         ForEach(relationships, id: \.self) { relationship in
                             Text("\(relationship)")
                         }
                     }
                 }
-                 */
             }
             .navigationTitle(isUpdating ? "Edit Contact" : "Upload Contact")
             .navigationBarTitleDisplayMode(.inline)
@@ -99,6 +103,9 @@ struct UploadContactView: View {
 extension UploadContactView {
     private func uploadNewContact() {
         contact.owner_id = app.currentUser!.id
+        contact.volunteerLikelihood = selectedLikelihood
+        contact.ageBracket = selectedAgeBracket
+        contact.relationship = selectedRelationship
         
         if isPastCloseDate {
             let randomFloat = Float.random(in: 0..<1)
