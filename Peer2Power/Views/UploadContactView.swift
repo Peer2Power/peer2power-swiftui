@@ -101,13 +101,6 @@ struct UploadContactView: View {
         }, message: {
             Text("You or someone on your team has already uploaded a contact with this email address. Please use a different email address and try again.")
         })
-        .toast(isPresenting: $showingContactUploadedAlert) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .complete(.green),
-                       title: "Points Received!",
-                       subTitle: "Your team received 2 points for upload this contact!",
-                       style: nil)
-        }
     }
 }
 

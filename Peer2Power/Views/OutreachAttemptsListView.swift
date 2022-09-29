@@ -63,7 +63,7 @@ struct OutreachAttemptsListView: View {
             }
             .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "They volunteered!").count > 0)
             .buttonStyle(.borderedProminent)
-            .fullScreenCover(isPresented: $presentingLogOutreachForm) {
+            .sheet(isPresented: $presentingLogOutreachForm) {
                 LogOutreachView(contact: contact, team: team)
             }
             // FIXME: give this button functionality.
