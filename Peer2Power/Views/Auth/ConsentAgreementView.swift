@@ -16,7 +16,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section1 = ORKConsentSection(type: .overview)
         section1.title = "Key Information"
-        section1.content = "We are seeking your consent to participate in a non-partisan, voluntary study of civic engagement and political participation. You were invited to this survey because you are connected to a campus community in Pennsylvania. Participating in this study should involve no more than the minimal risks of political volunteering work in congressional campaigns. You will not receive direct benefits for participating in this study, but your participation will improve our understanding of American politics and help college students interested in public service."
+        section1.content = "We are seeking your consent to participate in a non-partisan, voluntary study of civic engagement and political participation. You were invited to this survey because you are connected to a campus community. Participating in this study should involve no more than the minimal risks of volunteering work with political campaigns. You will not receive direct benefits for participating in this study, but your participation will improve our understanding of American politics and help college students interested in public service."
         
         let section2 = ORKConsentSection(type: .custom)
         section2.title = "Eligibility"

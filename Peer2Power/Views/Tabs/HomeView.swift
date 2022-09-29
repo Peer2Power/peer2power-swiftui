@@ -137,12 +137,17 @@ extension HomeView {
         
         do {
             try realm.write {
-                // FIXME: filter the contacts list if it's past the upload window close date to delete the right contact.
                 if pastCloseDate{
-                    let filteredTeams = team.contacts.filter("group = %i", 1)
+                    let filteredContacts = team.contacts.filter("group = %i", 1)
+                    
+                    offsets.forEach { i in
+                        let contactToDelete = filteredContacts[i]
+                        realm.delete(contactToDelete)
+                    }
+                } else {
+                    team.contacts.remove(atOffsets: offsets)
                 }
                 
-                team.contacts.remove(atOffsets: offsets)
                 team.score -= 2
                 
                 print("Deleted contact.")
