@@ -70,6 +70,8 @@ struct HomeView: View {
                                 }
                                 .padding(.horizontal, 15.0)
                             } else {
+                                Text("Here is your updated contact list.")
+                                    .multilineTextAlignment(.center)
                                 ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
                                     NavigationLink {
                                         OutreachAttemptsListView(contact: contact, team: userTeam)
@@ -97,9 +99,12 @@ struct HomeView: View {
                     .toolbar {
                         EditButton()
                     }
-                    .alert("Are you sure you want to delete this contact? Your team will lose any points it was awarded for this contact.", isPresented: $showingDeleteAlert) {
+                    .alert("Are you sure you want to delete this contact?",
+                           isPresented: $showingDeleteAlert) {
                         Button("Cancel", role: .cancel, action: {})
                         Button("Delete", role: .destructive, action: deleteContact)
+                    } message: {
+                        Text("Your team will lose any points it received for this contact.")
                     }
                 }
                 
@@ -132,6 +137,7 @@ extension HomeView {
         
         do {
             try realm.write {
+                // FIXME: filter the contacts list if it's past the upload window close date to delete the right contact.
                 team.contacts.remove(atOffsets: offsets)
                 team.score -= 2
                 
