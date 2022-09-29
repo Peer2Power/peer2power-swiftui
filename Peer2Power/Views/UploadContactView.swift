@@ -25,6 +25,8 @@ struct UploadContactView: View {
     @State private var showingContactUploadedAlert = false
     @Binding var isPastCloseDate: Bool
     
+    @State private var showingDuplicateContactAlert = false
+    
     let ageBrackets = ["18 - 25", "26-39", "40+"]
     let relationships = ["Friend", "Family"]
     let likelihoods = ["Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
@@ -91,8 +93,14 @@ struct UploadContactView: View {
                     
                 }
             }
-            
         }
+        .alert(Text("Contact Already Uploaded"),
+               isPresented: $showingDuplicateContactAlert,
+               actions: {
+            Button("OK", role: .cancel, action: {})
+        }, message: {
+            Text("You or someone on your team has already uploaded a contact with this email address. Please use a different email address and try again.")
+        })
         .toast(isPresenting: $showingContactUploadedAlert) {
             AlertToast(displayMode: .banner(.pop),
                        type: .complete(.green),
@@ -105,6 +113,11 @@ struct UploadContactView: View {
 
 extension UploadContactView {
     private func uploadNewContact() {
+        guard userTeam.contacts.filter("email = %@", contact.email).isEmpty else {
+            showingDuplicateContactAlert.toggle()
+            return
+        }
+        
         contact.owner_id = app.currentUser!.id
         contact.volunteerLikelihood = selectedLikelihood
         contact.ageBracket = selectedAgeBracket
