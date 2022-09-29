@@ -74,6 +74,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         step.reasonForConsent = "Are you sure you consent to participate in this study? It will be assumed that consent is given unless you decide to withdraw."
         
         let controller = ORKConsentReviewStepViewController(step: step)
+        controller.delegate = context.coordinator
         
         return controller
     }
