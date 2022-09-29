@@ -22,6 +22,10 @@ struct SignUpView: View {
     @State private var signingUp = false
     @State private var showingEmailConfirmAlert = false
     
+    @State private var consentText = "Agree to the consent agreement to sign up."
+    @State private var userConsented = false
+    @State private var showingConsentAgreement = false
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 15.0) {
@@ -39,8 +43,20 @@ struct SignUpView: View {
                 Button("Sign Up", action: signUpUser)
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
-                    .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp)
-                
+                    .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
+                Button(consentText) {
+                    showingConsentAgreement.toggle()
+                }
+                .sheet(isPresented: $showingConsentAgreement) {
+                    ConsentAgreementView(consented: $userConsented)
+                }
+                .onChange(of: userConsented) { newValue in
+                    if newValue == true {
+                        consentText = "You consented! You can now sign up, or change whether you consent to participate."
+                    } else {
+                        consentText = "You did not consent. You will not be able to sign up until you give your consent."
+                    }
+                }
                 if signingUp {
                     ProgressView("Signing Up...")
                 }

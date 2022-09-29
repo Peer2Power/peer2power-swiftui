@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealmSwift
-import SPAlert
 
 struct ChooseTeamView: View {
     @Environment (\.dismiss) var dismiss
@@ -78,11 +77,13 @@ struct ChooseTeamView: View {
             .listStyle(.insetGrouped)
         }
         .navigationTitle("Choose Your School")
+        /*
         .SPAlert(isPresent: $showingDidSignUpAlert,
                  title: "Points Received!",
                  message: "Your team received 1 point because you signed up!",
                  preset: .custom(UIImage(systemName: "plus.circle")!),
                  haptic: .success)
+         */
     }
 }
 

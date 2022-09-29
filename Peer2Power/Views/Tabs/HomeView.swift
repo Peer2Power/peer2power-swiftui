@@ -134,6 +134,8 @@ extension HomeView {
             try realm.write {
                 team.contacts.remove(atOffsets: offsets)
                 team.score -= 2
+                
+                print("Deleted contact.")
             }
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")

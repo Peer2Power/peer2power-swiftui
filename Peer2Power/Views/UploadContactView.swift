@@ -7,7 +7,7 @@
 
 import SwiftUI
 import RealmSwift
-import SPAlert
+import AlertToast
 
 struct UploadContactView: View {
     @Environment(\.dismiss) private var dismiss
@@ -91,11 +91,14 @@ struct UploadContactView: View {
                     
                 }
             }
-            .SPAlert(isPresent: $showingContactUploadedAlert,
-                     title: "Points Received!",
-                     message: "Your team received 2 points for uploading a contact!",
-                     preset: .custom(UIImage(systemName: "plus.circle")!),
-                     haptic: .success)
+            
+        }
+        .toast(isPresenting: $showingContactUploadedAlert) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .complete(.green),
+                       title: "Points Received!",
+                       subTitle: "Your team received 2 points for upload this contact!",
+                       style: nil)
         }
     }
 }

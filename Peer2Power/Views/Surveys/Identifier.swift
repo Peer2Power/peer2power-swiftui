@@ -9,6 +9,8 @@ enum Identifier {
     case logAttemptQuestionTask
     case visualContent
     
+    case consentReviewStep
+    
     case uploadContactFormStep
     
     case consentTask

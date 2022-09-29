@@ -10,10 +10,10 @@
 		000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ChooseTeamView.swift */; };
 		0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166728D530360070FF11 /* EndOfStudyTask.swift */; };
 		0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */; };
-		0026166D28D68CF60070FF11 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 0026166C28D68CF60070FF11 /* SPAlert */; };
 		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
 		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
 		0026168228E0FFBD0070FF11 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 0026168128E0FFBD0070FF11 /* AlertToast */; };
+		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -106,6 +106,7 @@
 		0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		0026167A28DB8B0F0070FF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0026167B28E0E2A90070FF11 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		0026168328E4F8270070FF11 /* ConsentAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentAgreementView.swift; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -147,7 +148,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0026166D28D68CF60070FF11 /* SPAlert in Frameworks */,
 				0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */,
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
@@ -190,6 +190,7 @@
 				009CE53C2899F6B800796313 /* LoginView.swift */,
 				0026167B28E0E2A90070FF11 /* SignUpView.swift */,
 				0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */,
+				0026168328E4F8270070FF11 /* ConsentAgreementView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -367,7 +368,6 @@
 				0094744428C01CBA00D50140 /* FirebaseMessaging */,
 				0094744628C01CBA00D50140 /* FirebaseRemoteConfig */,
 				0094744828C01CBA00D50140 /* FirebaseRemoteConfigSwift */,
-				0026166C28D68CF60070FF11 /* SPAlert */,
 				0026168128E0FFBD0070FF11 /* AlertToast */,
 			);
 			productName = Peer2Power;
@@ -445,7 +445,6 @@
 			packageReferences = (
 				009CE5332899F20C00796313 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				0026166B28D68CF60070FF11 /* XCRemoteSwiftPackageReference "SPAlert" */,
 				0026168028E0FFBD0070FF11 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
@@ -540,6 +539,7 @@
 				00BA93E928AC074A00A434FF /* Constants.swift in Sources */,
 				0094745228C3930100D50140 /* ContactListRow.swift in Sources */,
 				00FA96ED28A588E800FC007E /* Party.swift in Sources */,
+				0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */,
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
 				00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */,
 				00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */,
@@ -916,14 +916,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0026166B28D68CF60070FF11 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ivanvorobei/SPAlert";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.2.0;
-			};
-		};
 		0026168028E0FFBD0070FF11 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
@@ -951,11 +943,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0026166C28D68CF60070FF11 /* SPAlert */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0026166B28D68CF60070FF11 /* XCRemoteSwiftPackageReference "SPAlert" */;
-			productName = SPAlert;
-		};
 		0026168128E0FFBD0070FF11 /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0026168028E0FFBD0070FF11 /* XCRemoteSwiftPackageReference "AlertToast" */;
