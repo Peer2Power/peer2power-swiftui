@@ -28,7 +28,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section4 = ORKConsentSection(type: .custom)
         section4.title = "Procedures"
-        section4.content = "The study will run between Monday, April 25th and Friday, May 27th."
+        section4.content = "The study will run between Monday, October 17th and Monday, November 7th."
         
         let section5 = ORKConsentSection(type: .custom)
         section5.title = "Risks"
@@ -48,7 +48,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section9 = ORKConsentSection(type: .dataUse)
         section9.title = "Confidentiality"
-        section9.content = "The information you give in this study will not be encrypted while the study is running. This is because we will need the email addresses of contacts assigned to the generic contact group to send them general information about the Senate primary. Once the study is complete, we will delete all identifiable information. Any data exported for analysis will remain anonymous, and we will not share your data with any third-party groups or organizations. If any publication results from this research, you will not be identified by name."
+        section9.content = "The information you give in this study will not be encrypted while the study is running. This is because we will need the email addresses of contacts assigned to the generic contact group to send them general information about volunteering for political campaigns. Once the study is complete, we will delete all identifiable information. Any data exported for analysis will remain anonymous, and we will not share your data with any third-party groups or organizations. If any publication results from this research, you will not be identified by name."
         
         let section10 = ORKConsentSection(type: .withdrawing)
         section10.title = "Statement of Rights"
