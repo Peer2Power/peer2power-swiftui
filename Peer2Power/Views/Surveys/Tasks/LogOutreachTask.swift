@@ -18,30 +18,6 @@ class LogOutreachTask: ORKOrderedTask {
         super.init(coder: aDecoder)
     }
     
-    static func howContactStep() -> ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Email", value: "Email" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Social Media", value: "Social Media" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "In Person", value: "In Person" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify")]
-        let contactMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
-        
-        let howStep = ORKQuestionStep(identifier: String(describing: Identifier.howContact),
-                                      title: nil,
-                                      question: "How did you contact this person?",
-                                      answer: contactMethodAnswerFormat)
-        
-        return howStep
-    }
-    
-    static func describeAttemptStep() -> ORKQuestionStep {
-        let describeAttemptAnswerFormat = ORKTextAnswerFormat()
-        describeAttemptAnswerFormat.multipleLines = true
-        
-        let describeStep = ORKQuestionStep(identifier: String(describing: Identifier.describeAttempt),
-                                           title: nil,
-                                           question: "What word or phrase would you use to describe the outreach attempt?",
-                                           answer: describeAttemptAnswerFormat)
-        
-        return describeStep
-    }
-    
     static func volunteerStatusStep() -> ORKQuestionStep {
         let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "They volunteered!", value: "They volunteered!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They plan to volunteer.", value: "They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I'm still working on them.", value: "I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol)]
         let volunteerStatusFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
@@ -67,6 +43,33 @@ class LogOutreachTask: ORKOrderedTask {
         return methodStep
     }
     
+    static func howContactStep() -> ORKQuestionStep {
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Email", value: "Email" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Social Media", value: "Social Media" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "In Person", value: "In Person" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify")]
+        let contactMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
+        
+        let howStep = ORKQuestionStep(identifier: String(describing: Identifier.howContact),
+                                      title: nil,
+                                      question: "How did you contact this person?",
+                                      answer: contactMethodAnswerFormat)
+        
+        return howStep
+    }
+    
+    // TODO: combing contact method and attempt description into single form step.
+    static func describeAttemptStep() -> ORKQuestionStep {
+        let describeAttemptAnswerFormat = ORKTextAnswerFormat()
+        describeAttemptAnswerFormat.multipleLines = true
+        
+        let describeStep = ORKQuestionStep(identifier: String(describing: Identifier.describeAttempt),
+                                           title: nil,
+                                           question: "What word or phrase would you use to describe the outreach attempt?",
+                                           answer: describeAttemptAnswerFormat)
+        
+        return describeStep
+    }
+    
+    
+    
     // TODO: combine questions about campaign and volunteer method into a single screen with form items.
     static func campaignTypeStep() -> ORKQuestionStep {
         let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSCoding & NSCopying & NSObjectProtocol)]
@@ -74,13 +77,13 @@ class LogOutreachTask: ORKOrderedTask {
         
         let methodStep = ORKQuestionStep(identifier: String(describing: Identifier.campaignTypeStep),
                                          title: nil,
-                                         question: "Great! How did they volunteer?",
+                                         question: "What kind of campaign?",
                                          answer: volunteerMethodFormat)
         
         return methodStep
     }
     
-    static func theyVolunteeredStep() -> ORKCompletionStep {
+    static func theyVolunteeredCompletionStep() -> ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.theyVolunteeredCompletion))
         completionStep.title = "Thank you for logging this outreach attempt!"
         completionStep.detailText = "You multiplied their political power! Thanks for bringing more people into the political process!"
@@ -88,7 +91,7 @@ class LogOutreachTask: ORKOrderedTask {
         return completionStep
     }
     
-    static func planVolunteerStep() -> ORKCompletionStep {
+    static func planToVolunteerCompletionStep() -> ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.planVolunteerCompletion))
         completionStep.title = "Thank you for logging this outreach attempt!"
         completionStep.detailText = "Don't forget to follow up with them and confirm that they volunteered."
@@ -96,7 +99,7 @@ class LogOutreachTask: ORKOrderedTask {
         return completionStep
     }
     
-    static func stillWorkingStep() -> ORKCompletionStep {
+    static func stillWorkingCompletionStep() -> ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.stillWorkingCompletion))
         completionStep.title = "Thank you for logging this outreach attempt!"
         completionStep.detailText = "Put your next outreach attempt in the calendar so you don't forget."
@@ -136,15 +139,15 @@ class LogOutreachTask: ORKOrderedTask {
                     if choiceAnswer.isEqual("They volunteered!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.volunteerMethodStep()
                     } else if choiceAnswer.isEqual("They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.planVolunteerStep()
+                        return LogOutreachTask.howContactStep()
                     } else if choiceAnswer.isEqual("I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.stillWorkingStep()
+                        return LogOutreachTask.howContactStep()
                     }
                 }
             }
             
         case String(describing: Identifier.volunteerMethod):
-            return LogOutreachTask.theyVolunteeredStep()
+            return LogOutreachTask.theyVolunteeredCompletionStep()
             
         default:
             break

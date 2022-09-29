@@ -149,8 +149,6 @@ extension HomeView {
                 }
                 
                 team.score -= 2
-                
-                print("Deleted contact.")
             }
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")

@@ -18,7 +18,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
     @Environment(\.realm) var realm
     
     func makeUIViewController(context: Context) -> ORKTaskViewController {
-        let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.howContactStep(), LogOutreachTask.describeAttemptStep(), LogOutreachTask.volunteerStatusStep()])
+        let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.volunteerStatusStep(), LogOutreachTask.howContactStep(), LogOutreachTask.describeAttemptStep()])
         
         let taskViewController = ORKTaskViewController(task: task, taskRun: nil)
         taskViewController.delegate = context.coordinator
