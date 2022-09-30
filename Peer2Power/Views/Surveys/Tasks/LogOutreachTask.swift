@@ -188,8 +188,8 @@ class LogOutreachTask: ORKOrderedTask {
                 }
             }
             
-        case String(describing: Identifier.volunteerMethod):
-            return LogOutreachTask.describeAttemptStep()
+        case String(describing: Identifier.volunteeredFormStep):
+            return LogOutreachTask.howContactStep()
             
         // FIXME: figure out how to get a conditional completion screen.
         case String(describing: Identifier.describeAttempt):
