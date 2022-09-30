@@ -57,12 +57,8 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         let section11 = ORKConsentSection(type: .custom)
         section11.title = "Contact Persons"
         section11.content = "If you have questions about your participation in this research, write to Dr. Andrew Clarke at clarkeaj@lafayette. If you have questions about your rights as a research participant, e-mail the Chair of Lafayette IRB at irb@lafayette.edu."
-        
-        let section12 = ORKConsentSection(type: .overview)
-        section12.title = "Conclusion"
-        section12.content = "I have read and understand the consent form. I agree to participate in this research study. (Participants may print this screen for their records.) By submitting information on this application or website, I consent to participate."
-        
-        consentDocument.sections = [section1, section2, section3, section4, section5, section6, section7, section8, section9, section10, section11, section12]
+       
+        consentDocument.sections = [section1, section2, section3, section4, section5, section6, section7, section8, section9, section10, section11]
         
         return consentDocument
       }
@@ -71,7 +67,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         let step = ORKConsentReviewStep(identifier: String(describing: Identifier.consentReviewStep),
                                         signature: nil,
                                         in: generateConsentDocument())
-        step.reasonForConsent = "Are you sure you consent to participate in this study? It will be assumed that consent is given unless you decide to withdraw."
+        step.reasonForConsent = "I have read and understand the consent form. I agree to participate in this research study. By submitting information on this application or website, I consent to participate."
         
         let controller = ORKConsentReviewStepViewController(step: step)
         controller.delegate = context.coordinator
