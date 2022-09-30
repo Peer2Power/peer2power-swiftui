@@ -191,6 +191,7 @@ class LogOutreachTask: ORKOrderedTask {
         case String(describing: Identifier.volunteerMethod):
             return LogOutreachTask.describeAttemptStep()
             
+        // FIXME: figure out how to get a conditional completion screen.
         case String(describing: Identifier.describeAttempt):
             let stepResult = result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus))
             
