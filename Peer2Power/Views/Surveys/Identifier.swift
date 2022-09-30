@@ -32,6 +32,14 @@ enum Identifier {
     case volunteerStatus
     case volunteerMethod
     
+    case optionalQFormStep
+    case howContactFormItem
+    case attemptDescriptionFormItem
+    
+    case volunteeredFormStep
+    case volunteerMethodFormItem
+    case campaignTypeFormItem
+    
     case theyVolunteeredCompletion
     case planVolunteerCompletion
     case stillWorkingCompletion
