@@ -90,9 +90,14 @@ extension OutreachAttemptsListView {
         guard let offsets = offsetsToDelete else { return }
         // TODO: get the outreach attempt by figuring out its index using the provided IndexSet.
         
+        let filteredAttempts = team.outreachAttempts.filter("to = %@", contact.contact_id)
+        
         do {
             try realm.write {
-                team.outreachAttempts.remove(atOffsets: offsets)
+                offsets.forEach { i in
+                    let contactToDelete = filteredAttempts[i]
+                    realm.delete(contactToDelete)
+                }
                 
                 team.score -= 4
                 // TODO: remove 8 points for attempts that triggered the multiplier

@@ -63,12 +63,9 @@ class LogOutreachTask: ORKOrderedTask {
                                              text: "How did you contact them?",
                                              answerFormat: contactMethodAnswerFormat)
         
-        let attemptDescriptionAnswerFormat = ORKTextAnswerFormat()
-        attemptDescriptionAnswerFormat.multipleLines = true
-        
         let attemptDescriptionFormItem = ORKFormItem(identifier: String(describing: Identifier.attemptDescriptionFormItem),
                                                      text: "What word or phrase would you use to describe this outreach attempt?",
-                                                     answerFormat: attemptDescriptionAnswerFormat)
+                                                     answerFormat: ORKTextAnswerFormat())
         
         step.formItems = [howContactFormItem, attemptDescriptionFormItem]
         
@@ -155,16 +152,15 @@ class LogOutreachTask: ORKOrderedTask {
         let identifier = step?.identifier
         
         switch identifier {
-        case String(describing: Identifier.volunteerMethod):
-            return LogOutreachTask.volunteerStatusStep()
-        case String(describing: Identifier.theyVolunteeredCompletion):
-            return LogOutreachTask.volunteerMethodStep()
-        case String(describing: Identifier.stillWorkingCompletion):
-            return LogOutreachTask.volunteerStatusStep()
-        case String(describing: Identifier.planVolunteerCompletion):
-            return LogOutreachTask.volunteerStatusStep()
         case String(describing: Identifier.volunteeredFormStep):
             return LogOutreachTask.volunteerStatusStep()
+        case String(describing: Identifier.theyVolunteeredCompletion):
+            return LogOutreachTask.describeAttemptStep()
+        case String(describing: Identifier.stillWorkingCompletion):
+            return LogOutreachTask.describeAttemptStep()
+        case String(describing: Identifier.planVolunteerCompletion):
+            return LogOutreachTask.describeAttemptStep()
+        
         default:
             return super.step(before: step, with: result)
         }
@@ -185,15 +181,30 @@ class LogOutreachTask: ORKOrderedTask {
                     if choiceAnswer.isEqual("They volunteered!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.volunteeredFormStep()
                     } else if choiceAnswer.isEqual("They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.optionalQFormStep()
+                        return LogOutreachTask.howContactStep()
                     } else if choiceAnswer.isEqual("I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.optionalQFormStep()
+                        return LogOutreachTask.howContactStep()
                     }
                 }
             }
             
         case String(describing: Identifier.volunteerMethod):
-            return LogOutreachTask.theyVolunteeredCompletionStep()
+            return LogOutreachTask.describeAttemptStep()
+            
+        case String(describing: Identifier.describeAttempt):
+            let stepResult = result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus))
+            
+            if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
+                if let choiceAnswer = result.choiceAnswers?.first {
+                    if choiceAnswer.isEqual("They volunteered!" as NSCoding & NSCopying & NSObjectProtocol) {
+                        return LogOutreachTask.theyVolunteeredCompletionStep()
+                    } else if choiceAnswer.isEqual("They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
+                        return LogOutreachTask.planToVolunteerCompletionStep()
+                    } else if choiceAnswer.isEqual("I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol) {
+                        return LogOutreachTask.stillWorkingCompletionStep()
+                    }
+                }
+            }
             
         default:
             break
