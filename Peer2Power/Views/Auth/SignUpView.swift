@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SignUpView: View {
     @Environment(\.dismiss) private var dismiss
