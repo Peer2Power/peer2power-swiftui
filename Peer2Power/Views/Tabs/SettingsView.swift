@@ -14,9 +14,12 @@ struct SettingsView: View {
     @State private var showingEndOfStudySurvey = false
     
     @ObservedRealmObject var userTeam: Team
+    @Environment(\.realm) private var realm
     
     var body: some View {
         List {
+            // TODO: revisit this to finalize the end-of-study survey.
+            /*
             Section {
                 Button("Show End Of Study Survey") {
                     showingEndOfStudySurvey.toggle()
@@ -25,6 +28,7 @@ struct SettingsView: View {
                     EndOfStudySurveyView(userTeam: userTeam)
                 }
             }
+             */
             Section {
                 Button("Log Out", role: .destructive) {
                     showingLogOutAlert.toggle()
@@ -46,18 +50,45 @@ struct SettingsView: View {
                 }
                 .alert(Text("Are you sure you want to delete your account?"), isPresented: $showingDeleteAccountAlert) {
                     Button("Cancel", role: .cancel, action: {})
-                    Button("Delete Account", role: .destructive) {
-                        // FIXME: remove all associated data after account deletion
-                        app.currentUser!.delete { error in
-                            if let error = error {
-                                print("An error occurred while logging out: \(error.localizedDescription)")
-                            }
-                            
-                            print("Current user deleted successfully.")
-                        }
-                    }
+                    Button("Delete Account", role: .destructive, action: deleteCurrentUser)
                 }
             }
+        }
+    }
+}
+
+extension SettingsView {
+    private func deleteCurrentUser() {
+        guard let team = userTeam.thaw() else { return }
+        guard let currentUserIDIndex = team.member_ids.firstIndex(of: app.currentUser!.id) else { return }
+        
+        do {
+            try realm.write {
+                team.member_ids.remove(at: currentUserIDIndex)
+                team.score -= 1
+                
+                print("Removed the current user's ID from the team's member list and subtracted a point.")
+            }
+        } catch {
+            print("Error removing current user from team: \(error.localizedDescription)")
+            return
+        }
+        
+        app.currentUser!.delete { logOutError in
+            if let logOutError = logOutError {
+                print("An error occurred while logging out: \(logOutError.localizedDescription)")
+                
+                do {
+                    try realm.write {
+                        team.member_ids.append(app.currentUser!.id)
+                        team.score += 1
+                    }
+                } catch {
+                    print("This situation is truly hopeless for the following reason: \(error.localizedDescription)")
+                }
+            }
+            
+            print("Current user deleted successfully.")
         }
     }
 }

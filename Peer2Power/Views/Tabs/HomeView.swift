@@ -63,7 +63,7 @@ struct HomeView: View {
                                 }
                                 .padding(.horizontal, 15.0)
                             } else {
-                                Text("Here is your team's updated contact list. Please only attempt to recruit these contacts.")
+                                Text("Here is your team's updated contact list. You can only see the contacts your team should recruit to volunteer.")
                                     .multilineTextAlignment(.center)
                                 ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
                                     NavigationLink {
