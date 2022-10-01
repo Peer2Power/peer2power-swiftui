@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SPAlert
 
 struct ChooseTeamView: View {
     @ObservedResults(Team.self) var teams
@@ -74,18 +75,16 @@ struct ChooseTeamView: View {
         .navigationTitle("Choose Your School")
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
         .listStyle(.insetGrouped)
-        .onChange(of: showingDidSignUpAlert) { newValue in
-            if newValue == true {
-                dismiss()
-            }
-        }
-        /*
         .SPAlert(isPresent: $showingDidSignUpAlert,
                  title: "Points Received!",
-                 message: "Your team received 1 point because you signed up!",
-                 preset: .custom(UIImage(systemName: "plus.circle")!),
-                 haptic: .success)
-         */
+                 message: "Your team received 1 points because you signed up!",
+                 duration: 4,
+                 dismissOnTap: true,
+                 preset: .done,
+                 haptic: .success,
+                 layout: nil) {
+            dismiss()
+        }
     }
 }
 

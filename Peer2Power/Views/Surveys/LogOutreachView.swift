@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import ResearchKit
 import RealmSwift
+import SPAlert
 
 struct LogOutreachView: UIViewControllerRepresentable {
     @ObservedRealmObject var contact: Contact
@@ -109,6 +110,33 @@ struct LogOutreachView: UIViewControllerRepresentable {
             return nil
         }
         
+        private func showPointsReceivedAlert(team: Team, answer: String) {
+            // TODO: add support for multipliers based on student population
+            if answer == "I have confirmed that they volunteered." {
+                team.score += 7
+                print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
+                
+                let alertView = SPAlertView(title: "Points Received!",
+                                            message: "Your team received 7 points for getting this contact to volunteer!",
+                                            preset: .done)
+                alertView.iconView?.tintColor = .systemGreen
+                alertView.duration = 4
+                
+                alertView.present(haptic: .success)
+            } else {
+                team.score += 4
+                print("Awarded 4 points for logging an outreach attempt.")
+                
+                let alertView = SPAlertView(title: "Points Received!",
+                                            message: "Your team received 4 points for logging this outreach attempt!",
+                                            preset: .done)
+                alertView.iconView?.tintColor = .systemGreen
+                alertView.duration = 4
+                
+                alertView.present(haptic: .success)
+            }
+        }
+        
         private func uploadResult(from taskViewController: ORKTaskViewController) {
             guard let currentUser = app.currentUser else {
                 print("The current user could not be found.")
@@ -171,28 +199,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     
                     print("Uploaded outreach attempt.")
                     
-                    // TODO: add support for multipliers based on student population
-                    if volunteerStatusFirstAnswer == "I have confirmed that they volunteered." {
-                        userTeam.score += 7
-                        print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
-                        
-                        /*
-                        let alertView = SPAlertView(title: "Points Received!",
-                                                    message: "Your team received 7 points for getting this contact to volunteer!",
-                                                    preset: .custom(UIImage(systemName: "plus.circle")!))
-                        alertView.present(haptic: .success)
-                         */
-                    } else {
-                        userTeam.score += 4
-                        print("Awarded 4 points for logging an outreach attempt.")
-                        
-                        /*
-                        let alertView = SPAlertView(title: "Points Received!",
-                                                    message: "Your team received 4 points for logging this outreach attempt!",
-                                                    preset: .custom(UIImage(systemName: "plus.circle")!))
-                        alertView.present(haptic: .success)
-                         */
-                    }
+                    showPointsReceivedAlert(team: userTeam, answer: volunteerStatusFirstAnswer)
                 }
             } catch {
                 print("Error uploading outreach attempt: \(error.localizedDescription)")

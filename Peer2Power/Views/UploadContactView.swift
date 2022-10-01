@@ -7,7 +7,7 @@
 
 import SwiftUI
 import RealmSwift
-import AlertToast
+import SPAlert
 
 struct UploadContactView: View {
     @Environment(\.dismiss) private var dismiss
@@ -108,7 +108,14 @@ struct UploadContactView: View {
         } message: {
             Text("The email address you provided for your contact is invalid. Please enter a revised email address and try again.")
         }
-
+        .SPAlert(isPresent: $showingContactUploadedAlert,
+                 title: "Points Received!",
+                 message: "Your team received 2 points for uploading this contact!",
+                 duration: 4,
+                 dismissOnTap: true,
+                 preset: .done,
+                 haptic: .success,
+                 layout: nil, completion: nil)
     }
 }
 
@@ -157,8 +164,6 @@ extension UploadContactView {
                 team.score += 2
                 print("Awarded 2 points for uploading a contact.")
                 showingContactUploadedAlert.toggle()
-                
-                dismiss()
             }
         } catch {
             print("Error awarding points for uploading a contact: \(error.localizedDescription)")

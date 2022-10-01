@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SPAlert
 
 struct OutreachAttemptsListView: View {
     @ObservedRealmObject var contact: Contact
@@ -34,7 +35,7 @@ struct OutreachAttemptsListView: View {
             .padding(.horizontal, 15.0)
         } else {
             List {
-                ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id)) { attempt in
+                ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: true)) { attempt in
                     OutreachListRow(attempt: attempt)
                 }
                 .onDelete { offsets in
