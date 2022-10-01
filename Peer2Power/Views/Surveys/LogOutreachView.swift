@@ -172,7 +172,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     print("Uploaded outreach attempt.")
                     
                     // TODO: add support for multipliers based on student population
-                    if volunteerStatusFirstAnswer == "They volunteered!" {
+                    if volunteerStatusFirstAnswer == "I have confirmed that they volunteered." {
                         userTeam.score += 7
                         print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
                         

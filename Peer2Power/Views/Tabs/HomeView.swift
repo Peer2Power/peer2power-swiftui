@@ -48,14 +48,6 @@ struct HomeView: View {
                         }
                     }
                     */
-                    if !pastCloseDate {
-                        VStack {
-                            Text("The upload window is open. After it closes, you will only be able to see the half of your team's contacts assigned to the treatment group.")
-                                .multilineTextAlignment(.center)
-                        }
-                        .padding(.horizontal, 15.0)
-                    }
-                    
                     List {
                         if pastCloseDate {
                             if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
@@ -70,7 +62,7 @@ struct HomeView: View {
                                 }
                                 .padding(.horizontal, 15.0)
                             } else {
-                                Text("Here is your updated contact list.")
+                                Text("Here is your team's updated contact list. Please only attempt to recruit these contacts.")
                                     .multilineTextAlignment(.center)
                                 ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
                                     NavigationLink {
@@ -85,6 +77,7 @@ struct HomeView: View {
                                 }
                             }
                         } else {
+                            Text("The competiton hasn't started yet. You'll need to wait until your team has been assigned the contacts it should recruit before you should can start logging attempts to get them to volunteer.")
                             ForEach(userTeam.contacts) { contact in
                                 Text("\(contact.name)")
                                     .font(.title2)

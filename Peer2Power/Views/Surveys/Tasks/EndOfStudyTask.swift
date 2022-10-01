@@ -18,7 +18,7 @@ class EndOfStudyTask: ORKOrderedTask {
         
         for contact in team.contacts {
             let filteredOutreachAttempts = team.outreachAttempts.filter("to = %@", contact.contact_id)
-                .filter("volunteerStatus = %@", "They volunteered!")
+                .filter("volunteerStatus = %@", "I have confirmed that they volunteered.")
             
             if filteredOutreachAttempts.isEmpty {
                 let textChoice = ORKTextChoice(text: contact.name, value: contact.name as NSCoding & NSCopying & NSObjectProtocol)
