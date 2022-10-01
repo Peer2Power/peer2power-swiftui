@@ -9,8 +9,6 @@ import SwiftUI
 import RealmSwift
 
 struct ChooseTeamView: View {
-    @Environment (\.dismiss) var dismiss
-    
     @ObservedResults(Team.self) var teams
     
     @State private var selectedParty: Party = .selectParty
@@ -19,7 +17,8 @@ struct ChooseTeamView: View {
     
     @State private var searchText = ""
     
-    @Environment(\.realm) var realm
+    @Environment(\.realm) private var realm
+    @Environment(\.dismiss) private var dismiss
     
     var searchResults: Results<Team> {
         if searchText.isEmpty {
@@ -77,6 +76,11 @@ struct ChooseTeamView: View {
             .listStyle(.insetGrouped)
         }
         .navigationTitle("Choose Your School")
+        .onChange(of: showingDidSignUpAlert) { newValue in
+            if newValue == true {
+                dismiss()
+            }
+        }
         /*
         .SPAlert(isPresent: $showingDidSignUpAlert,
                  title: "Points Received!",

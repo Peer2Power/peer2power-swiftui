@@ -67,10 +67,12 @@ struct SignUpView: View {
                 Button("Sign Up", action: signUpUser)
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
+                    .padding(.top, 15)
                     .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
                 Button(consentText) {
                     showingConsentAgreement.toggle()
                 }
+                .padding(.top, 25)
                 .sheet(isPresented: $showingConsentAgreement) {
                     ConsentAgreementView(consented: $userConsented)
                 }
