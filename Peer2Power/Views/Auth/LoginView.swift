@@ -16,6 +16,7 @@ struct LoginView: View {
     
     @State private var showingErrorAlert = false
     @State private var errorText = ""
+    @State private var showingEmptyFieldAlert = false
     
     @FocusState private var focusedField: Field?
     
@@ -73,12 +74,28 @@ struct LoginView: View {
         } message: {
             Text(errorText)
         }
+        .alert("Missing Information",
+               isPresented: $showingEmptyFieldAlert) {
+            Button("OK", role: .cancel, action: {})
+        } message: {
+            Text("One or more text fields is empty. Please fill out all text fields and try again.")
+        }
     }
 }
 
 extension LoginView {
     private func loginUser() {
         focusedField = nil
+        
+        guard !email.isEmpty else {
+            showingEmptyFieldAlert.toggle()
+            return
+        }
+        
+        guard !password.isEmpty else {
+            showingEmptyFieldAlert.toggle()
+            return
+        }
         
         Task {
             loggingIn.toggle()

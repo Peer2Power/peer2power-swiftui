@@ -26,6 +26,7 @@ struct UploadContactView: View {
     @Binding var isPastCloseDate: Bool
     
     @State private var showingDuplicateContactAlert = false
+    @State private var showingInvalidEmailAlert = false
     
     let ageBrackets = ["18 - 25", "26-39", "40+"]
     let relationships = ["Friend", "Family"]
@@ -101,11 +102,30 @@ struct UploadContactView: View {
         }, message: {
             Text("You or someone on your team has already uploaded a contact with this email address. Please use a different email address and try again.")
         })
+        .alert("Invalid Email Address",
+               isPresented: $showingInvalidEmailAlert) {
+            Button("OK", role: .cancel, action: {})
+        } message: {
+            Text("The email address you provided for your contact is invalid. Please enter a revised email address and try again.")
+        }
+
     }
 }
 
 extension UploadContactView {
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+    
     private func uploadNewContact() {
+        guard isValidEmail(contact.email) else {
+            showingInvalidEmailAlert.toggle()
+            return
+        }
+        
         guard userTeam.contacts.filter("email = %@", contact.email).isEmpty else {
             showingDuplicateContactAlert.toggle()
             return
