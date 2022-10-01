@@ -31,51 +31,49 @@ struct ChooseTeamView: View {
     }
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
-                    Section {
-                        ForEach(searchResults.filter("state = %@", stateTeam.state)) { team in
-                            NavigationLink {
-                                List {
-                                    Picker("Party", selection: $selectedParty) {
-                                        ForEach(Party.allCases, id: \.self) { party in
-                                            Text(party.rawValue).tag(party)
-                                        }
+        List {
+            ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
+                Section {
+                    ForEach(searchResults.filter("state = %@", stateTeam.state)) { team in
+                        NavigationLink {
+                            List {
+                                Picker("Party", selection: $selectedParty) {
+                                    ForEach(Party.allCases, id: \.self) { party in
+                                        Text(party.rawValue).tag(party)
                                     }
-                                    .toolbar {
-                                        ToolbarItem(placement: .confirmationAction) {
+                                }
+                                .toolbar {
+                                    ToolbarItem(placement: .confirmationAction) {
+                                        Button("Choose") {
+                                            showingConfirmAlert.toggle()
+                                        }
+                                        .disabled(selectedParty == .selectParty)
+                                        .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
+                                            Button(role: .cancel, action: {}) {
+                                                Text("Cancel")
+                                            }
                                             Button("Choose") {
-                                                showingConfirmAlert.toggle()
+                                                handleTeamSelection(for: team.school_name)
                                             }
-                                            .disabled(selectedParty == .selectParty)
-                                            .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
-                                                Button(role: .cancel, action: {}) {
-                                                    Text("Cancel")
-                                                }
-                                                Button("Choose") {
-                                                    handleTeamSelection(for: team.school_name)
-                                                }
-                                            } message: {
-                                                Text("You won't be able to change your team after joining.")
-                                            }
+                                        } message: {
+                                            Text("You won't be able to change your team after joining.")
                                         }
                                     }
                                 }
-                                .navigationBarTitle("Choose Your Party")
-                            } label: {
-                                Text("\(team.school_name)")
                             }
+                            .navigationBarTitle("Choose Your Party")
+                        } label: {
+                            Text("\(team.school_name)")
                         }
-                    } header: {
-                        Text("\(stateTeam.state)")
                     }
+                } header: {
+                    Text("\(stateTeam.state)")
                 }
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
-            .listStyle(.insetGrouped)
         }
         .navigationTitle("Choose Your School")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
+        .listStyle(.insetGrouped)
         .onChange(of: showingDidSignUpAlert) { newValue in
             if newValue == true {
                 dismiss()

@@ -18,7 +18,9 @@ struct LoggedInView: View {
     @ViewBuilder
     var body: some View {
         if teams.isEmpty {
-            ChooseTeamView()
+            NavigationView {
+                ChooseTeamView()
+            }
         } else {
             TabView {
                 HomeView(userTeam: teams.first!)
