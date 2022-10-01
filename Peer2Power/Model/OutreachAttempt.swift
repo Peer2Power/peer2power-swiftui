@@ -22,6 +22,8 @@ class OutreachAttempt: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var updatedAt: Date?
 
     @Persisted var attemptDescription: String?
+    
+    @Persisted var campaignType: String?
 
     @Persisted var volunteerMethod: String?
 

@@ -43,6 +43,7 @@ enum Identifier {
     case theyVolunteeredCompletion
     case planVolunteerCompletion
     case stillWorkingCompletion
+    case wontVolunteerCompletionStep
     
     case endOfStudyTask
     case whichVolunteeredStep

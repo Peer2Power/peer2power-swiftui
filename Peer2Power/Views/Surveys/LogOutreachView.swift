@@ -60,7 +60,8 @@ struct LogOutreachView: UIViewControllerRepresentable {
             taskViewController.dismiss(animated: true, completion: nil)
         }
         
-        fileprivate func getHowContactAnswer(_ taskViewController: ORKTaskViewController) -> String {
+        // FIXME: replace all these nested if statements with guard clauses to make this read more cleanly.
+        private func getHowContactAnswer(_ taskViewController: ORKTaskViewController) -> String? {
             if let howContactStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.howContact)) {
                 if let howContactFirstResult = howContactStepResult.firstResult as? ORKChoiceQuestionResult {
                     if let howContactFirstAnswer = howContactFirstResult.choiceAnswers?.first as? String {
@@ -69,10 +70,10 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 }
             }
             
-            return ""
+            return nil
         }
         
-        fileprivate func getDescribeAttemptAnswer(_ taskViewController: ORKTaskViewController) -> String {
+        private func getDescribeAttemptAnswer(_ taskViewController: ORKTaskViewController) -> String? {
             if let describeAttemptStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.describeAttempt)) {
                 if let describeAttemptFirstResult = describeAttemptStepResult.firstResult as? ORKTextQuestionResult {
                     if let describeAttemptAnswer = describeAttemptFirstResult.textAnswer {
@@ -81,7 +82,31 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 }
             }
             
-            return ""
+            return nil
+        }
+        
+        private func getVolunteeredAnswers(_ taskViewController: ORKTaskViewController) -> [String: String]? {
+            var answers: [String:String] = [:]
+            
+            if let volunteeredFormStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteeredFormStep)) {
+                if let results = volunteeredFormStepResult.results as? [ORKChoiceQuestionResult] {
+                    results.forEach { result in
+                        if results.firstIndex(of: result) == 0 {
+                            if let choiceAnswer = result.choiceAnswers?.first as? String {
+                                answers["volunteerMethod"] = choiceAnswer
+                            }
+                        } else if results.firstIndex(of: result) == 1 {
+                            if let choiceAnswer = result.choiceAnswers?.first as? String {
+                                answers["campaignType"] = choiceAnswer
+                            }
+                        }
+                    }
+                    
+                    return answers
+                }
+            }
+            
+            return nil
         }
         
         private func uploadResult(from taskViewController: ORKTaskViewController) {
@@ -94,13 +119,27 @@ struct LogOutreachView: UIViewControllerRepresentable {
             newOutreach.to = parent.contact.contact_id
             
             let howContactAnswer = getHowContactAnswer(taskViewController)
-            if !howContactAnswer.isEmpty {
-                newOutreach.contactMethod = howContactAnswer
+            if let howContactAnswer = howContactAnswer {
+                if !howContactAnswer.isEmpty {
+                    newOutreach.contactMethod = howContactAnswer
+                }
             }
                 
             let attemptDescription = getDescribeAttemptAnswer(taskViewController)
-            if !attemptDescription.isEmpty {
-                newOutreach.attemptDescription = attemptDescription
+            if let attemptDescription = attemptDescription {
+                if !attemptDescription.isEmpty {
+                    newOutreach.attemptDescription = attemptDescription
+                }
+            }
+            
+            if let volunteeredAnswers = getVolunteeredAnswers(taskViewController) {
+                if let volunteerMethod = volunteeredAnswers["volunteerMethod"] {
+                    newOutreach.volunteerMethod = volunteerMethod
+                }
+                
+                if let campaignType = volunteeredAnswers["campaignType"] {
+                    newOutreach.campaignType = campaignType
+                }
             }
             
             guard let volunteerStatusStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus)) else {

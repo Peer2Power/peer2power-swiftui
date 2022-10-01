@@ -19,7 +19,7 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static func volunteerStatusStep() -> ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "They volunteered!", value: "They volunteered!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They plan to volunteer.", value: "They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I'm still working on them.", value: "I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol)]
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "I have confirmed that they volunteered.", value: "I have confirmed that they volunteered." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They are certainly not going to volunteer.", value: "They are certainly not going to volunteer." as NSCoding & NSCopying & NSObjectProtocol)]
         let volunteerStatusFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
         let volunteerStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerStatus),
@@ -148,6 +148,13 @@ class LogOutreachTask: ORKOrderedTask {
         return completionStep
     }
     
+    static func wontVolunteerCompletionStep() -> ORKCompletionStep {
+        let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.wontVolunteerCompletionStep))
+        completionStep.title = "Thank you for logging this outreach attempt!"
+        
+        return completionStep
+    }
+    
     override func step(before step: ORKStep?, with result: ORKTaskResult) -> ORKStep? {
         let identifier = step?.identifier
         
@@ -158,8 +165,8 @@ class LogOutreachTask: ORKOrderedTask {
             return LogOutreachTask.describeAttemptStep()
         case String(describing: Identifier.stillWorkingCompletion):
             return LogOutreachTask.describeAttemptStep()
-        case String(describing: Identifier.planVolunteerCompletion):
-            return LogOutreachTask.describeAttemptStep()
+        case String(describing: Identifier.wontVolunteerCompletionStep):
+            return LogOutreachTask.volunteerStatusStep()
         
         default:
             return super.step(before: step, with: result)
@@ -178,12 +185,12 @@ class LogOutreachTask: ORKOrderedTask {
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual("They volunteered!" as NSCoding & NSCopying & NSObjectProtocol) {
+                    if choiceAnswer.isEqual("I have confirmed that they volunteered." as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.volunteeredFormStep()
-                    } else if choiceAnswer.isEqual("They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
+                    } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.howContactStep()
-                    } else if choiceAnswer.isEqual("I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.howContactStep()
+                    } else if choiceAnswer.isEqual("They are certainly not going to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
+                        return LogOutreachTask.wontVolunteerCompletionStep()
                     }
                 }
             }
@@ -191,17 +198,14 @@ class LogOutreachTask: ORKOrderedTask {
         case String(describing: Identifier.volunteeredFormStep):
             return LogOutreachTask.howContactStep()
             
-        // FIXME: figure out how to get a conditional completion screen.
         case String(describing: Identifier.describeAttempt):
             let stepResult = result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus))
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual("They volunteered!" as NSCoding & NSCopying & NSObjectProtocol) {
+                    if choiceAnswer.isEqual("I have confirmed that they volunteered." as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.theyVolunteeredCompletionStep()
-                    } else if choiceAnswer.isEqual("They plan to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.planToVolunteerCompletionStep()
-                    } else if choiceAnswer.isEqual("I'm still working on them." as NSCoding & NSCopying & NSObjectProtocol) {
+                    } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.stillWorkingCompletionStep()
                     }
                 }

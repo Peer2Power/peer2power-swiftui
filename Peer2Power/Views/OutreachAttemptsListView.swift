@@ -49,7 +49,7 @@ struct OutreachAttemptsListView: View {
                 Button("Cancel", role: .cancel, action: {})
                 Button("Delete", role: .destructive, action: deleteOutreachAttempt)
             } message: {
-                Text("Your team will lose the 4 points it gained for logging this outreach attempt.")
+                Text("Your team will lose the points it gained for logging this outreach attempt.")
             }
             .toolbar {
                 EditButton()
@@ -91,18 +91,23 @@ extension OutreachAttemptsListView {
         // TODO: get the outreach attempt by figuring out its index using the provided IndexSet.
         
         let filteredAttempts = team.outreachAttempts.filter("to = %@", contact.contact_id)
+        guard !filteredAttempts.isEmpty else { return }
         
         do {
             try realm.write {
                 offsets.forEach { i in
-                    let contactToDelete = filteredAttempts[i]
-                    realm.delete(contactToDelete)
+                    let attemptToDelete = filteredAttempts[i]
+                    let volunteeredAttempt = attemptToDelete.volunteerStatus == "I have confirmed that they volunteered."
+                    
+                    realm.delete(attemptToDelete)
+                    
+                    if volunteeredAttempt {
+                        team.score -= 7
+                    } else {
+                        team.score -= 4
+                    }
                 }
-                
-                team.score -= 4
                 // TODO: remove 8 points for attempts that triggered the multiplier
-                
-                print("Deleted outreach attempt and subtracted points.")
             }
         } catch {
             print("Error deleting outreach attempt: \(error.localizedDescription)")
