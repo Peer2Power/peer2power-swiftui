@@ -20,44 +20,50 @@ struct LeaderboardView: View {
     @ObservedRealmObject var userTeam: Team
     
     var body: some View {
-        VStack {
-            Text("Your team, the \(userTeam.school_name) \(userTeam.party.rawValue), has contributed \(userTeam.score) points to the national \(userTeam.party.rawValue) total.")
+        VStack(spacing: 10.0) {
+            Text("Your team, the \(userTeam.school_name) \(userTeam.party.rawValue), has contributed")
                 .font(.title2)
                 .multilineTextAlignment(.center)
+            Text("\(userTeam.score)")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+            Text("points to the national \(userTeam.party.rawValue) total.")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+            Divider()
             HStack {
-                Image("Democrats")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .opacity(0.45)
-                    .overlay(alignment: .center) {
-                        VStack {
-                            Text("Democrats have")
-                                .font(.title3)
-                                .multilineTextAlignment(.center)
-                            Text("\(demTeams.sum(of: \Team.score))")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                            Text("points")
-                                .multilineTextAlignment(.center)
-                                .font(.title3)
-                        }
-                    }
-                Image("Republicans")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .opacity(0.45)
-                    .overlay(alignment: .center) {
-                        VStack {
-                            Text("Republicans have")
-                                .font(.title3)
-                            Text("\(repTeams.sum(of: \Team.score))")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            Text("points")
-                                .font(.title3)
-                        }
-                    }
+                VStack {
+                    Image("Democrats")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(Color("DemsColor"))
+                    Text("Democrats have")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                    Text("\(demTeams.sum(of: \Team.score))")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                    Text("points")
+                        .multilineTextAlignment(.center)
+                        .font(.title3)
+                }
+                VStack {
+                    Image("Republicans")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(Color("GOPColor"))
+                    Text("Republicans have")
+                        .font(.title3)
+                    Text("\(repTeams.sum(of: \Team.score))")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Text("points")
+                        .font(.title3)
+                }
             }
         }
         .padding(.horizontal, 15.0)
