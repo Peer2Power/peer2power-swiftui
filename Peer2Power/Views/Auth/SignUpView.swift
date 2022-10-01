@@ -18,6 +18,7 @@ struct SignUpView: View {
     @State private var showingErrorAlert = false
     @State private var showingEmptyFieldAlert = false
     @State private var showingNotConsentedAlert = false
+    @State private var showingNotAcademicEmailAlert = false
     
     @State private var passwordMismatch = false
     
@@ -121,6 +122,12 @@ struct SignUpView: View {
             } message: {
                 Text("You have given your consent to participate in this study. You will not be able to sign up until you agree to the informed consent agreement.")
             }
+            .alert("Not an Academic Email Address",
+                   isPresented: $showingNotAcademicEmailAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text("You did not provide an academic email address. Please use an academic email address (ending in .edu) and try again.")
+            }
         }
     }
 }
@@ -146,6 +153,13 @@ extension SignUpView {
         
         guard userConsented else {
             showingNotConsentedAlert.toggle()
+            return
+        }
+        
+        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard trimmedEmail.hasSuffix(".edu") else {
+            showingNotAcademicEmailAlert.toggle()
             return
         }
         
