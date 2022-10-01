@@ -17,7 +17,11 @@ struct TextDate: View {
     
     var body: some View {
         if isLessThanOneMinute {
-            Text(date.formatted(.dateTime.hour().minute().second()))
+            if date.timeIntervalSinceNow <= 0 {
+                Text("Just Now")
+            } else {
+                Text("\(date.timeIntervalSinceNow)s ago")
+            }
         } else {
             if isLessThanOneDay {
                 Text("Yesterday \(date.formatted(.dateTime.hour().minute()))")
