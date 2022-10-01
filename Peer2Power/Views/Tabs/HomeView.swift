@@ -48,6 +48,7 @@ struct HomeView: View {
                         }
                     }
                     */
+                    // TODO: tinker with putting the leaderboard above the contacts list.
                     List {
                         if pastCloseDate {
                             if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
