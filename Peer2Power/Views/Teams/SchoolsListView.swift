@@ -27,6 +27,11 @@ struct SchoolsListView: View {
     
     @State private var showingLoginSheet = false
     
+    @State private var didSelectTeam = false
+    
+    @State private var selectedTeamID = ""
+    @State private var selectedParty: Party = .selectParty
+    
     var searchResults: [DBTeam] {
         if searchText.isEmpty {
             return dbTeams
@@ -50,7 +55,10 @@ struct SchoolsListView: View {
                             predTeam.state == state
                         })) { team in
                             NavigationLink {
-                                ChooseTeamView(school_name: team.school_name)
+                                ChooseTeamView(school_name: team.school_name,
+                                               selectedParty: $selectedParty,
+                                               teamID: $selectedTeamID,
+                                               teamSelected: $didSelectTeam)
                             } label: {
                                 Text(team.school_name)
                             }
@@ -62,11 +70,16 @@ struct SchoolsListView: View {
             }
             .onAppear(perform: fetchTeams)
             .navigationTitle("Choose Your School")
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for your school")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a school to sign up with")
             .listStyle(.insetGrouped)
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
                     LoginView()
+                }
+            }
+            .sheet(isPresented: $didSelectTeam) {
+                NavigationView {
+                    SignUpView(team_id: $selectedTeamID)
                 }
             }
             Button("Already part of a team? Login.") {

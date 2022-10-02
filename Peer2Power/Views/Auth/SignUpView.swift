@@ -11,11 +11,14 @@ import RealmSwift
 struct SignUpView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var teamID: String?
-    
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
+    
+    @State private var school_name = ""
+    @State private var teamParty = ""
+    
+    @Binding var team_id: String
     
     @State private var errorText = ""
     @State private var showingErrorAlert = false
@@ -43,6 +46,11 @@ struct SignUpView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 15.0) {
+                if !school_name.isEmpty && !teamParty.isEmpty {
+                    Text("Create an account to join the \(school_name) \(teamParty).")
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                }
                 Image("LoginLogo")
                 TextField("Email Address", text: $email)
                     .textContentType(.emailAddress)
@@ -91,6 +99,7 @@ struct SignUpView: View {
                 }
             }
             .padding(.horizontal, 15.0)
+            .onAppear(perform: fetchTeamInfo)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .cancel) {
@@ -190,10 +199,48 @@ extension SignUpView {
             signingUp.toggle()
         }
     }
-}
-
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView()
+    
+    private func fetchTeamInfo() {
+        guard let url = URL(string: "\(mongoDataEndpoint)action/findOne") else { return }
+        
+        var request = URLRequest(url: url)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(mongoDataAPIKey, forHTTPHeaderField: "api-key")
+        request.setValue("*", forHTTPHeaderField: "Access-Control-Request-Headers")
+        
+        let bodyJSON: [String: Any] = [
+            "collection": "Team",
+            "database": "peer2power",
+            "dataSource": "prod",
+            "filter": ["_id": ["$oid": team_id],],
+            "projection": ["_id": 0, "school_name": 1, "party": 1]
+        ]
+        let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
+        
+        request.httpBody = bodyData
+        
+        request.httpMethod = "POST"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data)
+            guard let responseJSON = responseJSON as? [String: Any] else { return }
+            print(responseJSON)
+            
+            guard let team = responseJSON["document"] as? [String: Any] else { return }
+            
+            guard let school_name = team["school_name"] as? String else { return }
+            self.school_name = school_name
+            
+            guard let party = team["party"] as? String else { return }
+            teamParty = party
+        }
+        
+        task.resume()
     }
 }

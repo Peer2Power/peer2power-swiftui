@@ -9,14 +9,16 @@ import SwiftUI
 
 struct ChooseTeamView: View {
     @State var school_name: String
-    @State private var selectedParty: Party = .selectParty
+    @Binding var selectedParty: Party
     
     @State private var teamScore: Int?
     @State private var teamMemberCount: Int?
-    @State private var teamID: String?
+    @Binding var teamID: String
     
     @State private var showingConfirmAlert = false
-    @State private var showingSignUpSheet = false
+    @Binding var teamSelected: Bool
+    
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack {
@@ -59,14 +61,12 @@ struct ChooseTeamView: View {
             .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
                 Button("Cancel", role: .cancel, action: {})
                 Button("Join") {
-                    showingSignUpSheet.toggle()
+                    teamSelected.toggle()
+                    dismiss()
                 }
             } message: {
                 Text("You won't be able to change teams after joining.")
             }
-            .sheet(isPresented: $showingSignUpSheet, content: {
-                SignUpView(teamID: $teamID)
-            })
             .onChange(of: selectedParty) { newValue in
                 if newValue != .selectParty {
                     fetchTeamInfo()
@@ -122,11 +122,5 @@ extension ChooseTeamView {
         }
         
         task.resume()
-    }
-}
-
-struct ChooseTeamView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChooseTeamView(school_name: "Lafayette College")
     }
 }
