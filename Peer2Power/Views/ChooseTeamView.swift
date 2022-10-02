@@ -22,6 +22,7 @@ struct DBTeam: Identifiable, Codable {
 struct ChooseTeamView: View {
     @ObservedResults(Team.self) var teams
     @State private var dbTeams: [DBTeam] = [DBTeam]()
+    @State private var states: [String] = [String]()
     
     @State private var selectedParty: Party = .selectParty
     @State private var showingConfirmAlert = false
@@ -32,6 +33,7 @@ struct ChooseTeamView: View {
     @Environment(\.realm) private var realm
     @Environment(\.dismiss) private var dismiss
     
+    /*
     var searchResults: Results<Team> {
         if searchText.isEmpty {
             return teams.sorted(by: \Team.school_name, ascending: true).distinct(by: [\Team.school_name])
@@ -41,14 +43,40 @@ struct ChooseTeamView: View {
             $0.school_name.contains(searchText, options: .caseInsensitive)
         }.distinct(by: [\Team.school_name]).sorted(by: \Team.school_name, ascending: true)
     }
+     */
+    
+    var searchResults: [DBTeam] {
+        if searchText.isEmpty {
+            return dbTeams
+        }
+        
+        return dbTeams.filter { predTeam in
+            return predTeam.school_name.contains(searchText)
+        }
+    }
     
     var body: some View {
         List {
-            ForEach(dbTeams) { team in
-                Text("\(team.school_name)")
+            ForEach(states.filter({ predState in
+                searchResults.contains { searchTeam in
+                    searchTeam.state == predState
+                }
+            }), id: \.self) { state in
+                Section {
+                    ForEach(searchResults.filter({ predTeam in
+                        predTeam.state == state
+                    })) { team in
+                        Text(team.school_name)
+                    }
+                } header: {
+                    Text(state)
+                }
             }
         }
         .onAppear(perform: fetchTeams)
+        .navigationTitle("Choose Your School")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
+        .listStyle(.insetGrouped)
         /*
         List {
             ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
@@ -121,6 +149,8 @@ extension ChooseTeamView {
             "collection": "Team",
             "database": "peer2power",
             "dataSource": "prod",
+            "limit": 5000,
+            "sort": ["state": 1],
             "projection": ["_id": 1, "school_name": 1, "state": 1]
         ]
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
@@ -139,6 +169,7 @@ extension ChooseTeamView {
             guard let responseJSON = responseJSON as? [String: Any] else { return }
             
             guard let teams = responseJSON["documents"] as? [[String: Any]] else { return }
+            
             teams.forEach { team in
                 guard let id = team["_id"] as? String else { return }
                 guard let school_name = team["school_name"] as? String else { return }
@@ -151,6 +182,14 @@ extension ChooseTeamView {
                 if !schoolAlreadyIn {
                     let arrTeam = DBTeam(id: id, school_name: school_name, state: state)
                     dbTeams.append(arrTeam)
+                }
+                
+                let stateAlreadyIn = states.contains { predState in
+                    state == predState
+                }
+                
+                if !stateAlreadyIn {
+                    states.append(state)
                 }
             }
         }

@@ -19,7 +19,9 @@ struct ContentView: View {
                 }
             }))
         } else {
-            ChooseTeamView()
+            NavigationView {
+                ChooseTeamView()
+            }
         }
     }
 }
