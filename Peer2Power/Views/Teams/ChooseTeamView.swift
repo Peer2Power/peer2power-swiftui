@@ -65,8 +65,13 @@ struct ChooseTeamView: View {
                     dismiss()
                 }
             } message: {
-                Text("You won't be able to change teams after joining.")
+                Text("You won't be able to change teams after signing up.")
             }
+            .onAppear(perform: {
+                if selectedParty != .selectParty {
+                    fetchTeamInfo()
+                }
+            })
             .onChange(of: selectedParty) { newValue in
                 if newValue != .selectParty {
                     fetchTeamInfo()
