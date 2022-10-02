@@ -19,8 +19,7 @@ struct DBTeam: Identifiable, Codable {
     }
 }
 
-struct ChooseTeamView: View {
-    @ObservedResults(Team.self) var teams
+struct SchoolsListView: View {
     @State private var dbTeams: [DBTeam] = [DBTeam]()
     @State private var states: [String] = [String]()
     
@@ -32,18 +31,6 @@ struct ChooseTeamView: View {
     
     @Environment(\.realm) private var realm
     @Environment(\.dismiss) private var dismiss
-    
-    /*
-    var searchResults: Results<Team> {
-        if searchText.isEmpty {
-            return teams.sorted(by: \Team.school_name, ascending: true).distinct(by: [\Team.school_name])
-        }
-        
-        return teams.where {
-            $0.school_name.contains(searchText, options: .caseInsensitive)
-        }.distinct(by: [\Team.school_name]).sorted(by: \Team.school_name, ascending: true)
-    }
-     */
     
     var searchResults: [DBTeam] {
         if searchText.isEmpty {
@@ -66,7 +53,11 @@ struct ChooseTeamView: View {
                     ForEach(searchResults.filter({ predTeam in
                         predTeam.state == state
                     })) { team in
-                        Text(team.school_name)
+                        NavigationLink {
+                            ChooseTeamView(school_name: team.school_name)
+                        } label: {
+                            Text(team.school_name)
+                        }
                     }
                 } header: {
                     Text(state)
@@ -135,7 +126,7 @@ struct ChooseTeamView: View {
     }
 }
 
-extension ChooseTeamView {
+extension SchoolsListView {
     private func fetchTeams() {
         guard let url = URL(string: "\(mongoDataEndpoint)action/find") else { return }
         
@@ -197,7 +188,7 @@ extension ChooseTeamView {
         task.resume()
     }
     
-    private func handleTeamSelection(for schoolName: String) {
+    /* private func handleTeamSelection(for schoolName: String) {
         let filteredTeams = teams.where {
             $0.party == selectedParty && $0.school_name == schoolName
         }
@@ -221,11 +212,11 @@ extension ChooseTeamView {
         } catch {
             print("Error adding user to team: \(error.localizedDescription)")
         }
-    }
+    } */
 }
  
 struct CollegeListView_Previews: PreviewProvider {
     static var previews: some View {
-        ChooseTeamView()
+        SchoolsListView()
     }
 }

@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111A228E72C7A00E2CE92 /* TextDate.swift */; };
 		000111A728E88E1400E2CE92 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 000111A628E88E1400E2CE92 /* SPAlert */; };
-		000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ChooseTeamView.swift */; };
+		000111B028E9E3FC00E2CE92 /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111AF28E9E3FC00E2CE92 /* ChooseTeamView.swift */; };
+		000CD2C7289F974200A004FA /* SchoolsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* SchoolsListView.swift */; };
 		0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166728D530360070FF11 /* EndOfStudyTask.swift */; };
 		0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */; };
 		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
@@ -101,7 +102,8 @@
 
 /* Begin PBXFileReference section */
 		000111A228E72C7A00E2CE92 /* TextDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDate.swift; sourceTree = "<group>"; };
-		000CD2C6289F974200A004FA /* ChooseTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamView.swift; sourceTree = "<group>"; };
+		000111AF28E9E3FC00E2CE92 /* ChooseTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamView.swift; sourceTree = "<group>"; };
+		000CD2C6289F974200A004FA /* SchoolsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolsListView.swift; sourceTree = "<group>"; };
 		0026166728D530360070FF11 /* EndOfStudyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudyTask.swift; sourceTree = "<group>"; };
 		0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudySurveyView.swift; sourceTree = "<group>"; };
 		0026166E28D763690070FF11 /* Peer2Power.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peer2Power.entitlements; sourceTree = "<group>"; };
@@ -177,6 +179,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		000111AE28E9E39900E2CE92 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				000CD2C6289F974200A004FA /* SchoolsListView.swift */,
+				000111AF28E9E3FC00E2CE92 /* ChooseTeamView.swift */,
+			);
+			path = Teams;
+			sourceTree = "<group>";
+		};
 		0026167D28E0E2BC0070FF11 /* List Rows */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +317,7 @@
 		009CE52B2899D13E00796313 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				000111AE28E9E39900E2CE92 /* Teams */,
 				0026167E28E0E2D20070FF11 /* Auth */,
 				0026167D28E0E2BC0070FF11 /* List Rows */,
 				0094745028C0325200D50140 /* Tabs */,
@@ -313,7 +325,6 @@
 				009CE544289B088300796313 /* LoggedInView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
-				000CD2C6289F974200A004FA /* ChooseTeamView.swift */,
 				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
 			);
 			path = Views;
@@ -548,7 +559,8 @@
 				0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */,
 				004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */,
 				0094744B28C01D8900D50140 /* HomeView.swift in Sources */,
-				000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */,
+				000111B028E9E3FC00E2CE92 /* ChooseTeamView.swift in Sources */,
+				000CD2C7289F974200A004FA /* SchoolsListView.swift in Sources */,
 				007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */,
 				00BA93FF28AF1F5B00A434FF /* LogOutreachTask.swift in Sources */,
 				00C17F9628A8906400778E25 /* Team.swift in Sources */,
