@@ -11,6 +11,8 @@ import RealmSwift
 struct SignUpView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var teamID: String?
+    
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""

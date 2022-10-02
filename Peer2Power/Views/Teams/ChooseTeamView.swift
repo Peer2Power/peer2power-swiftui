@@ -13,8 +13,10 @@ struct ChooseTeamView: View {
     
     @State private var teamScore: Int?
     @State private var teamMemberCount: Int?
+    @State private var teamID: String?
     
     @State private var showingConfirmAlert = false
+    @State private var showingSignUpSheet = false
     
     var body: some View {
         VStack {
@@ -56,10 +58,15 @@ struct ChooseTeamView: View {
             }
             .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
                 Button("Cancel", role: .cancel, action: {})
-                Button("Join", action: joinSelectedTeam)
+                Button("Join") {
+                    showingSignUpSheet.toggle()
+                }
             } message: {
                 Text("You won't be able to change teams after joining.")
             }
+            .sheet(isPresented: $showingSignUpSheet, content: {
+                SignUpView(teamID: $teamID)
+            })
             .onChange(of: selectedParty) { newValue in
                 if newValue != .selectParty {
                     fetchTeamInfo()
@@ -84,7 +91,7 @@ extension ChooseTeamView {
             "database": "peer2power",
             "dataSource": "prod",
             "filter": ["school_name": school_name, "party": selectedParty.rawValue],
-            "projection": ["_id": 0, "score": 1, "member_ids": 1]
+            "projection": ["_id": 1, "score": 1, "member_ids": 1]
         ]
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
         
@@ -107,16 +114,14 @@ extension ChooseTeamView {
             guard let score = team["score"] as? Int else { return }
             teamScore = score
             
-            //FIXME: figure out how member ids would be represented
             guard let members = team["member_ids"] as? [String] else { return }
             teamMemberCount = members.count
+            
+            guard let id = team["_id"] as? String else { return }
+            teamID = id
         }
         
         task.resume()
-    }
-    
-    private func joinSelectedTeam() {
-        
     }
 }
 

@@ -62,7 +62,7 @@ struct SchoolsListView: View {
             }
             .onAppear(perform: fetchTeams)
             .navigationTitle("Choose Your School")
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for your school")
             .listStyle(.insetGrouped)
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
