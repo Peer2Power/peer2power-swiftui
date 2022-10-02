@@ -14,26 +14,56 @@ struct ChooseTeamView: View {
     @State private var teamScore: Int?
     @State private var teamMemberCount: Int?
     
+    @State private var showingConfirmAlert = false
+    
     var body: some View {
-        List {
-            Picker("Party", selection: $selectedParty) {
-                ForEach(Party.allCases, id: \.self) { party in
-                    Text(party.rawValue).tag(party)
+        VStack {
+            List {
+                Picker("Party", selection: $selectedParty) {
+                    ForEach(Party.allCases, id: \.self) { party in
+                        Text(party.rawValue).tag(party)
+                    }
                 }
-            }
-            
-            if selectedParty != .selectParty {
-                Section {
-                    VStack(alignment: .leading) {
-                        Text("Score: \(teamScore ?? 0) points")
-                        Text("Members: \(teamMemberCount ?? 0)")
+                
+                if selectedParty != .selectParty {
+                    Section {
+                        VStack(alignment: .leading) {
+                            if teamScore != 1 {
+                                Text("Score: \(teamScore ?? 0) points")
+                                    .font(.title2)
+                            } else {
+                                Text("Score: 1 point")
+                                    .font(.title2)
+                            }
+                            Text("Members: \(teamMemberCount ?? 0)")
+                                .font(.title2)
+                        }
+                    } footer: {
+                        if selectedParty != .selectParty {
+                            HStack {
+                                Spacer()
+                                Button("Join Team") {
+                                    showingConfirmAlert.toggle()
+                                }
+                                .controlSize(.large)
+                                .buttonStyle(.borderedProminent)
+                                .padding(.top, 45)
+                                Spacer()
+                            }
+                        }
                     }
                 }
             }
-        }
-        .onChange(of: selectedParty) { newValue in
-            if newValue != .selectParty {
-                fetchTeamInfo()
+            .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
+                Button("Cancel", role: .cancel, action: {})
+                Button("Join", action: joinSelectedTeam)
+            } message: {
+                Text("You won't be able to change teams after joining.")
+            }
+            .onChange(of: selectedParty) { newValue in
+                if newValue != .selectParty {
+                    fetchTeamInfo()
+                }
             }
         }
     }
@@ -83,6 +113,10 @@ extension ChooseTeamView {
         }
         
         task.resume()
+    }
+    
+    private func joinSelectedTeam() {
+        
     }
 }
 

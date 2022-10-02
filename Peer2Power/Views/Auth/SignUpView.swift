@@ -91,7 +91,7 @@ struct SignUpView: View {
             .padding(.horizontal, 15.0)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("Cancel", role: .cancel) {
                         dismiss()
                     }
                 }

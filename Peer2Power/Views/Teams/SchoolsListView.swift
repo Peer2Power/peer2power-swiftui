@@ -23,14 +23,9 @@ struct SchoolsListView: View {
     @State private var dbTeams: [DBTeam] = [DBTeam]()
     @State private var states: [String] = [String]()
     
-    @State private var selectedParty: Party = .selectParty
-    @State private var showingConfirmAlert = false
-    @State private var showingDidSignUpAlert = false
-    
     @State private var searchText = ""
     
-    @Environment(\.realm) private var realm
-    @Environment(\.dismiss) private var dismiss
+    @State private var showingLoginSheet = false
     
     var searchResults: [DBTeam] {
         if searchText.isEmpty {
@@ -43,31 +38,42 @@ struct SchoolsListView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(states.filter({ predState in
-                searchResults.contains { searchTeam in
-                    searchTeam.state == predState
-                }
-            }), id: \.self) { state in
-                Section {
-                    ForEach(searchResults.filter({ predTeam in
-                        predTeam.state == state
-                    })) { team in
-                        NavigationLink {
-                            ChooseTeamView(school_name: team.school_name)
-                        } label: {
-                            Text(team.school_name)
-                        }
+        VStack {
+            List {
+                ForEach(states.filter({ predState in
+                    searchResults.contains { searchTeam in
+                        searchTeam.state == predState
                     }
-                } header: {
-                    Text(state)
+                }), id: \.self) { state in
+                    Section {
+                        ForEach(searchResults.filter({ predTeam in
+                            predTeam.state == state
+                        })) { team in
+                            NavigationLink {
+                                ChooseTeamView(school_name: team.school_name)
+                            } label: {
+                                Text(team.school_name)
+                            }
+                        }
+                    } header: {
+                        Text(state)
+                    }
                 }
             }
+            .onAppear(perform: fetchTeams)
+            .navigationTitle("Choose Your School")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
+            .listStyle(.insetGrouped)
+            .sheet(isPresented: $showingLoginSheet) {
+                NavigationView {
+                    LoginView()
+                }
+            }
+            Button("Already part of a team? Login.") {
+                showingLoginSheet.toggle()
+            }
         }
-        .onAppear(perform: fetchTeams)
-        .navigationTitle("Choose Your School")
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
-        .listStyle(.insetGrouped)
+        
         /*
         List {
             ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in

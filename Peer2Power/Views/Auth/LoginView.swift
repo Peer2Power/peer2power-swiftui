@@ -20,6 +20,7 @@ struct LoginView: View {
     @State private var showingEmptyFieldAlert = false
     
     @FocusState private var focusedField: Field?
+    @Environment(\.dismiss) private var dismiss
     
     enum Field: Hashable {
         case email
@@ -49,14 +50,6 @@ struct LoginView: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .disabled(email.isEmpty || password.isEmpty || loggingIn)
-            Button("Sign Up") {
-                showingSignUpSheet.toggle()
-            }
-            .buttonStyle(.bordered)
-            .controlSize(.large)
-            .sheet(isPresented: $showingSignUpSheet) {
-                SignUpView()
-            }
             Button("Forgot your password?") {
                 showingPasswordResetForm.toggle()
             }
@@ -80,6 +73,13 @@ struct LoginView: View {
             Button("OK", role: .cancel, action: {})
         } message: {
             Text("One or more text fields is empty. Please fill out all text fields and try again.")
+        }
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel", role: .cancel) {
+                    dismiss()
+                }
+            }
         }
     }
 }
