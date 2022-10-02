@@ -9,8 +9,19 @@ import SwiftUI
 import RealmSwift
 import SPAlert
 
+struct DBTeam: Identifiable, Codable {
+    let id: String
+    let school_name: String
+    let state: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "_id", school_name, state
+    }
+}
+
 struct ChooseTeamView: View {
     @ObservedResults(Team.self) var teams
+    @State private var dbTeams: [DBTeam] = [DBTeam]()
     
     @State private var selectedParty: Party = .selectParty
     @State private var showingConfirmAlert = false
@@ -32,6 +43,13 @@ struct ChooseTeamView: View {
     }
     
     var body: some View {
+        List {
+            ForEach(dbTeams) { team in
+                Text("\(team.school_name)")
+            }
+        }
+        .onAppear(perform: fetchTeams)
+        /*
         List {
             ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
                 Section {
@@ -74,6 +92,7 @@ struct ChooseTeamView: View {
         }
         .navigationTitle("Choose Your School")
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
+        .onAppear(perform: fetchTeams)
         .listStyle(.insetGrouped)
         .SPAlert(isPresent: $showingDidSignUpAlert,
                  title: "Points Received!",
@@ -84,11 +103,61 @@ struct ChooseTeamView: View {
                  haptic: .success,
                  layout: nil) {
             dismiss()
-        }
+        } */
     }
 }
 
 extension ChooseTeamView {
+    private func fetchTeams() {
+        guard let url = URL(string: "\(mongoDataEndpoint)action/find") else { return }
+        
+        var request = URLRequest(url: url)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(mongoDataAPIKey, forHTTPHeaderField: "api-key")
+        request.setValue("*", forHTTPHeaderField: "Access-Control-Request-Headers")
+        
+        let bodyJSON: [String: Any] = [
+            "collection": "Team",
+            "database": "peer2power",
+            "dataSource": "prod",
+            "projection": ["_id": 1, "school_name": 1, "state": 1]
+        ]
+        let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
+        
+        request.httpBody = bodyData
+        
+        request.httpMethod = "POST"
+       
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data)
+            guard let responseJSON = responseJSON as? [String: Any] else { return }
+            
+            guard let teams = responseJSON["documents"] as? [[String: Any]] else { return }
+            teams.forEach { team in
+                guard let id = team["_id"] as? String else { return }
+                guard let school_name = team["school_name"] as? String else { return }
+                guard let state = team["state"] as? String else { return }
+                
+                let schoolAlreadyIn = dbTeams.contains { predTeam in
+                    predTeam.school_name == school_name
+                }
+                
+                if !schoolAlreadyIn {
+                    let arrTeam = DBTeam(id: id, school_name: school_name, state: state)
+                    dbTeams.append(arrTeam)
+                }
+            }
+        }
+        
+        task.resume()
+    }
+    
     private func handleTeamSelection(for schoolName: String) {
         let filteredTeams = teams.where {
             $0.party == selectedParty && $0.school_name == schoolName

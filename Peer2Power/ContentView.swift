@@ -19,7 +19,7 @@ struct ContentView: View {
                 }
             }))
         } else {
-            LoginView()
+            ChooseTeamView()
         }
     }
 }

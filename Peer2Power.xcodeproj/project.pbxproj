@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000111A128E7281E00E2CE92 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000111A028E7281E00E2CE92 /* UserNotifications.framework */; };
 		000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111A228E72C7A00E2CE92 /* TextDate.swift */; };
 		000111A728E88E1400E2CE92 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 000111A628E88E1400E2CE92 /* SPAlert */; };
-		000111AB28E8F7C100E2CE92 /* MongoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 000111AA28E8F7C100E2CE92 /* MongoSwift */; };
 		000CD2C7289F974200A004FA /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ChooseTeamView.swift */; };
 		0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166728D530360070FF11 /* EndOfStudyTask.swift */; };
 		0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */; };
@@ -102,7 +100,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		000111A028E7281E00E2CE92 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		000111A228E72C7A00E2CE92 /* TextDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDate.swift; sourceTree = "<group>"; };
 		000CD2C6289F974200A004FA /* ChooseTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamView.swift; sourceTree = "<group>"; };
 		0026166728D530360070FF11 /* EndOfStudyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudyTask.swift; sourceTree = "<group>"; };
@@ -154,14 +151,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				000111A728E88E1400E2CE92 /* SPAlert in Frameworks */,
-				000111A128E7281E00E2CE92 /* UserNotifications.framework in Frameworks */,
 				0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */,
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
 				0094744928C01CBA00D50140 /* FirebaseRemoteConfigSwift in Frameworks */,
 				00DDAC4228BC19D10073DF85 /* ResearchKit.framework in Frameworks */,
 				0094744728C01CBA00D50140 /* FirebaseRemoteConfig in Frameworks */,
-				000111AB28E8F7C100E2CE92 /* MongoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +235,6 @@
 				009CE5102899CA8B00796313 /* Peer2PowerTests */,
 				009CE51A2899CA8B00796313 /* Peer2PowerUITests */,
 				009CE4FE2899CA8500796313 /* Products */,
-				00BA93F728AF130F00A434FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -325,14 +319,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		00BA93F728AF130F00A434FF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				000111A028E7281E00E2CE92 /* UserNotifications.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		00BA93FB28AF1ACE00A434FF /* Surveys */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,7 +364,6 @@
 				0094744628C01CBA00D50140 /* FirebaseRemoteConfig */,
 				0094744828C01CBA00D50140 /* FirebaseRemoteConfigSwift */,
 				000111A628E88E1400E2CE92 /* SPAlert */,
-				000111AA28E8F7C100E2CE92 /* MongoSwift */,
 			);
 			productName = Peer2Power;
 			productReference = 009CE4FD2899CA8500796313 /* Peer2Power.app */;
@@ -456,7 +441,6 @@
 				009CE5332899F20C00796313 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */,
-				000111A928E8F7C100E2CE92 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */,
 			);
 			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
 			projectDirPath = "";
@@ -936,14 +920,6 @@
 				minimumVersion = 4.2.0;
 			};
 		};
-		000111A928E8F7C100E2CE92 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mongodb/mongo-swift-driver";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.1;
-			};
-		};
 		0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -967,11 +943,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
-		};
-		000111AA28E8F7C100E2CE92 /* MongoSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 000111A928E8F7C100E2CE92 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */;
-			productName = MongoSwift;
 		};
 		0094744428C01CBA00D50140 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
