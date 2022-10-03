@@ -185,6 +185,9 @@ extension SignUpView {
                 do {
                     try await app.emailPasswordAuth.registerUser(email: email, password: password)
                     
+                    let defaults = UserDefaults.standard
+                    defaults.set(team_id, forKey: "joinTeamID")
+                    
                     showingEmailConfirmAlert.toggle()
                     signingUp.toggle()
                 } catch {
