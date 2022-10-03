@@ -116,14 +116,14 @@ extension ChooseTeamView {
             
             guard let team = responseJSON["document"] as? [String: Any] else { return }
             
+            guard let id = team["_id"] as? String else { return }
+            teamID = id
+            
             guard let score = team["score"] as? Int else { return }
             teamScore = score
             
             guard let members = team["member_ids"] as? [String] else { return }
             teamMemberCount = members.count
-            
-            guard let id = team["_id"] as? String else { return }
-            teamID = id
         }
         
         task.resume()
