@@ -79,7 +79,7 @@ struct SchoolsListView: View {
             }
             .sheet(isPresented: $didSelectTeam) {
                 NavigationView {
-                    SignUpView(team_id: $selectedTeamID)
+                    SignUpView(team_id: $selectedTeamID, userSignedUp: $showingLoginSheet)
                 }
             }
             Button("Already part of a team? Login.") {

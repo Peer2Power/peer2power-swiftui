@@ -19,6 +19,7 @@ struct SignUpView: View {
     @State private var teamParty = ""
     
     @Binding var team_id: String
+    @Binding var userSignedUp: Bool
     
     @State private var errorText = ""
     @State private var showingErrorAlert = false
@@ -119,6 +120,7 @@ struct SignUpView: View {
             }
             .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
                 Button("OK", role: .cancel, action: {
+                    userSignedUp = true
                     dismiss()
                 })
             } message: {
@@ -185,8 +187,8 @@ extension SignUpView {
                 do {
                     try await app.emailPasswordAuth.registerUser(email: email, password: password)
                     
-                    let defaults = UserDefaults.standard
-                    defaults.set(team_id, forKey: "joinTeamID")
+                    UserDefaults.standard.set(team_id, forKey: "joinTeamID")
+                    print("Persisted the ID of the team the user should join.")
                     
                     showingEmailConfirmAlert.toggle()
                     signingUp.toggle()

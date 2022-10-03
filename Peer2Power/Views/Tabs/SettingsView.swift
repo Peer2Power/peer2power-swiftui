@@ -65,7 +65,10 @@ extension SettingsView {
         do {
             try realm.write {
                 team.member_ids.remove(at: currentUserIDIndex)
-                team.score -= 1
+                
+                if team.score > 0 {
+                    team.score -= 1
+                }
                 
                 print("Removed the current user's ID from the team's member list and subtracted a point.")
             }

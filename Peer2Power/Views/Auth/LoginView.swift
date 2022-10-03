@@ -21,6 +21,7 @@ struct LoginView: View {
     
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.realm) private var realm
     
     enum Field: Hashable {
         case email
@@ -104,6 +105,25 @@ extension LoginView {
                 let user = try await app.login(credentials: .emailPassword(email: email, password: password))
                 
                 print("Logged in user with ID \(user.id)")
+                
+                // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
+                if let joinTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
+                    DispatchQueue.main.async {
+                        add(user: user, to: "\(joinTeamID)")
+                    }
+                }
+                
+                /*
+                UserDefaults.standard.set("633a3245572a32cab38687e8", forKey: "joinTeamID")
+                if let id = UserDefaults.standard.string(forKey: "joinTeamID") {
+                    print("The following ID is being persisted: \(id)")
+                }
+                
+                let teamID = "633a3245572a32cab38687e8"
+                DispatchQueue.main.async {
+                    add(user: user, to: teamID)
+                } */
+                
                 loggingIn.toggle()
             } catch {
                 loggingIn.toggle()
@@ -112,6 +132,32 @@ extension LoginView {
                 showingErrorAlert.toggle()
             }
         }
+    }
+    
+    private func add(user: User, to teamID: String) {
+        print("User should join a team with ID \(teamID)")
+        
+        do {
+            let teamRealm = try Realm(configuration: user.flexibleSyncConfiguration(initialSubscriptions: { subs in
+                subs.append(QuerySubscription<Team>(name: allTeamsSubName))
+            }))
+            
+            guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: try ObjectId(string: teamID)) else {
+                print("The team could not be found.")
+                return
+            }
+            
+            try teamRealm.write {
+                team.member_ids.append(user.id)
+                
+                print("Added the current user to a team.")
+                UserDefaults.standard.set(nil, forKey: "joinTeamID")
+                dismiss()
+            }
+        } catch {
+            print("Error adding user to team: \(error.localizedDescription)")
+        }
+        
     }
 }
 
