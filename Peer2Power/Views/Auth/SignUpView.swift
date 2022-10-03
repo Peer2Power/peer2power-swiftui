@@ -187,9 +187,6 @@ extension SignUpView {
                 do {
                     try await app.emailPasswordAuth.registerUser(email: email, password: password)
                     
-                    UserDefaults.standard.set(team_id, forKey: "joinTeamID")
-                    print("Persisted the ID of the team the user should join.")
-                    
                     showingEmailConfirmAlert.toggle()
                     signingUp.toggle()
                 } catch {

@@ -46,7 +46,7 @@ struct ChooseTeamView: View {
                         if selectedParty != .selectParty {
                             HStack {
                                 Spacer()
-                                Button("Join Team") {
+                                Button("Sign Up and Join Team") {
                                     showingConfirmAlert.toggle()
                                 }
                                 .controlSize(.large)

@@ -19,6 +19,8 @@ struct LoginView: View {
     @State private var errorText = ""
     @State private var showingEmptyFieldAlert = false
     
+    @Binding var joinTeamID: String
+    
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.realm) private var realm
@@ -107,10 +109,12 @@ extension LoginView {
                 print("Logged in user with ID \(user.id)")
                 
                 // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
-                if let joinTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
+                if !joinTeamID.isEmpty {
                     DispatchQueue.main.async {
-                        add(user: user, to: "\(joinTeamID)")
+                        add(user: user, to: joinTeamID)
                     }
+                } else {
+                    print("No ID of a team that the user should join could be found.")
                 }
                 
                 /*
@@ -150,8 +154,18 @@ extension LoginView {
             try teamRealm.write {
                 team.member_ids.append(user.id)
                 
-                print("Added the current user to a team.")
+                let userJoinedTeam = team.member_ids.contains { id in
+                    id == user.id
+                }
+                if userJoinedTeam {
+                    print("Added the current user to a team.")
+                }
+                
                 UserDefaults.standard.set(nil, forKey: "joinTeamID")
+                if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
+                    print("Removed the ID of the team the user should join from UserDefaults since they have joined it.")
+                }
+                
                 dismiss()
             }
         } catch {
@@ -163,6 +177,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(joinTeamID: .constant(""))
     }
 }
