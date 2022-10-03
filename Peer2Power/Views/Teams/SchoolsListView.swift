@@ -157,8 +157,8 @@ extension SchoolsListView {
         
         let bodyJSON: [String: Any] = [
             "collection": "Team",
-            "database": "peer2power",
-            "dataSource": "prod",
+            "database": "govlab",
+            "dataSource": "production",
             "limit": 5000,
             "sort": ["state": 1],
             "projection": ["_id": 1, "school_name": 1, "state": 1]

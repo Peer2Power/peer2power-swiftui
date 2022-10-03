@@ -93,8 +93,8 @@ extension ChooseTeamView {
         
         let bodyJSON: [String: Any] = [
             "collection": "Team",
-            "database": "peer2power",
-            "dataSource": "prod",
+            "database": "govlab",
+            "dataSource": "production",
             "filter": ["school_name": school_name, "party": selectedParty.rawValue],
             "projection": ["_id": 1, "score": 1, "member_ids": 1]
         ]

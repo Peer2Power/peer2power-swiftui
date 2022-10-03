@@ -211,8 +211,8 @@ extension SignUpView {
         
         let bodyJSON: [String: Any] = [
             "collection": "Team",
-            "database": "peer2power",
-            "dataSource": "prod",
+            "database": "govlab",
+            "dataSource": "production",
             "filter": ["_id": ["$oid": team_id],],
             "projection": ["_id": 0, "school_name": 1, "party": 1]
         ]
