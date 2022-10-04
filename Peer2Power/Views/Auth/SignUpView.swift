@@ -19,7 +19,6 @@ struct SignUpView: View {
     @State private var teamParty = ""
     
     @Binding var team_id: String
-    @Binding var userSignedUp: Bool
     
     @State private var errorText = ""
     @State private var showingErrorAlert = false
@@ -30,7 +29,7 @@ struct SignUpView: View {
     @State private var passwordMismatch = false
     
     @State private var signingUp = false
-    @State private var showingEmailConfirmAlert = false
+    @Binding var teamSelected: Bool
     
     @State private var consentText = "Agree to the consent agreement to sign up."
     @State private var userConsented = false
@@ -112,14 +111,6 @@ struct SignUpView: View {
             } message: {
                 Text(errorText)
             }
-            .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
-                Button("OK", role: .cancel, action: {
-                    userSignedUp = true
-                    dismiss()
-                })
-            } message: {
-                Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
-            }
             .alert("Missing Information",
                    isPresented: $showingEmptyFieldAlert) {
                 Button("OK", role: .cancel, action: {})
@@ -173,29 +164,31 @@ extension SignUpView {
             return
         }
         
-        passwordMismatch = password != confirmPassword
-        
-        if !passwordMismatch {
-            Task {
-                signingUp.toggle()
-                do {
-                    try await app.emailPasswordAuth.registerUser(email: email, password: password)
-                    
-                    UserDefaults.standard.set(team_id, forKey: "joinTeamID")
-                    print("Persisted ID \(UserDefaults.standard.string(forKey: "joinTeamID") ?? "N/A") of the team the user should join.")
-                    
-                    showingEmailConfirmAlert.toggle()
-                    signingUp.toggle()
-                } catch {
-                    signingUp.toggle()
-                    print("Error signing up: \(error.localizedDescription)")
-                    
-                    errorText = error.localizedDescription
-                    showingErrorAlert.toggle()
-                }
-            }
-        } else {
+        guard password == confirmPassword else {
+            passwordMismatch.toggle()
             signingUp.toggle()
+            return
+        }
+        
+        Task {
+            signingUp.toggle()
+            do {
+                try await app.emailPasswordAuth.registerUser(email: email, password: password)
+                
+                UserDefaults.standard.set(team_id, forKey: "joinTeamID")
+                print("Persisted ID \(UserDefaults.standard.string(forKey: "joinTeamID") ?? "N/A") of the team the user should join.")
+                
+                signingUp.toggle()
+                teamSelected.toggle()
+                
+                dismiss()
+            } catch {
+                signingUp.toggle()
+                print("Error signing up: \(error.localizedDescription)")
+                
+                errorText = error.localizedDescription
+                showingErrorAlert.toggle()
+            }
         }
     }
     

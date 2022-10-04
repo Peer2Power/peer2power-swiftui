@@ -26,8 +26,10 @@ struct SchoolsListView: View {
     @State private var searchText = ""
     
     @State private var showingLoginSheet = false
+    @State private var showingSignUpSheet = false
     
     @State private var didSelectTeam = false
+    @State private var showingEmailConfirmAlert = false
     
     @State private var selectedTeamID = ""
     @State private var selectedParty: Party = .selectParty
@@ -58,7 +60,7 @@ struct SchoolsListView: View {
                                 ChooseTeamView(school_name: team.school_name,
                                                selectedParty: $selectedParty,
                                                teamID: $selectedTeamID,
-                                               teamSelected: $didSelectTeam)
+                                               teamSelected: $showingSignUpSheet)
                             } label: {
                                 Text(team.school_name)
                             }
@@ -77,10 +79,22 @@ struct SchoolsListView: View {
                     LoginView()
                 }
             }
-            .sheet(isPresented: $didSelectTeam) {
-                NavigationView {
-                    SignUpView(team_id: $selectedTeamID, userSignedUp: $showingLoginSheet)
+            .sheet(isPresented: $showingSignUpSheet, onDismiss: {
+                if UserDefaults.standard.string(forKey: "joinTeamID") != nil {
+                    showingEmailConfirmAlert.toggle()
                 }
+            }, content: {
+                NavigationView {
+                    SignUpView(team_id: $selectedTeamID,
+                               teamSelected: $didSelectTeam)
+                }
+            })
+            .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
+                Button("OK", role: .cancel, action: {
+                    showingLoginSheet.toggle()
+                })
+            } message: {
+                Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
             }
             Button("Already part of a team? Login.") {
                 showingLoginSheet.toggle()
