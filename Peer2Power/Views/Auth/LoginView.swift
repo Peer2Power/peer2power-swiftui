@@ -19,8 +19,6 @@ struct LoginView: View {
     @State private var errorText = ""
     @State private var showingEmptyFieldAlert = false
     
-    @Binding var joinTeamID: String
-    
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.realm) private var realm
@@ -109,7 +107,7 @@ extension LoginView {
                 print("Logged in user with ID \(user.id)")
                 
                 // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
-                if !joinTeamID.isEmpty {
+                if let joinTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
                     DispatchQueue.main.async {
                         add(user: user, to: joinTeamID)
                     }
@@ -146,7 +144,8 @@ extension LoginView {
                 subs.append(QuerySubscription<Team>(name: allTeamsSubName))
             }))
             
-            guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: try ObjectId(string: teamID)) else {
+            let objectID = try ObjectId(string: teamID)
+            guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: objectID) else {
                 print("The team could not be found.")
                 return
             }
@@ -177,6 +176,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(joinTeamID: .constant(""))
+        LoginView()
     }
 }

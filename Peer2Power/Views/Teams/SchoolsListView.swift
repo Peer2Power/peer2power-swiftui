@@ -74,7 +74,7 @@ struct SchoolsListView: View {
             .listStyle(.insetGrouped)
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
-                    LoginView(joinTeamID: $selectedTeamID)
+                    LoginView()
                 }
             }
             .sheet(isPresented: $didSelectTeam) {
