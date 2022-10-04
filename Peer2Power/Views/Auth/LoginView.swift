@@ -112,7 +112,7 @@ extension LoginView {
                         add(user: user, to: joinTeamID)
                     }
                 } else {
-                    print("No ID of a team that the user should join could be found.")
+                    print("No ID of a team for the user to join is being persisted.")
                 }
                 
                 /*
@@ -137,7 +137,7 @@ extension LoginView {
     }
     
     private func add(user: User, to teamID: String) {
-        print("User should join a team with ID \(teamID)")
+        print("The user should join a team with the ID \(teamID)")
         
         do {
             let teamRealm = try Realm(configuration: user.flexibleSyncConfiguration(initialSubscriptions: { subs in
