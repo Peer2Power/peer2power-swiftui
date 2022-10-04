@@ -101,13 +101,7 @@ struct SignUpView: View {
             }
             .padding(.horizontal, 15.0)
             .onAppear(perform: fetchTeamInfo)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .cancel) {
-                        dismiss()
-                    }
-                }
-            }
+            .interactiveDismissDisabled(true)
             .alert("Password Mismatch", isPresented: $passwordMismatch, actions: {
                 Button("OK", role: .cancel, action: {})
             }, message: {
