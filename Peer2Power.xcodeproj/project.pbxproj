@@ -16,6 +16,7 @@
 		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
 		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
 		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
+		003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1CF328EDB16D00672E42 /* CheckboxField.swift */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -111,6 +112,7 @@
 		0026167A28DB8B0F0070FF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0026167B28E0E2A90070FF11 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		0026168328E4F8270070FF11 /* ConsentAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentAgreementView.swift; sourceTree = "<group>"; };
+		003B1CF328EDB16D00672E42 /* CheckboxField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -324,8 +326,9 @@
 				00BA93FB28AF1ACE00A434FF /* Surveys */,
 				009CE544289B088300796313 /* LoggedInView.swift */,
 				009CE548289B0A6A00796313 /* UploadContactView.swift */,
-				009CE54C289B41E800796313 /* ErrorView.swift */,
 				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
+				009CE54C289B41E800796313 /* ErrorView.swift */,
+				003B1CF328EDB16D00672E42 /* CheckboxField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */,
 				00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */,
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
+				003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 				0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */,
 				000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */,

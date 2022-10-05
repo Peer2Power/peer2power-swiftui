@@ -81,13 +81,22 @@ struct SignUpView: View {
                     .controlSize(.large)
                     .padding(.top, 15)
                     .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
+                CheckboxField(label: VStack {
+                    Text("By signing up, you agree to the")
+                    Button("Informed Consent Agreement") {
+                        showingConsentAgreement.toggle()
+                    }
+                    .sheet(isPresented: $showingConsentAgreement) {
+                        ConsentAgreementView(consented: $userConsented)
+                    }
+                }, size: 45, color: Color(UIColor.label), checked: $userConsented)
+                    .padding(.top, 15)
+                /*
                 Button(consentText) {
                     showingConsentAgreement.toggle()
                 }
                 .padding(.top, 25)
-                .sheet(isPresented: $showingConsentAgreement) {
-                    ConsentAgreementView(consented: $userConsented)
-                }
+                
                 .onChange(of: userConsented) { newValue in
                     if newValue == true {
                         consentText = "You consented! You can now sign up, or change whether you consent to participate."
@@ -95,6 +104,7 @@ struct SignUpView: View {
                         consentText = "You did not consent. You will not be able to sign up until you give your consent."
                     }
                 }
+                 */
                 if signingUp {
                     ProgressView("Signing Up...")
                 }
