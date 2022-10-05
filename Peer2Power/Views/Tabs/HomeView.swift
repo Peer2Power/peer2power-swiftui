@@ -17,6 +17,8 @@ struct HomeView: View {
     @State private var showingDeleteAlert = false
     @State private var offsetsToDelete: IndexSet?
     
+    @State private var showingControlGroupAlert = false
+    
     @ObservedRealmObject var userTeam: Team
     
     @Environment(\.realm) private var realm
@@ -100,17 +102,28 @@ struct HomeView: View {
                     } message: {
                         Text("Your team will lose any points it received for this contact.")
                     }
+                    .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
+                        Button("OK", role: .cancel, action: {})
+                    } message: {
+                        Text("Your should not try to recruit this contact to volunteer, so you will not see them in your contacts list.")
+                    }
                 }
-                
                 Button {
                     showingUploadForm.toggle()
                 } label: {
                     Label("Upload a Contact", systemImage: "person.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
-                .sheet(isPresented: $showingUploadForm) {
-                    UploadContactView(userTeam: userTeam, contact: Contact(), isPastCloseDate: $pastCloseDate)
-                }
+                .sheet(isPresented: $showingUploadForm, onDismiss: {
+                    guard let uploadedContact = userTeam.contacts.last else { return }
+                    
+                    if pastCloseDate && uploadedContact.group == 0 {
+                        showingControlGroupAlert.toggle()
+                    }
+                }, content: {
+                    UploadContactView(userTeam: userTeam, contact: Contact(),
+                                      isPastCloseDate: $pastCloseDate)
+                })
             }
             .onAppear(perform: handleRemoteConfig)
             .toolbar {

@@ -91,7 +91,6 @@ struct UploadContactView: View {
                             Text("Cancel")
                         }
                     }
-                    
                 }
             }
         }
@@ -115,7 +114,9 @@ struct UploadContactView: View {
                  dismissOnTap: true,
                  preset: .done,
                  haptic: .success,
-                 layout: nil, completion: nil)
+                 layout: nil) {
+            dismiss()
+        }
     }
 }
 
