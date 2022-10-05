@@ -173,6 +173,7 @@ extension LoginView {
         do {
             try realm.write {
                 team.member_ids.append(user.id)
+                print("Added the current user to a team.")
                 
                 team.score += 1
                 showingJoinedTeamAlert.toggle()
