@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SPAlert
 
 struct LoginView: View {
     @State private var email = ""
@@ -79,13 +80,26 @@ struct LoginView: View {
         }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel", role: .cancel) {
-                    dismiss()
+                if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
+                    Button("Cancel", role: .cancel) {
+                        dismiss()
+                    }
+                    .disabled(loggingIn)
                 }
-                .disabled(loggingIn)
             }
         }
         .interactiveDismissDisabled(loggingIn)
+        // FIXME: visual feedback not showing.
+        .SPAlert(isPresent: $showingJoinedTeamAlert,
+                 title: "Points Received!",
+                 message: "Your team received 1 point because you signed up!",
+                 duration: 4,
+                 dismissOnTap: true,
+                 preset: .done,
+                 haptic: .success,
+                 layout: nil) {
+            dismiss()
+        }
     }
 }
 
@@ -136,6 +150,7 @@ extension LoginView {
             }
             
             do {
+                // I have no idea why this works, but it works.
                 let teamRealm = try await Realm(configuration: config, downloadBeforeOpen: .always)
                 
                 let objectID = try ObjectId(string: teamID)
@@ -159,19 +174,13 @@ extension LoginView {
             try realm.write {
                 team.member_ids.append(user.id)
                 
-                let userJoinedTeam = team.member_ids.contains { id in
-                    id == user.id
-                }
-                if userJoinedTeam {
-                    print("Added the current user to a team.")
-                }
+                team.score += 1
+                showingJoinedTeamAlert.toggle()
                 
                 UserDefaults.standard.set(nil, forKey: "joinTeamID")
                 if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
                     print("Removed the ID of the team the user should join from UserDefaults since they have joined it.")
                 }
-                
-                dismiss()
             }
         } catch {
             print("Error adding user to team: \(error.localizedDescription)")
