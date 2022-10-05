@@ -84,6 +84,7 @@ struct SignUpView: View {
                 CheckboxField(label: VStack {
                     Text("By signing up, you agree to the")
                     Button("Informed Consent Agreement") {
+                        focusedField = nil
                         showingConsentAgreement.toggle()
                     }
                     .sheet(isPresented: $showingConsentAgreement) {
