@@ -78,6 +78,17 @@ struct LoginView: View {
         } message: {
             Text("One or more text fields is empty. Please fill out all text fields and try again.")
         }
+        // FIXME: visual feedback for joining team not showing up. Might be because this view is dismissed before it can be shown, despite dismiss explicitly not being called until after this alert is done presenting. Likely because this view will be dismissed anyway by a condition in ContentView.
+        .SPAlert(isPresent: $showingJoinedTeamAlert,
+                 title: "Points Received!",
+                 message: "Your team received 1 point because you signed up!",
+                 duration: 4,
+                 dismissOnTap: true,
+                 preset: .done,
+                 haptic: .success,
+                 layout: nil) {
+            dismiss()
+        }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
@@ -89,17 +100,6 @@ struct LoginView: View {
             }
         }
         .interactiveDismissDisabled(loggingIn)
-        // FIXME: visual feedback not showing.
-        .SPAlert(isPresent: $showingJoinedTeamAlert,
-                 title: "Points Received!",
-                 message: "Your team received 1 point because you signed up!",
-                 duration: 4,
-                 dismissOnTap: true,
-                 preset: .done,
-                 haptic: .success,
-                 layout: nil) {
-            dismiss()
-        }
     }
 }
 
