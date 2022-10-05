@@ -28,9 +28,15 @@ struct LeaderboardView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-            Text("points to the national \(userTeam.party.rawValue) total.")
-                .font(.title2)
-                .multilineTextAlignment(.center)
+            if userTeam.score != 1 {
+                Text("points to the national \(userTeam.party.rawValue) total.")
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+            } else {
+                Text("point to the national \(userTeam.party.rawValue) total.")
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+            }
             Divider()
             HStack {
                 VStack {
@@ -46,9 +52,15 @@ struct LeaderboardView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
-                    Text("points")
-                        .multilineTextAlignment(.center)
-                        .font(.title3)
+                    if demTeams.sum(of: \Team.score) != 1 {
+                        Text("points")
+                            .multilineTextAlignment(.center)
+                            .font(.title3)
+                    } else {
+                        Text("point")
+                            .multilineTextAlignment(.center)
+                            .font(.title3)
+                    }
                 }
                 VStack {
                     Image("Republicans")
@@ -61,8 +73,15 @@ struct LeaderboardView: View {
                     Text("\(repTeams.sum(of: \Team.score))")
                         .font(.title)
                         .fontWeight(.bold)
-                    Text("points")
-                        .font(.title3)
+                    if repTeams.sum(of: \Team.score) != 1 {
+                        Text("points")
+                            .multilineTextAlignment(.center)
+                            .font(.title3)
+                    } else {
+                        Text("point")
+                            .multilineTextAlignment(.center)
+                            .font(.title3)
+                    }
                 }
             }
         }
