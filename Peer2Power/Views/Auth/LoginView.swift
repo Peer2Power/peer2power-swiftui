@@ -19,6 +19,8 @@ struct LoginView: View {
     @State private var errorText = ""
     @State private var showingEmptyFieldAlert = false
     
+    @State private var showingJoinedTeamAlert = false
+    
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.realm) private var realm
@@ -80,8 +82,10 @@ struct LoginView: View {
                 Button("Cancel", role: .cancel) {
                     dismiss()
                 }
+                .disabled(loggingIn)
             }
         }
+        .interactiveDismissDisabled(loggingIn)
     }
 }
 
@@ -108,23 +112,10 @@ extension LoginView {
                 
                 // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
                 if let joinTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
-                    DispatchQueue.main.async {
-                        add(user: user, to: joinTeamID)
-                    }
+                    getTeamToAdd(user: user, with: joinTeamID)
                 } else {
                     print("No ID of a team for the user to join is being persisted.")
                 }
-                
-                /*
-                UserDefaults.standard.set("633a3245572a32cab38687e8", forKey: "joinTeamID")
-                if let id = UserDefaults.standard.string(forKey: "joinTeamID") {
-                    print("The following ID is being persisted: \(id)")
-                }
-                
-                let teamID = "633a3245572a32cab38687e8"
-                DispatchQueue.main.async {
-                    add(user: user, to: teamID)
-                } */
                 
                 loggingIn.toggle()
             } catch {
@@ -136,21 +127,36 @@ extension LoginView {
         }
     }
     
-    private func add(user: User, to teamID: String) {
+    private func getTeamToAdd(user: User, with teamID: String) {
         print("The user should join a team with the ID \(teamID)")
         
-        do {
-            let teamRealm = try Realm(configuration: user.flexibleSyncConfiguration(initialSubscriptions: { subs in
+        Task {
+            let config = user.flexibleSyncConfiguration { subs in
                 subs.append(QuerySubscription<Team>(name: allTeamsSubName))
-            }))
-            
-            let objectID = try ObjectId(string: teamID)
-            guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: objectID) else {
-                print("The team could not be found.")
-                return
             }
             
-            try teamRealm.write {
+            do {
+                let teamRealm = try await Realm(configuration: config, downloadBeforeOpen: .always)
+                
+                let objectID = try ObjectId(string: teamID)
+                
+                DispatchQueue.main.async {
+                    guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: objectID) else {
+                        print("The team could not be found.")
+                        return
+                    }
+                    
+                    append(user: user, to: team, using: teamRealm)
+                }
+            } catch  {
+                print("Error getting team to add user to: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func append(user: User, to team: Team, using realm: Realm) {
+        do {
+            try realm.write {
                 team.member_ids.append(user.id)
                 
                 let userJoinedTeam = team.member_ids.contains { id in
@@ -170,7 +176,6 @@ extension LoginView {
         } catch {
             print("Error adding user to team: \(error.localizedDescription)")
         }
-        
     }
 }
 

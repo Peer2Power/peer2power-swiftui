@@ -30,6 +30,7 @@ struct SignUpView: View {
     
     @State private var signingUp = false
     @Binding var teamSelected: Bool
+    @State private var showingEmailConfirmAlert = false
     
     @State private var consentText = "Agree to the consent agreement to sign up."
     @State private var userConsented = false
@@ -101,6 +102,14 @@ struct SignUpView: View {
             .padding(.horizontal, 15.0)
             .onAppear(perform: fetchTeamInfo)
             .interactiveDismissDisabled(true)
+            .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
+                Button("OK", role: .cancel, action: {
+                    teamSelected.toggle()
+                    dismiss()
+                })
+            } message: {
+                Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
+            }
             .alert("Password Mismatch", isPresented: $passwordMismatch, actions: {
                 Button("OK", role: .cancel, action: {})
             }, message: {
@@ -178,10 +187,8 @@ extension SignUpView {
                 UserDefaults.standard.set(team_id, forKey: "joinTeamID")
                 print("Persisted ID \(UserDefaults.standard.string(forKey: "joinTeamID") ?? "N/A") of the team the user should join.")
                 
+                showingEmailConfirmAlert.toggle()
                 signingUp.toggle()
-                teamSelected.toggle()
-                
-                dismiss()
             } catch {
                 signingUp.toggle()
                 print("Error signing up: \(error.localizedDescription)")

@@ -28,9 +28,6 @@ struct SchoolsListView: View {
     @State private var showingLoginSheet = false
     @State private var showingSignUpSheet = false
     
-    @State private var didSelectTeam = false
-    @State private var showingEmailConfirmAlert = false
-    
     @State private var selectedTeamID = ""
     @State private var selectedParty: Party = .selectParty
     
@@ -79,83 +76,16 @@ struct SchoolsListView: View {
                     LoginView()
                 }
             }
-            .sheet(isPresented: $showingSignUpSheet, onDismiss: {
-                if UserDefaults.standard.string(forKey: "joinTeamID") != nil {
-                    showingEmailConfirmAlert.toggle()
-                }
-            }, content: {
+            .sheet(isPresented: $showingSignUpSheet, content: {
                 NavigationView {
                     SignUpView(team_id: $selectedTeamID,
-                               teamSelected: $didSelectTeam)
+                               teamSelected: $showingLoginSheet)
                 }
             })
-            .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
-                Button("OK", role: .cancel, action: {
-                    showingLoginSheet.toggle()
-                })
-            } message: {
-                Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
-            }
             Button("Already part of a team? Login.") {
                 showingLoginSheet.toggle()
             }
         }
-        
-        /*
-        List {
-            ForEach(searchResults.distinct(by: [\Team.state]).sorted(by: \Team.state, ascending: true), id: \.self) { stateTeam in
-                Section {
-                    ForEach(searchResults.filter("state = %@", stateTeam.state)) { team in
-                        NavigationLink {
-                            List {
-                                Picker("Party", selection: $selectedParty) {
-                                    ForEach(Party.allCases, id: \.self) { party in
-                                        Text(party.rawValue).tag(party)
-                                    }
-                                }
-                                .toolbar {
-                                    ToolbarItem(placement: .confirmationAction) {
-                                        Button("Choose") {
-                                            showingConfirmAlert.toggle()
-                                        }
-                                        .disabled(selectedParty == .selectParty)
-                                        .alert("Are you sure you want to join this team?", isPresented: $showingConfirmAlert) {
-                                            Button(role: .cancel, action: {}) {
-                                                Text("Cancel")
-                                            }
-                                            Button("Choose") {
-                                                handleTeamSelection(for: team.school_name)
-                                            }
-                                        } message: {
-                                            Text("You won't be able to change your team after joining.")
-                                        }
-                                    }
-                                }
-                            }
-                            .navigationBarTitle("Choose Your Party")
-                        } label: {
-                            Text("\(team.school_name)")
-                        }
-                    }
-                } header: {
-                    Text("\(stateTeam.state)")
-                }
-            }
-        }
-        .navigationTitle("Choose Your School")
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Enter the name of your school")
-        .onAppear(perform: fetchTeams)
-        .listStyle(.insetGrouped)
-        .SPAlert(isPresent: $showingDidSignUpAlert,
-                 title: "Points Received!",
-                 message: "Your team received 1 points because you signed up!",
-                 duration: 4,
-                 dismissOnTap: true,
-                 preset: .done,
-                 haptic: .success,
-                 layout: nil) {
-            dismiss()
-        } */
     }
 }
 
@@ -220,32 +150,6 @@ extension SchoolsListView {
         
         task.resume()
     }
-    
-    /* private func handleTeamSelection(for schoolName: String) {
-        let filteredTeams = teams.where {
-            $0.party == selectedParty && $0.school_name == schoolName
-        }
-        
-        guard !filteredTeams.isEmpty else { return }
-        
-        guard let currentUser = app.currentUser else { return }
-
-        print("A team already exists for this school and party.")
-        
-        guard let team = filteredTeams.first?.thaw() else { return }
-        
-        do {
-            try realm.write {
-                team.member_ids.append(currentUser.id)
-                team.score += 1
-                
-                print("The current user was added to an existing team.")
-                showingDidSignUpAlert.toggle()
-            }
-        } catch {
-            print("Error adding user to team: \(error.localizedDescription)")
-        }
-    } */
 }
  
 struct CollegeListView_Previews: PreviewProvider {
