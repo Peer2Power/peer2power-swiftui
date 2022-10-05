@@ -32,74 +32,76 @@ struct LoginView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 15.0) {
-            Image("LoginLogo")
-            TextField("Email Address", text: $email)
-                .submitLabel(.next)
-                .textContentType(.emailAddress)
-                .keyboardType(.emailAddress)
-                .autocorrectionDisabled(true)
-                .autocapitalization(.none)
-                .textFieldStyle(.roundedBorder)
-                .onSubmit {
-                    focusedField = .password
-                }
-            SecureField("Password", text: $password)
-                .submitLabel(.go)
-                .textFieldStyle(.roundedBorder)
-                .autocapitalization(.none)
-                .focused($focusedField, equals: .password)
-                .onSubmit(loginUser)
-            Button("Login", action: loginUser)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .disabled(email.isEmpty || password.isEmpty || loggingIn)
-            Button("Forgot your password?") {
-                showingPasswordResetForm.toggle()
-            }
-            .sheet(isPresented: $showingPasswordResetForm) {
-                ForgotPasswordView()
-            }
-            if loggingIn {
-                ProgressView {
-                    Text("Logging in...")
-                }
-            }
-        }
-        .padding(.horizontal, 15.0)
-        .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
-            Button("OK", role: .cancel, action: {})
-        } message: {
-            Text(errorText)
-        }
-        .alert("Missing Information",
-               isPresented: $showingEmptyFieldAlert) {
-            Button("OK", role: .cancel, action: {})
-        } message: {
-            Text("One or more text fields is empty. Please fill out all text fields and try again.")
-        }
-        // FIXME: visual feedback for joining team not showing up. Might be because this view is dismissed before it can be shown, despite dismiss explicitly not being called until after this alert is done presenting. Likely because this view will be dismissed anyway by a condition in ContentView.
-        .SPAlert(isPresent: $showingJoinedTeamAlert,
-                 title: "Points Received!",
-                 message: "Your team received 1 point because you signed up!",
-                 duration: 4,
-                 dismissOnTap: true,
-                 preset: .done,
-                 haptic: .success,
-                 layout: nil) {
-            dismiss()
-        }
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
-                    Button("Cancel", role: .cancel) {
-                        dismiss()
+        ScrollView {
+            VStack(alignment: .center, spacing: 15.0) {
+                Image("LoginLogo")
+                TextField("Email Address", text: $email)
+                    .submitLabel(.next)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+                    .autocorrectionDisabled(true)
+                    .autocapitalization(.none)
+                    .textFieldStyle(.roundedBorder)
+                    .onSubmit {
+                        focusedField = .password
                     }
-                    .disabled(loggingIn)
+                SecureField("Password", text: $password)
+                    .submitLabel(.go)
+                    .textFieldStyle(.roundedBorder)
+                    .autocapitalization(.none)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit(loginUser)
+                Button("Login", action: loginUser)
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .disabled(email.isEmpty || password.isEmpty || loggingIn)
+                Button("Forgot your password?") {
+                    showingPasswordResetForm.toggle()
+                }
+                .sheet(isPresented: $showingPasswordResetForm) {
+                    ForgotPasswordView()
+                }
+                if loggingIn {
+                    ProgressView {
+                        Text("Logging in...")
+                    }
                 }
             }
+            .padding(.horizontal, 15.0)
+            .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text(errorText)
+            }
+            .alert("Missing Information",
+                   isPresented: $showingEmptyFieldAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text("One or more text fields is empty. Please fill out all text fields and try again.")
+            }
+            // FIXME: visual feedback for joining team not showing up. Might be because this view is dismissed before it can be shown, despite dismiss explicitly not being called until after this alert is done presenting. Likely because this view will be dismissed anyway by a condition in ContentView.
+            .SPAlert(isPresent: $showingJoinedTeamAlert,
+                     title: "Points Received!",
+                     message: "Your team received 1 point because you signed up!",
+                     duration: 4,
+                     dismissOnTap: true,
+                     preset: .done,
+                     haptic: .success,
+                     layout: nil) {
+                dismiss()
+            }
+                     .toolbar {
+                         ToolbarItem(placement: .cancellationAction) {
+                             if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
+                                 Button("Cancel", role: .cancel) {
+                                     dismiss()
+                                 }
+                                 .disabled(loggingIn)
+                             }
+                         }
+                     }
+                     .interactiveDismissDisabled(loggingIn)
         }
-        .interactiveDismissDisabled(loggingIn)
     }
 }
 

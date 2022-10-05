@@ -46,110 +46,102 @@ struct SignUpView: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .center, spacing: 15.0) {
-                if !school_name.isEmpty && !teamParty.isEmpty {
-                    Text("Create an account to join the \(school_name) \(teamParty).")
-                        .multilineTextAlignment(.center)
-                        .font(.title2)
-                }
-                Image("LoginLogo")
-                TextField("Email Address", text: $email)
-                    .textContentType(.emailAddress)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textFieldStyle(.roundedBorder)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .password
+            ScrollView {
+                VStack(alignment: .center, spacing: 15.0) {
+                    if !school_name.isEmpty && !teamParty.isEmpty {
+                        Text("Create an account to join the \(school_name) \(teamParty).")
+                            .multilineTextAlignment(.center)
+                            .font(.title2)
                     }
-                SecureField("Password", text: $password)
-                    .textFieldStyle(.roundedBorder)
-                    .submitLabel(.next)
-                    .focused($focusedField, equals: .password)
-                    .onSubmit {
-                        focusedField = .confirmPassword
-                    }
-                SecureField("Confirm Password", text: $confirmPassword)
-                    .textFieldStyle(.roundedBorder)
-                    .focused($focusedField, equals: .confirmPassword)
-                    .onSubmit {
-                        signUpUser()
-                    }
-                Button("Sign Up", action: signUpUser)
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.large)
+                    Image("LoginLogo")
+                    TextField("Email Address", text: $email)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .textFieldStyle(.roundedBorder)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            focusedField = .password
+                        }
+                    SecureField("Password", text: $password)
+                        .textFieldStyle(.roundedBorder)
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .password)
+                        .onSubmit {
+                            focusedField = .confirmPassword
+                        }
+                    SecureField("Confirm Password", text: $confirmPassword)
+                        .textFieldStyle(.roundedBorder)
+                        .focused($focusedField, equals: .confirmPassword)
+                        .onSubmit {
+                            signUpUser()
+                        }
+                    Button("Sign Up", action: signUpUser)
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                        .padding(.top, 15)
+                        .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
+                    CheckboxField(label: VStack {
+                        Text("By signing up, you agree to the")
+                        Button("Informed Consent Agreement") {
+                            focusedField = nil
+                            showingConsentAgreement.toggle()
+                        }
+                        .sheet(isPresented: $showingConsentAgreement) {
+                            ConsentAgreementView(consented: $userConsented)
+                        }
+                    }, size: 45, color: Color(UIColor.label), checked: $userConsented)
                     .padding(.top, 15)
-                    .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
-                CheckboxField(label: VStack {
-                    Text("By signing up, you agree to the")
-                    Button("Informed Consent Agreement") {
-                        focusedField = nil
-                        showingConsentAgreement.toggle()
-                    }
-                    .sheet(isPresented: $showingConsentAgreement) {
-                        ConsentAgreementView(consented: $userConsented)
-                    }
-                }, size: 45, color: Color(UIColor.label), checked: $userConsented)
-                    .padding(.top, 15)
-                /*
-                Button(consentText) {
-                    showingConsentAgreement.toggle()
-                }
-                .padding(.top, 25)
-                
-                .onChange(of: userConsented) { newValue in
-                    if newValue == true {
-                        consentText = "You consented! You can now sign up, or change whether you consent to participate."
-                    } else {
-                        consentText = "You did not consent. You will not be able to sign up until you give your consent."
+                    if signingUp {
+                        ProgressView("Signing Up...")
                     }
                 }
-                 */
-                if signingUp {
-                    ProgressView("Signing Up...")
+                .padding(.horizontal, 15.0)
+                .onAppear(perform: fetchTeamInfo)
+                .onTapGesture {
+                    focusedField = nil
                 }
-            }
-            .padding(.horizontal, 15.0)
-            .onAppear(perform: fetchTeamInfo)
-            .interactiveDismissDisabled(true)
-            .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
-                Button("OK", role: .cancel, action: {
-                    teamSelected.toggle()
-                    dismiss()
+                .interactiveDismissDisabled(true)
+                .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
+                    Button("OK", role: .cancel, action: {
+                        teamSelected.toggle()
+                        dismiss()
+                    })
+                } message: {
+                    Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
+                }
+                .alert("Password Mismatch", isPresented: $passwordMismatch, actions: {
+                    Button("OK", role: .cancel, action: {})
+                }, message: {
+                    Text("The passwords you entered do not match. Please ensure your passwords match and try again.")
                 })
-            } message: {
-                Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
+                .alert("Error Signing Up", isPresented: $showingErrorAlert) {
+                    Button("OK", role: .cancel, action: {})
+                } message: {
+                    Text(errorText)
+                }
+                .alert("Missing Information",
+                       isPresented: $showingEmptyFieldAlert) {
+                    Button("OK", role: .cancel, action: {})
+                } message: {
+                    Text("One or more text fields is empty. Please fill out all text fields and try again.")
+                }
+                .alert("Consent Not Given",
+                       isPresented: $showingNotConsentedAlert) {
+                    Button("OK", role: .cancel, action: {})
+                } message: {
+                    Text("You have given your consent to participate in this study. You will not be able to sign up until you agree to the informed consent agreement.")
+                }
+                .alert("Not an Academic Email Address",
+                       isPresented: $showingNotAcademicEmailAlert) {
+                    Button("OK", role: .cancel, action: {})
+                } message: {
+                    Text("You did not provide an academic email address. Please use an academic email address (ending in .edu) and try again.")
+                }
             }
-            .alert("Password Mismatch", isPresented: $passwordMismatch, actions: {
-                Button("OK", role: .cancel, action: {})
-            }, message: {
-                Text("The passwords you entered do not match. Please ensure your passwords match and try again.")
-            })
-            .alert("Error Signing Up", isPresented: $showingErrorAlert) {
-                Button("OK", role: .cancel, action: {})
-            } message: {
-                Text(errorText)
             }
-            .alert("Missing Information",
-                   isPresented: $showingEmptyFieldAlert) {
-                Button("OK", role: .cancel, action: {})
-            } message: {
-                Text("One or more text fields is empty. Please fill out all text fields and try again.")
-            }
-            .alert("Consent Not Given",
-                   isPresented: $showingNotConsentedAlert) {
-                Button("OK", role: .cancel, action: {})
-            } message: {
-                Text("You have given your consent to participate in this study. You will not be able to sign up until you agree to the informed consent agreement.")
-            }
-            .alert("Not an Academic Email Address",
-                   isPresented: $showingNotAcademicEmailAlert) {
-                Button("OK", role: .cancel, action: {})
-            } message: {
-                Text("You did not provide an academic email address. Please use an academic email address (ending in .edu) and try again.")
-            }
-        }
+            
     }
 }
 
