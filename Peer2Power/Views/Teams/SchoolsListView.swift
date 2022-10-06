@@ -85,7 +85,7 @@ struct SchoolsListView: View {
             Button("Already part of a team? Login.") {
                 showingLoginSheet.toggle()
             }
-        }
+        }        
     }
 }
 
