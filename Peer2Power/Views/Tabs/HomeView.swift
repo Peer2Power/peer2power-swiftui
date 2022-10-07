@@ -155,6 +155,7 @@ extension HomeView {
                     team.contacts.remove(atOffsets: offsets)
                 }
                 
+                guard team.score > 0 else { return }
                 team.score -= 2
             }
         } catch {

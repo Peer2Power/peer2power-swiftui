@@ -103,8 +103,12 @@ extension OutreachAttemptsListView {
                     realm.delete(attemptToDelete)
                     
                     if volunteeredAttempt {
+                        guard team.score > 0 else { return }
+                        
                         team.score -= 7
                     } else {
+                        guard team.score > 0 else { return }
+                        
                         team.score -= 4
                     }
                 }
