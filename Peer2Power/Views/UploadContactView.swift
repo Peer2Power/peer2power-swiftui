@@ -36,14 +36,23 @@ struct UploadContactView: View {
     @State private var selectedRelationship = "Select relationship"
     @State private var selectedLikelihood = "Select likelihood"
     
+    enum Field: Hashable {
+        case name
+        case email
+    }
+    
+    @FocusState private var focusedField: Field?
+    
     var body: some View {
         NavigationView {
             Form {
                 TextField("Name", text: $contact.name)
                     .textContentType(.name)
                     .autocapitalization(.words)
+                    .focused($focusedField, equals: .name)
                 TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
                     .keyboardType(.emailAddress)
+                    .focused($focusedField, equals: .email)
                 if !isUpdating {
                     Toggle(isOn: $isAdult) {
                         Text("I certify that this person is 18 or older.")
@@ -107,6 +116,9 @@ struct UploadContactView: View {
         } message: {
             Text("The email address you provided for your contact is invalid. Please enter a revised email address and try again.")
         }
+        .onChange(of: isAdult, perform: { newValue in
+            focusedField = nil
+        })
         .SPAlert(isPresent: $showingContactUploadedAlert,
                  title: "Points Received!",
                  message: "Your team received 2 points for uploading this contact!",

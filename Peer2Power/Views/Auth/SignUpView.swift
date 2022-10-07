@@ -61,6 +61,7 @@ struct SignUpView: View {
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
                         .submitLabel(.next)
+                        .focused($focusedField, equals: .email)
                         .onSubmit {
                             focusedField = .password
                         }
@@ -85,7 +86,6 @@ struct SignUpView: View {
                     CheckboxField(label: VStack {
                         Text("By signing up, you agree to the")
                         Button("Informed Consent Agreement") {
-                            focusedField = nil
                             showingConsentAgreement.toggle()
                         }
                         .sheet(isPresented: $showingConsentAgreement) {
@@ -99,9 +99,9 @@ struct SignUpView: View {
                 }
                 .padding(.horizontal, 15.0)
                 .onAppear(perform: fetchTeamInfo)
-                .onTapGesture {
+                .onChange(of: userConsented, perform: { newValue in
                     focusedField = nil
-                }
+                })
                 .interactiveDismissDisabled(true)
                 .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
                     Button("OK", role: .cancel, action: {
