@@ -17,9 +17,9 @@
 		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
 		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
 		003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1CF328EDB16D00672E42 /* CheckboxField.swift */; };
-		003B1D0528F0640300672E42 /* SPM-Acknowledgments in Frameworks */ = {isa = PBXBuildFile; productRef = 003B1D0428F0640300672E42 /* SPM-Acknowledgments */; };
 		003B1D0728F0655400672E42 /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1D0628F0655400672E42 /* AcknowledgementsView.swift */; };
 		003B1D0A28F0667500672E42 /* Package.resolved in Resources */ = {isa = PBXBuildFile; fileRef = 003B1D0928F0667500672E42 /* Package.resolved */; };
+		003B1D0D28FD034800672E42 /* AcknowList in Frameworks */ = {isa = PBXBuildFile; productRef = 003B1D0C28FD034800672E42 /* AcknowList */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -160,12 +160,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				000111A728E88E1400E2CE92 /* SPAlert in Frameworks */,
+				003B1D0D28FD034800672E42 /* AcknowList in Frameworks */,
 				0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */,
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
 				0094744928C01CBA00D50140 /* FirebaseRemoteConfigSwift in Frameworks */,
 				00DDAC4228BC19D10073DF85 /* ResearchKit.framework in Frameworks */,
-				003B1D0528F0640300672E42 /* SPM-Acknowledgments in Frameworks */,
 				0094744728C01CBA00D50140 /* FirebaseRemoteConfig in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,7 +251,6 @@
 			children = (
 				00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */,
 				009CE4FF2899CA8500796313 /* Peer2Power */,
-				003B1D0928F0667500672E42 /* Package.resolved */,
 				009CE5102899CA8B00796313 /* Peer2PowerTests */,
 				009CE51A2899CA8B00796313 /* Peer2PowerUITests */,
 				009CE4FE2899CA8500796313 /* Products */,
@@ -283,6 +282,7 @@
 				00BA93E828AC074A00A434FF /* Constants.swift */,
 				007CCA4A28BAE560000203A4 /* Secrets.swift */,
 				0094743E28C017E700D50140 /* GoogleService-Info.plist */,
+				003B1D0928F0667500672E42 /* Package.resolved */,
 			);
 			path = Peer2Power;
 			sourceTree = "<group>";
@@ -387,7 +387,7 @@
 				0094744628C01CBA00D50140 /* FirebaseRemoteConfig */,
 				0094744828C01CBA00D50140 /* FirebaseRemoteConfigSwift */,
 				000111A628E88E1400E2CE92 /* SPAlert */,
-				003B1D0428F0640300672E42 /* SPM-Acknowledgments */,
+				003B1D0C28FD034800672E42 /* AcknowList */,
 			);
 			productName = Peer2Power;
 			productReference = 009CE4FD2899CA8500796313 /* Peer2Power.app */;
@@ -465,7 +465,7 @@
 				009CE5332899F20C00796313 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */,
-				003B1D0328F0640200672E42 /* XCRemoteSwiftPackageReference "SPM-Acknowledgments" */,
+				003B1D0B28FD034800672E42 /* XCRemoteSwiftPackageReference "AcknowList" */,
 			);
 			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
 			projectDirPath = "";
@@ -956,12 +956,12 @@
 				minimumVersion = 4.2.0;
 			};
 		};
-		003B1D0328F0640200672E42 /* XCRemoteSwiftPackageReference "SPM-Acknowledgments" */ = {
+		003B1D0B28FD034800672E42 /* XCRemoteSwiftPackageReference "AcknowList" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/timroesner/SPM-Acknowledgments";
+			repositoryURL = "https://github.com/vtourraine/AcknowList";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 		0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -988,10 +988,10 @@
 			package = 000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
 		};
-		003B1D0428F0640300672E42 /* SPM-Acknowledgments */ = {
+		003B1D0C28FD034800672E42 /* AcknowList */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 003B1D0328F0640200672E42 /* XCRemoteSwiftPackageReference "SPM-Acknowledgments" */;
-			productName = "SPM-Acknowledgments";
+			package = 003B1D0B28FD034800672E42 /* XCRemoteSwiftPackageReference "AcknowList" */;
+			productName = AcknowList;
 		};
 		0094744428C01CBA00D50140 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

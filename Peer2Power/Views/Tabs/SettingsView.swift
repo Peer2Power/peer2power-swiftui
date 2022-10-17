@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import AcknowList
 
 struct SettingsView: View {
     @State private var showingLogOutAlert = false
@@ -30,10 +31,8 @@ struct SettingsView: View {
             }
              */
             Section {
-                NavigationLink {
+                NavigationLink("Open Source Licenses") {
                     AcknowledgementsView()
-                } label: {
-                    Button("Open Source Licenses", action: {})
                 }
             }
             Section {

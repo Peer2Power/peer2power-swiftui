@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import SPM_Acknowledgments
+import AcknowList
 
 struct AcknowledgementsView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some UIViewController {
-        return AcknowledgmentsTableViewController(style: .insetGrouped)
+        return AcknowListViewController()
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
