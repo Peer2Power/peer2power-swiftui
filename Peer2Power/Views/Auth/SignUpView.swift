@@ -67,6 +67,7 @@ struct SignUpView: View {
                         }
                     SecureField("Password", text: $password)
                         .textFieldStyle(.roundedBorder)
+                        .textContentType(.newPassword)
                         .submitLabel(.next)
                         .focused($focusedField, equals: .password)
                         .onSubmit {
@@ -74,6 +75,7 @@ struct SignUpView: View {
                         }
                     SecureField("Confirm Password", text: $confirmPassword)
                         .textFieldStyle(.roundedBorder)
+                        .textContentType(.newPassword)
                         .focused($focusedField, equals: .confirmPassword)
                         .onSubmit {
                             signUpUser()

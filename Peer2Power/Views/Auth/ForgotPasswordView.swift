@@ -17,6 +17,12 @@ struct ForgotPasswordView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @FocusState private var focusedField:Field?
+    
+    enum Field: Hashable {
+        case email
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -27,6 +33,7 @@ struct ForgotPasswordView: View {
                     .autocapitalization(.none)
                     .submitLabel(.done)
                     .onSubmit(sendPasswordResetEmail)
+                    .focused($focusedField, equals: .email)
             }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -52,12 +59,16 @@ struct ForgotPasswordView: View {
             })
             .navigationTitle("Reset Password")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                focusedField = .email
+            }
         }
     }
 }
 
 extension ForgotPasswordView {
     private func sendPasswordResetEmail() {
+        focusedField = nil
         isSending.toggle()
         let client = app.emailPasswordAuth
         

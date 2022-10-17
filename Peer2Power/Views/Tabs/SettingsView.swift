@@ -30,6 +30,13 @@ struct SettingsView: View {
             }
              */
             Section {
+                NavigationLink {
+                    AcknowledgementsView()
+                } label: {
+                    Button("Open Source Licenses", action: {})
+                }
+            }
+            Section {
                 Button("Log Out", role: .destructive) {
                     showingLogOutAlert.toggle()
                 }

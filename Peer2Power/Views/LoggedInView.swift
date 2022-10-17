@@ -31,10 +31,12 @@ struct LoggedInView: View {
                     .tabItem {
                         Label("Leaderboard", systemImage: "chart.bar")
                     }
-                SettingsView(userTeam: teams.first!)
-                    .tabItem {
-                        Label("Settings", systemImage: "gear")
-                    }
+                NavigationView {
+                    SettingsView(userTeam: teams.first!)
+                }
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
             }
         }
     }
