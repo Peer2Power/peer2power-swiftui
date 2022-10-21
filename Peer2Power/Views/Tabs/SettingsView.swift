@@ -31,11 +31,6 @@ struct SettingsView: View {
             }
              */
             Section {
-                NavigationLink("Open Source Licenses") {
-                    AcknowledgementsView()
-                }
-            }
-            Section {
                 Button("Log Out", role: .destructive) {
                     showingLogOutAlert.toggle()
                 }

@@ -17,9 +17,7 @@
 		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
 		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
 		003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1CF328EDB16D00672E42 /* CheckboxField.swift */; };
-		003B1D0728F0655400672E42 /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1D0628F0655400672E42 /* AcknowledgementsView.swift */; };
-		003B1D0A28F0667500672E42 /* Package.resolved in Resources */ = {isa = PBXBuildFile; fileRef = 003B1D0928F0667500672E42 /* Package.resolved */; };
-		003B1D0D28FD034800672E42 /* AcknowList in Frameworks */ = {isa = PBXBuildFile; productRef = 003B1D0C28FD034800672E42 /* AcknowList */; };
+		003B1D0F28FE392100672E42 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 003B1D0E28FE392100672E42 /* Settings.bundle */; };
 		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
@@ -116,8 +114,7 @@
 		0026167B28E0E2A90070FF11 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		0026168328E4F8270070FF11 /* ConsentAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentAgreementView.swift; sourceTree = "<group>"; };
 		003B1CF328EDB16D00672E42 /* CheckboxField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
-		003B1D0628F0655400672E42 /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
-		003B1D0928F0667500672E42 /* Package.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Package.resolved; sourceTree = "<group>"; };
+		003B1D0E28FE392100672E42 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -160,7 +157,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				000111A728E88E1400E2CE92 /* SPAlert in Frameworks */,
-				003B1D0D28FD034800672E42 /* AcknowList in Frameworks */,
 				0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */,
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
@@ -282,7 +278,7 @@
 				00BA93E828AC074A00A434FF /* Constants.swift */,
 				007CCA4A28BAE560000203A4 /* Secrets.swift */,
 				0094743E28C017E700D50140 /* GoogleService-Info.plist */,
-				003B1D0928F0667500672E42 /* Package.resolved */,
+				003B1D0E28FE392100672E42 /* Settings.bundle */,
 			);
 			path = Peer2Power;
 			sourceTree = "<group>";
@@ -336,7 +332,6 @@
 				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				003B1CF328EDB16D00672E42 /* CheckboxField.swift */,
-				003B1D0628F0655400672E42 /* AcknowledgementsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -373,7 +368,6 @@
 				009CE4FB2899CA8500796313 /* Resources */,
 				00BA93FA28AF130F00A434FF /* Embed Frameworks */,
 				0026167528DB6FEE0070FF11 /* Upload dSYMS to Firebase */,
-				003B1D0828F0658800672E42 /* Copy Package.resolved */,
 			);
 			buildRules = (
 			);
@@ -387,7 +381,6 @@
 				0094744628C01CBA00D50140 /* FirebaseRemoteConfig */,
 				0094744828C01CBA00D50140 /* FirebaseRemoteConfigSwift */,
 				000111A628E88E1400E2CE92 /* SPAlert */,
-				003B1D0C28FD034800672E42 /* AcknowList */,
 			);
 			productName = Peer2Power;
 			productReference = 009CE4FD2899CA8500796313 /* Peer2Power.app */;
@@ -465,7 +458,6 @@
 				009CE5332899F20C00796313 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */,
-				003B1D0B28FD034800672E42 /* XCRemoteSwiftPackageReference "AcknowList" */,
 			);
 			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
 			projectDirPath = "";
@@ -506,9 +498,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				003B1D0F28FE392100672E42 /* Settings.bundle in Resources */,
 				009CE5082899CA8A00796313 /* Preview Assets.xcassets in Resources */,
 				009CE5052899CA8A00796313 /* Assets.xcassets in Resources */,
-				003B1D0A28F0667500672E42 /* Package.resolved in Resources */,
 				0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,24 +542,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
-		003B1D0828F0658800672E42 /* Copy Package.resolved */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Package.resolved";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncp ${PROJECT_FILE_PATH}/project.xcworkspace/xcshareddata/swiftpm/Package.resolved ${PROJECT_DIR}\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -604,7 +578,6 @@
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
 				003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
-				003B1D0728F0655400672E42 /* AcknowledgementsView.swift in Sources */,
 				0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */,
 				000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */,
 				00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */,
@@ -956,14 +929,6 @@
 				minimumVersion = 4.2.0;
 			};
 		};
-		003B1D0B28FD034800672E42 /* XCRemoteSwiftPackageReference "AcknowList" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vtourraine/AcknowList";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -987,11 +952,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
-		};
-		003B1D0C28FD034800672E42 /* AcknowList */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 003B1D0B28FD034800672E42 /* XCRemoteSwiftPackageReference "AcknowList" */;
-			productName = AcknowList;
 		};
 		0094744428C01CBA00D50140 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

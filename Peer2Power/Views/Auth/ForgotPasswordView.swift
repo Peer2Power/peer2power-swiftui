@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SPAlert
 
 struct ForgotPasswordView: View {
     @State private var email = ""
@@ -14,6 +15,7 @@ struct ForgotPasswordView: View {
     
     @State private var errorText = ""
     @State private var showingErrorAlert = false
+    @State private var showingEmailSentAlert = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -62,6 +64,16 @@ struct ForgotPasswordView: View {
             .onAppear {
                 focusedField = .email
             }
+            .SPAlert(isPresent: $showingEmailSentAlert,
+                     title: "Password Reset Email Sent",
+                     message: "Check your inbox for an email with instructions to reset your password.",
+                     duration: 4.0,
+                     dismissOnTap: true,
+                     preset: .custom(UIImage(systemName: "envelope.badge")!),
+                     haptic: .success,
+                     layout: nil) {
+                dismiss()
+            }
         }
     }
 }
@@ -79,7 +91,7 @@ extension ForgotPasswordView {
                 errorText = error.localizedDescription
                 showingErrorAlert.toggle()
             } else {
-                dismiss()
+                showingEmailSentAlert.toggle()
             }
         }
     }
