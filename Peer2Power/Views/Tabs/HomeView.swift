@@ -133,6 +133,7 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fit)
                 }
             }
+            .background(Color("Background"))
         }
     }
 }

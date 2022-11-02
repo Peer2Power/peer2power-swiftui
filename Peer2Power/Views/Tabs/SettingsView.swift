@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealmSwift
-import AcknowList
 
 struct SettingsView: View {
     @State private var showingLogOutAlert = false

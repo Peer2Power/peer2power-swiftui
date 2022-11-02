@@ -26,6 +26,7 @@ struct ChooseTeamView: View {
                 Picker("Party", selection: $selectedParty) {
                     ForEach(Party.allCases, id: \.self) { party in
                         Text(party.rawValue).tag(party)
+                            .background(Color("RowBackground"))
                     }
                 }
                 
@@ -42,6 +43,7 @@ struct ChooseTeamView: View {
                             Text("Members: \(teamMemberCount ?? 0)")
                                 .font(.title2)
                         }
+                        .background(Color("RowBackground"))
                     } footer: {
                         if selectedParty != .selectParty {
                             HStack {
@@ -77,6 +79,7 @@ struct ChooseTeamView: View {
                     fetchTeamInfo()
                 }
             }
+            .background(Color("Background"))
         }
     }
 }

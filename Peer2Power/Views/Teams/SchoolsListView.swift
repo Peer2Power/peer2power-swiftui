@@ -60,8 +60,10 @@ struct SchoolsListView: View {
                                                teamSelected: $showingSignUpSheet)
                             } label: {
                                 Text(team.school_name)
+                                    .foregroundColor(Color(uiColor: .label))
                             }
                         }
+                        .listRowBackground(Color("RowBackground"))
                     } header: {
                         Text(state)
                     }
@@ -85,7 +87,7 @@ struct SchoolsListView: View {
             Button("Already part of a team? Login.") {
                 showingLoginSheet.toggle()
             }
-        }        
+        }
     }
 }
 
