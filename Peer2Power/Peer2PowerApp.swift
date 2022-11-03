@@ -18,6 +18,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         SPAlertView.appearance().tintColor = .systemGreen
         
+        UITabBar.appearance().backgroundColor = UIColor(named: "TabBarBackground")
+        UITabBar.appearance().unselectedItemTintColor = .white
+        
         return true
     }
 }

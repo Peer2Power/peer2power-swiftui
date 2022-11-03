@@ -63,7 +63,6 @@ struct SchoolsListView: View {
                                     .foregroundColor(Color(uiColor: .label))
                             }
                         }
-                        .listRowBackground(Color("RowBackground"))
                     } header: {
                         Text(state)
                     }
@@ -72,7 +71,8 @@ struct SchoolsListView: View {
             .onAppear(perform: fetchTeams)
             .navigationTitle("Choose Your School")
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a team to sign up with")
-            .listStyle(.insetGrouped)
+            .listStyle(.plain)
+            .background(Color("Background"))
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
                     LoginView()

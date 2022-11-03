@@ -67,6 +67,7 @@ struct HomeView: View {
                             } else {
                                 Text("Here is your team's updated contact list. You can only see the contacts your team should recruit to volunteer.")
                                     .multilineTextAlignment(.center)
+                                    .listRowBackground(Color("RowBackground"))
                                 ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
                                     NavigationLink {
                                         OutreachAttemptsListView(contact: contact, team: userTeam)
@@ -78,6 +79,7 @@ struct HomeView: View {
                                     offsetsToDelete = offsets
                                     showingDeleteAlert.toggle()
                                 }
+                                .listRowBackground(Color("RowBackground"))
                             }
                         } else {
                             Text("The competiton hasn't started yet. You'll need to wait until your team has been assigned the contacts it should recruit before you should can start logging attempts to get them to volunteer.")
@@ -95,6 +97,8 @@ struct HomeView: View {
                     .toolbar {
                         EditButton()
                     }
+                    .listStyle(.plain)
+                    .background(Color("Background"))
                     .alert("Are you sure you want to delete this contact?",
                            isPresented: $showingDeleteAlert) {
                         Button("Cancel", role: .cancel, action: {})
