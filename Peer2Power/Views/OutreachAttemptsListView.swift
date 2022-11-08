@@ -34,39 +34,45 @@ struct OutreachAttemptsListView: View {
             }
             .padding(.horizontal, 15.0)
         } else {
-            List {
-                ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: true)) { attempt in
-                    OutreachListRow(attempt: attempt)
+            VStack {
+                List {
+                    ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: true)) { attempt in
+                        OutreachListRow(attempt: attempt)
+                    }
+                    .onDelete { offsets in
+                        offsetsToDelete = offsets
+                        showingDeleteAttemptAlert.toggle()
+                    }
+                    .listRowBackground(Color("RowBackground"))
                 }
-                .onDelete { offsets in
-                    offsetsToDelete = offsets
-                    showingDeleteAttemptAlert.toggle()
+                .background(Color("Background"))
+                .buttonStyle(.plain)
+                .navigationTitle(contact.name)
+                .navigationBarTitleDisplayMode(.inline)
+                .listStyle(.plain)
+                .alert("Are you sure you want to delete this outreach attempt?", isPresented: $showingDeleteAttemptAlert) {
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Delete", role: .destructive, action: deleteOutreachAttempt)
+                } message: {
+                    Text("Your team will lose the points it gained for logging this outreach attempt.")
                 }
-            }
-            .buttonStyle(.plain)
-            .navigationTitle(contact.name)
-            .navigationBarTitleDisplayMode(.inline)
-            .alert("Are you sure you want to delete this outreach attempt?", isPresented: $showingDeleteAttemptAlert) {
-                Button("Cancel", role: .cancel, action: {})
-                Button("Delete", role: .destructive, action: deleteOutreachAttempt)
-            } message: {
-                Text("Your team will lose the points it gained for logging this outreach attempt.")
-            }
-            .toolbar {
-                EditButton()
+                .toolbar {
+                    EditButton()
+                }
+                Button {
+                    presentingLogOutreachForm.toggle()
+                } label: {
+                    Label("Log Outreach Attempt", systemImage: "square.and.pencil")
+                }
+                .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0)
+                .buttonStyle(.borderedProminent)
+                .sheet(isPresented: $presentingLogOutreachForm) {
+                    LogOutreachView(contact: contact, team: team)
+                }
             }
         }
-        HStack {
-            Button {
-                presentingLogOutreachForm.toggle()
-            } label: {
-                Label("Log Outreach Attempt", systemImage: "square.and.pencil")
-            }
-            .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0)
-            .buttonStyle(.borderedProminent)
-            .sheet(isPresented: $presentingLogOutreachForm) {
-                LogOutreachView(contact: contact, team: team)
-            }
+        // HStack {
+            
             // FIXME: give this button functionality.
             /*
             Spacer()
@@ -80,8 +86,8 @@ struct OutreachAttemptsListView: View {
                 UploadContactView(userTeam: team)
             }
             */
-        }
-        .padding(.horizontal, 15.0)
+        /* }
+        .padding(.horizontal, 15.0) */
     }
 }
 
