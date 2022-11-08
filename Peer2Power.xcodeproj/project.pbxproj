@@ -18,7 +18,6 @@
 		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
 		003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1CF328EDB16D00672E42 /* CheckboxField.swift */; };
 		003B1D0F28FE392100672E42 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 003B1D0E28FE392100672E42 /* Settings.bundle */; };
-		004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
 		0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0094744428C01CBA00D50140 /* FirebaseMessaging */; };
@@ -28,8 +27,6 @@
 		0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094744C28C0314300D50140 /* LeaderboardView.swift */; };
 		0094744F28C0323500D50140 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094744E28C0323500D50140 /* SettingsView.swift */; };
 		0094745228C3930100D50140 /* ContactListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094745128C3930100D50140 /* ContactListRow.swift */; };
-		00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */; };
-		00953C5628B5E28C00B6CBB6 /* AnimationCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */; };
 		00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */; };
 		009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5002899CA8500796313 /* Peer2PowerApp.swift */; };
 		009CE5032899CA8500796313 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009CE5022899CA8500796313 /* ContentView.swift */; };
@@ -115,15 +112,12 @@
 		0026168328E4F8270070FF11 /* ConsentAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentAgreementView.swift; sourceTree = "<group>"; };
 		003B1CF328EDB16D00672E42 /* CheckboxField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		003B1D0E28FE392100672E42 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentricOnboardingView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0094744A28C01D8900D50140 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0094744C28C0314300D50140 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		0094744E28C0323500D50140 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0094745128C3930100D50140 /* ContactListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListRow.swift; sourceTree = "<group>"; };
-		00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableShape.swift; sourceTree = "<group>"; };
-		00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationCompletion.swift; sourceTree = "<group>"; };
 		00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachAttemptsListView.swift; sourceTree = "<group>"; };
 		009CE4FD2899CA8500796313 /* Peer2Power.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peer2Power.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009CE5002899CA8500796313 /* Peer2PowerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PowerApp.swift; sourceTree = "<group>"; };
@@ -232,16 +226,6 @@
 			path = Tabs;
 			sourceTree = "<group>";
 		};
-		00953C4F28B5E27000B6CBB6 /* CocentricOnboarding */ = {
-			isa = PBXGroup;
-			children = (
-				00953C5328B5E28600B6CBB6 /* AnimatableShape.swift */,
-				00953C5528B5E28C00B6CBB6 /* AnimationCompletion.swift */,
-				004CAADF28B574B0004D8594 /* ConcentricOnboardingView.swift */,
-			);
-			path = CocentricOnboarding;
-			sourceTree = "<group>";
-		};
 		009CE4F42899CA8500796313 = {
 			isa = PBXGroup;
 			children = (
@@ -268,7 +252,6 @@
 			children = (
 				0026167A28DB8B0F0070FF11 /* Info.plist */,
 				0026166E28D763690070FF11 /* Peer2Power.entitlements */,
-				00953C4F28B5E27000B6CBB6 /* CocentricOnboarding */,
 				009CE52B2899D13E00796313 /* Views */,
 				009CE52A2899D13100796313 /* Model */,
 				009CE5002899CA8500796313 /* Peer2PowerApp.swift */,
@@ -555,7 +538,6 @@
 				00FA96ED28A588E800FC007E /* Party.swift in Sources */,
 				0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */,
 				009CE545289B088300796313 /* LoggedInView.swift in Sources */,
-				00953C5428B5E28600B6CBB6 /* AnimatableShape.swift in Sources */,
 				00BA940328AFFAAE00A434FF /* OutreachAttempt.swift in Sources */,
 				00BA940128AF1FDF00A434FF /* Identifier.swift in Sources */,
 				009CE53D2899F6B800796313 /* LoginView.swift in Sources */,
@@ -563,9 +545,7 @@
 				009CE54B289B0C2B00796313 /* Contact.swift in Sources */,
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
-				00953C5628B5E28C00B6CBB6 /* AnimationCompletion.swift in Sources */,
 				0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */,
-				004CAAE028B574B0004D8594 /* ConcentricOnboardingView.swift in Sources */,
 				0094744B28C01D8900D50140 /* HomeView.swift in Sources */,
 				000111B028E9E3FC00E2CE92 /* ChooseTeamView.swift in Sources */,
 				000CD2C7289F974200A004FA /* SchoolsListView.swift in Sources */,
