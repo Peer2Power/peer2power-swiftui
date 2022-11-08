@@ -47,7 +47,7 @@ struct LeaderboardView: View {
                     )
                     .foregroundStyle(Color("DemsColor"))
                     .annotation(position: .overlay, alignment: .center, spacing: nil) {
-                        VStack {
+                        VStack(alignment: .center) {
                             Image("Democrats")
                                 .resizable()
                                 .renderingMode(.template)
@@ -55,6 +55,7 @@ struct LeaderboardView: View {
                                 .foregroundColor(.white)
                             Text("\(demTeams.sum(of: \Team.score))")
                                 .foregroundColor(.white)
+                                .font(.title3)
                         }
                         .padding(.horizontal, 15.0)
                     }
@@ -64,7 +65,7 @@ struct LeaderboardView: View {
                     )
                     .foregroundStyle(Color("GOPColor"))
                     .annotation(position: .overlay, alignment: .center, spacing: nil) {
-                        VStack {
+                        VStack(alignment: .center) {
                             Image("Republicans")
                                 .resizable()
                                 .renderingMode(.template)
@@ -72,6 +73,7 @@ struct LeaderboardView: View {
                                 .foregroundColor(.white)
                             Text("\(repTeams.sum(of: \Team.score))")
                                 .foregroundColor(.white)
+                                .font(.title3)
                         }
                         .padding(.horizontal, 15.0)
                     }
