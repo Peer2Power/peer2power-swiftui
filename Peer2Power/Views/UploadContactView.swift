@@ -23,7 +23,6 @@ struct UploadContactView: View {
     
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
-    @Binding var isPastCloseDate: Bool
     
     @State private var showingDuplicateContactAlert = false
     @State private var showingInvalidEmailAlert = false
@@ -156,16 +155,14 @@ extension UploadContactView {
         contact.ageBracket = selectedAgeBracket
         contact.relationship = selectedRelationship
         
-        if isPastCloseDate {
-            let randomFloat = Float.random(in: 0..<1)
-            
-            if randomFloat > 0.5 {
-                contact.group = 1
-                print("Contact was assigned to the treatment group.")
-            } else {
-                contact.group = 0
-                print("Contact was assigned to the control group.")
-            }
+        let randomFloat = Float.random(in: 0..<1)
+        
+        if randomFloat > 0.5 {
+            contact.group = 1
+            print("Contact was assigned to the treatment group.")
+        } else {
+            contact.group = 0
+            print("Contact was assigned to the control group.")
         }
         
         $userTeam.contacts.append(contact)

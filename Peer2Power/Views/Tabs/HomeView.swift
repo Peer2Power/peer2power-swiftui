@@ -12,7 +12,6 @@ import RealmSwift
 
 struct HomeView: View {
     @State private var closeDateString = ""
-    @State private var pastCloseDate = true
     @State private var showingUploadForm = false
     @State private var showingDeleteAlert = false
     @State private var offsetsToDelete: IndexSet?
@@ -38,60 +37,35 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, 15.0)
                 } else {
-                    // For testing assuming upload window has already closed.
-                    /*
-                    List {
-                        ForEach(userTeam.contacts) { contact in
-                            NavigationLink {
-                                OutreachAttemptsListView(contact: contact, team: userTeam)
-                            } label: {
-                                ContactListRow(contact: contact, team: userTeam)
-                            }
-                        }
-                    }
-                    */
                     // TODO: tinker with putting the leaderboard above the contacts list.
                     List {
-                        if pastCloseDate {
-                            if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
-                                VStack(spacing: 10.0) {
-                                    Text("Contacts Not Assigned")
-                                        .font(.title)
-                                        .multilineTextAlignment(.center)
-                                    Text("Thank you for uploading contacts! The contacts you should recruit have not been randomly assigned yet. Please come back after your contacts have been assigned.")
-                                        .font(.callout)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.bottom, 20)
-                                }
-                                .padding(.horizontal, 15.0)
-                            } else {
-                                Text("Here is your team's updated contact list. You can only see the contacts your team should recruit to volunteer.")
+                        if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
+                            VStack(spacing: 10.0) {
+                                Text("Contacts Not Assigned")
+                                    .font(.title)
                                     .multilineTextAlignment(.center)
-                                    .listRowBackground(Color("RowBackground"))
-                                ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
-                                    NavigationLink {
-                                        OutreachAttemptsListView(contact: contact, team: userTeam)
-                                    } label: {
-                                        ContactListRow(contact: contact, team: userTeam)
-                                    }
-                                }
-                                .onDelete { offsets in
-                                    offsetsToDelete = offsets
-                                    showingDeleteAlert.toggle()
-                                }
-                                .listRowBackground(Color("RowBackground"))
+                                Text("Thank you for uploading contacts! None of your team's contacts have been assigned to be recruited yet. Upload some more contacts to start recruiting them to volunteer.")
+                                    .font(.callout)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.bottom, 20)
                             }
+                            .padding(.horizontal, 15.0)
                         } else {
-                            Text("The competiton hasn't started yet. You'll need to wait until your team has been assigned the contacts it should recruit before you should can start logging attempts to get them to volunteer.")
-                            ForEach(userTeam.contacts) { contact in
-                                Text("\(contact.name)")
-                                    .font(.title2)
-                                    .minimumScaleFactor(0.25)
+                            Text("Here is your team's contact list. You can only see the contacts your team should recruit to volunteer.")
+                                .multilineTextAlignment(.center)
+                                .listRowBackground(Color("RowBackground"))
+                            ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
+                                NavigationLink {
+                                    OutreachAttemptsListView(contact: contact, team: userTeam)
+                                } label: {
+                                    ContactListRow(contact: contact, team: userTeam)
+                                }
                             }
                             .onDelete { offsets in
                                 offsetsToDelete = offsets
                                 showingDeleteAlert.toggle()
                             }
+                            .listRowBackground(Color("RowBackground"))
                         }
                     }
                     .toolbar {
@@ -121,15 +95,13 @@ struct HomeView: View {
                 .sheet(isPresented: $showingUploadForm, onDismiss: {
                     guard let uploadedContact = userTeam.contacts.last else { return }
                     
-                    if pastCloseDate && uploadedContact.group == 0 {
+                    if uploadedContact.group == 0 {
                         showingControlGroupAlert.toggle()
                     }
                 }, content: {
-                    UploadContactView(userTeam: userTeam, contact: Contact(),
-                                      isPastCloseDate: $pastCloseDate)
+                    UploadContactView(userTeam: userTeam, contact: Contact())
                 })
             }
-            .onAppear(perform: handleRemoteConfig)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image("LoginLogo")
@@ -149,73 +121,13 @@ extension HomeView {
         
         do {
             try realm.write {
-                if pastCloseDate{
-                    let filteredContacts = team.contacts.filter("group = %i", 1)
-                    
-                    offsets.forEach { i in
-                        let contactToDelete = filteredContacts[i]
-                        realm.delete(contactToDelete)
-                    }
-                } else {
-                    team.contacts.remove(atOffsets: offsets)
-                }
+                team.contacts.remove(atOffsets: offsets)
                 
                 guard team.score > 0 else { return }
                 team.score -= 2
             }
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")
-        }
-    }
-    
-    private func handleRemoteConfig() {
-        Task {
-            try await fetchRemoteConfig()
-            
-            guard closeDateString.isEmpty == false else { return }
-            
-            updateUIWithCloseDate()
-        }
-    }
-    
-    private func updateUIWithCloseDate() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
-        
-        guard let uploadWindowCloseDate = dateFormatter.date(from: closeDateString) else { return }
-        
-        let compareResult = uploadWindowCloseDate.compare(Date())
-        
-        pastCloseDate = compareResult == .orderedSame || compareResult == .orderedAscending
-    }
-    
-    private func fetchRemoteConfig() async throws {
-        let rc = RemoteConfig.remoteConfig()
-        let defaultValues = [
-            "uploadWindowCloseDate": "09-09-2022 11:59" as NSObject
-        ]
-        rc.setDefaults(defaultValues)
-        
-        let settings = RemoteConfigSettings()
-        settings.minimumFetchInterval = 0
-        rc.configSettings = settings
-        
-        do {
-            let config = try await rc.fetchAndActivate()
-            
-            switch config {
-            case .successFetchedFromRemote:
-                closeDateString = rc.configValue(forKey: "uploadWindowCloseDate").stringValue ?? ""
-            case .successUsingPreFetchedData:
-                closeDateString = rc.configValue(forKey: "uploadWindowCloseDate").stringValue ?? ""
-            case .error:
-                return
-            @unknown default:
-                return
-            }
-        } catch {
-            print("Error fetching remote config: \(error.localizedDescription)")
         }
     }
 }
