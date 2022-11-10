@@ -47,17 +47,19 @@ struct LeaderboardView: View {
                     )
                     .foregroundStyle(Color("DemsColor"))
                     .annotation(position: .overlay, alignment: .center, spacing: nil) {
-                        VStack(alignment: .center) {
-                            Image("Democrats")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.white)
-                            Text("\(demTeams.sum(of: \Team.score))")
-                                .foregroundColor(.white)
-                                .font(.title3)
+                        if demTeams.sum(of: \Team.score) > 0 {
+                            VStack(alignment: .center) {
+                                Image("Democrats")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.white)
+                                Text("\(demTeams.sum(of: \Team.score))")
+                                    .foregroundColor(.white)
+                                    .font(.title3)
+                            }
+                            .padding(.horizontal, 15.0)
                         }
-                        .padding(.horizontal, 15.0)
                     }
                     BarMark(
                         x: .value("Party", "Republicans"),
@@ -65,17 +67,19 @@ struct LeaderboardView: View {
                     )
                     .foregroundStyle(Color("GOPColor"))
                     .annotation(position: .overlay, alignment: .center, spacing: nil) {
-                        VStack(alignment: .center) {
-                            Image("Republicans")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.white)
-                            Text("\(repTeams.sum(of: \Team.score))")
-                                .foregroundColor(.white)
-                                .font(.title3)
+                        if repTeams.sum(of: \Team.score) > 0 {
+                            VStack(alignment: .center) {
+                                Image("Republicans")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.white)
+                                Text("\(repTeams.sum(of: \Team.score))")
+                                    .foregroundColor(.white)
+                                    .font(.title3)
+                            }
+                            .padding(.horizontal, 15.0)
                         }
-                        .padding(.horizontal, 15.0)
                     }
                 }
                 .chartXScale(type: .category)
