@@ -55,17 +55,18 @@ struct OutreachAttemptsListView: View {
                 .toolbar {
                     EditButton()
                 }
-                Button {
-                    presentingLogOutreachForm.toggle()
-                } label: {
-                    Label("Log Outreach Attempt", systemImage: "square.and.pencil")
-                }
-                .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0)
-                .buttonStyle(.borderedProminent)
-                .sheet(isPresented: $presentingLogOutreachForm) {
-                    LogOutreachView(contact: contact, team: team)
-                }
+                
             }
+        }
+        Button {
+            presentingLogOutreachForm.toggle()
+        } label: {
+            Label("Log Outreach Attempt", systemImage: "square.and.pencil")
+        }
+        .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0)
+        .buttonStyle(.borderedProminent)
+        .sheet(isPresented: $presentingLogOutreachForm) {
+            LogOutreachView(contact: contact, team: team)
         }
         // HStack {
             
