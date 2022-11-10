@@ -43,10 +43,7 @@ struct OutreachAttemptsListView: View {
                         offsetsToDelete = offsets
                         showingDeleteAttemptAlert.toggle()
                     }
-                    .listRowBackground(Color("RowBackground"))
                 }
-                .background(Color("Background"))
-                .buttonStyle(.plain)
                 .navigationTitle(contact.name)
                 .navigationBarTitleDisplayMode(.inline)
                 .listStyle(.plain)

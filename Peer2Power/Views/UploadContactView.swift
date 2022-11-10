@@ -179,4 +179,8 @@ extension UploadContactView {
             print("Error awarding points for uploading a contact: \(error.localizedDescription)")
         }
     }
+    
+    private func setTableBackgroundColor() {
+        UITableView.appearance().backgroundColor = .clear
+    }
 }

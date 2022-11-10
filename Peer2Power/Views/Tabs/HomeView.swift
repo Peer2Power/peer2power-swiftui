@@ -53,7 +53,6 @@ struct HomeView: View {
                         } else {
                             Text("Here is your team's contact list. You can only see the contacts your team should recruit to volunteer.")
                                 .multilineTextAlignment(.center)
-                                .listRowBackground(Color("RowBackground"))
                             ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
                                 NavigationLink {
                                     OutreachAttemptsListView(contact: contact, team: userTeam)
@@ -65,14 +64,11 @@ struct HomeView: View {
                                 offsetsToDelete = offsets
                                 showingDeleteAlert.toggle()
                             }
-                            .listRowBackground(Color("RowBackground"))
                         }
                     }
                     .toolbar {
                         EditButton()
                     }
-                    .listStyle(.plain)
-                    .background(Color("Background"))
                     .alert("Are you sure you want to delete this contact?",
                            isPresented: $showingDeleteAlert) {
                         Button("Cancel", role: .cancel, action: {})
@@ -109,7 +105,6 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fit)
                 }
             }
-            .background(Color("Background"))
         }
     }
 }

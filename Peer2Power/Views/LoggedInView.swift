@@ -38,7 +38,6 @@ struct LoggedInView: View {
                     Label("Settings", systemImage: "gear")
                 }
             }
-            .accentColor(Color("TabItemSelectedColor"))
         }
     }
 }

@@ -28,7 +28,6 @@ struct ChooseTeamView: View {
                         Text(party.rawValue).tag(party)
                     }
                 }
-                .listRowBackground(Color("RowBackground"))
                 
                 if selectedParty != .selectParty {
                     Section {
@@ -43,7 +42,6 @@ struct ChooseTeamView: View {
                             Text("Members: \(teamMemberCount ?? 0)")
                                 .font(.title2)
                         }
-                        .listRowBackground(Color("RowBackground"))
                     } footer: {
                         if selectedParty != .selectParty {
                             HStack {
@@ -56,7 +54,6 @@ struct ChooseTeamView: View {
                                 .padding(.top, 45)
                                 Spacer()
                             }
-                            .listRowBackground(Color("RowBackground"))
                         }
                     }
                 }
@@ -80,8 +77,6 @@ struct ChooseTeamView: View {
                     fetchTeamInfo()
                 }
             }
-            .listStyle(.plain)
-            .background(Color("Background"))
         }
     }
 }
