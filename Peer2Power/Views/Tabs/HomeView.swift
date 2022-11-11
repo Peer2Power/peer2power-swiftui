@@ -51,21 +51,24 @@ struct HomeView: View {
                             }
                             .padding(.horizontal, 15.0)
                         } else {
-                            Text("Here is your team's contact list. You can only see the contacts your team should recruit to volunteer.")
-                                .multilineTextAlignment(.center)
-                            ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
-                                NavigationLink {
-                                    OutreachAttemptsListView(contact: contact, team: userTeam)
-                                } label: {
-                                    ContactListRow(contact: contact, team: userTeam)
+                            Section {
+                                ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
+                                    NavigationLink {
+                                        OutreachAttemptsListView(contact: contact, team: userTeam)
+                                    } label: {
+                                        ContactListRow(contact: contact, team: userTeam)
+                                    }
                                 }
-                            }
-                            .onDelete { offsets in
-                                offsetsToDelete = offsets
-                                showingDeleteAlert.toggle()
+                                .onDelete { offsets in
+                                    offsetsToDelete = offsets
+                                    showingDeleteAlert.toggle()
+                                }
+                            } footer: {
+                                Text("You can only see the contacts your team should recruit to volunteer.")
                             }
                         }
                     }
+                    .listStyle(.insetGrouped)
                     .toolbar {
                         EditButton()
                     }
