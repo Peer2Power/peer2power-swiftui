@@ -78,7 +78,7 @@ struct HomeView: View {
                         Button("Cancel", role: .cancel, action: {})
                         Button("Delete", role: .destructive, action: deleteContact)
                     } message: {
-                        Text("Your team will lose any points it received for uploading this contact.")
+                        Text("Your team will lose any points it received for uploading this contact. All outreach attempts for this contact will also be deleted and your team will lose all points awarded for logging these.")
                     }
                     .alert("Cannot Delete Contact", isPresented: $showingDeleteNotAllowedAlert, actions: {
                         Button("OK", action: {})
@@ -134,10 +134,26 @@ extension HomeView {
                         return
                     }
                     
+                    let contactID = contactToDelete.contact_id
+                    
                     realm.delete(contactToDelete)
                     
                     guard team.score > 0 else { return }
                     team.score -= 2
+                    
+                    for outreachAttempt in team.outreachAttempts.filter("to = %@", contactID) {
+                        let volunteerStatus = outreachAttempt.volunteerStatus
+                        
+                        realm.delete(outreachAttempt)
+                        
+                        if volunteerStatus == "I have confirmed that they volunteered." {
+                            team.score -= 7
+                            print("Deleted an outreach attempt and subtracted seven points from the team's score.")
+                        } else {
+                            team.score -= 4
+                            print("Deleted an outreach attempt and subtracted four points from the team's score.")
+                        }
+                    }
                     
                     print("Deleted a contact and subtracted two points.")
                 }
