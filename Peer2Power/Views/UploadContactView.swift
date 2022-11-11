@@ -155,13 +155,12 @@ extension UploadContactView {
         contact.ageBracket = selectedAgeBracket
         contact.relationship = selectedRelationship
         
-        let randomFloat = Float.random(in: 0..<1)
+        let randomInt = Int.random(in: 0...1)
+        contact.group = randomInt
         
-        if randomFloat > 0.5 {
-            contact.group = 1
+        if randomInt == 1 {
             print("Contact was assigned to the treatment group.")
         } else {
-            contact.group = 0
             print("Contact was assigned to the control group.")
         }
         

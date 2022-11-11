@@ -78,7 +78,7 @@ struct HomeView: View {
                         Button("Cancel", role: .cancel, action: {})
                         Button("Delete", role: .destructive, action: deleteContact)
                     } message: {
-                        Text("Your team will lose any points it received for this contact.")
+                        Text("Your team will lose any points it received for uploading this contact.")
                     }
                     .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
                         Button("OK", role: .cancel, action: {})
@@ -120,10 +120,16 @@ extension HomeView {
         
         do {
             try realm.write {
-                team.contacts.remove(atOffsets: offsets)
-                
-                guard team.score > 0 else { return }
-                team.score -= 2
+                for i in offsets {
+                    let filteredContacts = team.contacts.filter("group = %i", 1)
+                    
+                    realm.delete(filteredContacts[i])
+                    
+                    guard team.score > 0 else { return }
+                    team.score -= 2
+                    
+                    print("Deleted a contact and subtracted two points.")
+                }
             }
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")
