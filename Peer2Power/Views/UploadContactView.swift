@@ -118,6 +118,7 @@ struct UploadContactView: View {
         .onChange(of: isAdult, perform: { newValue in
             focusedField = nil
         })
+        // FIXME: SPAlert flashes the alert multiple times for some reason. Should probably try a different libary.
         .SPAlert(isPresent: $showingContactUploadedAlert,
                  title: "Points Received!",
                  message: "Your team received 2 points for uploading this contact!",
