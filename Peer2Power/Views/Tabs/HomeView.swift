@@ -14,6 +14,7 @@ struct HomeView: View {
     @State private var closeDateString = ""
     @State private var showingUploadForm = false
     @State private var showingDeleteAlert = false
+    @State private var showingDeleteNotAllowedAlert = false
     @State private var offsetsToDelete: IndexSet?
     
     @State private var showingControlGroupAlert = false
@@ -60,7 +61,6 @@ struct HomeView: View {
                                     }
                                 }
                                 .onDelete { offsets in
-                                    // TODO: restrict contact deletion to contacts the current user uploaded.
                                     offsetsToDelete = offsets
                                     showingDeleteAlert.toggle()
                                 }
@@ -80,6 +80,11 @@ struct HomeView: View {
                     } message: {
                         Text("Your team will lose any points it received for uploading this contact.")
                     }
+                    .alert("Cannot Delete Contact", isPresented: $showingDeleteNotAllowedAlert, actions: {
+                        Button("OK", action: {})
+                    }, message: {
+                        Text("You can't delete contacts that another team member uploaded.")
+                    })
                     .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
                         Button("OK", role: .cancel, action: {})
                     } message: {
@@ -122,8 +127,14 @@ extension HomeView {
             try realm.write {
                 for i in offsets {
                     let filteredContacts = team.contacts.filter("group = %i", 1)
+                    let contactToDelete = filteredContacts[i]
                     
-                    realm.delete(filteredContacts[i])
+                    guard contactToDelete.owner_id == app.currentUser!.id else {
+                        showingDeleteNotAllowedAlert.toggle()
+                        return
+                    }
+                    
+                    realm.delete(contactToDelete)
                     
                     guard team.score > 0 else { return }
                     team.score -= 2
