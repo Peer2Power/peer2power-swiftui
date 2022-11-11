@@ -60,6 +60,7 @@ struct HomeView: View {
                                     }
                                 }
                                 .onDelete { offsets in
+                                    // TODO: restrict contact deletion to contacts the current user uploaded.
                                     offsetsToDelete = offsets
                                     showingDeleteAlert.toggle()
                                 }
