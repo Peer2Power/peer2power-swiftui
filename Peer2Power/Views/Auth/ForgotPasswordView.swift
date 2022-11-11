@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealmSwift
-import SPAlert
 
 struct ForgotPasswordView: View {
     @State private var email = ""

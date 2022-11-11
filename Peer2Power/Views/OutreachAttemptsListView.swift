@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealmSwift
-import SPAlert
 
 struct OutreachAttemptsListView: View {
     @ObservedRealmObject var contact: Contact
@@ -18,6 +17,15 @@ struct OutreachAttemptsListView: View {
     
     @State private var showingDeleteAttemptAlert = false
     @State private var offsetsToDelete: IndexSet?
+    
+    @State private var showingAttemptLoggedBanner = false
+    @State private var showingDidVolunteerBanner = false
+    @State private var didVolunteerBannerData: BannerModifier.BannerData = .init(title: "Points Received!",
+                                                                                 detail: "Your team received 7 points for getting this contact to volunteer!",
+                                                                                 type: .Success)
+    @State private var bannerData: BannerModifier.BannerData = .init(title: "Points Received!",
+                                                                     detail: "Your team received 4 points for logging this outreach attempt!",
+                                                                     type: .Success)
     
     @Environment(\.realm) var realm
     
@@ -55,7 +63,19 @@ struct OutreachAttemptsListView: View {
                 .toolbar {
                     EditButton()
                 }
-                
+                .onChange(of: team.outreachAttempts.filter("to = %@", contact.contact_id)) { newValue in
+                    guard let lastAttempt = newValue.last else { return }
+                    
+                    if lastAttempt.createdAt.timeIntervalSinceNow <= 0 {
+                        if lastAttempt.volunteerStatus == "I have confirmed that they volunteered." {
+                            showingDidVolunteerBanner.toggle()
+                        } else {
+                            showingAttemptLoggedBanner.toggle()
+                        }
+                    }
+                }
+                .banner(data: $bannerData, show: $showingAttemptLoggedBanner)
+                .banner(data: $didVolunteerBannerData, show: $showingDidVolunteerBanner)
             }
         }
         Button {

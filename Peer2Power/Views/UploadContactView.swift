@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealmSwift
-import SPAlert
 
 struct UploadContactView: View {
     @Environment(\.dismiss) private var dismiss
