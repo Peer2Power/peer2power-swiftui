@@ -21,6 +21,9 @@ struct LoginView: View {
     @State private var showingEmptyFieldAlert = false
     
     @State private var showingJoinedTeamAlert = false
+    @State private var bannerData: BannerModifier.BannerData = .init(title: "Points Received!",
+                                                                     detail: "Your team received 1 point because you signed up!",
+                                                                     type: .Success)
     
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
@@ -79,28 +82,18 @@ struct LoginView: View {
             } message: {
                 Text("One or more text fields is empty. Please fill out all text fields and try again.")
             }
-            // FIXME: visual feedback for joining team not showing up. Might be because this view is dismissed before it can be shown, despite dismiss explicitly not being called until after this alert is done presenting. Likely because this view will be dismissed anyway by a condition in ContentView.
-            .SPAlert(isPresent: $showingJoinedTeamAlert,
-                     title: "Points Received!",
-                     message: "Your team received 1 point because you signed up!",
-                     duration: 4,
-                     dismissOnTap: true,
-                     preset: .done,
-                     haptic: .success,
-                     layout: nil) {
-                dismiss()
+            .banner(data: $bannerData, show: $showingJoinedTeamAlert)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
+                        Button("Cancel", role: .cancel) {
+                            dismiss()
+                        }
+                        .disabled(loggingIn)
+                    }
+                }
             }
-                     .toolbar {
-                         ToolbarItem(placement: .cancellationAction) {
-                             if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
-                                 Button("Cancel", role: .cancel) {
-                                     dismiss()
-                                 }
-                                 .disabled(loggingIn)
-                             }
-                         }
-                     }
-                     .interactiveDismissDisabled(loggingIn)
+            .interactiveDismissDisabled(loggingIn)
         }
     }
 }

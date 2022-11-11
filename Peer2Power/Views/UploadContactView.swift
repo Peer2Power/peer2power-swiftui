@@ -23,6 +23,9 @@ struct UploadContactView: View {
     
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
+    @State private var bannerData: BannerModifier.BannerData = .init(title: "Points Received!",
+                                                                     detail: "Your team received 2 points for uploading this contact!",
+                                                                     type: .Success)
     
     @State private var showingDuplicateContactAlert = false
     @State private var showingInvalidEmailAlert = false
@@ -118,17 +121,12 @@ struct UploadContactView: View {
         .onChange(of: isAdult, perform: { newValue in
             focusedField = nil
         })
-        // FIXME: SPAlert flashes the alert multiple times for some reason. Should probably try a different libary.
-        .SPAlert(isPresent: $showingContactUploadedAlert,
-                 title: "Points Received!",
-                 message: "Your team received 2 points for uploading this contact!",
-                 duration: 4,
-                 dismissOnTap: true,
-                 preset: .done,
-                 haptic: .success,
-                 layout: nil) {
-            dismiss()
-        }
+        .onChange(of: showingContactUploadedAlert, perform: { newValue in
+            if newValue == false {
+                dismiss()
+            }
+        })
+        .banner(data: $bannerData, show: $showingContactUploadedAlert)
     }
 }
 

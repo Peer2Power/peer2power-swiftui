@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111A228E72C7A00E2CE92 /* TextDate.swift */; };
-		000111A728E88E1400E2CE92 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 000111A628E88E1400E2CE92 /* SPAlert */; };
 		000111B028E9E3FC00E2CE92 /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111AF28E9E3FC00E2CE92 /* ChooseTeamView.swift */; };
 		000CD2C7289F974200A004FA /* SchoolsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* SchoolsListView.swift */; };
 		0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166728D530360070FF11 /* EndOfStudyTask.swift */; };
@@ -53,6 +52,7 @@
 		00DDAC4228BC19D10073DF85 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; platformFilter = ios; };
 		00DDAC4328BC19D10073DF85 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
+		00FCBCC7291E0214005CA8F1 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCBCC6291E0214005CA8F1 /* Banner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +145,7 @@
 		00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachListRow.swift; sourceTree = "<group>"; };
 		00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-minus-HealthKit/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
+		00FCBCC6291E0214005CA8F1 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +153,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000111A728E88E1400E2CE92 /* SPAlert in Frameworks */,
 				0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */,
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
@@ -318,6 +318,7 @@
 				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				003B1CF328EDB16D00672E42 /* CheckboxField.swift */,
+				00FCBCC6291E0214005CA8F1 /* Banner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -366,7 +367,6 @@
 				0094744428C01CBA00D50140 /* FirebaseMessaging */,
 				0094744628C01CBA00D50140 /* FirebaseRemoteConfig */,
 				0094744828C01CBA00D50140 /* FirebaseRemoteConfigSwift */,
-				000111A628E88E1400E2CE92 /* SPAlert */,
 			);
 			productName = Peer2Power;
 			productReference = 009CE4FD2899CA8500796313 /* Peer2Power.app */;
@@ -443,7 +443,6 @@
 			packageReferences = (
 				009CE5332899F20C00796313 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */,
 			);
 			productRefGroup = 009CE4FE2899CA8500796313 /* Products */;
 			projectDirPath = "";
@@ -564,6 +563,7 @@
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
 				0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */,
 				000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */,
+				00FCBCC7291E0214005CA8F1 /* Banner.swift in Sources */,
 				00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */,
 				0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */,
 			);
@@ -905,14 +905,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ivanvorobei/SPAlert";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.2.0;
-			};
-		};
 		0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -932,11 +924,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		000111A628E88E1400E2CE92 /* SPAlert */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 000111A528E88E1400E2CE92 /* XCRemoteSwiftPackageReference "SPAlert" */;
-			productName = SPAlert;
-		};
 		0094744428C01CBA00D50140 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0094744328C01CBA00D50140 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

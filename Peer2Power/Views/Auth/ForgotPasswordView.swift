@@ -16,6 +16,9 @@ struct ForgotPasswordView: View {
     @State private var errorText = ""
     @State private var showingErrorAlert = false
     @State private var showingEmailSentAlert = false
+    @State private var bannerData: BannerModifier.BannerData = .init(title: "Password Reset Email Sent",
+                                                                     detail: "Check your inbox for an email with instructions to reset your password.",
+                                                                     type: .Success)
     
     @Environment(\.dismiss) var dismiss
     
@@ -64,16 +67,7 @@ struct ForgotPasswordView: View {
             .onAppear {
                 focusedField = .email
             }
-            .SPAlert(isPresent: $showingEmailSentAlert,
-                     title: "Password Reset Email Sent",
-                     message: "Check your inbox for an email with instructions to reset your password.",
-                     duration: 4.0,
-                     dismissOnTap: true,
-                     preset: .custom(UIImage(systemName: "envelope.badge")!),
-                     haptic: .success,
-                     layout: nil) {
-                dismiss()
-            }
+            .banner(data: $bannerData, show: $showingEmailSentAlert)
         }
     }
 }
