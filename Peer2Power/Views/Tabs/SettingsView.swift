@@ -19,7 +19,6 @@ struct SettingsView: View {
     var body: some View {
         List {
             // TODO: revisit this to finalize the end-of-study survey.
-            /*
             Section {
                 Button("Show End Of Study Survey") {
                     showingEndOfStudySurvey.toggle()
@@ -28,7 +27,6 @@ struct SettingsView: View {
                     EndOfStudySurveyView(userTeam: userTeam)
                 }
             }
-             */
             Section {
                 Button("Log Out", role: .destructive) {
                     showingLogOutAlert.toggle()

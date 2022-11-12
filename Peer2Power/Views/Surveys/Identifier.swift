@@ -45,6 +45,8 @@ enum Identifier {
     case stillWorkingCompletion
     case wontVolunteerCompletionStep
     
+    case futureRecruitmentLikelihoodScaleStep
+    
     case endOfStudyTask
     case whichVolunteeredStep
     case knownContactsFormStep
