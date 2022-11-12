@@ -17,6 +17,9 @@ struct LogOutreachView: UIViewControllerRepresentable {
     
     @Environment(\.realm) var realm
     
+    @Binding var showDidVolunteerBanner: Bool
+    @Binding var showAttemptLoggedBanner: Bool
+    
     func makeUIViewController(context: Context) -> ORKTaskViewController {
         let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.volunteerStatusStep(), LogOutreachTask.howContactStep(), LogOutreachTask.describeAttemptStep()])
         
@@ -114,9 +117,13 @@ struct LogOutreachView: UIViewControllerRepresentable {
             if answer == "I have confirmed that they volunteered." {
                 team.score += 7
                 print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
+                
+                parent.showDidVolunteerBanner.toggle()
             } else {
                 team.score += 4
                 print("Awarded 4 points for logging an outreach attempt.")
+                
+                parent.showAttemptLoggedBanner.toggle()
             }
         }
         
@@ -193,6 +200,6 @@ struct LogOutreachView: UIViewControllerRepresentable {
 
 struct LogOutreachView_Previews: PreviewProvider {
     static var previews: some View {
-        LogOutreachView(contact: Contact(), team: Team())
+        LogOutreachView(contact: Contact(), team: Team(), showDidVolunteerBanner: .constant(false), showAttemptLoggedBanner: .constant(false))
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import AlertToast
 
 struct ForgotPasswordView: View {
     @State private var email = ""
@@ -15,9 +16,6 @@ struct ForgotPasswordView: View {
     @State private var errorText = ""
     @State private var showingErrorAlert = false
     @State private var showingEmailSentAlert = false
-    @State private var bannerData: BannerModifier.BannerData = .init(title: "Password Reset Email Sent",
-                                                                     detail: "Check your inbox for an email with instructions to reset your password.",
-                                                                     type: .Success)
     
     @Environment(\.dismiss) var dismiss
     
@@ -66,7 +64,17 @@ struct ForgotPasswordView: View {
             .onAppear {
                 focusedField = .email
             }
-            .banner(data: $bannerData, show: $showingEmailSentAlert)
+            .onChange(of: showingEmailSentAlert, perform: { newValue in
+                if newValue == false {
+                    dismiss()
+                }
+            })
+            .toast(isPresenting: $showingEmailSentAlert, duration: 4.0) {
+                AlertToast(displayMode: .banner(.pop),
+                           type: .complete(Color(uiColor: .systemGreen)),
+                           title: "Password Reset Email Sent",
+                           subTitle: "Check your inbox for an email with instructions.")
+            }
         }
     }
 }

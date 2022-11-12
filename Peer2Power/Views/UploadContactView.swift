@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import AlertToast
 
 struct UploadContactView: View {
     @Environment(\.dismiss) private var dismiss
@@ -22,9 +23,6 @@ struct UploadContactView: View {
     
     @State private var isAdult = false
     @State private var showingContactUploadedAlert = false
-    @State private var bannerData: BannerModifier.BannerData = .init(title: "Points Received!",
-                                                                     detail: "Your team received 2 points for uploading this contact!",
-                                                                     type: .Success)
     
     @State private var showingDuplicateContactAlert = false
     @State private var showingInvalidEmailAlert = false
@@ -125,7 +123,12 @@ struct UploadContactView: View {
                 dismiss()
             }
         })
-        .banner(data: $bannerData, show: $showingContactUploadedAlert)
+        .toast(isPresenting: $showingContactUploadedAlert, duration: 4.0) {
+            AlertToast(displayMode: .banner(.pop),
+                       type: .complete(Color(uiColor: .systemGreen)),
+                       title: "Contact Uploaded",
+                       subTitle: "Your team received 2 points!")
+        }
     }
 }
 

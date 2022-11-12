@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import AlertToast
 
 struct LoginView: View {
     @State private var email = ""
@@ -20,10 +21,6 @@ struct LoginView: View {
     @State private var showingEmptyFieldAlert = false
     
     @State private var showingJoinedTeamAlert = false
-    @State private var bannerData: BannerModifier.BannerData = .init(title: "Points Received!",
-                                                                     detail: "Your team received 1 point because you signed up!",
-                                                                     type: .Success)
-    
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.realm) private var realm
@@ -81,7 +78,7 @@ struct LoginView: View {
             } message: {
                 Text("One or more text fields is empty. Please fill out all text fields and try again.")
             }
-            .banner(data: $bannerData, show: $showingJoinedTeamAlert)
+            
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
