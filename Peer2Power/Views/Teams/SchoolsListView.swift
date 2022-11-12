@@ -70,6 +70,7 @@ struct SchoolsListView: View {
             .onAppear(perform: fetchTeams)
             .navigationTitle("Sign Up")
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a school to sign up under")
+            .autocorrectionDisabled(true)
             .listStyle(.insetGrouped)
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
