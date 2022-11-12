@@ -28,7 +28,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section4 = ORKConsentSection(type: .custom)
         section4.title = "Procedures"
-        section4.content = "The study will run between Monday, October 17th and Monday, November 7th."
+        section4.content = "The study will run between Wednesday, November 16th and Saturday, December 31st."
         
         let section5 = ORKConsentSection(type: .custom)
         section5.title = "Risks"
