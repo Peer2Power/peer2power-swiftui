@@ -87,6 +87,7 @@ struct OutreachAttemptsListView: View {
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team)
+                .interactiveDismissDisabled(true)
         }
         // HStack {
             
