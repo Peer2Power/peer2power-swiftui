@@ -36,6 +36,7 @@ struct OutreachAttemptsListView: View {
                     .padding(.bottom, 20)
             }
             .padding(.horizontal, 15.0)
+            .navigationBarTitleDisplayMode(.inline)
         } else {
             VStack {
                 List {

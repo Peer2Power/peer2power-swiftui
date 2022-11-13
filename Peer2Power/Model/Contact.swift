@@ -28,7 +28,5 @@ class Contact: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var updatedAt: Date?
 
     @Persisted var volunteerLikelihood: String?
-    
-    @Persisted var volunteered: Bool?
 }
 
