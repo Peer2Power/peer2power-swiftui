@@ -21,7 +21,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
     @Binding var showAttemptLoggedBanner: Bool
     
     func makeUIViewController(context: Context) -> ORKTaskViewController {
-        let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.volunteerStatusStep(), LogOutreachTask.howContactStep(), LogOutreachTask.describeAttemptStep()])
+        let task = LogOutreachTask(identifier: String(describing: Identifier.logAttemptQuestionTask), steps: [LogOutreachTask.volunteerStatusStep, LogOutreachTask.howContactStep, LogOutreachTask.describeAttemptStep])
         
         let taskViewController = ORKTaskViewController(task: task, taskRun: nil)
         taskViewController.delegate = context.coordinator
