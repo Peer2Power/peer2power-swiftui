@@ -13,11 +13,17 @@ class Team: Object, ObjectKeyIdentifiable {
 
     @Persisted var contacts: List<Contact>
 
+    @Persisted var endOfStudyResponses: List<EndOfStudyReponse>
+
     @Persisted var member_ids: List<String>
 
     @Persisted var outreachAttempts: List<OutreachAttempt>
 
+    @Persisted var owner_id: String?
+
     @Persisted var party: Party = .selectParty
+
+    @Persisted var school_id: String?
 
     @Persisted var school_name: String = ""
 

@@ -21,7 +21,7 @@ class EndOfStudyTask: ORKOrderedTask {
                 .filter("volunteerStatus = %@", "I have confirmed that they volunteered.")
             
             if filteredOutreachAttempts.isEmpty {
-                let textChoice = ORKTextChoice(text: contact.name, value: contact.name as NSCoding & NSCopying & NSObjectProtocol)
+                let textChoice = ORKTextChoice(text: contact.name, value: contact.contact_id.stringValue as NSCoding & NSCopying & NSObjectProtocol)
                 textChoices.append(textChoice)
             }
         }
