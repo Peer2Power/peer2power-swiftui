@@ -72,6 +72,9 @@ struct OutreachAttemptsListView: View {
                 }
             }
         }
+        if team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0 {
+            Text("This contact volunteered.")
+        }
         Button {
             presentingLogOutreachForm.toggle()
         } label: {

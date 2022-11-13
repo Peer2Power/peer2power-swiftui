@@ -16,9 +16,20 @@ struct ContactListRow: View {
     
     var body: some View {
         HStack {
-            Text("\(contact.name)")
-                .font(.title2)
-                .minimumScaleFactor(0.25)
+            HStack(spacing: 5.0) {
+                Text("\(contact.name)")
+                    .font(.title2)
+                    .minimumScaleFactor(0.25)
+                if team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0 {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .padding()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 60)
+                        .foregroundColor(.accentColor)
+                }
+            }
+            
             Spacer()
             Text("\(populateCountLabel())")
                 .font(.title3)
