@@ -53,6 +53,7 @@
 		00DDAC4328BC19D10073DF85 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
 		00FCBCCB29204AC9005CA8F1 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 00FCBCCA29204AC9005CA8F1 /* AlertToast */; };
+		00FCBCCD29209D60005CA8F1 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCBCCC29209D60005CA8F1 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachListRow.swift; sourceTree = "<group>"; };
 		00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-minus-HealthKit/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
+		00FCBCCC29209D60005CA8F1 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 				00953C5728B7E03600B6CBB6 /* OutreachAttemptsListView.swift */,
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				003B1CF328EDB16D00672E42 /* CheckboxField.swift */,
+				00FCBCCC29209D60005CA8F1 /* WebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
 				003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */,
 				009CE5012899CA8500796313 /* Peer2PowerApp.swift in Sources */,
+				00FCBCCD29209D60005CA8F1 /* WebView.swift in Sources */,
 				0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */,
 				000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */,
 				00953C5828B7E03600B6CBB6 /* OutreachAttemptsListView.swift in Sources */,

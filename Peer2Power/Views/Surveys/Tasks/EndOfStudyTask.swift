@@ -12,7 +12,7 @@ class EndOfStudyTask: ORKOrderedTask {
     static func whoVolunteeredStep(team: Team) -> ORKQuestionStep {
         let step = ORKQuestionStep(identifier: String(describing: Identifier.whichVolunteeredStep),
                                    title: nil,
-                                   question: "Please talk to these contacts and confirm whether they volunteered.",
+                                   question: "Out of the contacts that your team did not mark as having volunteered, which ended up volunteering?",
                                    answer: nil)
         var textChoices = [ORKTextChoice]()
         
