@@ -30,11 +30,11 @@ struct LeaderboardView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
             if userTeam.score != 1 {
-                Text("points to the national \(userTeam.party.rawValue) total.")
+                Text("points to the Georgia \(userTeam.party.rawValue) total.")
                     .font(.title2)
                     .multilineTextAlignment(.center)
             } else {
-                Text("point to the national \(userTeam.party.rawValue) total.")
+                Text("point to the Georgia \(userTeam.party.rawValue) total.")
                     .font(.title2)
                     .multilineTextAlignment(.center)
             }
