@@ -26,6 +26,9 @@ class EndOfStudyTask: ORKOrderedTask {
             }
         }
         
+        let noneTextChoice = ORKTextChoice(text: "None of these contacts volunteered.", value: "None of these contacts volunteered." as NSCoding & NSCopying & NSObjectProtocol)
+        textChoices.append(noneTextChoice)
+        
         let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: textChoices)
         step.answerFormat = answerFormat
         
@@ -35,7 +38,7 @@ class EndOfStudyTask: ORKOrderedTask {
     }
     
     static func futureRecruitmentLikelihoodStep() -> ORKQuestionStep {
-        let answerFormat = ORKAnswerFormat.continuousScale(withMaximumValue: 100.0, minimumValue: 0.0, defaultValue: 99.0, maximumFractionDigits: 0, vertical: false, maximumValueDescription: "Very likely", minimumValueDescription: "Not at all likely")
+        let answerFormat = ORKAnswerFormat.continuousScale(withMaximumValue: 100.0, minimumValue: 0.0, defaultValue: 0.0, maximumFractionDigits: 0, vertical: false, maximumValueDescription: "Very likely", minimumValueDescription: "Not at all likely")
         
         let step = ORKQuestionStep(identifier: String(describing: Identifier.futureRecruitmentLikelihoodScaleStep),
                                    title: nil,
@@ -48,7 +51,7 @@ class EndOfStudyTask: ORKOrderedTask {
     static func completionStep() -> ORKCompletionStep {
         let step = ORKCompletionStep(identifier: String(describing: Identifier.endOfStudyCompletionStep))
         
-        step.title = "Thank you for completing this survey!"
+        step.title = "Thank you for completing the end of study survey!"
         step.detailText = "Thank you for participating in the political process and encouraging others to do so! We hope you keep up the good work!"
         
         return step
