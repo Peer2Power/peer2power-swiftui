@@ -25,18 +25,25 @@ struct LeaderboardView: View {
             Text("Your team, the \(userTeam.school_name) \(userTeam.party.rawValue), has contributed")
                 .font(.title2)
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.25)
+                .padding(.horizontal, 15.0)
             Text("\(userTeam.score)")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, 15.0)
             if userTeam.score != 1 {
                 Text("points to the Georgia \(userTeam.party.rawValue) total.")
                     .font(.title2)
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.25)
+                    .padding(.horizontal, 15.0)
             } else {
                 Text("point to the Georgia \(userTeam.party.rawValue) total.")
                     .font(.title2)
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.25)
+                    .padding(.horizontal, 15.0)
             }
             Divider()
             if #available(iOS 16.0, *) {
@@ -133,7 +140,6 @@ struct LeaderboardView: View {
                 }
             }
         }
-        .padding(.horizontal, 15.0)
     }
 }
 
