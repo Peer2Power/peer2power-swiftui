@@ -36,6 +36,7 @@ struct SettingsView: View {
                 .sheet(isPresented: $showingFAQView) {
                     WebView(url: .constant(URL(string: "https://www.peer2power.org/faq")!))
                 }
+                Text("Questions or want to report a problem? Email lafayette@peer2power.org.")
             }
             Section {
                 Button("Log Out", role: .destructive) {
