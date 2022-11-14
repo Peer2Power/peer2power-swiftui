@@ -18,6 +18,8 @@ struct LoggedInView: View {
                      where: {$0.member_ids.contains(app.currentUser!.id)})
     var teams
     
+    var daysBeforeReminding: Double = 1
+    
     var body: some View {
         if teams.isEmpty {
             NavigationView {
@@ -59,17 +61,19 @@ struct LoggedInView: View {
 
 extension LoggedInView {
     private func checkEndOfStudyAvailability() {
-        /* let remoteConfig = RemoteConfig.remoteConfig()
+        let remoteConfig = RemoteConfig.remoteConfig()
         
         remoteConfig.fetchAndActivate { status, error in
             if status == .successFetchedFromRemote {
                 handleFetchedDate()
             }
-        } */
-        showingSurveyAlert.toggle()
+        }
     }
     
     private func handleFetchedDate() {
+        let hasDeclinedSurvey = UserDefaults.standard.bool(forKey: "declinedEndOfStudySurvey")
+        guard !hasDeclinedSurvey else { return }
+        
         let remoteConfig = RemoteConfig.remoteConfig()
         
         guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return }
@@ -89,14 +93,24 @@ extension LoggedInView {
     
     private func showSurveyAlertIfAllowed() {
         let defaults = UserDefaults.standard
+        
+        let remindLaterDate = defaults.object(forKey: "remindLaterPressedDate") as! Date
+        let timeInterval = Date().timeIntervalSince(remindLaterDate)
+        let remindLaterDaysCount = ((timeInterval / 3600) / 24)
+        
+        guard remindLaterDaysCount >= daysBeforeReminding else { return }
+        
+        showingSurveyAlert.toggle()
     }
     
     private func neverShowEndOfStudySurvey() {
-        
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: "declinedEndOfStudySurvey")
     }
     
     private func setShowLater() {
-        
+        let defaults = UserDefaults.standard
+        defaults.set(Date(), forKey: "remindLaterPressedDate")
     }
 }
 
