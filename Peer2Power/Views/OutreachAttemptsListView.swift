@@ -73,15 +73,20 @@ struct OutreachAttemptsListView: View {
                 }
             }
         }
-        if team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0 {
+        if !team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty {
             Text("This contact volunteered.")
+                .multilineTextAlignment(.center)
+        }
+        if !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
+            Text("A team member marked this contact as a confirmed volunteer in the end-of-study survey.")
+                .multilineTextAlignment(.center)
         }
         Button {
             presentingLogOutreachForm.toggle()
         } label: {
             Label("Log Outreach Attempt", systemImage: "square.and.pencil")
         }
-        .disabled(team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").count > 0)
+        .disabled(!team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty)
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)

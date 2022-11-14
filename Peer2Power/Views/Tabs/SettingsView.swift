@@ -21,8 +21,15 @@ struct SettingsView: View {
     var body: some View {
         List {
             // TODO: revisit this to finalize the end-of-study survey.
-            Section {
-                
+            if !userTeam.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty {
+                Section {
+                    Button("Edit End of Study Survey Response") {
+                        print("Something")
+                    }
+                    Button("Delete End of Study Survey Response", role: .destructive) {
+                        print("Something")
+                    }
+                }
             }
             Section {
                 Button("FAQ") {
