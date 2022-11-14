@@ -99,21 +99,29 @@ struct HomeView: View {
                                    subTitle: "Your team received 2 points!")
                     }
                 }
-                Button {
-                    showingUploadForm.toggle()
-                } label: {
-                    Label("Upload a Contact", systemImage: "person.badge.plus")
-                }
-                .buttonStyle(.borderedProminent)
-                .sheet(isPresented: $showingUploadForm, onDismiss: {
-                    guard let uploadedContact = userTeam.contacts.last else { return }
-                    
-                    if uploadedContact.group == 0 {
-                        showingControlGroupAlert.toggle()
+                VStack(alignment: .center, spacing: 5) {
+                    if isPastCompDate {
+                        Text("The competition has ended! Thank you to all who participated!")
+                            .multilineTextAlignment(.center)
                     }
-                }, content: {
-                    UploadContactView(userTeam: userTeam, contact: Contact(), showingContactUploadedBanner: $showingContactUploadedBanner)
-                })
+                    Button {
+                        showingUploadForm.toggle()
+                    } label: {
+                        Label("Upload a Contact", systemImage: "person.badge.plus")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(isPastCompDate)
+                    .sheet(isPresented: $showingUploadForm, onDismiss: {
+                        guard let uploadedContact = userTeam.contacts.last else { return }
+                        
+                        if uploadedContact.group == 0 {
+                            showingControlGroupAlert.toggle()
+                        }
+                    }, content: {
+                        UploadContactView(userTeam: userTeam, contact: Contact(), showingContactUploadedBanner: $showingContactUploadedBanner)
+                    })
+                }
+                .padding(.horizontal, 15)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -169,6 +177,22 @@ extension HomeView {
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")
         }
+    }
+    
+    private var isPastCompDate: Bool {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        
+        guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
+        print("Got end of study date \(fetchedDate)")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        
+        guard let date = dateFormatter.date(from: fetchedDate) else { return false }
+        let compareResult = date.compare(Date())
+        
+        return compareResult == .orderedSame || compareResult == .orderedAscending
     }
 }
 

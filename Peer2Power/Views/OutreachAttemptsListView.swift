@@ -87,7 +87,7 @@ struct OutreachAttemptsListView: View {
         } label: {
             Label("Log Outreach Attempt", systemImage: "square.and.pencil")
         }
-        .disabled(!team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty || isPastCompDate())
+        .disabled(!team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty || isPastCompDate)
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)
@@ -147,7 +147,7 @@ extension OutreachAttemptsListView {
         }
     }
     
-    private func isPastCompDate() -> Bool {
+    private var isPastCompDate: Bool {
         let remoteConfig = RemoteConfig.remoteConfig()
         
         guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
@@ -160,6 +160,6 @@ extension OutreachAttemptsListView {
         guard let date = dateFormatter.date(from: fetchedDate) else { return false }
         let compareResult = Date().compare(date)
         
-        return compareResult == .orderedSame || compareResult == .orderedDescending
+        return compareResult == .orderedSame || compareResult == .orderedAscending
     }
 }
