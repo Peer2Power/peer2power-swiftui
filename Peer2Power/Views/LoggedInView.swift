@@ -48,10 +48,11 @@ struct LoggedInView: View {
                 Button("Maybe Later", action: setShowLater)
                 Button("Don't Ask Again", role: .cancel, action: neverShowEndOfStudySurvey)
             } message: {
-                Text("Now that voting in the Georgia runoff has ended, we invite you to fill out an end-of-study survey.")
+                Text("Now that voting in the Georgia runoff has ended, we invite you to fill out an end of study survey.")
             }
             .sheet(isPresented: $showingEndOfStudySurvey) {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
+                    .interactiveDismissDisabled(true)
             }
             .onAppear(perform: checkEndOfStudyAvailability)
             .toast(isPresenting: $showingSurveyResponseUploadedBanner, duration: 4) {
@@ -70,7 +71,7 @@ extension LoggedInView {
                 handleFetchedDate()
             }
         } */
-        // showingSurveyAlert.toggle()
+        showingSurveyAlert.toggle()
     }
     
     private func handleFetchedDate() {
@@ -111,7 +112,7 @@ extension LoggedInView {
     
     private func showSurveyIfAllowed() {
         guard let team = teams.first else { return }
-        guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
+        // guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
         
         showingEndOfStudySurvey.toggle()
     }
