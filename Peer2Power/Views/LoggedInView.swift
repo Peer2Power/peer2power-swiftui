@@ -44,9 +44,7 @@ struct LoggedInView: View {
                 }
             }
             .alert("Would you like to fill out an end of study survey?", isPresented: $showingSurveyAlert) {
-                Button("Yes") {
-                    showingEndOfStudySurvey.toggle()
-                }
+                Button("Yes", action: showSurveyIfAllowed)
                 Button("Maybe Later", action: setShowLater)
                 Button("Don't Ask Again", role: .cancel, action: neverShowEndOfStudySurvey)
             } message: {
@@ -92,11 +90,11 @@ extension LoggedInView {
         let compareResult = date.compare(Date())
         
         if compareResult == .orderedSame || compareResult == .orderedDescending {
-            showSurveyAlertIfAllowed()
+            showPromptIfAllowed()
         }
     }
     
-    private func showSurveyAlertIfAllowed() {
+    private func showPromptIfAllowed() {
         let defaults = UserDefaults.standard
         
         guard let remindLaterDate = defaults.object(forKey: "remindLaterPressedDate") as? Date else { return }
@@ -104,8 +102,18 @@ extension LoggedInView {
         let remindLaterDaysCount = ((timeInterval / 3600) / 24)
         
         guard remindLaterDaysCount >= daysBeforeReminding else { return }
+    
+        guard let team = teams.first else { return }
+        guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
         
         showingSurveyAlert.toggle()
+    }
+    
+    private func showSurveyIfAllowed() {
+        guard let team = teams.first else { return }
+        guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
+        
+        showingEndOfStudySurvey.toggle()
     }
     
     private func neverShowEndOfStudySurvey() {
