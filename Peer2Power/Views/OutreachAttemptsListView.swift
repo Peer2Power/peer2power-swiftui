@@ -160,6 +160,6 @@ extension OutreachAttemptsListView {
         guard let date = dateFormatter.date(from: fetchedDate) else { return false }
         let compareResult = Date().compare(date)
         
-        return compareResult == .orderedSame || compareResult == .orderedAscending
+        return compareResult == .orderedSame || compareResult == .orderedDescending
     }
 }

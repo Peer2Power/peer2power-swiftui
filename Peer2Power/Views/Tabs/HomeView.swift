@@ -190,9 +190,9 @@ extension HomeView {
         dateFormatter.timeZone = TimeZone(abbreviation: "EST")
         
         guard let date = dateFormatter.date(from: fetchedDate) else { return false }
-        let compareResult = date.compare(Date())
+        let compareResult = Date().compare(date)
         
-        return compareResult == .orderedSame || compareResult == .orderedAscending
+        return compareResult == .orderedSame || compareResult == .orderedDescending
     }
 }
 

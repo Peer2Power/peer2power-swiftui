@@ -90,7 +90,7 @@ extension LoggedInView {
         guard let date = dateFormatter.date(from: fetchedDate) else { return }
         let compareResult = Date().compare(date)
         
-        if compareResult == .orderedSame || compareResult == .orderedAscending {
+        if compareResult == .orderedSame || compareResult == .orderedDescending {
             showPromptIfAllowed()
         }
     }
