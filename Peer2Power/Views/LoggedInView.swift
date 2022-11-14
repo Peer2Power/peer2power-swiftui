@@ -8,6 +8,7 @@
 import SwiftUI
 import RealmSwift
 import FirebaseRemoteConfig
+import AlertToast
 
 struct LoggedInView: View {
     @State private var showingSurveyAlert = false
@@ -55,19 +56,23 @@ struct LoggedInView: View {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
             }
             .onAppear(perform: checkEndOfStudyAvailability)
+            .toast(isPresenting: $showingSurveyResponseUploadedBanner, duration: 4) {
+                AlertToast(displayMode: .banner(.pop), type: .complete(Color(uiColor: .systemGreen)), title: "Response Uploaded!", subTitle: "Your team received 12 points!")
+            }
         }
     }
 }
 
 extension LoggedInView {
     private func checkEndOfStudyAvailability() {
-        let remoteConfig = RemoteConfig.remoteConfig()
+        /* let remoteConfig = RemoteConfig.remoteConfig()
         
         remoteConfig.fetchAndActivate { status, error in
             if status == .successFetchedFromRemote {
                 handleFetchedDate()
             }
-        }
+        } */
+        showingSurveyAlert.toggle()
     }
     
     private func handleFetchedDate() {
@@ -94,7 +99,7 @@ extension LoggedInView {
     private func showSurveyAlertIfAllowed() {
         let defaults = UserDefaults.standard
         
-        let remindLaterDate = defaults.object(forKey: "remindLaterPressedDate") as! Date
+        guard let remindLaterDate = defaults.object(forKey: "remindLaterPressedDate") as? Date else { return }
         let timeInterval = Date().timeIntervalSince(remindLaterDate)
         let remindLaterDaysCount = ((timeInterval / 3600) / 24)
         

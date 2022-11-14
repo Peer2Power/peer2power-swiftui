@@ -99,6 +99,9 @@ struct EndOfStudySurveyView: UIViewControllerRepresentable {
         }
         
         private func awardPointsForSurveyResponse(team: Team) {
+            team.score += 12
+            print("Awarded 12 points for filling out the end-of-study survey.")
+            
             parent.showResponseUploadedBanner.toggle()
         }
         

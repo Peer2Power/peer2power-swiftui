@@ -12,10 +12,8 @@ import AlertToast
 struct SettingsView: View {
     @State private var showingLogOutAlert = false
     @State private var showingDeleteAccountAlert = false
-    @State private var showingEndOfStudySurvey = false
     
     @State private var showingFAQView = false
-    @State private var showingResponseUploadedBanner = false
     
     @ObservedRealmObject var userTeam: Team
     @Environment(\.realm) private var realm
@@ -24,12 +22,7 @@ struct SettingsView: View {
         List {
             // TODO: revisit this to finalize the end-of-study survey.
             Section {
-                Button("Show End Of Study Survey") {
-                    showingEndOfStudySurvey.toggle()
-                }
-                .sheet(isPresented: $showingEndOfStudySurvey) {
-                    EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingResponseUploadedBanner)
-                }
+                
             }
             Section {
                 Button("FAQ") {
@@ -66,9 +59,6 @@ struct SettingsView: View {
                     Text("Deleting your account will delete any contacts or outreach attempts you uploaded and your team will lose the points it was awarded for these. It will also lose one point awarded when you signed up.")
                 })
             }
-        }
-        .toast(isPresenting: $showingResponseUploadedBanner) {
-            AlertToast(displayMode: .banner(.pop), type: .complete(Color(uiColor: .systemGreen)), title: "Response Uploaded!")
         }
     }
 }

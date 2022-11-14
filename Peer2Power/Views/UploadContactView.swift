@@ -22,7 +22,7 @@ struct UploadContactView: View {
     }
     
     @State private var isAdult = false
-    @State private var showingContactUploadedAlert = false
+    @Binding var showingContactUploadedBanner: Bool
     
     @State private var showingDuplicateContactAlert = false
     @State private var showingInvalidEmailAlert = false
@@ -118,17 +118,6 @@ struct UploadContactView: View {
         .onChange(of: isAdult, perform: { newValue in
             focusedField = nil
         })
-        .onChange(of: showingContactUploadedAlert, perform: { newValue in
-            if newValue == false {
-                dismiss()
-            }
-        })
-        .toast(isPresenting: $showingContactUploadedAlert, duration: 4.0) {
-            AlertToast(displayMode: .banner(.pop),
-                       type: .complete(Color(uiColor: .systemGreen)),
-                       title: "Contact Uploaded",
-                       subTitle: "Your team received 2 points!")
-        }
     }
 }
 
@@ -173,7 +162,9 @@ extension UploadContactView {
             try realm.write {
                 team.score += 2
                 print("Awarded 2 points for uploading a contact.")
-                showingContactUploadedAlert.toggle()
+                showingContactUploadedBanner.toggle()
+                
+                dismiss()
             }
         } catch {
             print("Error awarding points for uploading a contact: \(error.localizedDescription)")

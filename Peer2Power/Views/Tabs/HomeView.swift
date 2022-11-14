@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 import FirebaseRemoteConfig
 import RealmSwift
+import AlertToast
 
 struct HomeView: View {
     @State private var closeDateString = ""
@@ -18,6 +19,7 @@ struct HomeView: View {
     @State private var offsetsToDelete: IndexSet?
     
     @State private var showingControlGroupAlert = false
+    @State private var showingContactUploadedBanner = false
     
     @ObservedRealmObject var userTeam: Team
     
@@ -90,6 +92,12 @@ struct HomeView: View {
                     } message: {
                         Text("Your should not try to recruit this contact to volunteer, so you will not see them in your contacts list.")
                     }
+                    .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
+                        AlertToast(displayMode: .banner(.pop),
+                                   type: .complete(Color(uiColor: .systemGreen)),
+                                   title: "Contact Uploaded",
+                                   subTitle: "Your team received 2 points!")
+                    }
                 }
                 Button {
                     showingUploadForm.toggle()
@@ -104,7 +112,7 @@ struct HomeView: View {
                         showingControlGroupAlert.toggle()
                     }
                 }, content: {
-                    UploadContactView(userTeam: userTeam, contact: Contact())
+                    UploadContactView(userTeam: userTeam, contact: Contact(), showingContactUploadedBanner: $showingContactUploadedBanner)
                 })
             }
             .toolbar {
