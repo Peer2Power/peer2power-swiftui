@@ -43,12 +43,12 @@ struct LoggedInView: View {
                     Label("Settings", systemImage: "gear")
                 }
             }
-            .alert("Would you like to fill out an end of study survey?", isPresented: $showingSurveyAlert) {
-                Button("Yes", action: showSurveyIfAllowed)
+            .alert("Are you ready to complete the Peer2Power competition?", isPresented: $showingSurveyAlert) {
+                Button("I'm Ready", action: showSurveyIfAllowed)
                 Button("Maybe Later", action: setShowLater)
                 Button("Don't Ask Again", role: .cancel, action: neverShowEndOfStudySurvey)
             } message: {
-                Text("Now that voting in the Georgia runoff has ended, we invite you to fill out an end of study survey.")
+                Text("The election is over! To score your final points, we need you to let us know how many of your friends and family actually volunteered for a Georgia runoff campaign!")
             }
             .sheet(isPresented: $showingEndOfStudySurvey) {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
