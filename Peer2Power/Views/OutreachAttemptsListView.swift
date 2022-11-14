@@ -8,6 +8,7 @@
 import SwiftUI
 import RealmSwift
 import AlertToast
+import FirebaseRemoteConfig
 
 struct OutreachAttemptsListView: View {
     @ObservedRealmObject var contact: Contact
@@ -86,7 +87,7 @@ struct OutreachAttemptsListView: View {
         } label: {
             Label("Log Outreach Attempt", systemImage: "square.and.pencil")
         }
-        .disabled(!team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty)
+        .disabled(!team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty || isPastCompDate())
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)
@@ -144,5 +145,21 @@ extension OutreachAttemptsListView {
         } catch {
             print("Error deleting outreach attempt: \(error.localizedDescription)")
         }
+    }
+    
+    private func isPastCompDate() -> Bool {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        
+        guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
+        print("Got end of study date \(fetchedDate)")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        
+        guard let date = dateFormatter.date(from: fetchedDate) else { return false }
+        let compareResult = Date().compare(date)
+        
+        return compareResult == .orderedSame || compareResult == .orderedDescending
     }
 }

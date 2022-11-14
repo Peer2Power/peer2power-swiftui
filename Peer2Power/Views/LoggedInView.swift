@@ -66,11 +66,11 @@ extension LoggedInView {
         /* let remoteConfig = RemoteConfig.remoteConfig()
         
         remoteConfig.fetchAndActivate { status, error in
-            if status == .successFetchedFromRemote {
+            if status == .successFetchedFromRemote || status == .successUsingPreFetchedData {
                 handleFetchedDate()
             }
         } */
-        showingSurveyAlert.toggle()
+        // showingSurveyAlert.toggle()
     }
     
     private func handleFetchedDate() {
@@ -87,7 +87,7 @@ extension LoggedInView {
         dateFormatter.timeZone = TimeZone(abbreviation: "EST")
         
         guard let date = dateFormatter.date(from: fetchedDate) else { return }
-        let compareResult = date.compare(Date())
+        let compareResult = Date().compare(date)
         
         if compareResult == .orderedSame || compareResult == .orderedDescending {
             showPromptIfAllowed()
