@@ -33,7 +33,7 @@ struct SchoolsListView: View {
     
     @State private var showingJoinedTeamBanner = false
     
-    var searchResults: [DBTeam] {
+    @MainActor var searchResults: [DBTeam] {
         if searchText.isEmpty {
             return dbTeams
         }
