@@ -59,7 +59,6 @@ struct SchoolsListView: View {
                                                teamSelected: $showingSignUpSheet)
                             } label: {
                                 Text(team.school_name)
-                                    .foregroundColor(Color(uiColor: .label))
                             }
                         }
                     } header: {
