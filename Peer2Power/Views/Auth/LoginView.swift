@@ -115,7 +115,7 @@ extension LoginView {
                 
                 // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
                 if let joinTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
-                    getTeamToAdd(user: user, with: joinTeamID)
+                    await getTeamToAdd(user: user, with: joinTeamID)
                 } else {
                     print("No ID of a team for the user to join is being persisted.")
                 }
@@ -130,6 +130,7 @@ extension LoginView {
         }
     }
     
+    @MainActor
     private func getTeamToAdd(user: User, with teamID: String) {
         print("The user should join a team with the ID \(teamID)")
         
@@ -144,14 +145,12 @@ extension LoginView {
                 
                 let objectID = try ObjectId(string: teamID)
                 
-                DispatchQueue.main.async {
-                    guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: objectID) else {
-                        print("The team could not be found.")
-                        return
-                    }
-                    
-                    append(user: user, to: team, using: teamRealm)
+                guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: objectID) else {
+                    print("The team could not be found.")
+                    return
                 }
+                
+                append(user: user, to: team, using: teamRealm)
             } catch  {
                 print("Error getting team to add user to: \(error.localizedDescription)")
             }
