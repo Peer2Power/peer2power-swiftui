@@ -106,6 +106,13 @@ extension SettingsView {
                         print("Deleted an outreach attempt and subtracted four points.")
                     }
                 }
+                
+                for surveyResponse in team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id) {
+                    realm.delete(surveyResponse)
+                    team.score -= 12
+                    
+                    print("Deleted an end-of-survey response and subtracted 12 points.")
+                }
             }
         } catch {
             print("Error removing current user from team: \(error.localizedDescription)")

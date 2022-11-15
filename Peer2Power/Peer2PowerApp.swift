@@ -16,9 +16,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         
         let remoteConfig = RemoteConfig.remoteConfig()
-        let settings = RemoteConfigSettings()
+        /* let settings = RemoteConfigSettings()
         settings.minimumFetchInterval = 0 // FIXME: remove this in production, should fetch the default value of 12 hours.
-        remoteConfig.configSettings = settings
+        remoteConfig.configSettings = settings */
         
         remoteConfig.setDefaults([
             "endOfStudySurveyAvailableDate": "01-01-2023 23:59" as NSObject
