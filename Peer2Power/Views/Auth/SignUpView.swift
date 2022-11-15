@@ -52,6 +52,8 @@ struct SignUpView: View {
                         Text("Create an account to join the \(school_name) \(teamParty).")
                             .multilineTextAlignment(.center)
                             .font(.title2)
+                            .padding(.top, 35)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                     Image("LoginLogo")
                     TextField("Email Address", text: $email)
@@ -85,6 +87,8 @@ struct SignUpView: View {
                         .controlSize(.large)
                         .padding(.top, 15)
                         .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
+                    Text("Please note, you can only sign up with an academic email address (one that ends in .edu).")
+                        .multilineTextAlignment(.center)
                     CheckboxField(label: VStack {
                         Text("By signing up, you agree to the")
                         Button("Informed Consent Agreement") {
@@ -100,6 +104,7 @@ struct SignUpView: View {
                     }
                 }
                 .padding(.horizontal, 15.0)
+                .frame(maxWidth: .infinity)
                 .onAppear(perform: fetchTeamInfo)
                 .onChange(of: userConsented, perform: { newValue in
                     focusedField = nil
@@ -142,8 +147,7 @@ struct SignUpView: View {
                     Text("You did not provide an academic email address. Please use an academic email address (ending in .edu) and try again.")
                 }
             }
-            }
-            
+        }
     }
 }
 

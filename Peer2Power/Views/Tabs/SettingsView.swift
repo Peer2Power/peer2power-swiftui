@@ -63,7 +63,7 @@ struct SettingsView: View {
                     Button("Cancel", role: .cancel, action: {})
                     Button("Delete Account", role: .destructive, action: deleteCurrentUser)
                 }, message: {
-                    Text("Deleting your account will delete any contacts or outreach attempts you uploaded and your team will lose the points it was awarded for these. It will also lose one point awarded when you signed up.")
+                    Text("Deleting your account will delete any contacts or outreach attempts you uploaded and your team will lose the points it was awarded for these. It will also lose the point it was awarded when you joined it.")
                 })
             }
         }
