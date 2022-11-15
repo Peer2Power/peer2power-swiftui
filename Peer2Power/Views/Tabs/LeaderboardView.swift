@@ -21,30 +21,37 @@ struct LeaderboardView: View {
     @ObservedRealmObject var userTeam: Team
     
     var body: some View {
-        VStack(spacing: 10.0) {
-            Text("Your team,\n\nthe \(userTeam.school_name) \(userTeam.party.rawValue),\n\nhas earned")
-                .font(.title2)
-                .multilineTextAlignment(.center)
-                .minimumScaleFactor(0.25)
-                .padding(.horizontal, 15.0)
-            Text("\(userTeam.score)")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 15.0)
-            if userTeam.score != 1 {
-                Text("points for the \(userTeam.party.rawValue).")
+        VStack(alignment: .center, spacing: 15.0) {
+            VStack(alignment: .center, spacing: 5) {
+                Text("Your team,")
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.25)
-                    .padding(.horizontal, 15.0)
-            } else {
-                Text("point for the \(userTeam.party.rawValue).")
-                    .font(.title2)
+                Text("the \(userTeam.school_name) \(userTeam.party.rawValue),")
                     .multilineTextAlignment(.center)
+                    .font(.title2)
                     .minimumScaleFactor(0.25)
-                    .padding(.horizontal, 15.0)
+                Text("has earned")
+                    .multilineTextAlignment(.center)
+                    .font(.title2)
+                    .minimumScaleFactor(0.25)
+                Text("\(userTeam.score)")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                if userTeam.score != 1 {
+                    Text("points for the \(userTeam.party.rawValue).")
+                        .font(.title2)
+                        .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.25)
+                } else {
+                    Text("point for the \(userTeam.party.rawValue).")
+                        .font(.title2)
+                        .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.25)
+                }
             }
+            .padding(.horizontal, 15)
             Divider()
             if #available(iOS 16.0, *) {
                 Chart {

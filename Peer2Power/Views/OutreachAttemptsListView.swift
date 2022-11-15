@@ -83,6 +83,7 @@ struct OutreachAttemptsListView: View {
         if !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
             Text("A team member already marked this contact as a confirmed volunteer.")
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, 15)
         }
         Button {
             presentingLogOutreachForm.toggle()
