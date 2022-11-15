@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import AlertToast
 
 struct DBTeam: Identifiable, Codable {
     let id: String
@@ -29,6 +30,8 @@ struct SchoolsListView: View {
     
     @State private var selectedTeamID = ""
     @State private var selectedParty: Party = .selectParty
+    
+    @State private var showingJoinedTeamBanner = false
     
     var searchResults: [DBTeam] {
         if searchText.isEmpty {
@@ -73,7 +76,7 @@ struct SchoolsListView: View {
             .listStyle(.insetGrouped)
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
-                    LoginView()
+                    LoginView(showingJoinedTeamAlert: $showingJoinedTeamBanner)
                 }
             }
             .sheet(isPresented: $showingSignUpSheet, content: {
@@ -82,6 +85,12 @@ struct SchoolsListView: View {
                                teamSelected: $showingLoginSheet)
                 }
             })
+            .toast(isPresenting: $showingJoinedTeamBanner) {
+                AlertToast(displayMode: .banner(.pop),
+                           type: .complete(Color(uiColor: .systemGreen)),
+                           title: "Points Received!",
+                           subTitle: "Your team received 1 point!")
+            }
             Button("Already part of a team? Login.") {
                 showingLoginSheet.toggle()
             }
