@@ -13,6 +13,7 @@ import AlertToast
 struct LoggedInView: View {
     @State private var showingSurveyAlert = false
     @State private var showingEndOfStudySurvey = false
+    @State private var showingConfirmDontShowAlert = false
     @State private var showingSurveyResponseUploadedBanner = false
     
     @ObservedResults(Team.self,
@@ -46,10 +47,19 @@ struct LoggedInView: View {
             .alert("Are you ready to complete the Peer2Power competition?", isPresented: $showingSurveyAlert) {
                 Button("I'm Ready", action: showSurveyIfAllowed)
                 Button("Maybe Later", action: setShowLater)
-                Button("Don't Ask Again", role: .cancel, action: neverShowEndOfStudySurvey)
+                Button("Don't Ask Again", role: .cancel) {
+                    showingConfirmDontShowAlert.toggle()
+                }
             } message: {
                 Text("The election is over! To score your final points, we need you to let us know how many of your friends and family actually volunteered for a Georgia runoff campaign!")
             }
+            .alert("Are you sure you want to quit the competition?", isPresented: $showingConfirmDontShowAlert, actions: {
+                Button("No, I'd Like to Fill Out the Survey", action: showSurveyIfAllowed)
+                Button("No, Show Me This Again Later", action: setShowLater)
+                Button("Yes, Never Ask Me Again", role: .cancel, action: neverShowEndOfStudySurvey)
+            }, message: {
+                Text("Failing to complete the end-of-study survey means your team will miss an opportunity to gain a significant number of points.")
+            })
             .sheet(isPresented: $showingEndOfStudySurvey) {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
                     .interactiveDismissDisabled(true)
@@ -64,14 +74,13 @@ struct LoggedInView: View {
 
 extension LoggedInView {
     private func checkEndOfStudyAvailability() {
-        /* let remoteConfig = RemoteConfig.remoteConfig()
+        let remoteConfig = RemoteConfig.remoteConfig()
         
         remoteConfig.fetchAndActivate { status, error in
             if status == .successFetchedFromRemote || status == .successUsingPreFetchedData {
                 handleFetchedDate()
             }
-        } */
-        showingSurveyAlert.toggle()
+        }
     }
     
     private func handleFetchedDate() {
@@ -112,7 +121,7 @@ extension LoggedInView {
     
     private func showSurveyIfAllowed() {
         guard let team = teams.first else { return }
-        // guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
+        guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
         
         showingEndOfStudySurvey.toggle()
     }

@@ -36,7 +36,7 @@ struct SchoolsListView: View {
         }
         
         return dbTeams.filter { predTeam in
-            return predTeam.school_name.contains(searchText)
+            return predTeam.school_name.localizedCaseInsensitiveContains(searchText)
         }
     }
     

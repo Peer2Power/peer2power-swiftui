@@ -22,7 +22,7 @@ struct LeaderboardView: View {
     
     var body: some View {
         VStack(spacing: 10.0) {
-            Text("Your team, the \(userTeam.school_name) \(userTeam.party.rawValue), has contributed")
+            Text("Your team,\n\nthe \(userTeam.school_name) \(userTeam.party.rawValue),\n\nhas earned")
                 .font(.title2)
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.25)
@@ -33,13 +33,13 @@ struct LeaderboardView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 15.0)
             if userTeam.score != 1 {
-                Text("points to the Georgia \(userTeam.party.rawValue) total.")
+                Text("points for the \(userTeam.party.rawValue).")
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.25)
                     .padding(.horizontal, 15.0)
             } else {
-                Text("point to the Georgia \(userTeam.party.rawValue) total.")
+                Text("point for the \(userTeam.party.rawValue).")
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.25)

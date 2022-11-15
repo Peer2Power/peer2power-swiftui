@@ -26,7 +26,7 @@ struct OutreachAttemptsListView: View {
     @Environment(\.realm) var realm
     
     var body: some View {
-        if team.outreachAttempts.filter("to = %@", contact.contact_id).isEmpty {
+        if team.outreachAttempts.filter("to = %@", contact.contact_id).isEmpty && team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
             VStack(spacing: 10.0) {
                 Text("No Outreach Attempts Logged")
                     .font(.title)
@@ -40,37 +40,39 @@ struct OutreachAttemptsListView: View {
             .navigationBarTitleDisplayMode(.inline)
         } else {
             VStack {
-                List {
-                    ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: true)) { attempt in
-                        OutreachListRow(attempt: attempt)
+                if !team.outreachAttempts.filter("to = %@", contact.contact_id).isEmpty {
+                    List {
+                        ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: true)) { attempt in
+                            OutreachListRow(attempt: attempt)
+                        }
+                        .onDelete { offsets in
+                            offsetsToDelete = offsets
+                            showingDeleteAttemptAlert.toggle()
+                        }
                     }
-                    .onDelete { offsets in
-                        offsetsToDelete = offsets
-                        showingDeleteAttemptAlert.toggle()
+                    .navigationTitle(contact.name)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .alert("Are you sure you want to delete this outreach attempt?", isPresented: $showingDeleteAttemptAlert) {
+                        Button("Cancel", role: .cancel, action: {})
+                        Button("Delete", role: .destructive, action: deleteOutreachAttempt)
+                    } message: {
+                        Text("Your team will lose the points it gained for logging this outreach attempt.")
                     }
-                }
-                .navigationTitle(contact.name)
-                .navigationBarTitleDisplayMode(.inline)
-                .alert("Are you sure you want to delete this outreach attempt?", isPresented: $showingDeleteAttemptAlert) {
-                    Button("Cancel", role: .cancel, action: {})
-                    Button("Delete", role: .destructive, action: deleteOutreachAttempt)
-                } message: {
-                    Text("Your team will lose the points it gained for logging this outreach attempt.")
-                }
-                .toolbar {
-                    EditButton()
-                }
-                .toast(isPresenting: $showingAttemptLoggedBanner, duration: 4.0) {
-                    AlertToast(displayMode: .banner(.pop),
-                               type: .complete(Color(uiColor: .systemGreen)),
-                               title: "Outreach Attempt Logged!",
-                               subTitle: "Your team received 4 points!")
-                }
-                .toast(isPresenting: $showingDidVolunteerBanner, duration: 4.0) {
-                    AlertToast(displayMode: .banner(.pop),
-                               type: .complete(Color(uiColor: .systemGreen)),
-                               title: "Outreach Attempt Logged!",
-                               subTitle: "Your team received 7 points!")
+                    .toolbar {
+                        EditButton()
+                    }
+                    .toast(isPresenting: $showingAttemptLoggedBanner, duration: 4.0) {
+                        AlertToast(displayMode: .banner(.pop),
+                                   type: .complete(Color(uiColor: .systemGreen)),
+                                   title: "Outreach Attempt Logged!",
+                                   subTitle: "Your team received 4 points!")
+                    }
+                    .toast(isPresenting: $showingDidVolunteerBanner, duration: 4.0) {
+                        AlertToast(displayMode: .banner(.pop),
+                                   type: .complete(Color(uiColor: .systemGreen)),
+                                   title: "Outreach Attempt Logged!",
+                                   subTitle: "Your team received 7 points!")
+                    }
                 }
             }
         }
@@ -79,7 +81,7 @@ struct OutreachAttemptsListView: View {
                 .multilineTextAlignment(.center)
         }
         if !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
-            Text("A team member marked this contact as a confirmed volunteer in the end-of-study survey.")
+            Text("A team member already marked this contact as a confirmed volunteer.")
                 .multilineTextAlignment(.center)
         }
         Button {
