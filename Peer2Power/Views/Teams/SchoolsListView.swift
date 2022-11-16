@@ -69,6 +69,7 @@ struct SchoolsListView: View {
                     }
                 }
             }
+            .id(UUID())
             .onAppear(perform: fetchTeams)
             .navigationTitle("Sign Up")
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a school to sign up under")

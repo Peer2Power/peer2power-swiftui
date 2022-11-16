@@ -38,6 +38,8 @@ struct SignUpView: View {
     
     @FocusState private var focusedField: Field?
     
+    @StateObject private var viewModel: ChooseTeamViewModel = .shared
+    
     enum Field: Hashable {
         case email
         case password
@@ -193,8 +195,11 @@ extension SignUpView {
             do {
                 try await app.emailPasswordAuth.registerUser(email: email, password: password)
                 
-                UserDefaults.standard.set(team_id, forKey: "joinTeamID")
-                print("Persisted ID \(UserDefaults.standard.string(forKey: "joinTeamID") ?? "N/A") of the team the user should join.")
+                /* UserDefaults.standard.set(team_id, forKey: "joinTeamID")
+                print("Persisted ID \(UserDefaults.standard.string(forKey: "joinTeamID") ?? "N/A") of the team the user should join.") */
+                
+                viewModel.selectedTeamID = team_id
+                print("User should join team with ID \(viewModel.selectedTeamID)")
                 
                 showingEmailConfirmAlert.toggle()
                 signingUp.toggle()

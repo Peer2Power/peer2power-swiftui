@@ -24,6 +24,8 @@ struct LoginView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.realm) private var realm
     
+    @StateObject private var viewModel: ChooseTeamViewModel = .shared
+    
     enum Field: Hashable {
         case email
         case password
@@ -79,7 +81,7 @@ struct LoginView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
+                    if viewModel.selectedTeamID.isEmpty {
                         Button("Cancel", role: .cancel) {
                             dismiss()
                         }
@@ -114,8 +116,10 @@ extension LoginView {
                 print("Logged in user with ID \(user.id)")
                 
                 // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
-                if let joinTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
-                    await getTeamToAdd(user: user, with: joinTeamID)
+                if !viewModel.selectedTeamID.isEmpty {
+                    print("Trying to append user to team with ID \(viewModel.selectedTeamID)")
+                    
+                    getTeamToAdd(user: user, with: viewModel.selectedTeamID)
                 } else {
                     print("No ID of a team for the user to join is being persisted.")
                 }
@@ -134,29 +138,51 @@ extension LoginView {
     private func getTeamToAdd(user: User, with teamID: String) {
         print("The user should join a team with the ID \(teamID)")
         
-        Task {
-            let config = user.flexibleSyncConfiguration { subs in
-                subs.append(QuerySubscription<Team>(name: allTeamsSubName))
-            }
+        do {
+            let objectID = try ObjectId(string: teamID)
             
-            do {
-                // I have no idea why this works, but it works.
-                let teamRealm = try await Realm(configuration: config, downloadBeforeOpen: .always)
-                
-                let objectID = try ObjectId(string: teamID)
-                
-                guard let team = teamRealm.object(ofType: Team.self, forPrimaryKey: objectID) else {
-                    print("The team could not be found.")
-                    return
+            Realm.asyncOpen(configuration: user.flexibleSyncConfiguration()) { result in
+                switch result {
+                case .success(let realm):
+                    let subs = realm.subscriptions
+                    let foundSub = subs.first(named: allTeamsSubName)
+                    
+                    subs.update {
+                        if foundSub == nil {
+                            subs.append(QuerySubscription<Team>(name: allTeamsSubName))
+                        }
+                    } onComplete: { error in
+                        guard error == nil else {
+                            print("Error appending subscription: \(error?.localizedDescription)")
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            getTeamToAdd(realm, user: user, to: objectID)
+                        }
+                    }
+                case .failure(let failure):
+                    print("Error opening realm: \(failure.localizedDescription)")
                 }
-                
-                append(user: user, to: team, using: teamRealm)
-            } catch  {
-                print("Error getting team to add user to: \(error.localizedDescription)")
             }
+        } catch {
+            print("Error creating object ID: \(error.localizedDescription)")
         }
     }
     
+    @MainActor
+    private func getTeamToAdd(_ realm: Realm, user: User, to objectID: ObjectId) {
+        guard let team = realm.object(ofType: Team.self, forPrimaryKey: objectID) else {
+            print("The team could not be found.")
+            return
+        }
+        
+        print("Found a team with ID \(team._id.stringValue)")
+        
+        append(user: user, to: team, using: realm)
+    }
+    
+    @MainActor
     private func append(user: User, to team: Team, using realm: Realm) {
         do {
             try realm.write {
@@ -166,10 +192,10 @@ extension LoginView {
                 team.score += 1
                 showingJoinedTeamAlert.toggle()
                 
-                UserDefaults.standard.set(nil, forKey: "joinTeamID")
+                /* UserDefaults.standard.set(nil, forKey: "joinTeamID")
                 if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
                     print("Removed the ID of the team the user should join from UserDefaults since they have joined it.")
-                }
+                } */
             }
         } catch {
             print("Error adding user to team: \(error.localizedDescription)")
