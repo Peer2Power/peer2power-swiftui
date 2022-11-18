@@ -44,7 +44,7 @@ struct HomeView: View {
                     List {
                         if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
                             VStack(spacing: 10.0) {
-                                Text("Contacts Not Assigned")
+                                Text("No Contacts Assigned to Be Recruited")
                                     .font(.title)
                                     .multilineTextAlignment(.center)
                                 Text("Thank you for uploading contacts! None of your team's contacts have been assigned to be recruited yet. Upload some more contacts to start recruiting them to volunteer.")
@@ -90,7 +90,7 @@ struct HomeView: View {
                     .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
                         Button("OK", role: .cancel, action: {})
                     } message: {
-                        Text("Your should not try to recruit this contact to volunteer, so you will not see them in your contacts list.")
+                        Text("\(lastContactName) was randomly assigned to not be recruited to volunteer, so you will not see them in your contacts list.")
                     }
                     .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
                         AlertToast(displayMode: .banner(.pop),
@@ -193,6 +193,12 @@ extension HomeView {
         let compareResult = Date().compare(date)
         
         return compareResult == .orderedSame || compareResult == .orderedDescending
+    }
+    
+    private var lastContactName: String {
+        guard let lastContact = userTeam.contacts.last else { return "" }
+        
+        return lastContact.name
     }
 }
 
