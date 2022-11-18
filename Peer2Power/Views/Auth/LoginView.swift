@@ -115,7 +115,6 @@ extension LoginView {
                 
                 print("Logged in user with ID \(user.id)")
                 
-                // FIXME: the team can't be found even though supplying the method with a string literal ID works. Not sure why it doesn't work with a string from UserDefaults.
                 if !viewModel.selectedTeamID.isEmpty {
                     print("Trying to append user to team with ID \(viewModel.selectedTeamID)")
                     
