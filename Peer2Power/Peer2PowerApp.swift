@@ -21,7 +21,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         remoteConfig.configSettings = settings */
         
         remoteConfig.setDefaults([
-            "endOfStudySurveyAvailableDate": "01-01-2023 23:59" as NSObject
+            "endOfStudySurveyAvailableDate": "01-01-2023 23:59" as NSObject,
+            "endOfStudySurveyCloseDate": "04-01-2023 23:59" as NSObject
         ])
         
         return true

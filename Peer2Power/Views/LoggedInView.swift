@@ -87,31 +87,14 @@ extension LoggedInView {
         let hasDeclinedSurvey = UserDefaults.standard.bool(forKey: "declinedEndOfStudySurvey")
         guard !hasDeclinedSurvey else { return }
         
-        let remoteConfig = RemoteConfig.remoteConfig()
+        guard pastSurveyOpenDate else { return }
+        guard !pastSurveyCloseDate else { return }
         
-        guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return }
-        print("Got end of study date \(fetchedDate)")
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
-        
-        guard let date = dateFormatter.date(from: fetchedDate) else { return }
-        let compareResult = Date().compare(date)
-        
-        if compareResult == .orderedSame || compareResult == .orderedDescending {
-            showPromptIfAllowed()
-        }
+        showPromptIfAllowed()
     }
     
     private func showPromptIfAllowed() {
-        let defaults = UserDefaults.standard
-        
-        guard let remindLaterDate = defaults.object(forKey: "remindLaterPressedDate") as? Date else { return }
-        let timeInterval = Date().timeIntervalSince(remindLaterDate)
-        let remindLaterDaysCount = ((timeInterval / 3600) / 24)
-        
-        guard remindLaterDaysCount >= daysBeforeReminding else { return }
+        guard pastRemindLaterDate else { return }
     
         guard let team = teams.first else { return }
         guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
@@ -134,6 +117,48 @@ extension LoggedInView {
     private func setShowLater() {
         let defaults = UserDefaults.standard
         defaults.set(Date(), forKey: "remindLaterPressedDate")
+    }
+    
+    private var pastSurveyOpenDate: Bool {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        
+        guard let surveyOpenDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
+        print("Got end of study date \(surveyOpenDate)")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        
+        guard let date = dateFormatter.date(from: surveyOpenDate) else { return false }
+        let compareResult = Date().compare(date)
+        
+        return compareResult == .orderedSame || compareResult == .orderedDescending
+    }
+    
+    private var pastRemindLaterDate: Bool {
+        let defaults = UserDefaults.standard
+        
+        guard let remindLaterDate = defaults.object(forKey: "remindLaterPressedDate") as? Date else { return true }
+        let timeInterval = Date().timeIntervalSince(remindLaterDate)
+        let remindLaterDaysCount = ((timeInterval / 3600) / 24)
+        
+        return remindLaterDaysCount >= daysBeforeReminding
+    }
+    
+    private var pastSurveyCloseDate: Bool {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        
+        guard let surveyCloseDate = remoteConfig["endOfStudySurveyCloseDate"].stringValue else { return false }
+        print("Got end of study date \(surveyCloseDate)")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        
+        guard let date = dateFormatter.date(from: surveyCloseDate) else { return false }
+        let compareResult = Date().compare(date)
+        
+        return compareResult == .orderedSame || compareResult == .orderedDescending
     }
 }
 
