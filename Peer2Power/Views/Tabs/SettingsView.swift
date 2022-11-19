@@ -89,6 +89,21 @@ extension SettingsView {
                     realm.delete(contact)
                     team.score -= 2
                     
+                    for outreachAttempt in team.outreachAttempts.filter("to = %@", contact.contact_id) {
+                        let volunteerStatus = outreachAttempt.volunteerStatus
+                        realm.delete(outreachAttempt)
+                        
+                        if volunteerStatus == "I have confirmed that they volunteered." {
+                            team.score -= 7
+                            
+                            print("Deleted an outreach attempt and subtracted seven points.")
+                        } else {
+                            team.score -= 4
+                            
+                            print("Deleted an outreach attempt and subtracted four points.")
+                        }
+                    }
+                    
                     print("Deleted a contact and subtracted two points.")
                 }
                 
