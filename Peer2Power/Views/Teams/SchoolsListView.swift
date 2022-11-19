@@ -92,9 +92,10 @@ struct SchoolsListView: View {
                            title: "Points Received!",
                            subTitle: "Your team received 1 point!")
             }
-            Button("Already part of a team? Login.") {
+            Button("Already part of a team or just confirmed your email address? Login.") {
                 showingLoginSheet.toggle()
             }
+            .padding(.horizontal, 15)
         }
     }
 }

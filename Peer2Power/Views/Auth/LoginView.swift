@@ -19,12 +19,13 @@ struct LoginView: View {
     @State private var errorText = ""
     @State private var showingEmptyFieldAlert = false
     
+    @State private var school_name = ""
+    @State private var teamParty = ""
+    
     @Binding var showingJoinedTeamAlert: Bool
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.realm) private var realm
-    
-    @StateObject private var viewModel: ChooseTeamViewModel = .shared
     
     enum Field: Hashable {
         case email
@@ -34,8 +35,8 @@ struct LoginView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 15.0) {
-                if !viewModel.selectedTeamID.isEmpty {
-                    Text("Login to join the \(viewModel.selectedSchoolName) \(viewModel.selectedParty).")
+                if UserDefaults.standard.string(forKey: "joinTeamID") != nil {
+                    Text("Login to join the \(school_name) \(teamParty).")
                         .multilineTextAlignment(.center)
                         .font(.title2)
                         .padding(.top, 35)
@@ -75,6 +76,7 @@ struct LoginView: View {
                 }
             }
             .padding(.horizontal, 15.0)
+            .onAppear(perform: fetchTeamInfo)
             .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
                 Button("OK", role: .cancel, action: {})
             } message: {
@@ -88,7 +90,7 @@ struct LoginView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    if viewModel.selectedTeamID.isEmpty {
+                    if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
                         Button("Cancel", role: .cancel) {
                             dismiss()
                         }
@@ -115,6 +117,8 @@ extension LoginView {
             return
         }
         
+        let defaults = UserDefaults.standard
+        
         Task {
             loggingIn.toggle()
             do {
@@ -122,10 +126,10 @@ extension LoginView {
                 
                 print("Logged in user with ID \(user.id)")
                 
-                if !viewModel.selectedTeamID.isEmpty {
-                    print("Trying to append user to team with ID \(viewModel.selectedTeamID)")
+                if let selectedTeamID = UserDefaults.standard.string(forKey: "joinTeamID") {
+                    print("Trying to append user to team with ID \(selectedTeamID)")
                     
-                    getTeamToAdd(user: user, with: viewModel.selectedTeamID)
+                    await getTeamToAdd(user: user, with: selectedTeamID)
                 } else {
                     print("No ID of a team for the user to join is being persisted.")
                 }
@@ -198,14 +202,59 @@ extension LoginView {
                 team.score += 1
                 showingJoinedTeamAlert.toggle()
                 
-                /* UserDefaults.standard.set(nil, forKey: "joinTeamID")
+                UserDefaults.standard.set(nil, forKey: "joinTeamID")
                 if UserDefaults.standard.string(forKey: "joinTeamID") == nil {
                     print("Removed the ID of the team the user should join from UserDefaults since they have joined it.")
-                } */
+                }
             }
         } catch {
             print("Error adding user to team: \(error.localizedDescription)")
         }
+    }
+    
+    private func fetchTeamInfo() {
+        guard let url = URL(string: "\(mongoDataEndpoint)action/findOne") else { return }
+        guard let team_id = UserDefaults.standard.string(forKey: "joinTeamID") else { return }
+        
+        var request = URLRequest(url: url)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(mongoDataAPIKey, forHTTPHeaderField: "api-key")
+        request.setValue("*", forHTTPHeaderField: "Access-Control-Request-Headers")
+        
+        let bodyJSON: [String: Any] = [
+            "collection": "Team",
+            "database": "govlab",
+            "dataSource": "production",
+            "filter": ["_id": ["$oid": team_id],],
+            "projection": ["_id": 0, "school_name": 1, "party": 1]
+        ]
+        let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
+        
+        request.httpBody = bodyData
+        
+        request.httpMethod = "POST"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data)
+            guard let responseJSON = responseJSON as? [String: Any] else { return }
+            print(responseJSON)
+            
+            guard let team = responseJSON["document"] as? [String: Any] else { return }
+            
+            guard let school_name = team["school_name"] as? String else { return }
+            self.school_name = school_name
+            
+            guard let party = team["party"] as? String else { return }
+            teamParty = party
+        }
+        
+        task.resume()
     }
 }
 
