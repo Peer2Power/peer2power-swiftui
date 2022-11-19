@@ -34,6 +34,13 @@ struct LoginView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 15.0) {
+                if !viewModel.selectedTeamID.isEmpty {
+                    Text("Login to join the \(viewModel.selectedSchoolName) \(viewModel.selectedParty).")
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                        .padding(.top, 35)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 Image("LoginLogo")
                 TextField("Email Address", text: $email)
                     .submitLabel(.next)

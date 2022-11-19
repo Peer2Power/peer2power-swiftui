@@ -12,5 +12,6 @@ class ChooseTeamViewModel: ObservableObject {
     
     @Published var selectedTeamID = ""
     @Published var teamSelected = false
-    @Published var selectedParty: Party = .selectParty
+    @Published var selectedParty = ""
+    @Published var selectedSchoolName = ""
 }

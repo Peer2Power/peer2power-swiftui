@@ -200,6 +200,8 @@ extension SignUpView {
                 
                 viewModel.selectedTeamID = team_id
                 print("User should join team with ID \(viewModel.selectedTeamID)")
+                viewModel.selectedSchoolName = school_name
+                viewModel.selectedParty = teamParty
                 
                 showingEmailConfirmAlert.toggle()
                 signingUp.toggle()
