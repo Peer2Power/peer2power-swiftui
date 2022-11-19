@@ -90,7 +90,7 @@ struct HomeView: View {
                     .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
                         Button("OK", role: .cancel, action: {})
                     } message: {
-                        Text("\(lastContactName) was randomly assigned to not be recruited to volunteer, so you will not see them in your contacts list.")
+                        Text("\(lastContactName) was randomly assigned to not be recruited to volunteer, so you will not see them in your contacts list. Your team still received 2 points for uploading this contact.")
                     }
                     .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
                         AlertToast(displayMode: .banner(.pop),
