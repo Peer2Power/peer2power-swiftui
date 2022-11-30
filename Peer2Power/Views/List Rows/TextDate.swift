@@ -10,33 +10,18 @@ import SwiftUI
 struct TextDate: View {
     let date: Date
     
-    private var isLessThanOneMinute: Bool { date.timeIntervalSinceNow > -60 }
-    private var isLessThanOneDay: Bool { date.timeIntervalSinceNow > -60 * 60 * 24 }
-    private var isLessThanOneWeek: Bool { date.timeIntervalSinceNow > -60 * 60 * 24 * 7}
-    private var isLessThanOneYear: Bool { date.timeIntervalSinceNow > -60 * 60 * 24 * 365}
+    let formatter = RelativeDateTimeFormatter()
     
     var body: some View {
-        if isLessThanOneMinute {
-            if date.timeIntervalSinceNow <= 0 {
-                Text("Just Now")
-            } else {
-                Text("\(date.timeIntervalSinceNow)s ago")
-            }
-        } else {
-            if isLessThanOneDay {
-                Text("Yesterday \(date.formatted(.dateTime.hour().minute()))")
-            } else {
-                if isLessThanOneWeek {
-                    Text(date.formatted(.dateTime.weekday(.wide).hour().minute()))
-                } else {
-                    if isLessThanOneYear {
-                        Text(date.formatted(.dateTime.month().day()))
-                    } else {
-                        Text(date.formatted(.dateTime.year().month().day()))
-                    }
-                }
-            }
-        }
+        Text(dateText)
+    }
+}
+
+extension TextDate {
+    private var dateText: String {
+        formatter.dateTimeStyle = .named
+        
+        return formatter.localizedString(fromTimeInterval: date.timeIntervalSinceNow)
     }
 }
 

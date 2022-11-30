@@ -122,6 +122,7 @@ struct HomeView: View {
                     })
                 }
                 .padding(.horizontal, 15)
+                .padding(.vertical, 5)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
