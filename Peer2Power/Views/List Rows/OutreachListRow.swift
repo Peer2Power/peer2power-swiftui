@@ -7,19 +7,27 @@
 
 import SwiftUI
 import RealmSwift
+import Foundation
 
 struct OutreachListRow: View {
     @ObservedRealmObject var attempt: OutreachAttempt
     
+    let formatter = RelativeDateTimeFormatter()
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 10.0) {
-            HStack {
-                Text("\u{2022} Attempt logged: ")
-                Spacer()
-                TextDate(date: attempt.createdAt)
-            }
-            Text("\u{2022} \(attempt.volunteerStatus)")
+        HStack(alignment: .center) {
+            Text(attempt.volunteerStatus)
+            Spacer()
+            Label(generateDateText(for: attempt.createdAt), systemImage: "clock")
         }
+    }
+}
+
+extension OutreachListRow {
+    private func generateDateText(for date: Date) -> String {
+        formatter.dateTimeStyle = .named
+        
+        return formatter.localizedString(fromTimeInterval: date.timeIntervalSinceNow)
     }
 }
 
