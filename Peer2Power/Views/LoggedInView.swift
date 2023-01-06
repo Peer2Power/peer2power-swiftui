@@ -11,6 +11,8 @@ import FirebaseRemoteConfig
 import AlertToast
 
 struct LoggedInView: View {
+    @Environment(\.scenePhase) var scenePhase
+    
     @State private var showingSurveyAlert = false
     @State private var showingEndOfStudySurvey = false
     @State private var showingConfirmDontShowAlert = false
@@ -64,9 +66,13 @@ struct LoggedInView: View {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
                     .interactiveDismissDisabled(true)
             }
-            .onAppear(perform: checkEndOfStudyAvailability)
             .toast(isPresenting: $showingSurveyResponseUploadedBanner, duration: 4) {
                 AlertToast(displayMode: .banner(.pop), type: .complete(Color(uiColor: .systemGreen)), title: "Response Uploaded!", subTitle: "Your team received 12 points!")
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    checkEndOfStudyAvailability()
+                }
             }
         }
     }

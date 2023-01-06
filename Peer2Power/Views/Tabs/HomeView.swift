@@ -27,22 +27,32 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                if userTeam.contacts.isEmpty {
-                    VStack(spacing: 10.0) {
-                        Text("No Contacts Uploaded")
-                            .font(.title)
-                            .multilineTextAlignment(.center)
-                        Text("Your team hasn't uploaded any contacts to recruit to volunteer yet.")
-                            .font(.callout)
-                            .multilineTextAlignment(.center)
-                            .padding(.bottom, 20)
-                    }
-                    .padding(.horizontal, 15.0)
-                } else {
-                    // TODO: tinker with putting the leaderboard above the contacts list.
-                    List {
-                        if !userTeam.contacts.isEmpty && userTeam.contacts.filter("group = %i", 1).isEmpty {
+            if isPastCompDate {
+                VStack(spacing: 10.0) {
+                    Text("Competiton Over")
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                    Text("The competition is over! Your contacts have been erased. Thank you for participating!")
+                        .font(.callout)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 20)
+                }
+            } else {
+                VStack {
+                    if userTeam.contacts.isEmpty {
+                        VStack(spacing: 10.0) {
+                            Text("No Contacts Uploaded")
+                                .font(.title)
+                                .multilineTextAlignment(.center)
+                            Text("Your team hasn't uploaded any contacts to recruit to volunteer yet.")
+                                .font(.callout)
+                                .multilineTextAlignment(.center)
+                                .padding(.bottom, 20)
+                        }
+                        .padding(.horizontal, 15.0)
+                    } else {
+                        // TODO: tinker with putting the leaderboard above the contacts list.
+                        if userTeam.contacts.filter("group = %i", 1).isEmpty {
                             VStack(spacing: 10.0) {
                                 Text("No Contacts Assigned to Be Recruited")
                                     .font(.title)
@@ -54,55 +64,51 @@ struct HomeView: View {
                             }
                             .padding(.horizontal, 15.0)
                         } else {
-                            Section {
-                                ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
-                                    NavigationLink {
-                                        OutreachAttemptsListView(contact: contact, team: userTeam)
-                                    } label: {
-                                        ContactListRow(contact: contact, team: userTeam)
+                            List {
+                                Section {
+                                    ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
+                                        NavigationLink {
+                                            OutreachAttemptsListView(contact: contact, team: userTeam)
+                                        } label: {
+                                            ContactListRow(contact: contact, team: userTeam)
+                                        }
                                     }
+                                    .onDelete { offsets in
+                                        offsetsToDelete = offsets
+                                        showingDeleteAlert.toggle()
+                                    }
+                                } footer: {
+                                    Text("You can only see the contacts your team should recruit to volunteer.")
                                 }
-                                .onDelete { offsets in
-                                    offsetsToDelete = offsets
-                                    showingDeleteAlert.toggle()
-                                }
-                            } footer: {
-                                Text("You can only see the contacts your team should recruit to volunteer.")
+                            }
+                            .listStyle(.insetGrouped)
+                            .toolbar {
+                                EditButton()
+                            }
+                            .alert("Are you sure you want to delete this contact?",
+                                   isPresented: $showingDeleteAlert) {
+                                Button("Cancel", role: .cancel, action: {})
+                                Button("Delete", role: .destructive, action: deleteContact)
+                            } message: {
+                                Text("Your team will lose any points it received for uploading this contact. All outreach attempts for this contact will also be deleted and your team will lose all points awarded for logging these.")
+                            }
+                            .alert("Cannot Delete Contact", isPresented: $showingDeleteNotAllowedAlert, actions: {
+                                Button("OK", action: {})
+                            }, message: {
+                                Text("You can't delete contacts that another team member uploaded.")
+                            })
+                            .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
+                                Button("OK", role: .cancel, action: {})
+                            } message: {
+                                Text("\(lastContactName) was randomly assigned to not be recruited to volunteer, so you will not see them in your contacts list. Your team still received 2 points for uploading this contact.")
+                            }
+                            .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
+                                AlertToast(displayMode: .banner(.pop),
+                                           type: .complete(Color(uiColor: .systemGreen)),
+                                           title: "Contact Uploaded",
+                                           subTitle: "Your team received 2 points!")
                             }
                         }
-                    }
-                    .listStyle(.insetGrouped)
-                    .toolbar {
-                        EditButton()
-                    }
-                    .alert("Are you sure you want to delete this contact?",
-                           isPresented: $showingDeleteAlert) {
-                        Button("Cancel", role: .cancel, action: {})
-                        Button("Delete", role: .destructive, action: deleteContact)
-                    } message: {
-                        Text("Your team will lose any points it received for uploading this contact. All outreach attempts for this contact will also be deleted and your team will lose all points awarded for logging these.")
-                    }
-                    .alert("Cannot Delete Contact", isPresented: $showingDeleteNotAllowedAlert, actions: {
-                        Button("OK", action: {})
-                    }, message: {
-                        Text("You can't delete contacts that another team member uploaded.")
-                    })
-                    .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
-                        Button("OK", role: .cancel, action: {})
-                    } message: {
-                        Text("\(lastContactName) was randomly assigned to not be recruited to volunteer, so you will not see them in your contacts list. Your team still received 2 points for uploading this contact.")
-                    }
-                    .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
-                        AlertToast(displayMode: .banner(.pop),
-                                   type: .complete(Color(uiColor: .systemGreen)),
-                                   title: "Contact Uploaded",
-                                   subTitle: "Your team received 2 points!")
-                    }
-                }
-                VStack(alignment: .center, spacing: 5) {
-                    if isPastCompDate {
-                        Text("The competition has ended! Thank you to all who participated!")
-                            .multilineTextAlignment(.center)
                     }
                     Button {
                         showingUploadForm.toggle()
@@ -120,15 +126,15 @@ struct HomeView: View {
                     }, content: {
                         UploadContactView(userTeam: userTeam, contact: Contact(), showingContactUploadedBanner: $showingContactUploadedBanner)
                     })
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
                 }
-                .padding(.horizontal, 15)
-                .padding(.vertical, 5)
-            }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Image("LoginLogo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Image("LoginLogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
                 }
             }
         }
