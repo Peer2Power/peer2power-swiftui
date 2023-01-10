@@ -65,7 +65,7 @@ struct HomeView: View {
                     } else {
                         List {
                             Section {
-                                ForEach(userTeam.contacts.filter("group = %i", 1)) { contact in
+                                ForEach(userTeam.contacts.sorted(by: \Contact.name, ascending: false).filter("group = %i", 1)) { contact in
                                     NavigationLink {
                                         OutreachAttemptsListView(contact: contact, team: userTeam)
                                     } label: {

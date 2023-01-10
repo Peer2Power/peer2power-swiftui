@@ -9,8 +9,29 @@ import SwiftUI
 import RealmSwift
 
 struct LeaderboardView: View {
+    @ObservedResults(Team.self,
+                     sortDescriptor: SortDescriptor(keyPath: "score", ascending: false))
+    var teams
+    
     var body: some View {
-        Text("Hello World!")
+        if teams.isEmpty {
+            VStack {
+                Text("No Teams Found")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 15)
+                Text("No teams could be found. Please check your internet connection and try again.")
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 15)
+            }
+        } else {
+            List {
+                ForEach(teams) { team in
+                    LeaderboardRow(team: team)
+                }
+            }
+        }
     }
 }
 
