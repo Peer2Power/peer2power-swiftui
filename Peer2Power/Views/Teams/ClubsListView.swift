@@ -52,7 +52,7 @@ struct ClubsListView: View {
                     }
                 }
                 .id(UUID())
-                .navigationTitle("Sign Up")
+                .navigationTitle(app.currentUser == nil ? "Sign Up": "Choose a Team")
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a club to sign up for")
                 .autocorrectionDisabled(true)
                 .listStyle(.insetGrouped)

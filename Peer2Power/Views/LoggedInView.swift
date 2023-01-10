@@ -32,10 +32,12 @@ struct LoggedInView: View {
             }
         } else {
             TabView {
-                HomeView(userTeam: teams.first!)
-                    .tabItem {
-                        Label("Contacts", systemImage: "person.3.sequence")
-                    }
+                NavigationView {
+                    HomeView(userTeam: teams.first!)                        
+                }
+                .tabItem {
+                    Label("Contacts", systemImage: "person.3.sequence")
+                }
                 LeaderboardView()
                     .tabItem {
                         Label("Leaderboard", systemImage: "list.number")
