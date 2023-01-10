@@ -47,7 +47,7 @@ struct ClubsListView: View {
                 List {
                     ForEach(searchResults) { result in
                         Button(result.name) {
-                            showingSignUpSheet.toggle()
+                            handleTeamSelected(team: result)
                         }
                     }
                 }
@@ -73,10 +73,12 @@ struct ClubsListView: View {
                                title: "Points Received!",
                                subTitle: "Your team received 1 point!")
                 }
-                Button("Already part of a team or just confirmed your email address? Login.") {
-                    showingLoginSheet.toggle()
+                if app.currentUser == nil {
+                    Button("Already part of a team or just confirmed your email address? Login.") {
+                        showingLoginSheet.toggle()
+                    }
+                    .padding(.horizontal, 15)
                 }
-                .padding(.horizontal, 15)
             } else {
                 Text("No Teams Found")
                     .font(.title)
@@ -137,6 +139,74 @@ extension ClubsListView {
         }
         
         task.resume()
+    }
+    
+    func handleTeamSelected(team: DBTeam) {
+        guard app.currentUser != nil && app.currentUser?.state == .loggedIn else {
+            showingSignUpSheet.toggle()
+            return
+        }
+        
+        do {
+            let objectId = try ObjectId(string: team.id)
+            
+            getRealmToAddUserToTeam(with: objectId)
+        } catch {
+            print("Error creating object ID: \(error.localizedDescription)")
+        }
+    }
+    
+    func getRealmToAddUserToTeam(with id: ObjectId) {
+        guard let currentUser = app.currentUser else { return }
+        
+        Realm.asyncOpen(configuration: currentUser.flexibleSyncConfiguration()) { result in
+            switch result {
+            case .success(let realm):
+                let subs = realm.subscriptions
+                let foundSub = subs.first(named: allTeamsSubName)
+                
+                subs.update {
+                    if foundSub == nil {
+                        subs.append(QuerySubscription<Team>(name: allTeamsSubName))
+                    }
+                } onComplete: { error in
+                    guard error == nil else {
+                        print("Error appending subscription: \(error?.localizedDescription)")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        addUserToTeam(user: currentUser, using: realm, to: id)
+                    }
+                }
+            case .failure(let error):
+                print("Error opening realm: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func addUserToTeam(user: User, using realm: Realm, to id: ObjectId) {
+        guard let team = realm.object(ofType: Team.self, forPrimaryKey: id) else {
+            print("The team could not be found.")
+            return
+        }
+        print("Found a team with ID \(team._id.stringValue)")
+        
+        do {
+            try realm.write {
+                team.member_ids.append(user.id)
+                print("Added the current user to a team.")
+                
+                awardPointForSignUp(to: team)
+            }
+        } catch {
+            print("Error writing to realm: \(error.localizedDescription)")
+        }
+    }
+    
+    func awardPointForSignUp(to team: Team) {
+        team.score += 1
+        showingJoinedTeamBanner.toggle()
     }
 }
  
