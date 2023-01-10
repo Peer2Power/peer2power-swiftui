@@ -89,7 +89,7 @@ struct SignUpView: View {
                         .controlSize(.large)
                         .padding(.top, 15)
                         .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
-                    Text("Please note, you can only sign up with an academic email address (one that ends in .edu).")
+                    Text("Please note, you can only sign up with a Lafayette College academic email address (one that ends in lafayette.edu).")
                         .multilineTextAlignment(.center)
                     CheckboxField(label: VStack {
                         Text("By signing up, you agree to the")
@@ -146,10 +146,18 @@ struct SignUpView: View {
                        isPresented: $showingNotAcademicEmailAlert) {
                     Button("OK", role: .cancel, action: {})
                 } message: {
-                    Text("You did not provide an academic email address. Please use an academic email address (ending in .edu) and try again.")
+                    Text("You did not provide an academic email address. Please use a Lafayette College academic email address (ending in lafayette.edu) and try again.")
                 }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel", role: .cancel) {
+                    dismiss()
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

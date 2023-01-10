@@ -28,7 +28,7 @@ struct LoggedInView: View {
     var body: some View {
         if teams.isEmpty {
             NavigationView {
-                SchoolsListView()
+                ClubsListView()
             }
         } else {
             TabView {

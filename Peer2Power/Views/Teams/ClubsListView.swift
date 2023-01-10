@@ -18,9 +18,8 @@ struct DBTeam: Identifiable, Codable {
     }
 }
 
-struct SchoolsListView: View {
+struct ClubsListView: View {
     @State private var dbTeams: [DBTeam] = [DBTeam]()
-    @State private var states: [String] = [String]()
     
     @State private var searchText = ""
     
@@ -47,11 +46,12 @@ struct SchoolsListView: View {
             if !searchResults.isEmpty {
                 List {
                     ForEach(searchResults) { result in
-                        Text(result.name)
+                        Button(result.name) {
+                            showingSignUpSheet.toggle()
+                        }
                     }
                 }
                 .id(UUID())
-                .onAppear(perform: fetchTeams)
                 .navigationTitle("Sign Up")
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a club to sign up for")
                 .autocorrectionDisabled(true)
@@ -76,20 +76,23 @@ struct SchoolsListView: View {
                 Button("Already part of a team or just confirmed your email address? Login.") {
                     showingLoginSheet.toggle()
                 }
+                .padding(.horizontal, 15)
             } else {
                 Text("No Teams Found")
                     .font(.title)
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal, 15)
                 Text("No teams could be found. Please check your internet connection and try again.")
                     .font(.callout)
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal, 15)
             }
         }
-        .padding(.horizontal, 15)
+        .onAppear(perform: fetchTeams)
     }
 }
 
-extension SchoolsListView {
+extension ClubsListView {
     private func fetchTeams() {
         guard let url = URL(string: "\(mongoDataEndpoint)action/find") else { return }
         
@@ -103,8 +106,8 @@ extension SchoolsListView {
             "collection": "Team",
             "database": "govlab",
             "dataSource": "production",
-            "limit": 5000,
-            "sort": ["state": 1],
+            "limit": 250,
+            "sort": ["name": 1],
             "projection": ["_id": 1, "name": 1]
         ]
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
@@ -139,6 +142,6 @@ extension SchoolsListView {
  
 struct CollegeListView_Previews: PreviewProvider {
     static var previews: some View {
-        SchoolsListView()
+        ClubsListView()
     }
 }
