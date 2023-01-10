@@ -117,8 +117,6 @@ extension LoginView {
             return
         }
         
-        let defaults = UserDefaults.standard
-        
         Task {
             loggingIn.toggle()
             do {

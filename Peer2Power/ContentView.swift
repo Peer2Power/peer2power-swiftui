@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         if app.currentUser != nil && app.currentUser?.state == .loggedIn {
-            LoggedInView().environment(\.realmConfiguration, app.currentUser!.flexibleSyncConfiguration(initialSubscriptions: { subs in
+            LoggedInView().environment(\.realmConfiguration, app.currentUser!.flexibleSyncConfiguration(clientResetMode: .recoverOrDiscardUnsyncedChanges(), initialSubscriptions: { subs in
                 if subs.first(named: allTeamsSubName) == nil {
                     subs.append(QuerySubscription<Team>(name: allTeamsSubName))
                 }

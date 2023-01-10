@@ -17,6 +17,7 @@ struct LoggedInView: View {
     @State private var showingEndOfStudySurvey = false
     @State private var showingConfirmDontShowAlert = false
     @State private var showingSurveyResponseUploadedBanner = false
+    @State private var showingFatalErrorAlert = false
     
     @ObservedResults(Team.self,
                      where: {$0.member_ids.contains(app.currentUser!.id)})
@@ -35,9 +36,9 @@ struct LoggedInView: View {
                     .tabItem {
                         Label("Contacts", systemImage: "person.3.sequence")
                     }
-                LeaderboardView(userTeam: teams.first!)
+                LeaderboardView()
                     .tabItem {
-                        Label("Leaderboard", systemImage: "chart.bar")
+                        Label("Leaderboard", systemImage: "list.number")
                     }
                 NavigationView {
                     SettingsView(userTeam: teams.first!)
@@ -66,6 +67,11 @@ struct LoggedInView: View {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
                     .interactiveDismissDisabled(true)
             }
+            .alert("Fatal Error", isPresented: $showingFatalErrorAlert, actions: {
+                Button("OK", role: .cancel, action: {})
+            }, message: {
+                Text("A fatal error has occurred. Please force quit the app and reopen it.")
+            })
             .toast(isPresenting: $showingSurveyResponseUploadedBanner, duration: 4) {
                 AlertToast(displayMode: .banner(.pop), type: .complete(Color(uiColor: .systemGreen)), title: "Response Uploaded!", subTitle: "Your team received 12 points!")
             }
@@ -74,6 +80,7 @@ struct LoggedInView: View {
                     checkEndOfStudyAvailability()
                 }
             }
+            .onAppear(perform: addSyncErrorHandler)
         }
     }
 }
@@ -165,6 +172,42 @@ extension LoggedInView {
         let compareResult = Date().compare(date)
         
         return compareResult == .orderedSame || compareResult == .orderedDescending
+    }
+    
+    private func addSyncErrorHandler() {
+        guard app.syncManager.errorHandler == nil else { return }
+        
+        app.syncManager.errorHandler = { error, session in
+            guard let syncError = error as? SyncError else {
+                print("Unexpected error type passed to sync error handler! \(error)")
+                return
+            }
+            switch syncError.code {
+            case .clientResetError:
+                if let (path, clientResetToken) = syncError.clientResetInfo() {
+                    handleClientReset()
+                    SyncSession.immediatelyHandleError(clientResetToken, syncManager: app.syncManager)
+                }
+            case .clientSessionError:
+                print("Client session error.")
+            case .clientUserError:
+                print("Client user error.")
+            case .clientInternalError:
+                print("Client internal error.")
+            case .underlyingAuthError:
+                print("Underlying auth error.")
+            case .permissionDeniedError:
+                print("Permission denied error.")
+            case .writeRejected:
+                print("Write rejected.")
+            @unknown default:
+                print("Unknown error.")
+            }
+        }
+    }
+    
+    private func handleClientReset() {
+        showingFatalErrorAlert.toggle()
     }
 }
 

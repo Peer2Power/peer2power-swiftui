@@ -11,11 +11,10 @@ import AlertToast
 
 struct DBTeam: Identifiable, Codable {
     let id: String
-    let school_name: String
-    let state: String
+    let name: String
     
     private enum CodingKeys: String, CodingKey {
-        case id = "_id", school_name, state
+        case id = "_id", name
     }
 }
 
@@ -39,64 +38,54 @@ struct SchoolsListView: View {
         }
         
         return dbTeams.filter { predTeam in
-            return predTeam.school_name.localizedCaseInsensitiveContains(searchText)
+            return predTeam.name.localizedCaseInsensitiveContains(searchText)
         }
     }
     
     var body: some View {
         VStack {
-            List {
-                ForEach(states.filter({ predState in
-                    searchResults.contains { searchTeam in
-                        searchTeam.state == predState
-                    }
-                }), id: \.self) { state in
-                    Section {
-                        ForEach(searchResults.filter({ predTeam in
-                            predTeam.state == state
-                        })) { team in
-                            NavigationLink {
-                                ChooseTeamView(school_name: team.school_name,
-                                               selectedParty: $selectedParty,
-                                               teamID: $selectedTeamID,
-                                               teamSelected: $showingSignUpSheet)
-                            } label: {
-                                Text(team.school_name)
-                            }
-                        }
-                    } header: {
-                        Text(state)
+            if !searchResults.isEmpty {
+                List {
+                    ForEach(searchResults) { result in
+                        Text(result.name)
                     }
                 }
-            }
-            .id(UUID())
-            .onAppear(perform: fetchTeams)
-            .navigationTitle("Sign Up")
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a school to sign up under")
-            .autocorrectionDisabled(true)
-            .listStyle(.insetGrouped)
-            .sheet(isPresented: $showingLoginSheet) {
-                NavigationView {
-                    LoginView(showingJoinedTeamAlert: $showingJoinedTeamBanner)
+                .id(UUID())
+                .onAppear(perform: fetchTeams)
+                .navigationTitle("Sign Up")
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a club to sign up for")
+                .autocorrectionDisabled(true)
+                .listStyle(.insetGrouped)
+                .sheet(isPresented: $showingLoginSheet) {
+                    NavigationView {
+                        LoginView(showingJoinedTeamAlert: $showingJoinedTeamBanner)
+                    }
                 }
-            }
-            .sheet(isPresented: $showingSignUpSheet, content: {
-                NavigationView {
-                    SignUpView(team_id: $selectedTeamID,
-                               teamSelected: $showingLoginSheet)
+                .sheet(isPresented: $showingSignUpSheet, content: {
+                    NavigationView {
+                        SignUpView(team_id: $selectedTeamID,
+                                   teamSelected: $showingLoginSheet)
+                    }
+                })
+                .toast(isPresenting: $showingJoinedTeamBanner) {
+                    AlertToast(displayMode: .banner(.pop),
+                               type: .complete(Color(uiColor: .systemGreen)),
+                               title: "Points Received!",
+                               subTitle: "Your team received 1 point!")
                 }
-            })
-            .toast(isPresenting: $showingJoinedTeamBanner) {
-                AlertToast(displayMode: .banner(.pop),
-                           type: .complete(Color(uiColor: .systemGreen)),
-                           title: "Points Received!",
-                           subTitle: "Your team received 1 point!")
+                Button("Already part of a team or just confirmed your email address? Login.") {
+                    showingLoginSheet.toggle()
+                }
+            } else {
+                Text("No Teams Found")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                Text("No teams could be found. Please check your internet connection and try again.")
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
             }
-            Button("Already part of a team or just confirmed your email address? Login.") {
-                showingLoginSheet.toggle()
-            }
-            .padding(.horizontal, 15)
         }
+        .padding(.horizontal, 15)
     }
 }
 
@@ -116,7 +105,7 @@ extension SchoolsListView {
             "dataSource": "production",
             "limit": 5000,
             "sort": ["state": 1],
-            "projection": ["_id": 1, "school_name": 1, "state": 1]
+            "projection": ["_id": 1, "name": 1]
         ]
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
         
@@ -137,25 +126,10 @@ extension SchoolsListView {
             
             teams.forEach { team in
                 guard let id = team["_id"] as? String else { return }
-                guard let school_name = team["school_name"] as? String else { return }
-                guard let state = team["state"] as? String else { return }
+                guard let name = team["name"] as? String else { return }
                 
-                let schoolAlreadyIn = dbTeams.contains { predTeam in
-                    predTeam.school_name == school_name
-                }
-                
-                if !schoolAlreadyIn {
-                    let arrTeam = DBTeam(id: id, school_name: school_name, state: state)
-                    dbTeams.append(arrTeam)
-                }
-                
-                let stateAlreadyIn = states.contains { predState in
-                    state == predState
-                }
-                
-                if !stateAlreadyIn {
-                    states.append(state)
-                }
+                let toInsert = DBTeam(id: id, name: name)
+                dbTeams.append(toInsert)
             }
         }
         
