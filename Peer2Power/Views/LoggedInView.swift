@@ -39,13 +39,17 @@ struct LoggedInView: View {
                     Label("Contacts", systemImage: "person.3.sequence")
                 }
                 NavigationView {
-                    LeaderboardView()                        
+                    LeaderboardView()
+                        .navigationBarTitleDisplayMode(.large)
+                        .navigationTitle("Leaderboard")
                 }
                 .tabItem {
                     Label("Leaderboard", systemImage: "list.number")
                 }
                 NavigationView {
                     SettingsView(userTeam: teams.first!)
+                        .navigationBarTitleDisplayMode(.large)
+                        .navigationTitle("Settings")
                 }
                 .tabItem {
                     Label("Settings", systemImage: "gear")

@@ -187,6 +187,11 @@ extension HomeView {
     private var isPastCompDate: Bool {
         let remoteConfig = RemoteConfig.remoteConfig()
         
+        // FIXME: remove when put into production
+        let settings = RemoteConfigSettings()
+        settings.minimumFetchInterval = 0
+        remoteConfig.configSettings = settings
+        
         guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
         print("Got end of study date \(fetchedDate)")
         
