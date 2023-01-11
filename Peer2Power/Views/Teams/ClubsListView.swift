@@ -74,7 +74,7 @@ struct ClubsListView: View {
                                subTitle: "Your team received 1 point!")
                 }
                 if app.currentUser == nil {
-                    Button("Already part of a team or just confirmed your email address? Login.") {
+                    Button("Already have an account or just confirmed your email address? Login.") {
                         showingLoginSheet.toggle()
                     }
                     .padding(.horizontal, 15)
