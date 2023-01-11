@@ -88,7 +88,10 @@ struct LoggedInView: View {
                     checkEndOfStudyAvailability()
                 }
             }
-            .onAppear(perform: addSyncErrorHandler)
+            .onAppear {
+                checkEndOfStudyAvailability()
+                addSyncErrorHandler()
+            }
         }
     }
 }
