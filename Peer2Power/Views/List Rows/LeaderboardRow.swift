@@ -14,10 +14,16 @@ struct LeaderboardRow: View {
     @ObservedRealmObject var team: Team
     
     var body: some View {
-        HStack {
-            Text(rankNumber + team.name)
-                .font(.title2)
-                .multilineTextAlignment(.leading)
+        HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 10.0) {
+                Text(rankNumber)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                Text(team.name)
+                    .font(.title2)
+                    .multilineTextAlignment(.leading)
+            }
             Spacer()
             Text(team.score == 1 ? "1 point" : "\(team.score) points")
                 .font(.title3)
