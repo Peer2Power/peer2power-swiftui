@@ -9,11 +9,13 @@ import SwiftUI
 import RealmSwift
 
 struct LeaderboardRow: View {
+    @Environment(\.realm) private var realm
+    
     @ObservedRealmObject var team: Team
     
     var body: some View {
         HStack {
-            Text(team.name)
+            Text(rankNumber + team.name)
                 .font(.title2)
                 .multilineTextAlignment(.leading)
             Spacer()
@@ -21,6 +23,16 @@ struct LeaderboardRow: View {
                 .font(.title3)
                 .multilineTextAlignment(.trailing)
         }
+    }
+}
+
+extension LeaderboardRow {
+    private var rankNumber: String {
+        guard let index = realm.objects(Team.self).sorted(by: \Team.score, ascending: false).firstIndex(where: { predTeam in
+            predTeam._id == team._id
+        }) else { return "" }
+        
+        return "\(index + 1). "
     }
 }
 
