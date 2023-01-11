@@ -29,6 +29,7 @@ struct LoggedInView: View {
         if teams.isEmpty {
             NavigationView {
                 ClubsListView()
+                    .navigationTitle(app.currentUser == nil ? "Sign Up" : "Choose a Club Team")
             }
         } else {
             TabView {
