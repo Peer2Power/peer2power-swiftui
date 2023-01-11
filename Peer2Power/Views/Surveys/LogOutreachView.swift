@@ -155,9 +155,9 @@ struct LogOutreachView: UIViewControllerRepresentable {
                     newOutreach.volunteerMethod = volunteerMethod
                 }
                 
-                if let campaignType = volunteeredAnswers["campaignType"] {
+                /* if let campaignType = volunteeredAnswers["campaignType"] {
                     newOutreach.campaignType = campaignType
-                }
+                } */
             }
             
             guard let volunteerStatusStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus)) else {
