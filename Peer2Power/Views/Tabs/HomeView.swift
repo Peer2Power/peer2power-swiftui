@@ -77,7 +77,7 @@ struct HomeView: View {
                                     showingDeleteAlert.toggle()
                                 }
                             } footer: {
-                                Text("You can only see the contacts your team should recruit to email a representative.")
+                                Text("You can only see the contacts who your team should recruit to email a representative.")
                             }
                         }
                         .listStyle(.insetGrouped)

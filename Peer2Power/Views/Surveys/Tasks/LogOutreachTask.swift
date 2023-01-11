@@ -19,12 +19,12 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static var volunteerStatusStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "I have confirmed that they volunteered.", value: "I have confirmed that they volunteered." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They are certainly not going to volunteer.", value: "They are certainly not going to volunteer." as NSCoding & NSCopying & NSObjectProtocol)]
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "I have confirmed that they sent an email.", value: "I have confirmed that they sent an email." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They are certainly not going to send an email.", value: "They are certainly not going to send an email." as NSCoding & NSCopying & NSObjectProtocol)]
         let volunteerStatusFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
         let volunteerStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerStatus),
                                             title: nil,
-                                            question: "Did they volunteer or have they committed to volunteering?",
+                                            question: "Did they email a rep or have they committed to emailing?",
                                             answer: volunteerStatusFormat)
         volunteerStep.isOptional = false
         
@@ -100,11 +100,10 @@ class LogOutreachTask: ORKOrderedTask {
     // TODO: combing contact method and attempt description into single form step.
     static var describeAttemptStep: ORKQuestionStep {
         let describeAttemptAnswerFormat = ORKTextAnswerFormat()
-        describeAttemptAnswerFormat.multipleLines = true
         
         let describeStep = ORKQuestionStep(identifier: String(describing: Identifier.describeAttempt),
                                            title: nil,
-                                           question: "What word or phrase would you use to describe the outreach attempt?",
+                                           question: "What word or phrase would you use to describe this outreach attempt?",
                                            answer: describeAttemptAnswerFormat)
         
         return describeStep
@@ -148,7 +147,7 @@ class LogOutreachTask: ORKOrderedTask {
         case String(describing: Identifier.volunteeredFormStep):
             return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.theyVolunteeredCompletion):
-            return LogOutreachTask.describeAttemptStep
+            return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.stillWorkingCompletion):
             return LogOutreachTask.describeAttemptStep
         case String(describing: Identifier.wontVolunteerCompletionStep):
@@ -171,11 +170,11 @@ class LogOutreachTask: ORKOrderedTask {
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual("I have confirmed that they volunteered." as NSCoding & NSCopying & NSObjectProtocol) {
-                        return LogOutreachTask.volunteeredFormStep
+                    if choiceAnswer.isEqual("I have confirmed that they sent an email." as NSCoding & NSCopying & NSObjectProtocol) {
+                        return LogOutreachTask.theyVolunteeredCompletionStep()
                     } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.howContactStep
-                    } else if choiceAnswer.isEqual("They are certainly not going to volunteer." as NSCoding & NSCopying & NSObjectProtocol) {
+                    } else if choiceAnswer.isEqual("They are certainly not going to send an email." as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.wontVolunteerCompletionStep()
                     }
                 }
