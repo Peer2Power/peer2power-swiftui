@@ -56,7 +56,7 @@ struct HomeView: View {
                             Text("No Contacts Assigned to Be Recruited")
                                 .font(.title)
                                 .multilineTextAlignment(.center)
-                            Text("Thank you for uploading contacts! None of your team's contacts have been assigned to be recruited yet. Upload some more contacts to start recruiting them to volunteer.")
+                            Text("Thank you for uploading contacts! None of your team's contacts have been assigned to be recruited yet. Upload some more contacts to start recruiting them to email an elected representative.")
                                 .font(.callout)
                                 .multilineTextAlignment(.center)
                                 .padding(.bottom, 20)
@@ -77,7 +77,7 @@ struct HomeView: View {
                                     showingDeleteAlert.toggle()
                                 }
                             } footer: {
-                                Text("You can only see the contacts your team should recruit to volunteer.")
+                                Text("You can only see the contacts your team should recruit to email a representative.")
                             }
                         }
                         .listStyle(.insetGrouped)
@@ -96,17 +96,6 @@ struct HomeView: View {
                         }, message: {
                             Text("You can't delete contacts that another team member uploaded.")
                         })
-                        .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
-                            Button("OK", role: .cancel, action: {})
-                        } message: {
-                            Text("\(lastContactName) was randomly assigned to not be recruited to volunteer, so you will not see them in your contacts list. Your team still received 2 points for uploading this contact.")
-                        }
-                        .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
-                            AlertToast(displayMode: .banner(.pop),
-                                       type: .complete(Color(uiColor: .systemGreen)),
-                                       title: "Contact Uploaded",
-                                       subTitle: "Your team received 2 points!")
-                        }
                     }
                 }
                 Button {
@@ -134,6 +123,17 @@ struct HomeView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
+            }
+            .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text("\(lastContactName) was randomly assigned to not be recruited to email an elected representative, so you will not see them in your contacts list. Your team still received 2 points for uploading this contact.")
+            }
+            .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
+                AlertToast(displayMode: .banner(.pop),
+                           type: .complete(Color(uiColor: .systemGreen)),
+                           title: "Contact Uploaded",
+                           subTitle: "Your team received 2 points!")
             }
         }
     }
