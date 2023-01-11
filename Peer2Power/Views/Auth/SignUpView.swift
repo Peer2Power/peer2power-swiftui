@@ -15,8 +15,7 @@ struct SignUpView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     
-    @State private var school_name = ""
-    @State private var teamParty = ""
+    @State private var clubName = ""
     
     @Binding var team_id: String
     
@@ -24,7 +23,8 @@ struct SignUpView: View {
     @State private var showingErrorAlert = false
     @State private var showingEmptyFieldAlert = false
     @State private var showingNotConsentedAlert = false
-    @State private var showingNotAcademicEmailAlert = false
+    @State private var showingNotAcademicEmailErrorAlert = false
+    @State private var showingNameTakenErrorAlert = false
     
     @State private var passwordMismatch = false
     
@@ -47,107 +47,114 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(alignment: .center, spacing: 15.0) {
-                    if !school_name.isEmpty && !teamParty.isEmpty {
-                        Text("Create an account to join the \(school_name) \(teamParty).")
-                            .multilineTextAlignment(.center)
-                            .font(.title2)
-                            .padding(.top, 35)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    Image("LoginLogo")
-                    TextField("Email Address", text: $email)
-                        .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .textFieldStyle(.roundedBorder)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .email)
-                        .onSubmit {
-                            focusedField = .password
-                        }
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(.roundedBorder)
-                        .textContentType(.newPassword)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .password)
-                        .onSubmit {
-                            focusedField = .confirmPassword
-                        }
-                    SecureField("Confirm Password", text: $confirmPassword)
-                        .textFieldStyle(.roundedBorder)
-                        .textContentType(.newPassword)
-                        .focused($focusedField, equals: .confirmPassword)
-                        .onSubmit {
-                            signUpUser()
-                        }
-                    Button("Sign Up", action: signUpUser)
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.large)
-                        .padding(.top, 15)
-                        .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
-                    Text("Please note, you can only sign up with a Lafayette College academic email address (one that ends in lafayette.edu).")
+        ScrollView {
+            VStack(alignment: .center, spacing: 15.0) {
+                if !clubName.isEmpty {
+                    Text("Create an account to join the \(clubName) team.")
                         .multilineTextAlignment(.center)
-                    CheckboxField(label: VStack {
-                        Text("By signing up, you agree to the")
-                        Button("Informed Consent Agreement") {
-                            showingConsentAgreement.toggle()
-                        }
-                        .sheet(isPresented: $showingConsentAgreement) {
-                            ConsentAgreementView(consented: $userConsented)
-                        }
-                    }, size: 45, color: Color(UIColor.label), checked: $userConsented)
-                    .padding(.top, 15)
-                    if signingUp {
-                        ProgressView("Signing Up...")
+                        .font(.title2)
+                        .padding(.top, 35)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Image("LoginLogo")
+                TextField("Email Address", text: $email)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textFieldStyle(.roundedBorder)
+                    .submitLabel(.next)
+                    .focused($focusedField, equals: .email)
+                    .onSubmit {
+                        focusedField = .password
                     }
+                SecureField("Password", text: $password)
+                    .textFieldStyle(.roundedBorder)
+                    .textContentType(.newPassword)
+                    .submitLabel(.next)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        focusedField = .confirmPassword
+                    }
+                SecureField("Confirm Password", text: $confirmPassword)
+                    .textFieldStyle(.roundedBorder)
+                    .textContentType(.newPassword)
+                    .focused($focusedField, equals: .confirmPassword)
+                    .onSubmit {
+                        signUpUser()
+                    }
+                Button("Sign Up", action: signUpUser)
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .padding(.top, 15)
+                    .disabled(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || signingUp || !userConsented)
+                Text("Please note, you can only sign up with a Lafayette College academic email address (one that ends in lafayette.edu).")
+                    .multilineTextAlignment(.center)
+                CheckboxField(label: VStack {
+                    Text("By signing up, you agree to the")
+                    Button("Informed Consent Agreement") {
+                        showingConsentAgreement.toggle()
+                    }
+                    .sheet(isPresented: $showingConsentAgreement) {
+                        ConsentAgreementView(consented: $userConsented)
+                    }
+                }, size: 45, color: Color(UIColor.label), checked: $userConsented)
+                .padding(.top, 15)
+                if signingUp {
+                    ProgressView("Signing Up...")
                 }
-                .padding(.horizontal, 15.0)
-                .frame(maxWidth: .infinity)
-                .onAppear(perform: fetchTeamInfo)
-                .onChange(of: userConsented, perform: { newValue in
-                    focusedField = nil
+            }
+            .padding(.horizontal, 15.0)
+            .frame(maxWidth: .infinity)
+            .navigationTitle("Sign Up")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear(perform: fetchTeamInfo)
+            .onChange(of: userConsented, perform: { newValue in
+                focusedField = nil
+            })
+            .interactiveDismissDisabled(true)
+            .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
+                Button("OK", role: .cancel, action: {
+                    teamSelected.toggle()
+                    dismiss()
                 })
-                .interactiveDismissDisabled(true)
-                .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
-                    Button("OK", role: .cancel, action: {
-                        teamSelected.toggle()
-                        dismiss()
-                    })
-                } message: {
-                    Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
+            } message: {
+                Text("Before you can proceed, you need to confirm your email address. Check your inbox for a confirmation email then return here to log in.")
+            }
+            .alert("Password Mismatch", isPresented: $passwordMismatch, actions: {
+                Button("OK", role: .cancel, action: {})
+            }, message: {
+                Text("The passwords you entered do not match. Please ensure your passwords match and try again.")
+            })
+            .alert("Error Signing Up", isPresented: $showingErrorAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text(errorText)
+            }
+            .alert("Missing Information",
+                   isPresented: $showingEmptyFieldAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text("One or more text fields is empty. Please fill out all text fields and try again.")
+            }
+            .alert("Consent Not Given",
+                   isPresented: $showingNotConsentedAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text("You have given your consent to participate in this study. You will not be able to sign up until you agree to the informed consent agreement.")
+            }
+            .alert("Not an Academic Email Address",
+                   isPresented: $showingNotAcademicEmailErrorAlert) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text("You did not provide an academic email address. Please use a Lafayette College academic email address (ending in lafayette.edu) and try again.")
+            }
+            .alert("Email Already Taken", isPresented: $showingNameTakenErrorAlert) {
+                Button("OK", role: .cancel) {
+                    dismiss()
                 }
-                .alert("Password Mismatch", isPresented: $passwordMismatch, actions: {
-                    Button("OK", role: .cancel, action: {})
-                }, message: {
-                    Text("The passwords you entered do not match. Please ensure your passwords match and try again.")
-                })
-                .alert("Error Signing Up", isPresented: $showingErrorAlert) {
-                    Button("OK", role: .cancel, action: {})
-                } message: {
-                    Text(errorText)
-                }
-                .alert("Missing Information",
-                       isPresented: $showingEmptyFieldAlert) {
-                    Button("OK", role: .cancel, action: {})
-                } message: {
-                    Text("One or more text fields is empty. Please fill out all text fields and try again.")
-                }
-                .alert("Consent Not Given",
-                       isPresented: $showingNotConsentedAlert) {
-                    Button("OK", role: .cancel, action: {})
-                } message: {
-                    Text("You have given your consent to participate in this study. You will not be able to sign up until you agree to the informed consent agreement.")
-                }
-                .alert("Not an Academic Email Address",
-                       isPresented: $showingNotAcademicEmailAlert) {
-                    Button("OK", role: .cancel, action: {})
-                } message: {
-                    Text("You did not provide an academic email address. Please use a Lafayette College academic email address (ending in lafayette.edu) and try again.")
-                }
+            } message: {
+                Text("If you already have an account but are not yet part of a team, please go back to the previous screen and try to login to your existing account before picking a club team to join.")
             }
         }
         .toolbar {
@@ -157,6 +164,7 @@ struct SignUpView: View {
                 }
             }
         }
+        .navigationBarTitle("Sign Up")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -188,7 +196,7 @@ extension SignUpView {
         let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard trimmedEmail.hasSuffix(".edu") else {
-            showingNotAcademicEmailAlert.toggle()
+            showingNotAcademicEmailErrorAlert.toggle()
             return
         }
         
@@ -209,6 +217,12 @@ extension SignUpView {
                 showingEmailConfirmAlert.toggle()
                 signingUp.toggle()
             } catch {
+                guard error.localizedDescription != "name already in use" else {
+                    showingNameTakenErrorAlert.toggle()
+                    signingUp.toggle()
+                    return
+                }
+                
                 signingUp.toggle()
                 print("Error signing up: \(error.localizedDescription)")
                 
@@ -232,7 +246,7 @@ extension SignUpView {
             "database": "govlab",
             "dataSource": "production",
             "filter": ["_id": ["$oid": team_id],],
-            "projection": ["_id": 0, "school_name": 1, "party": 1]
+            "projection": ["_id": 0, "name": 1]
         ]
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
         
@@ -252,11 +266,8 @@ extension SignUpView {
             
             guard let team = responseJSON["document"] as? [String: Any] else { return }
             
-            guard let school_name = team["school_name"] as? String else { return }
-            self.school_name = school_name
-            
-            guard let party = team["party"] as? String else { return }
-            teamParty = party
+            guard let name = team["name"] as? String else { return }
+            clubName = name
         }
         
         task.resume()

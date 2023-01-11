@@ -47,6 +47,7 @@ struct ClubsListView: View {
                 List {
                     ForEach(searchResults) { result in
                         Button(result.name) {
+                            selectedTeamID = result.id
                             handleTeamSelected(team: result)
                         }
                     }
