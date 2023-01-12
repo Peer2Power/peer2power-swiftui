@@ -98,7 +98,7 @@ struct LoginView: View {
                     }
                 }
             }
-            .interactiveDismissDisabled(loggingIn)
+            .interactiveDismissDisabled(UserDefaults.standard.string(forKey: "joinTeamID") != nil || loggingIn)
         }
     }
 }
