@@ -21,6 +21,7 @@ struct ContentView: View {
         } else {
             NavigationView {
                 ClubsListView()
+                    .navigationTitle(app.currentUser == nil ? "Sign Up" : "Choose a Club Team")
             }
         }
     }
