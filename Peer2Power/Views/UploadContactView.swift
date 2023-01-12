@@ -58,7 +58,7 @@ struct UploadContactView: View {
                     }
                 }
                 Section("Optional Information") {
-                    Picker("Likelihood to Volunteer", selection: $selectedLikelihood) {
+                    Picker("Likelihood to Email a Rep", selection: $selectedLikelihood) {
                         Text("Select likelihood").tag("Select likelihood")
                         ForEach(likelihoods, id: \.self) { likelihood in
                             Text("\(likelihood)")
