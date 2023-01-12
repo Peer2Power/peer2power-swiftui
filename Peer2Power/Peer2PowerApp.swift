@@ -35,7 +35,8 @@ struct Peer2PowerApp: SwiftUI.App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(app)
+            ContentView()
+                .environmentObject(app)
         }
     }
 }
