@@ -112,7 +112,7 @@ struct SignUpView: View {
             .onChange(of: userConsented, perform: { newValue in
                 focusedField = nil
             })
-            .interactiveDismissDisabled(true)
+            .interactiveDismissDisabled(signingUp)
             .alert("Confirm Your Email Address", isPresented: $showingEmailConfirmAlert) {
                 Button("OK", role: .cancel, action: {
                     teamSelected.toggle()
