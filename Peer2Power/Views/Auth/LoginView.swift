@@ -77,6 +77,8 @@ struct LoginView: View {
             }
             .padding(.horizontal, 15.0)
             .onAppear(perform: fetchTeamInfo)
+            .navigationTitle("Login")
+            .navigationBarTitleDisplayMode(.inline)
             .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
                 Button("OK", role: .cancel, action: {})
             } message: {
