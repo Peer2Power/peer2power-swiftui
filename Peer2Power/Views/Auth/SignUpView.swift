@@ -162,6 +162,7 @@ struct SignUpView: View {
                 Button("Cancel", role: .cancel) {
                     dismiss()
                 }
+                .disabled(signingUp)
             }
         }
         .navigationBarTitle("Sign Up")
