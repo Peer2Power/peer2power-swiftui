@@ -19,7 +19,7 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static var volunteerStatusStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: theyVolunteeredText, value: theyVolunteeredText as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They are certainly not going to send an email.", value: "They are certainly not going to send an email." as NSCoding & NSCopying & NSObjectProtocol)]
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: theyVolunteeredText, value: theyVolunteeredText as NSString), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSString), ORKTextChoice(text: "They are certainly not going to send an email.", value: "They are certainly not going to send an email." as NSString)]
         let volunteerStatusFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
         let volunteerStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerStatus),
@@ -34,14 +34,14 @@ class LogOutreachTask: ORKOrderedTask {
     static var volunteeredFormStep: ORKFormStep {
         let step = ORKFormStep(identifier: String(describing: Identifier.volunteeredFormStep))
         
-        let volunteerMethodTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Phone banking", value: "Phone banking" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Text banking", value: "Text banking" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Writing post cards or letters", value: "Writing post cards or letters" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Volunteering at a campaign office", value: "Volunteering at a campaign office" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Internship", value: "Internship" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSCoding & NSCopying & NSObjectProtocol)]
+        let volunteerMethodTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Phone banking", value: "Phone banking" as NSString), ORKTextChoice(text: "Text banking", value: "Text banking" as NSString), ORKTextChoice(text: "Writing post cards or letters", value: "Writing post cards or letters" as NSString), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSString), ORKTextChoice(text: "Volunteering at a campaign office", value: "Volunteering at a campaign office" as NSString), ORKTextChoice(text: "Internship", value: "Internship" as NSString), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSString, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSString)]
         let volunteerMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: volunteerMethodTextChoices)
         
         let volunteerMethodFormItem = ORKFormItem(identifier: String(describing: Identifier.volunteerMethodFormItem),
                                                   text: "How did they volunteer?",
                                                   answerFormat: volunteerMethodAnswerFormat)
         
-        let campaignTypeTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "State legislative", value: "State legislative" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther(text: "Other Local", value: "Other Local" as NSCoding & NSCopying & NSObjectProtocol)]
+        let campaignTypeTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSString), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSString), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSString), ORKTextChoice(text: "State legislative", value: "State legislative" as NSString), ORKTextChoiceOther(text: "Other Local", value: "Other Local" as NSString)]
         let campaignTypeAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: campaignTypeTextChoices)
         
         let campaignTypeFormItem = ORKFormItem(identifier: String(describing: Identifier.campaignTypeFormItem),
@@ -57,7 +57,7 @@ class LogOutreachTask: ORKOrderedTask {
     static var optionalQFormStep: ORKFormStep {
         let step = ORKFormStep(identifier: String(describing: Identifier.optionalQFormStep))
         
-        let howContactTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Email", value: "Email" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Social Media", value: "Social Media" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "In Person", value: "In Person" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify")]
+        let howContactTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSString), ORKTextChoice(text: "Email", value: "Email" as NSString), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSString), ORKTextChoice(text: "Social Media", value: "Social Media" as NSString), ORKTextChoice(text: "In Person", value: "In Person" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
         let contactMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: howContactTextChoices)
         
         let howContactFormItem = ORKFormItem(identifier: String(describing: Identifier.howContactFormItem),
@@ -74,7 +74,7 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static var volunteerMethodStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Phone banking", value: "Phone banking" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Text banking", value: "Text banking" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Writing post cards or letters", value: "Writing post cards or letters" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Volunteering at a campaign office", value: "Volunteering at a campaign office" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Internship", value: "Internship" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSCoding & NSCopying & NSObjectProtocol)]
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Phone banking", value: "Phone banking" as NSString), ORKTextChoice(text: "Text banking", value: "Text banking" as NSString), ORKTextChoice(text: "Writing post cards or letters", value: "Writing post cards or letters" as NSString), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSString), ORKTextChoice(text: "Volunteering at a campaign office", value: "Volunteering at a campaign office" as NSString), ORKTextChoice(text: "Internship", value: "Internship" as NSString), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSString, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSString)]
         let volunteerMethodFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
         let methodStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerMethod),
@@ -86,7 +86,7 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static var howContactStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Email", value: "Email" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "Social Media", value: "Social Media" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "In Person", value: "In Person" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSCoding & NSCopying & NSObjectProtocol, exclusive: true, textViewPlaceholderText: "Please specify")]
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSString), ORKTextChoice(text: "Email", value: "Email" as NSString), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSString), ORKTextChoice(text: "Social Media", value: "Social Media" as NSString), ORKTextChoice(text: "In Person", value: "In Person" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
         let contactMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
         let howStep = ORKQuestionStep(identifier: String(describing: Identifier.howContact),
@@ -170,11 +170,11 @@ class LogOutreachTask: ORKOrderedTask {
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual(theyVolunteeredText as NSCoding & NSCopying & NSObjectProtocol) {
+                    if choiceAnswer.isEqual(theyVolunteeredText as NSString) {
                         return LogOutreachTask.theyVolunteeredCompletionStep()
-                    } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
+                    } else if choiceAnswer.isEqual("I am still working on them!" as NSString) {
                         return LogOutreachTask.howContactStep
-                    } else if choiceAnswer.isEqual("They are certainly not going to send an email." as NSCoding & NSCopying & NSObjectProtocol) {
+                    } else if choiceAnswer.isEqual("They are certainly not going to send an email." as NSString) {
                         return LogOutreachTask.wontVolunteerCompletionStep()
                     }
                 }
@@ -188,9 +188,9 @@ class LogOutreachTask: ORKOrderedTask {
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual(theyVolunteeredText as NSCoding & NSCopying & NSObjectProtocol) {
+                    if choiceAnswer.isEqual(theyVolunteeredText as NSString) {
                         return LogOutreachTask.theyVolunteeredCompletionStep()
-                    } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
+                    } else if choiceAnswer.isEqual("I am still working on them!" as NSString) {
                         return LogOutreachTask.stillWorkingCompletionStep()
                     }
                 }

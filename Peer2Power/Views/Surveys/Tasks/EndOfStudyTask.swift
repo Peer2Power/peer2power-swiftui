@@ -22,15 +22,15 @@ class EndOfStudyTask: ORKOrderedTask {
             let filteredResponses = team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue)
             
             if filteredOutreachAttempts.isEmpty && filteredResponses.isEmpty {
-                let textChoice = ORKTextChoice(text: contact.name, value: contact.contact_id.stringValue as NSCoding & NSCopying & NSObjectProtocol)
+                let textChoice = ORKTextChoice(text: contact.name, value: contact.contact_id.stringValue as NSString)
                 textChoices.append(textChoice)
             }
         }
         
-        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know volunteered.", value: "None of the contacts I know volunteered." as NSCoding & NSCopying & NSObjectProtocol)
+        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know volunteered.", value: "None of the contacts I know volunteered." as NSString)
         textChoices.append(noneTextChoice)
         
-        let dontKnowTextChoice = ORKTextChoice(text: "I don't know anyone on this list.", value: "I don't know anyone on this list." as NSCoding & NSCopying & NSObjectProtocol)
+        let dontKnowTextChoice = ORKTextChoice(text: "I don't know anyone on this list.", value: "I don't know anyone on this list." as NSString)
         textChoices.append(dontKnowTextChoice)
         
         let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: textChoices)
