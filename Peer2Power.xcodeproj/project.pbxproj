@@ -19,6 +19,7 @@
 		003B1D0F28FE392100672E42 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 003B1D0E28FE392100672E42 /* Settings.bundle */; };
 		005821BE296E01A700F3F2F2 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005821BD296E01A700F3F2F2 /* LeaderboardRow.swift */; };
 		005930172970642E008F18DC /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005930162970642E008F18DC /* Reachability.swift */; };
+		005930192971F1F5008F18DC /* SwitchTeamMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005930182971F1F5008F18DC /* SwitchTeamMenuView.swift */; };
 		007CCA4B28BAE560000203A4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCA4A28BAE560000203A4 /* Secrets.swift */; };
 		0094744228C017E700D50140 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0094743E28C017E700D50140 /* GoogleService-Info.plist */; };
 		0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0094744428C01CBA00D50140 /* FirebaseMessaging */; };
@@ -119,6 +120,7 @@
 		003B1D0E28FE392100672E42 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		005821BD296E01A700F3F2F2 /* LeaderboardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardRow.swift; sourceTree = "<group>"; };
 		005930162970642E008F18DC /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		005930182971F1F5008F18DC /* SwitchTeamMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTeamMenuView.swift; sourceTree = "<group>"; };
 		007CCA4A28BAE560000203A4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0094743E28C017E700D50140 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0094744A28C01D8900D50140 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				009CE54C289B41E800796313 /* ErrorView.swift */,
 				003B1CF328EDB16D00672E42 /* CheckboxField.swift */,
 				00FCBCCC29209D60005CA8F1 /* WebView.swift */,
+				005930182971F1F5008F18DC /* SwitchTeamMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				009CE54D289B41E900796313 /* ErrorView.swift in Sources */,
 				009CE549289B0A6A00796313 /* UploadContactView.swift in Sources */,
 				0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */,
+				005930192971F1F5008F18DC /* SwitchTeamMenuView.swift in Sources */,
 				0094744B28C01D8900D50140 /* HomeView.swift in Sources */,
 				000111B028E9E3FC00E2CE92 /* ChooseTeamView.swift in Sources */,
 				000CD2C7289F974200A004FA /* ClubsListView.swift in Sources */,
