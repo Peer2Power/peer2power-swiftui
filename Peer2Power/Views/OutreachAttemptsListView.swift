@@ -76,7 +76,8 @@ struct OutreachAttemptsListView: View {
                 }
             }
         }
-        if !team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty {
+        // Used for disabling logging of attempts after a contact has been marked as having already volunteered. For emailing reps, users should be able to log multiple instances of volunteering (sending an email).
+        /* if !team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty {
             Text("This contact volunteered.")
                 .multilineTextAlignment(.center)
         }
@@ -84,13 +85,13 @@ struct OutreachAttemptsListView: View {
             Text("A team member already marked this contact as a confirmed volunteer.")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 15)
-        }
+        } */
         Button {
             presentingLogOutreachForm.toggle()
         } label: {
             Label("Log Outreach Attempt", systemImage: "square.and.pencil")
         }
-        .disabled(!team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty || isPastCompDate)
+        .disabled(isPastCompDate)
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)
@@ -129,7 +130,7 @@ extension OutreachAttemptsListView {
             try realm.write {
                 offsets.forEach { i in
                     let attemptToDelete = filteredAttempts[i]
-                    let volunteeredAttempt = attemptToDelete.volunteerStatus == "I have confirmed that they volunteered."
+                    let volunteeredAttempt = attemptToDelete.volunteerStatus == theyVolunteeredText
                     
                     realm.delete(attemptToDelete)
                     

@@ -114,7 +114,7 @@ struct LogOutreachView: UIViewControllerRepresentable {
         
         private func awardPointsForOutreachAttempt(team: Team, answer: String) {
             // TODO: add support for multipliers based on student population
-            if answer == "I have confirmed that they volunteered." {
+            if answer == theyVolunteeredText {
                 team.score += 7
                 print("Awarded 7 points for logging this outreach attempt indicating that the contact volunteered.")
                 

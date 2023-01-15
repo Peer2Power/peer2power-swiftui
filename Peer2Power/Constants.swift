@@ -11,3 +11,5 @@ let allCollegesSubName = "all_colleges"
 let allTeamsSubName = "all_teams"
 let userInfoSubName = "user_info"
 let userTeamSubName = "user_team"
+
+let theyVolunteeredText = "I have confirmed that they sent an email."

@@ -18,7 +18,7 @@ class EndOfStudyTask: ORKOrderedTask {
         
         for contact in team.contacts {
             let filteredOutreachAttempts = team.outreachAttempts.filter("to = %@", contact.contact_id)
-                .filter("volunteerStatus = %@", "I have confirmed that they volunteered.")
+                .filter("volunteerStatus = %@", theyVolunteeredText)
             let filteredResponses = team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue)
             
             if filteredOutreachAttempts.isEmpty && filteredResponses.isEmpty {

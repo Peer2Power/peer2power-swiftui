@@ -20,14 +20,14 @@ struct ContactListRow: View {
                 Text("\(contact.name)")
                     .font(.title2)
                     .minimumScaleFactor(0.25)
-                if !team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
+                /* if !team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", theyVolunteeredText).isEmpty || !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
                     Image(systemName: "checkmark.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(.vertical, 15.0)
                         .frame(maxHeight: 60)
                         .foregroundColor(.accentColor)
-                }
+                } */
             }
             
             Spacer()

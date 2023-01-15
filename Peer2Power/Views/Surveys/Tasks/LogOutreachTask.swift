@@ -19,7 +19,7 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static var volunteerStatusStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "I have confirmed that they sent an email.", value: "I have confirmed that they sent an email." as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They are certainly not going to send an email.", value: "They are certainly not going to send an email." as NSCoding & NSCopying & NSObjectProtocol)]
+        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: theyVolunteeredText, value: theyVolunteeredText as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "I am still working on them!", value: "I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol), ORKTextChoice(text: "They are certainly not going to send an email.", value: "They are certainly not going to send an email." as NSCoding & NSCopying & NSObjectProtocol)]
         let volunteerStatusFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
         
         let volunteerStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerStatus),
@@ -170,7 +170,7 @@ class LogOutreachTask: ORKOrderedTask {
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual("I have confirmed that they sent an email." as NSCoding & NSCopying & NSObjectProtocol) {
+                    if choiceAnswer.isEqual(theyVolunteeredText as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.theyVolunteeredCompletionStep()
                     } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.howContactStep
@@ -188,7 +188,7 @@ class LogOutreachTask: ORKOrderedTask {
             
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual("I have confirmed that they volunteered." as NSCoding & NSCopying & NSObjectProtocol) {
+                    if choiceAnswer.isEqual(theyVolunteeredText as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.theyVolunteeredCompletionStep()
                     } else if choiceAnswer.isEqual("I am still working on them!" as NSCoding & NSCopying & NSObjectProtocol) {
                         return LogOutreachTask.stillWorkingCompletionStep()

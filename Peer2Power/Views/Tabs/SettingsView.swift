@@ -93,7 +93,7 @@ extension SettingsView {
                         let volunteerStatus = outreachAttempt.volunteerStatus
                         realm.delete(outreachAttempt)
                         
-                        if volunteerStatus == "I have confirmed that they volunteered." {
+                        if volunteerStatus == theyVolunteeredText {
                             team.score -= 7
                             
                             print("Deleted an outreach attempt and subtracted seven points.")
@@ -111,7 +111,7 @@ extension SettingsView {
                     let volunteerStatus = outreachAttempt.volunteerStatus
                     realm.delete(outreachAttempt)
                     
-                    if volunteerStatus == "I have confirmed that they volunteered." {
+                    if volunteerStatus == theyVolunteeredText {
                         team.score -= 7
                         
                         print("Deleted an outreach attempt and subtracted seven points.")
