@@ -31,6 +31,18 @@ class LogOutreachTask: ORKOrderedTask {
         return volunteerStep
     }
     
+    static var whichLevelQuestionStep: ORKQuestionStep {
+        let govLevelTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Local", value: "Local" as NSString), ORKTextChoice(text: "State", value: "State" as NSString), ORKTextChoice(text: "Federal", value: "Federal" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
+        let govLevelAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: govLevelTextChoices)
+        
+        let govLevelStep = ORKQuestionStep(identifier: String(String(describing: Identifier.whichLevelQuestionStep)),
+                                           title: nil,
+                                           question: "At which level of government was the representative they emailed?",
+                                           answer: govLevelAnswerFormat)
+        
+        return govLevelStep
+    }
+    
     static var volunteeredFormStep: ORKFormStep {
         let step = ORKFormStep(identifier: String(describing: Identifier.volunteeredFormStep))
         
@@ -146,6 +158,8 @@ class LogOutreachTask: ORKOrderedTask {
         switch identifier {
         case String(describing: Identifier.volunteeredFormStep):
             return LogOutreachTask.volunteerStatusStep
+        case String(describing: Identifier.whichLevelQuestionStep):
+            return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.theyVolunteeredCompletion):
             return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.stillWorkingCompletion):
@@ -171,7 +185,7 @@ class LogOutreachTask: ORKOrderedTask {
             if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
                 if let choiceAnswer = result.choiceAnswers?.first {
                     if choiceAnswer.isEqual(theyVolunteeredText as NSString) {
-                        return LogOutreachTask.theyVolunteeredCompletionStep()
+                        return LogOutreachTask.whichLevelQuestionStep
                     } else if choiceAnswer.isEqual("I am still working on them!" as NSString) {
                         return LogOutreachTask.howContactStep
                     } else if choiceAnswer.isEqual("They are certainly not going to send an email." as NSString) {
@@ -181,6 +195,9 @@ class LogOutreachTask: ORKOrderedTask {
             }
             
         case String(describing: Identifier.volunteeredFormStep):
+            return LogOutreachTask.howContactStep
+            
+        case String(describing: Identifier.whichLevelQuestionStep):
             return LogOutreachTask.howContactStep
             
         case String(describing: Identifier.describeAttempt):

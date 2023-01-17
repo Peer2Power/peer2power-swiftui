@@ -15,7 +15,9 @@ class Reachability: ObservableObject {
     
     func checkConnection() {
         monitor.pathUpdateHandler = { [weak self] path in
-            self?.connected = path.status == .satisfied
+            DispatchQueue.main.async {
+                self?.connected = path.status == .satisfied
+            }
         }
         monitor.start(queue: queue)
     }
