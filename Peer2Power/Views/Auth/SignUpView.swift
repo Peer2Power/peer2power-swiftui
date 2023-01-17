@@ -95,7 +95,7 @@ struct SignUpView: View {
                     Button("Informed Consent Agreement") {
                         showingConsentAgreement.toggle()
                     }
-                    .sheet(isPresented: $showingConsentAgreement) {
+                    .fullScreenCover(isPresented: $showingConsentAgreement) {
                         ConsentAgreementView(consented: $userConsented)
                     }
                 }, size: 45, color: Color(UIColor.label), checked: $userConsented)

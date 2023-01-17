@@ -67,7 +67,6 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         let step = ORKConsentReviewStep(identifier: String(describing: Identifier.consentReviewStep),
                                         signature: nil,
                                         in: generateConsentDocument())
-        step.title = "Agree to Sign Up"
         step.reasonForConsent = "I have read and understand the consent form. I agree to participate in this research study. By submitting information on this application or website, I consent to participate."
         
         let task = ORKOrderedTask(identifier: String(describing: Identifier.consentTask), steps: [step])
@@ -87,12 +86,15 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
     }
     
     class Coordinator: NSObject, ORKTaskViewControllerDelegate {
-        
-        
         var parent: ConsentAgreementView
         
         init(_ parent: ConsentAgreementView) {
             self.parent = parent
+        }
+        
+        func taskViewController(_ taskViewController: ORKTaskViewController, stepViewControllerWillAppear stepViewController: ORKStepViewController) {
+            stepViewController.cancelButtonItem = nil
+            stepViewController.title = "Consent Agreement"
         }
         
         func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
@@ -102,7 +104,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
             case .discarded:
                 print("Consent agreement discarded.")
             case .completed:
-                print("Do stuff.")
+                getConsentAnswer(from: taskViewController)
             case .failed:
                 print("Consent agreement failed somehow.")
             @unknown default:
