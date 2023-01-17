@@ -63,13 +63,16 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         return consentDocument
       }
     
-    func makeUIViewController(context: Context) -> ORKConsentReviewStepViewController {
+    func makeUIViewController(context: Context) -> ORKTaskViewController {
         let step = ORKConsentReviewStep(identifier: String(describing: Identifier.consentReviewStep),
                                         signature: nil,
                                         in: generateConsentDocument())
+        step.title = "Agree to Sign Up"
         step.reasonForConsent = "I have read and understand the consent form. I agree to participate in this research study. By submitting information on this application or website, I consent to participate."
         
-        let controller = ORKConsentReviewStepViewController(step: step)
+        let task = ORKOrderedTask(identifier: String(describing: Identifier.consentTask), steps: [step])
+        
+        let controller = ORKTaskViewController(task: task, taskRun: nil)
         controller.delegate = context.coordinator
         
         return controller
@@ -83,34 +86,39 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         return Coordinator(self)
     }
     
-    class Coordinator: NSObject, ORKStepViewControllerDelegate {
+    class Coordinator: NSObject, ORKTaskViewControllerDelegate {
+        
+        
         var parent: ConsentAgreementView
         
         init(_ parent: ConsentAgreementView) {
             self.parent = parent
         }
         
-        func stepViewControllerResultDidChange(_ stepViewController: ORKStepViewController) {
-            guard let result = stepViewController.result else { return }
+        func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
+            switch reason {
+            case .saved:
+                print("Consent agreement saved.")
+            case .discarded:
+                print("Consent agreement discarded.")
+            case .completed:
+                print("Do stuff.")
+            case .failed:
+                print("Consent agreement failed somehow.")
+            case .earlyTermination:
+                print("User terminated the consent agreement early.")
+            @unknown default:
+                print("Who knows what to do...")
+            }
+        }
+        
+        func getConsentAnswer(from taskViewController: ORKTaskViewController) {
+            guard let result = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.consentReviewStep)) else { return }
             guard let sigResult = result.firstResult as? ORKConsentSignatureResult else { return }
             
             parent.consented = sigResult.consented
             
-            stepViewController.dismiss(animated: true)
-        }
-
-        func stepViewController(_ stepViewController: ORKStepViewController, didFinishWith direction: ORKStepViewControllerNavigationDirection) {
-            
-        }
-        
-        
-        
-        func stepViewControllerDidFail(_ stepViewController: ORKStepViewController, withError error: Error?) {
-            
-        }
-        
-        func stepViewController(_ stepViewController: ORKStepViewController, recorder: ORKRecorder, didFailWithError error: Error) {
-            
+            taskViewController.dismiss(animated: true)
         }
     }
 }
