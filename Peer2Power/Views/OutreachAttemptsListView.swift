@@ -93,9 +93,8 @@ struct OutreachAttemptsListView: View {
         }
         .disabled(isPastCompDate)
         .buttonStyle(.borderedProminent)
-        .sheet(isPresented: $presentingLogOutreachForm) {
+        .fullScreenCover(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)
-                .interactiveDismissDisabled(true)
         }
         // HStack {
             

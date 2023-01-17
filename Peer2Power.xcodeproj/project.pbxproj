@@ -10,7 +10,6 @@
 		000111A328E72C7A00E2CE92 /* TextDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111A228E72C7A00E2CE92 /* TextDate.swift */; };
 		000111B028E9E3FC00E2CE92 /* ChooseTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000111AF28E9E3FC00E2CE92 /* ChooseTeamView.swift */; };
 		000CD2C7289F974200A004FA /* ClubsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ClubsListView.swift */; };
-		001821B52974B7F300121DDF /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; };
 		0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166728D530360070FF11 /* EndOfStudyTask.swift */; };
 		0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */; };
 		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
@@ -18,6 +17,8 @@
 		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
 		003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1CF328EDB16D00672E42 /* CheckboxField.swift */; };
 		003B1D0F28FE392100672E42 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 003B1D0E28FE392100672E42 /* Settings.bundle */; };
+		004D256B29762059001E7A57 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004D256829762050001E7A57 /* ResearchKit.framework */; };
+		004D256C29762059001E7A57 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 004D256829762050001E7A57 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		005821BE296E01A700F3F2F2 /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005821BD296E01A700F3F2F2 /* LeaderboardRow.swift */; };
 		005930172970642E008F18DC /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005930162970642E008F18DC /* Reachability.swift */; };
 		005930192971F1F5008F18DC /* SwitchTeamMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005930182971F1F5008F18DC /* SwitchTeamMenuView.swift */; };
@@ -53,7 +54,6 @@
 		00C04BB3291C5C20007922E3 /* ChooseTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C04BB2291C5C20007922E3 /* ChooseTeamViewModel.swift */; };
 		00C17F9628A8906400778E25 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C17F9528A8906400778E25 /* Team.swift */; };
 		00CD5FB228CD2D0E00E19AA7 /* OutreachListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */; };
-		00DDAC4328BC19D10073DF85 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		00FA96ED28A588E800FC007E /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA96EC28A588E800FC007E /* Party.swift */; };
 		00FCBCCB29204AC9005CA8F1 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 00FCBCCA29204AC9005CA8F1 /* AlertToast */; };
 		00FCBCCD29209D60005CA8F1 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCBCCC29209D60005CA8F1 /* WebView.swift */; };
@@ -61,6 +61,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		004D256729762050001E7A57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 004D256129762050001E7A57 /* ResearchKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B183A5951A8535D100C76870;
+			remoteInfo = ResearchKit;
+		};
+		004D256929762050001E7A57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 004D256129762050001E7A57 /* ResearchKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 86CC8E9A1AC09332001CCD89;
+			remoteInfo = ResearchKitTests;
+		};
 		009CE50E2899CA8B00796313 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 009CE4F52899CA8500796313 /* Project object */;
@@ -75,30 +89,16 @@
 			remoteGlobalIDString = 009CE4FC2899CA8500796313;
 			remoteInfo = Peer2Power;
 		};
-		00DDAC3E28BC19C80073DF85 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B183A5951A8535D100C76870;
-			remoteInfo = ResearchKit;
-		};
-		00DDAC4028BC19C80073DF85 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 86CC8E9A1AC09332001CCD89;
-			remoteInfo = ResearchKitTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		00BA93FA28AF130F00A434FF /* Embed Frameworks */ = {
+		001821B829761F7B00121DDF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				00DDAC4328BC19D10073DF85 /* ResearchKit.framework in Embed Frameworks */,
+				004D256C29762059001E7A57 /* ResearchKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +118,7 @@
 		0026168328E4F8270070FF11 /* ConsentAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentAgreementView.swift; sourceTree = "<group>"; };
 		003B1CF328EDB16D00672E42 /* CheckboxField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		003B1D0E28FE392100672E42 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		004D256129762050001E7A57 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-minus-HealthKit/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		005821BD296E01A700F3F2F2 /* LeaderboardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardRow.swift; sourceTree = "<group>"; };
 		005930162970642E008F18DC /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		005930182971F1F5008F18DC /* SwitchTeamMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTeamMenuView.swift; sourceTree = "<group>"; };
@@ -151,7 +152,6 @@
 		00C04BB2291C5C20007922E3 /* ChooseTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeamViewModel.swift; sourceTree = "<group>"; };
 		00C17F9528A8906400778E25 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		00CD5FB128CD2D0E00E19AA7 /* OutreachListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutreachListRow.swift; sourceTree = "<group>"; };
-		00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "ResearchKit-minus-HealthKit/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		00FA96EC28A588E800FC007E /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		00FCBCCC29209D60005CA8F1 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		00FCBCF429218F75005CA8F1 /* EndOfStudyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudyResponse.swift; sourceTree = "<group>"; };
@@ -162,12 +162,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				001821B52974B7F300121DDF /* ResearchKit.framework in Frameworks */,
 				0094744528C01CBA00D50140 /* FirebaseMessaging in Frameworks */,
 				00FCBCCB29204AC9005CA8F1 /* AlertToast in Frameworks */,
 				009CE5372899F20C00796313 /* RealmSwift in Frameworks */,
 				009CE5352899F20C00796313 /* Realm in Frameworks */,
 				0094744928C01CBA00D50140 /* FirebaseRemoteConfigSwift in Frameworks */,
+				004D256B29762059001E7A57 /* ResearchKit.framework in Frameworks */,
 				0094744728C01CBA00D50140 /* FirebaseRemoteConfig in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +237,15 @@
 			path = Tasks;
 			sourceTree = "<group>";
 		};
+		004D256229762050001E7A57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				004D256829762050001E7A57 /* ResearchKit.framework */,
+				004D256A29762050001E7A57 /* ResearchKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		0094745028C0325200D50140 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,7 +259,7 @@
 		009CE4F42899CA8500796313 = {
 			isa = PBXGroup;
 			children = (
-				00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */,
+				004D256129762050001E7A57 /* ResearchKit.xcodeproj */,
 				009CE4FF2899CA8500796313 /* Peer2Power */,
 				009CE5102899CA8B00796313 /* Peer2PowerTests */,
 				009CE51A2899CA8B00796313 /* Peer2PowerUITests */,
@@ -356,15 +365,6 @@
 			path = Surveys;
 			sourceTree = "<group>";
 		};
-		00DDAC3928BC19C80073DF85 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */,
-				00DDAC4128BC19C80073DF85 /* ResearchKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -375,8 +375,8 @@
 				009CE4F92899CA8500796313 /* Sources */,
 				009CE4FA2899CA8500796313 /* Frameworks */,
 				009CE4FB2899CA8500796313 /* Resources */,
-				00BA93FA28AF130F00A434FF /* Embed Frameworks */,
 				0026167528DB6FEE0070FF11 /* Upload dSYMS to Firebase */,
+				001821B829761F7B00121DDF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -472,8 +472,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 00DDAC3928BC19C80073DF85 /* Products */;
-					ProjectRef = 00DDAC3828BC19C80073DF85 /* ResearchKit.xcodeproj */;
+					ProductGroup = 004D256229762050001E7A57 /* Products */;
+					ProjectRef = 004D256129762050001E7A57 /* ResearchKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -486,18 +486,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		00DDAC3F28BC19C80073DF85 /* ResearchKit.framework */ = {
+		004D256829762050001E7A57 /* ResearchKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = ResearchKit.framework;
-			remoteRef = 00DDAC3E28BC19C80073DF85 /* PBXContainerItemProxy */;
+			remoteRef = 004D256729762050001E7A57 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		00DDAC4128BC19C80073DF85 /* ResearchKitTests.xctest */ = {
+		004D256A29762050001E7A57 /* ResearchKitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ResearchKitTests.xctest;
-			remoteRef = 00DDAC4028BC19C80073DF85 /* PBXContainerItemProxy */;
+			remoteRef = 004D256929762050001E7A57 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -758,6 +758,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peer2Power/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -792,6 +793,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Peer2Power/Preview Content\"";
 				DEVELOPMENT_TEAM = 85Q84CPFAN;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Peer2Power/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
