@@ -105,8 +105,6 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
                 print("Do stuff.")
             case .failed:
                 print("Consent agreement failed somehow.")
-            case .earlyTermination:
-                print("User terminated the consent agreement early.")
             @unknown default:
                 print("Who knows what to do...")
             }
