@@ -12,7 +12,7 @@ class EndOfStudyTask: ORKOrderedTask {
     static func whoVolunteeredStep(team: Team) -> ORKQuestionStep {
         let step = ORKQuestionStep(identifier: String(describing: Identifier.whichVolunteeredStep),
                                    title: nil,
-                                   question: "Below is a list of contacts that your team did not mark as confirmed volunteers. \n\nPlease follow up with anyone on the list that you know. \n\nDid anyone on this list confirm that they volunteered for a Georgia runoff campaign?",
+                                   question: "Below is a list of contacts that your team did not mark as confirmed volunteers. \n\nPlease follow up with anyone on the list that you know. \n\nDid anyone on this list send an email to an elected representative?",
                                    answer: nil)
         var textChoices = [ORKTextChoice]()
         
@@ -27,7 +27,7 @@ class EndOfStudyTask: ORKOrderedTask {
             }
         }
         
-        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know volunteered.", value: "None of the contacts I know volunteered." as NSString)
+        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know sent an email.", value: "None of the contacts I know sent an email." as NSString)
         textChoices.append(noneTextChoice)
         
         let dontKnowTextChoice = ORKTextChoice(text: "I don't know anyone on this list.", value: "I don't know anyone on this list." as NSString)
