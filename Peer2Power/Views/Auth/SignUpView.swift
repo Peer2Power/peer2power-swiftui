@@ -97,6 +97,7 @@ struct SignUpView: View {
                     }
                     .fullScreenCover(isPresented: $showingConsentAgreement) {
                         ConsentAgreementView(consented: $userConsented)
+                            .ignoresSafeArea()
                     }
                 }, size: 45, color: Color(UIColor.label), checked: $userConsented)
                 .padding(.top, 15)
