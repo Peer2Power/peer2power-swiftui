@@ -95,6 +95,7 @@ struct OutreachAttemptsListView: View {
         .buttonStyle(.borderedProminent)
         .fullScreenCover(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)
+                .ignoresSafeArea()
         }
         // HStack {
             
