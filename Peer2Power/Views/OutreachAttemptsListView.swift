@@ -42,7 +42,7 @@ struct OutreachAttemptsListView: View {
             VStack {
                 if !team.outreachAttempts.filter("to = %@", contact.contact_id).isEmpty {
                     List {
-                        ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: true)) { attempt in
+                        ForEach(team.outreachAttempts.filter("to = %@", contact.contact_id).sorted(by: \OutreachAttempt.createdAt, ascending: false)) { attempt in
                             OutreachListRow(attempt: attempt)
                         }
                         .onDelete { offsets in
