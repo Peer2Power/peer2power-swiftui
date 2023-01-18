@@ -33,10 +33,10 @@ struct ClubsListView: View {
     
     @MainActor var searchResults: [DBTeam] {
         if searchText.isEmpty {
-            return dbTeams.sorted { $0.name < $1.name }
+            return dbTeams.sorted { $0.name.uppercased() < $1.name.uppercased() }
         }
         
-        return dbTeams.sorted { $0.name < $1.name }.filter { predTeam in
+        return dbTeams.sorted { $0.name.uppercased() < $1.name.uppercased() }.filter { predTeam in
             return predTeam.name.localizedCaseInsensitiveContains(searchText)
         }
     }
@@ -48,7 +48,7 @@ struct ClubsListView: View {
             for team in dbTeams {
                 guard let first = team.name.first else { return [String]() }
                 let charSequence = [first]
-                let firstString = String(charSequence)
+                let firstString = String(charSequence).uppercased()
                 
                 if !result.contains(firstString) {
                     result.append(firstString)
@@ -77,12 +77,12 @@ struct ClubsListView: View {
                 if !searchResults.isEmpty {
                     ForEach(letters.filter({ predLetter in
                         searchResults.contains { searchTeam in
-                            searchTeam.name.first == predLetter.first
+                            searchTeam.name.first?.uppercased() == predLetter.first?.uppercased()
                         }
                     }), id: \.self) { letter in
                         Section {
                             ForEach(searchResults.filter({ predTeam in
-                                predTeam.name.first == letter.first
+                                predTeam.name.first?.uppercased() == letter.first?.uppercased()
                             })) { team in
                                 Button(team.name) {
                                     selectedTeamID = team.id
