@@ -72,9 +72,9 @@ struct LoggedInView: View {
             }, message: {
                 Text("Failing to complete the end-of-study survey means your team will miss an opportunity to gain a significant number of points.")
             })
-            .sheet(isPresented: $showingEndOfStudySurvey) {
+            .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
-                    .interactiveDismissDisabled(true)
+                    .ignoresSafeArea()
             }
             .alert("Fatal Error", isPresented: $showingFatalErrorAlert, actions: {
                 Button("OK", role: .cancel, action: {})
