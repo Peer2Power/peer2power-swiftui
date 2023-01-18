@@ -41,53 +41,95 @@ struct ClubsListView: View {
         }
     }
     
+    @MainActor var letters: [String] {
+        var result = [String]()
+        
+        if searchText.isEmpty {
+            for team in dbTeams {
+                guard let first = team.name.first else { return [String]() }
+                let charSequence = [first]
+                let firstString = String(charSequence)
+                
+                if !result.contains(firstString) {
+                    result.append(firstString)
+                }
+            }
+            
+            return result
+        }
+        
+        for searchResult in searchResults {
+            guard let first = searchResult.name.first else { return [String]() }
+            let charSequence = [first]
+            let firstString = String(charSequence)
+            
+            if !result.contains(firstString) {
+                result.append(firstString)
+            }
+        }
+        
+        return result
+    }
+    
     var body: some View {
         VStack {
-            if !searchResults.isEmpty {
-                List {
-                    ForEach(searchResults) { result in
-                        Button(result.name) {
-                            selectedTeamID = result.id
-                            handleTeamSelected(team: result)
+            List {
+                if !searchResults.isEmpty {
+                    ForEach(letters.filter({ predLetter in
+                        searchResults.contains { searchTeam in
+                            searchTeam.name.first == predLetter.first
+                        }
+                    }), id: \.self) { letter in
+                        Section {
+                            ForEach(searchResults.filter({ predTeam in
+                                predTeam.name.first == letter.first
+                            })) { team in
+                                Button(team.name) {
+                                    selectedTeamID = team.id
+                                    handleTeamSelected(team: team)
+                                }
+                            }
+                        } header: {
+                            Text(letter)
                         }
                     }
-                }
-                .id(UUID())
-                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a club to sign up for")
-                .autocorrectionDisabled(true)
-                .listStyle(.insetGrouped)
-                .sheet(isPresented: $showingLoginSheet) {
-                    NavigationView {
-                        LoginView(showingJoinedTeamAlert: $showingJoinedTeamBanner)
+                } else {
+                    VStack(spacing: 10.0) {
+                        Text("No Teams Found")
+                            .font(.title)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 15)
+                        Text("No teams could be found. Please change your search terms and try again.")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 15)
                     }
                 }
-                .sheet(isPresented: $showingSignUpSheet, content: {
-                    NavigationView {
-                        SignUpView(team_id: $selectedTeamID,
-                                   teamSelected: $showingLoginSheet)
-                    }
-                })
-                .toast(isPresenting: $showingJoinedTeamBanner) {
-                    AlertToast(displayMode: .banner(.pop),
-                               type: .complete(Color(uiColor: .systemGreen)),
-                               title: "Points Received!",
-                               subTitle: "Your team received 1 point!")
+            }
+            .listStyle(.insetGrouped)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a club to sign up for")
+            .sheet(isPresented: $showingLoginSheet) {
+                NavigationView {
+                    LoginView(showingJoinedTeamAlert: $showingJoinedTeamBanner)
                 }
-                if app.currentUser == nil {
-                    Button("Already have an account or just confirmed your email address? Login.") {
-                        showingLoginSheet.toggle()
-                    }
-                    .padding(.horizontal, 15)
+            }
+            .sheet(isPresented: $showingSignUpSheet, content: {
+                NavigationView {
+                    SignUpView(team_id: $selectedTeamID,
+                               teamSelected: $showingLoginSheet)
                 }
-            } else {
-                Text("No Teams Found")
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 15)
-                Text("No teams could be found. Please check your internet connection and try again.")
-                    .font(.callout)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 15)
+            })
+            .toast(isPresenting: $showingJoinedTeamBanner) {
+                AlertToast(displayMode: .banner(.pop),
+                           type: .complete(Color(uiColor: .systemGreen)),
+                           title: "Points Received!",
+                           subTitle: "Your team received 1 point!")
+            }
+            if app.currentUser == nil {
+                Button("Already have an account or just confirmed your email address? Login.") {
+                    showingLoginSheet.toggle()
+                }
+                .padding(.horizontal, 15)
             }
         }
         .onAppear(perform: fetchTeams)
