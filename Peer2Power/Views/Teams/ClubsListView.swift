@@ -33,10 +33,10 @@ struct ClubsListView: View {
     
     @MainActor var searchResults: [DBTeam] {
         if searchText.isEmpty {
-            return dbTeams
+            return dbTeams.sorted { $0.name < $1.name }
         }
         
-        return dbTeams.filter { predTeam in
+        return dbTeams.sorted { $0.name < $1.name }.filter { predTeam in
             return predTeam.name.localizedCaseInsensitiveContains(searchText)
         }
     }
