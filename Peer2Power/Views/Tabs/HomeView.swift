@@ -187,22 +187,32 @@ extension HomeView {
     private var isPastCompDate: Bool {
         let remoteConfig = RemoteConfig.remoteConfig()
         
-        // FIXME: remove when put into production
-        let settings = RemoteConfigSettings()
-        settings.minimumFetchInterval = 0
-        remoteConfig.configSettings = settings
+        Task {
+            do {
+                let status = try await remoteConfig.fetchAndActivate()
+                
+                if status == .successFetchedFromRemote || status == .successUsingPreFetchedData {
+                    guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
+                    print("Got end of study date \(fetchedDate)")
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+                    dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+                    
+                    guard let date = dateFormatter.date(from: fetchedDate) else { return false }
+                    let compareResult = Date().compare(date)
+                    
+                    return compareResult == .orderedSame || compareResult == .orderedDescending
+                }
+            } catch {
+                print("Error fetching from remote config: \(error.localizedDescription)")
+                return false
+            }
+            
+            return false
+        }
         
-        guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
-        print("Got end of study date \(fetchedDate)")
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
-        
-        guard let date = dateFormatter.date(from: fetchedDate) else { return false }
-        let compareResult = Date().compare(date)
-        
-        return compareResult == .orderedSame || compareResult == .orderedDescending
+        return false
     }
     
     private var lastContactName: String {

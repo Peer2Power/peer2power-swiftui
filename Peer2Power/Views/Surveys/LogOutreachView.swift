@@ -88,28 +88,12 @@ struct LogOutreachView: UIViewControllerRepresentable {
             return nil
         }
         
-        private func getVolunteeredAnswers(_ taskViewController: ORKTaskViewController) -> [String: String]? {
-            var answers: [String:String] = [:]
+        private func getGovtLevelAnswer(_ taskViewController: ORKTaskViewController) -> String? {
+            guard let govtLevelStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.whichLevelQuestionStep)) else { return nil }
+            guard let govtLevelFirstResult = govtLevelStepResult.firstResult as? ORKChoiceQuestionResult else { return nil }
+            guard let govtLevelFirstAnswer = govtLevelFirstResult.choiceAnswers?.first as? String else { return nil }
             
-            if let volunteeredFormStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteeredFormStep)) {
-                if let results = volunteeredFormStepResult.results as? [ORKChoiceQuestionResult] {
-                    results.forEach { result in
-                        if results.firstIndex(of: result) == 0 {
-                            if let choiceAnswer = result.choiceAnswers?.first as? String {
-                                answers["volunteerMethod"] = choiceAnswer
-                            }
-                        } else if results.firstIndex(of: result) == 1 {
-                            if let choiceAnswer = result.choiceAnswers?.first as? String {
-                                answers["campaignType"] = choiceAnswer
-                            }
-                        }
-                    }
-                    
-                    return answers
-                }
-            }
-            
-            return nil
+            return govtLevelFirstAnswer
         }
         
         private func awardPointsForOutreachAttempt(team: Team, answer: String) {
@@ -150,14 +134,9 @@ struct LogOutreachView: UIViewControllerRepresentable {
                 }
             }
             
-            if let volunteeredAnswers = getVolunteeredAnswers(taskViewController) {
-                if let volunteerMethod = volunteeredAnswers["volunteerMethod"] {
-                    newOutreach.volunteerMethod = volunteerMethod
-                }
-                
-                /* if let campaignType = volunteeredAnswers["campaignType"] {
-                    newOutreach.campaignType = campaignType
-                } */
+            if let govtLevelAnswer = getGovtLevelAnswer(taskViewController) {
+                guard !govtLevelAnswer.isEmpty else { return }
+                newOutreach.govtLevel = govtLevelAnswer
             }
             
             guard let volunteerStatusStepResult = taskViewController.result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus)) else {
