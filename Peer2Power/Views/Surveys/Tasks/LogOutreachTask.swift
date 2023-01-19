@@ -43,85 +43,7 @@ class LogOutreachTask: ORKOrderedTask {
         return govLevelStep
     }
     
-    static var volunteeredFormStep: ORKFormStep {
-        let step = ORKFormStep(identifier: String(describing: Identifier.volunteeredFormStep))
-        
-        let volunteerMethodTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Phone banking", value: "Phone banking" as NSString), ORKTextChoice(text: "Text banking", value: "Text banking" as NSString), ORKTextChoice(text: "Writing post cards or letters", value: "Writing post cards or letters" as NSString), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSString), ORKTextChoice(text: "Volunteering at a campaign office", value: "Volunteering at a campaign office" as NSString), ORKTextChoice(text: "Internship", value: "Internship" as NSString), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSString, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSString)]
-        let volunteerMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: volunteerMethodTextChoices)
-        
-        let volunteerMethodFormItem = ORKFormItem(identifier: String(describing: Identifier.volunteerMethodFormItem),
-                                                  text: "How did they volunteer?",
-                                                  answerFormat: volunteerMethodAnswerFormat)
-        
-        let campaignTypeTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Senate", value: "Senate" as NSString), ORKTextChoice(text: "House of Representatives", value: "House of Representatives" as NSString), ORKTextChoice(text: "Gubernatorial", value: "Gubernatorial" as NSString), ORKTextChoice(text: "State legislative", value: "State legislative" as NSString), ORKTextChoiceOther(text: "Other Local", value: "Other Local" as NSString)]
-        let campaignTypeAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: campaignTypeTextChoices)
-        
-        let campaignTypeFormItem = ORKFormItem(identifier: String(describing: Identifier.campaignTypeFormItem),
-                                               text: "What kind of campaign did they volunteer for?",
-                                               answerFormat: campaignTypeAnswerFormat)
-        // Add this back to the formitems array if questions about campaign type are ever reconsidered.
-        
-        step.formItems = [volunteerMethodFormItem]
-        
-        return step
-    }
-    
-    static var optionalQFormStep: ORKFormStep {
-        let step = ORKFormStep(identifier: String(describing: Identifier.optionalQFormStep))
-        
-        let howContactTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSString), ORKTextChoice(text: "Email", value: "Email" as NSString), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSString), ORKTextChoice(text: "Social Media", value: "Social Media" as NSString), ORKTextChoice(text: "In Person", value: "In Person" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
-        let contactMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: howContactTextChoices)
-        
-        let howContactFormItem = ORKFormItem(identifier: String(describing: Identifier.howContactFormItem),
-                                             text: "How did you contact them?",
-                                             answerFormat: contactMethodAnswerFormat)
-        
-        let attemptDescriptionFormItem = ORKFormItem(identifier: String(describing: Identifier.attemptDescriptionFormItem),
-                                                     text: "What word or phrase would you use to describe this outreach attempt?",
-                                                     answerFormat: ORKTextAnswerFormat())
-        
-        step.formItems = [howContactFormItem, attemptDescriptionFormItem]
-        
-        return step
-    }
-    
-    static var volunteerMethodStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Phone banking", value: "Phone banking" as NSString), ORKTextChoice(text: "Text banking", value: "Text banking" as NSString), ORKTextChoice(text: "Writing post cards or letters", value: "Writing post cards or letters" as NSString), ORKTextChoice(text: "Door-to-door canvassing", value: "Door-to-door canvassing" as NSString), ORKTextChoice(text: "Volunteering at a campaign office", value: "Volunteering at a campaign office" as NSString), ORKTextChoice(text: "Internship", value: "Internship" as NSString), ORKTextChoiceOther.choice(withText: "Some other way", detailText: nil, value: "Some other way" as NSString, exclusive: true, textViewPlaceholderText: "Please specify"), ORKTextChoice(text: "I don't know or I'm not sure", value: "I don't know or I'm not sure" as NSString)]
-        let volunteerMethodFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
-        
-        let methodStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerMethod),
-                                         title: nil,
-                                         question: "Great! How did they volunteer?",
-                                         answer: volunteerMethodFormat)
-        
-        return methodStep
-    }
-    
-    static var howContactStep: ORKQuestionStep {
-        let textChoices: [ORKTextChoice] = [ORKTextChoice(text: "Text", value: "Text" as NSString), ORKTextChoice(text: "Email", value: "Email" as NSString), ORKTextChoice(text: "Phone Call", value: "Phone Call" as NSString), ORKTextChoice(text: "Social Media", value: "Social Media" as NSString), ORKTextChoice(text: "In Person", value: "In Person" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
-        let contactMethodAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: textChoices)
-        
-        let howStep = ORKQuestionStep(identifier: String(describing: Identifier.howContact),
-                                      title: nil,
-                                      question: "How did you contact this person?",
-                                      answer: contactMethodAnswerFormat)
-        
-        return howStep
-    }
-    
-    // TODO: combing contact method and attempt description into single form step.
-    static var describeAttemptStep: ORKQuestionStep {
-        let describeAttemptAnswerFormat = ORKTextAnswerFormat()
-        
-        let describeStep = ORKQuestionStep(identifier: String(describing: Identifier.describeAttempt),
-                                           title: nil,
-                                           question: "What word or phrase would you use to describe this outreach attempt?",
-                                           answer: describeAttemptAnswerFormat)
-        
-        return describeStep
-    }
-    
-    static func theyVolunteeredCompletionStep() -> ORKCompletionStep {
+    static var theyVolunteeredCompletionStep: ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.theyVolunteeredCompletion))
         completionStep.title = "Thank you for logging this outreach attempt!"
         completionStep.detailText = "You multiplied their political power! Thanks for bringing more people into the political process!"
@@ -129,15 +51,7 @@ class LogOutreachTask: ORKOrderedTask {
         return completionStep
     }
     
-    static func planToVolunteerCompletionStep() -> ORKCompletionStep {
-        let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.planVolunteerCompletion))
-        completionStep.title = "Thank you for logging this outreach attempt!"
-        completionStep.detailText = "Don't forget to follow up with them and confirm that they volunteered."
-        
-        return completionStep
-    }
-    
-    static func stillWorkingCompletionStep() -> ORKCompletionStep {
+    static var stillWorkingCompletionStep: ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.stillWorkingCompletion))
         completionStep.title = "Thank you for logging this outreach attempt!"
         completionStep.detailText = "Put your next outreach attempt in the calendar so you don't forget."
@@ -145,7 +59,7 @@ class LogOutreachTask: ORKOrderedTask {
         return completionStep
     }
     
-    static func wontVolunteerCompletionStep() -> ORKCompletionStep {
+    static var wontVolunteerCompletionStep: ORKCompletionStep {
         let completionStep = ORKCompletionStep(identifier: String(describing: Identifier.wontVolunteerCompletionStep))
         completionStep.title = "Thank you for logging this outreach attempt!"
         
@@ -156,14 +70,12 @@ class LogOutreachTask: ORKOrderedTask {
         let identifier = step?.identifier
         
         switch identifier {
-        case String(describing: Identifier.volunteeredFormStep):
-            return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.whichLevelQuestionStep):
             return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.theyVolunteeredCompletion):
-            return LogOutreachTask.volunteerStatusStep
+            return LogOutreachTask.whichLevelQuestionStep
         case String(describing: Identifier.stillWorkingCompletion):
-            return LogOutreachTask.describeAttemptStep
+            return LogOutreachTask.volunteerStatusStep
         case String(describing: Identifier.wontVolunteerCompletionStep):
             return LogOutreachTask.volunteerStatusStep
         
@@ -178,7 +90,6 @@ class LogOutreachTask: ORKOrderedTask {
         // TODO: might have to add these steps back to the outreach controller so it can show the user their progress (like showing "step 1 of 9")
         
         switch identifer {
-            
         case String(describing: Identifier.volunteerStatus):
             let stepResult = result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus))
             
@@ -187,32 +98,14 @@ class LogOutreachTask: ORKOrderedTask {
                     if choiceAnswer.isEqual(theyVolunteeredText as NSString) {
                         return LogOutreachTask.whichLevelQuestionStep
                     } else if choiceAnswer.isEqual("I am still working on them!" as NSString) {
-                        return LogOutreachTask.howContactStep
+                        return LogOutreachTask.stillWorkingCompletionStep
                     } else if choiceAnswer.isEqual("They are certainly not going to send an email." as NSString) {
-                        return LogOutreachTask.wontVolunteerCompletionStep()
+                        return LogOutreachTask.wontVolunteerCompletionStep
                     }
                 }
             }
-            
-        case String(describing: Identifier.volunteeredFormStep):
-            return LogOutreachTask.howContactStep
-            
         case String(describing: Identifier.whichLevelQuestionStep):
-            return LogOutreachTask.howContactStep
-            
-        case String(describing: Identifier.describeAttempt):
-            let stepResult = result.stepResult(forStepIdentifier: String(describing: Identifier.volunteerStatus))
-            
-            if let result = stepResult?.firstResult as? ORKChoiceQuestionResult {
-                if let choiceAnswer = result.choiceAnswers?.first {
-                    if choiceAnswer.isEqual(theyVolunteeredText as NSString) {
-                        return LogOutreachTask.theyVolunteeredCompletionStep()
-                    } else if choiceAnswer.isEqual("I am still working on them!" as NSString) {
-                        return LogOutreachTask.stillWorkingCompletionStep()
-                    }
-                }
-            }
-            
+            return LogOutreachTask.theyVolunteeredCompletionStep
         default:
             break
         }
