@@ -19,8 +19,7 @@ struct LoginView: View {
     @State private var errorText = ""
     @State private var showingEmptyFieldAlert = false
     
-    @State private var school_name = ""
-    @State private var teamParty = ""
+    @State private var clubName = ""
     
     @Binding var showingJoinedTeamAlert: Bool
     @FocusState private var focusedField: Field?
@@ -36,7 +35,7 @@ struct LoginView: View {
         ScrollView {
             VStack(alignment: .center, spacing: 15.0) {
                 if UserDefaults.standard.string(forKey: "joinTeamID") != nil {
-                    Text("Login to join the \(school_name) \(teamParty).")
+                    Text("Login to join the \(clubName) team.")
                         .multilineTextAlignment(.center)
                         .font(.title2)
                         .padding(.top, 35)
@@ -76,7 +75,11 @@ struct LoginView: View {
                 }
             }
             .padding(.horizontal, 15.0)
-            .onAppear(perform: fetchTeamInfo)
+            .onAppear(perform: {
+                if team_id != nil {
+                    fetchTeamInfo()
+                }
+            })
             .navigationTitle("Login")
             .navigationBarTitleDisplayMode(.inline)
             .alert(Text("Error Logging In"), isPresented: $showingErrorAlert) {
@@ -214,7 +217,6 @@ extension LoginView {
     
     private func fetchTeamInfo() {
         guard let url = URL(string: "\(mongoDataEndpoint)action/findOne") else { return }
-        guard let team_id = UserDefaults.standard.string(forKey: "joinTeamID") else { return }
         
         var request = URLRequest(url: url)
         
@@ -227,7 +229,7 @@ extension LoginView {
             "database": "govlab",
             "dataSource": "production",
             "filter": ["_id": ["$oid": team_id],],
-            "projection": ["_id": 0, "school_name": 1, "party": 1]
+            "projection": ["_id": 0, "name": 1]
         ]
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
         
@@ -247,14 +249,15 @@ extension LoginView {
             
             guard let team = responseJSON["document"] as? [String: Any] else { return }
             
-            guard let school_name = team["school_name"] as? String else { return }
-            self.school_name = school_name
-            
-            guard let party = team["party"] as? String else { return }
-            teamParty = party
+            guard let name = team["name"] as? String else { return }
+            clubName = name
         }
         
         task.resume()
+    }
+    
+    private var team_id: String? {
+        return UserDefaults.standard.string(forKey: "joinTeamID")
     }
 }
 
