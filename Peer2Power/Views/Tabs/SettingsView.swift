@@ -14,6 +14,8 @@ struct SettingsView: View {
     @State private var showingDeleteAccountAlert = false
     
     @State private var showingFAQView = false
+    @State private var showingEndOfStudySurvey = false
+    @State private var showingBanner = false
     
     @ObservedRealmObject var userTeam: Team
     @Environment(\.realm) private var realm
@@ -39,6 +41,14 @@ struct SettingsView: View {
                     WebView(url: .constant(URL(string: "https://www.peer2power.org/faq")!))
                 }
                 Text("Questions or want to report a problem? Email lafayette@peer2power.org.")
+            }
+            Section {
+                Button("Show End of Study Survey") {
+                    showingEndOfStudySurvey.toggle()
+                }
+                .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
+                    EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingBanner)
+                }
             }
             Section {
                 Button("Log Out", role: .destructive) {

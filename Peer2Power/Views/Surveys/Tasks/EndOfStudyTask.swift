@@ -12,7 +12,7 @@ class EndOfStudyTask: ORKOrderedTask {
     static func whoVolunteeredStep(team: Team) -> ORKQuestionStep {
         let step = ORKQuestionStep(identifier: String(describing: Identifier.whichVolunteeredStep),
                                    title: nil,
-                                   question: "Below is a list of contacts that your team did not mark as confirmed volunteers. \n\nPlease follow up with anyone on the list that you know. \n\nDid anyone on this list send an email to an elected representative?",
+                                   question: "Below is a list of your team's contacts that did not send an email. \n\nPlease follow up with anyone on the list that you know and confirm if they have emailed an elected representative.",
                                    answer: nil)
         var textChoices = [ORKTextChoice]()
         
@@ -27,7 +27,7 @@ class EndOfStudyTask: ORKOrderedTask {
             }
         }
         
-        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know sent an email.", value: "None of the contacts I know sent an email." as NSString)
+        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know emailed an elected representative.", value: "None of the contacts I know emailed an elected representative." as NSString)
         textChoices.append(noneTextChoice)
         
         let dontKnowTextChoice = ORKTextChoice(text: "I don't know anyone on this list.", value: "I don't know anyone on this list." as NSString)
@@ -46,7 +46,7 @@ class EndOfStudyTask: ORKOrderedTask {
         
         let step = ORKQuestionStep(identifier: String(describing: Identifier.futureRecruitmentLikelihoodScaleStep),
                                    title: nil,
-                                   question: "How likely are you to recruit volunteers in the future?",
+                                   question: "How likely are you to recruit friends and family to reach out to their representatives in the future?",
                                    answer: answerFormat)
         
         return step

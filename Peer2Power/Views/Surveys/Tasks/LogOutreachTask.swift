@@ -24,7 +24,7 @@ class LogOutreachTask: ORKOrderedTask {
         
         let volunteerStep = ORKQuestionStep(identifier: String(describing: Identifier.volunteerStatus),
                                             title: nil,
-                                            question: "Did they email a rep or have they committed to emailing?",
+                                            question: "Did they email an elected representative or have they committed to emailing?",
                                             answer: volunteerStatusFormat)
         volunteerStep.isOptional = false
         
@@ -32,12 +32,12 @@ class LogOutreachTask: ORKOrderedTask {
     }
     
     static var whichLevelQuestionStep: ORKQuestionStep {
-        let govLevelTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "Local", value: "Local" as NSString), ORKTextChoice(text: "State", value: "State" as NSString), ORKTextChoice(text: "Federal", value: "Federal" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
+        let govLevelTextChoices: [ORKTextChoice] = [ORKTextChoice(text: "A local elected representative", value: "A local elected representative" as NSString), ORKTextChoice(text: "A state elected representative", value: "A state elected representative" as NSString), ORKTextChoice(text: "A federal elected representative", value: "A federal elected representative" as NSString), ORKTextChoiceOther.choice(withText: "Other", detailText: nil, value: "Other" as NSString, exclusive: true, textViewPlaceholderText: "Please specify")]
         let govLevelAnswerFormat = ORKTextChoiceAnswerFormat(style: .singleChoice, textChoices: govLevelTextChoices)
         
         let govLevelStep = ORKQuestionStep(identifier: String(String(describing: Identifier.whichLevelQuestionStep)),
                                            title: nil,
-                                           question: "At which level of government was the representative they emailed?",
+                                           question: "Who did they email?",
                                            answer: govLevelAnswerFormat)
         
         return govLevelStep
