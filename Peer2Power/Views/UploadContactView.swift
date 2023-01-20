@@ -31,9 +31,9 @@ struct UploadContactView: View {
     let relationships = ["Friend", "Family"]
     let likelihoods = ["Extremely Unlikely", "Unlikely", "Unsure", "Likely", "Exremely Likely"]
     
-    @State private var selectedAgeBracket = "Select age bracket"
-    @State private var selectedRelationship = "Select relationship"
-    @State private var selectedLikelihood = "Select likelihood"
+    @State private var selectedAgeBracket = "Select Age Bracket"
+    @State private var selectedRelationship = "Select Relationship"
+    @State private var selectedLikelihood = "Select Likelihood"
     
     enum Field: Hashable {
         case name
@@ -58,20 +58,20 @@ struct UploadContactView: View {
                     }
                 }
                 Section("Optional Information") {
-                    Picker("Likelihood to Email a Rep", selection: $selectedLikelihood) {
-                        Text("Select likelihood").tag("Select likelihood")
+                    Picker("Likelihood to Email an Elected Representative", selection: $selectedLikelihood) {
+                        Text("Select Likelihood").tag("Select Likelihood")
                         ForEach(likelihoods, id: \.self) { likelihood in
                             Text("\(likelihood)")
                         }
                     }
                     Picker("Age Bracket", selection: $selectedAgeBracket) {
-                        Text("Select age bracket").tag("Select age bracket")
+                        Text("Select Age Bracket").tag("Select Age Bracket")
                         ForEach(ageBrackets, id: \.self) { ageBracket in
                             Text("\(ageBracket)")
                         }
                     }
                     Picker("Relationship", selection: $selectedRelationship) {
-                        Text("Select relationship").tag("Select relationship")
+                        Text("Select Relationship").tag("Select Relationship")
                         ForEach(relationships, id: \.self) { relationship in
                             Text("\(relationship)")
                         }
