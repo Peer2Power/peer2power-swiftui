@@ -42,14 +42,14 @@ struct SettingsView: View {
                 }
                 Text("Questions or want to report a problem? Email lafayette@peer2power.org.")
             }
-            Section {
+            /* Section {
                 Button("Show End of Study Survey") {
                     showingEndOfStudySurvey.toggle()
                 }
                 .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
                     EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingBanner)
                 }
-            }
+            } */
             Section {
                 Button("Log Out", role: .destructive) {
                     showingLogOutAlert.toggle()
