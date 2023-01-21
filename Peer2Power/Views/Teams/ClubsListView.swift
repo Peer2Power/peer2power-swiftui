@@ -30,6 +30,7 @@ struct ClubsListView: View {
     @State private var selectedParty: Party = .selectParty
     
     @State private var showingJoinedTeamBanner = false
+    @State private var showingResendConfirmView = false
     
     @MainActor var searchResults: [DBTeam] {
         if searchText.isEmpty {
@@ -126,6 +127,14 @@ struct ClubsListView: View {
                            subTitle: "Your team received 1 point!")
             }
             if app.currentUser == nil {
+                if UserDefaults.standard.string(forKey: "joinTeamID") != nil {
+                    Button("Resend Confirmation Email") {
+                        showingResendConfirmView.toggle()
+                    }
+                    .sheet(isPresented: $showingResendConfirmView) {
+                        ResetOrResendView(currentAction: .constant(.resendConfirmation))
+                    }
+                }
                 Button("Already have an account or just confirmed your email address? Login.") {
                     showingLoginSheet.toggle()
                 }

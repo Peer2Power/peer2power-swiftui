@@ -66,7 +66,7 @@ struct LoginView: View {
                     showingPasswordResetForm.toggle()
                 }
                 .sheet(isPresented: $showingPasswordResetForm) {
-                    ForgotPasswordView()
+                    ResetOrResendView(currentAction: .constant(.passwordReset))
                 }
                 if loggingIn {
                     ProgressView {

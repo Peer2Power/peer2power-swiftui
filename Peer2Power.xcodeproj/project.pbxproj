@@ -12,7 +12,7 @@
 		000CD2C7289F974200A004FA /* ClubsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CD2C6289F974200A004FA /* ClubsListView.swift */; };
 		0026166828D530360070FF11 /* EndOfStudyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166728D530360070FF11 /* EndOfStudyTask.swift */; };
 		0026166A28D53CB60070FF11 /* EndOfStudySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */; };
-		0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */; };
+		0026167028D8F1890070FF11 /* ResetOrResendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026166F28D8F1890070FF11 /* ResetOrResendView.swift */; };
 		0026167C28E0E2A90070FF11 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026167B28E0E2A90070FF11 /* SignUpView.swift */; };
 		0026168428E4F8280070FF11 /* ConsentAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026168328E4F8270070FF11 /* ConsentAgreementView.swift */; };
 		003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003B1CF328EDB16D00672E42 /* CheckboxField.swift */; };
@@ -112,7 +112,7 @@
 		0026166728D530360070FF11 /* EndOfStudyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudyTask.swift; sourceTree = "<group>"; };
 		0026166928D53CB60070FF11 /* EndOfStudySurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfStudySurveyView.swift; sourceTree = "<group>"; };
 		0026166E28D763690070FF11 /* Peer2Power.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peer2Power.entitlements; sourceTree = "<group>"; };
-		0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		0026166F28D8F1890070FF11 /* ResetOrResendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetOrResendView.swift; sourceTree = "<group>"; };
 		0026167A28DB8B0F0070FF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0026167B28E0E2A90070FF11 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		0026168328E4F8270070FF11 /* ConsentAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentAgreementView.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			children = (
 				009CE53C2899F6B800796313 /* LoginView.swift */,
 				0026167B28E0E2A90070FF11 /* SignUpView.swift */,
-				0026166F28D8F1890070FF11 /* ForgotPasswordView.swift */,
+				0026166F28D8F1890070FF11 /* ResetOrResendView.swift */,
 				0026168328E4F8270070FF11 /* ConsentAgreementView.swift */,
 			);
 			path = Auth;
@@ -582,7 +582,7 @@
 				00BA93FF28AF1F5B00A434FF /* LogOutreachTask.swift in Sources */,
 				00C17F9628A8906400778E25 /* Team.swift in Sources */,
 				0094744F28C0323500D50140 /* SettingsView.swift in Sources */,
-				0026167028D8F1890070FF11 /* ForgotPasswordView.swift in Sources */,
+				0026167028D8F1890070FF11 /* ResetOrResendView.swift in Sources */,
 				00BA93FD28AF1AE600A434FF /* LogOutreachView.swift in Sources */,
 				0094744D28C0314300D50140 /* LeaderboardView.swift in Sources */,
 				003B1CF428EDB16D00672E42 /* CheckboxField.swift in Sources */,

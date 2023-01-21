@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 import AlertToast
 
-struct ForgotPasswordView: View {
+struct ResetOrResendView: View {
     @State private var email = ""
     @State private var isSending = false
     
@@ -21,8 +21,15 @@ struct ForgotPasswordView: View {
     
     @FocusState private var focusedField:Field?
     
+    @Binding var currentAction: Action
+    
     enum Field: Hashable {
         case email
+    }
+    
+    enum Action {
+        case passwordReset
+        case resendConfirmation
     }
     
     var body: some View {
@@ -40,8 +47,14 @@ struct ForgotPasswordView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     if !isSending {
-                        Button("Submit", action: sendPasswordResetEmail)
-                            .disabled(email.isEmpty)
+                        Button("Submit") {
+                            if currentAction == .passwordReset {
+                                sendPasswordResetEmail()
+                            } else if currentAction == .resendConfirmation {
+                                resendConfirmationEmail()
+                            }
+                        }
+                        .disabled(email.isEmpty)
                     } else {
                         ProgressView()
                     }
@@ -70,16 +83,23 @@ struct ForgotPasswordView: View {
                 }
             })
             .toast(isPresenting: $showingEmailSentAlert, duration: 4.0) {
-                AlertToast(displayMode: .banner(.pop),
-                           type: .complete(Color(uiColor: .systemGreen)),
-                           title: "Password Reset Email Sent",
-                           subTitle: "Check your inbox for an email with instructions.")
+                if currentAction == .passwordReset {
+                    AlertToast(displayMode: .banner(.pop),
+                               type: .complete(Color(uiColor: .systemGreen)),
+                               title: "Password Reset Email Sent",
+                               subTitle: "Check your inbox for an email with instructions.")
+                } else if currentAction == .resendConfirmation {
+                    AlertToast(displayMode: .banner(.pop),
+                               type: .complete(Color(uiColor: .systemGreen)),
+                               title: "Confirmation Email Resent",
+                               subTitle: "Check your inbox to confirm your email address.")
+                }
             }
         }
     }
 }
 
-extension ForgotPasswordView {
+extension ResetOrResendView {
     private func sendPasswordResetEmail() {
         focusedField = nil
         isSending.toggle()
@@ -96,10 +116,27 @@ extension ForgotPasswordView {
             }
         }
     }
+    
+    private func resendConfirmationEmail() {
+        focusedField = nil
+        isSending.toggle()
+        let client = app.emailPasswordAuth
+        
+        client.resendConfirmationEmail(email: email) { error in
+            isSending.toggle()
+            
+            if let error = error {
+                errorText = error.localizedDescription
+                showingErrorAlert.toggle()
+            } else {
+                showingEmailSentAlert.toggle()
+            }
+        }
+    }
 }
 
 struct ForgotPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ForgotPasswordView()
+        ResetOrResendView(currentAction: .constant(.passwordReset))
     }
 }
