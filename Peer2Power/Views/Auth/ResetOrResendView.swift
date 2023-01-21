@@ -122,7 +122,7 @@ extension ResetOrResendView {
         isSending.toggle()
         let client = app.emailPasswordAuth
         
-        client.resendConfirmationEmail(email: email) { error in
+        client.resendConfirmationEmail(email) { error in
             isSending.toggle()
             
             if let error = error {
