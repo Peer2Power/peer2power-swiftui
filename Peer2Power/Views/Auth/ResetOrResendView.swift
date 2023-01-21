@@ -83,17 +83,10 @@ struct ResetOrResendView: View {
                 }
             })
             .toast(isPresenting: $showingEmailSentAlert, duration: 4.0) {
-                if currentAction == .passwordReset {
-                    AlertToast(displayMode: .banner(.pop),
-                               type: .complete(Color(uiColor: .systemGreen)),
-                               title: "Password Reset Email Sent",
-                               subTitle: "Check your inbox for an email with instructions.")
-                } else if currentAction == .resendConfirmation {
-                    AlertToast(displayMode: .banner(.pop),
-                               type: .complete(Color(uiColor: .systemGreen)),
-                               title: "Confirmation Email Resent",
-                               subTitle: "Check your inbox to confirm your email address.")
-                }
+                AlertToast(displayMode: .banner(.pop),
+                           type: .complete(Color(uiColor: .systemGreen)),
+                           title: bannerTitle,
+                           subTitle: bannerMessage)
             }
         }
     }
@@ -132,6 +125,26 @@ extension ResetOrResendView {
                 showingEmailSentAlert.toggle()
             }
         }
+    }
+    
+    private var bannerTitle: String {
+        if currentAction == .passwordReset {
+            return "Password Reset Email Sent"
+        } else if currentAction == .resendConfirmation {
+            return "Confirmation Email Resent"
+        }
+        
+        return ""
+    }
+    
+    private var bannerMessage: String {
+        if currentAction == .passwordReset {
+            return "Check your inbox for an email with instructions."
+        } else if currentAction == .resendConfirmation {
+            return "Check your inbox to confirm your email address."
+        }
+        
+        return ""
     }
 }
 
