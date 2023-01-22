@@ -72,7 +72,7 @@ struct ResetOrResendView: View {
             }, message: {
                 Text("\(errorText)")
             })
-            .navigationTitle("Reset Password")
+            .navigationTitle(currentAction == .passwordReset ? "Reset Password" : "Resend Confirmation Email")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 focusedField = .email
