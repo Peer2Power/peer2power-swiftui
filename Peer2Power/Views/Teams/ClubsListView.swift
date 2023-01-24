@@ -147,7 +147,7 @@ struct ClubsListView: View {
 
 extension ClubsListView {
     private func fetchTeams() {
-        guard let url = URL(string: "\(mongoDataEndpoint)action/find") else { return }
+        guard let url = URL(string: "\(mongoDataEndpoint)/action/find") else { return }
         
         var request = URLRequest(url: url)
         
@@ -159,7 +159,6 @@ extension ClubsListView {
             "collection": "Team",
             "database": "govlab",
             "dataSource": "production",
-            "limit": 250,
             "sort": ["name": 1],
             "projection": ["_id": 1, "name": 1]
         ]
@@ -179,6 +178,7 @@ extension ClubsListView {
             guard let responseJSON = responseJSON as? [String: Any] else { return }
             
             guard let teams = responseJSON["documents"] as? [[String: Any]] else { return }
+            print("Got \(teams.count) teams.")
             
             teams.forEach { team in
                 guard let id = team["_id"] as? String else { return }
