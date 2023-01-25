@@ -49,6 +49,7 @@ struct LoginView: View {
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled(true)
                     .autocapitalization(.none)
+                    .focused($focusedField, equals: .email)
                     .textFieldStyle(.roundedBorder)
                     .onSubmit {
                         focusedField = .password
@@ -85,6 +86,8 @@ struct LoginView: View {
             }
             .padding(.horizontal, 15.0)
             .onAppear(perform: {
+                focusedField = .email
+                
                 if team_id != nil {
                     fetchTeamInfo()
                 }

@@ -109,7 +109,11 @@ struct SignUpView: View {
             .frame(maxWidth: .infinity)
             .navigationTitle("Sign Up")
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear(perform: fetchTeamInfo)
+            .onAppear(perform: {
+                focusedField = .email
+                
+                fetchTeamInfo()
+            })
             .onChange(of: userConsented, perform: { newValue in
                 focusedField = nil
             })

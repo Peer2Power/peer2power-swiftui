@@ -118,6 +118,9 @@ struct UploadContactView: View {
         .onChange(of: isAdult, perform: { newValue in
             focusedField = nil
         })
+        .onAppear {
+            focusedField = .name
+        }
     }
 }
 
