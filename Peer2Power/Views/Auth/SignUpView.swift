@@ -197,7 +197,7 @@ extension SignUpView {
         
         let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        guard trimmedEmail.hasSuffix(".edu") else {
+        guard trimmedEmail.range(of: "lafayette.edu", options: .caseInsensitive) != nil else {
             showingNotAcademicEmailErrorAlert.toggle()
             return
         }
@@ -235,7 +235,7 @@ extension SignUpView {
     }
     
     private func fetchTeamInfo() {
-        guard let url = URL(string: "\(mongoDataEndpoint)action/findOne") else { return }
+        guard let url = URL(string: "\(mongoDataEndpoint)/action/findOne") else { return }
         
         var request = URLRequest(url: url)
         

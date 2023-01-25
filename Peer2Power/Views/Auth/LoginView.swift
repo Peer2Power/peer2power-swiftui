@@ -13,6 +13,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var loggingIn = false
     @State private var showingPasswordResetForm = false
+    @State private var showingResendConfirmEmailForm = false
     @State private var showingSignUpSheet = false
     
     @State private var showingErrorAlert = false
@@ -71,6 +72,14 @@ struct LoginView: View {
                 if loggingIn {
                     ProgressView {
                         Text("Logging in...")
+                    }
+                }
+                if UserDefaults.standard.string(forKey: "joinTeamID") != nil {
+                    Button("Resend Confirmation Email") {
+                        showingResendConfirmEmailForm.toggle()
+                    }
+                    .sheet(isPresented: $showingResendConfirmEmailForm) {
+                        ResetOrResendView(currentAction: .constant(.resendConfirmation))
                     }
                 }
             }
@@ -216,7 +225,7 @@ extension LoginView {
     }
     
     private func fetchTeamInfo() {
-        guard let url = URL(string: "\(mongoDataEndpoint)action/findOne") else { return }
+        guard let url = URL(string: "\(mongoDataEndpoint)/action/findOne") else { return }
         
         var request = URLRequest(url: url)
         
