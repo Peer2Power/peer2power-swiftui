@@ -49,6 +49,10 @@ struct UploadContactView: View {
                     .textContentType(.name)
                     .autocapitalization(.words)
                     .focused($focusedField, equals: .name)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .email
+                    }
                 TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
                     .keyboardType(.emailAddress)
                     .focused($focusedField, equals: .email)
