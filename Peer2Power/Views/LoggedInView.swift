@@ -30,6 +30,7 @@ struct LoggedInView: View {
             NavigationView {
                 ClubsListView()
                     .navigationTitle(app.currentUser == nil ? "Sign Up" : "Choose a Club Team")
+                    .navigationViewStyle(StackNavigationViewStyle())
             }
         } else {
             TabView {

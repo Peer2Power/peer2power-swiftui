@@ -123,6 +123,7 @@ struct ClubsListView: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .navigationViewStyle(.columns)
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a club to sign up for")
             .sheet(isPresented: $showingLoginSheet) {
                 NavigationView {
@@ -162,6 +163,8 @@ struct ClubsListView: View {
 
 extension ClubsListView {
     private func fetchTeams() {
+        guard dbTeams.isEmpty else { return }
+        
         guard let url = URL(string: "\(mongoDataEndpoint)/action/find") else { return }
         
         var request = URLRequest(url: url)
@@ -200,6 +203,10 @@ extension ClubsListView {
                 guard let name = team["name"] as? String else { return }
                 
                 let toInsert = DBTeam(id: id, name: name)
+                
+                guard !dbTeams.contains(where: { predTeam in
+                    predTeam.id == id
+                }) else { return }
                 dbTeams.append(toInsert)
             }
             
