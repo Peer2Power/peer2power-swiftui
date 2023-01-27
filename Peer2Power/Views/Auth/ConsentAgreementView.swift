@@ -13,7 +13,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
     
     private func generateConsentDocument() -> ORKConsentDocument {
         let consentDocument = ORKConsentDocument()
-        consentDocument.title = "Peer2Power: Grassroots Lobbying Informed Consent Agreement"
+        consentDocument.title = "Peer2Power: Grassroots Lobbying"
         
         let section1 = ORKConsentSection(type: .overview)
         section1.title = "Key Information"
@@ -95,7 +95,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         func taskViewController(_ taskViewController: ORKTaskViewController, stepViewControllerWillAppear stepViewController: ORKStepViewController) {
             stepViewController.cancelButtonItem = nil
-            stepViewController.title = "Consent Agreement"
+            stepViewController.title = "Informed Consent Agreement"
         }
         
         func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
