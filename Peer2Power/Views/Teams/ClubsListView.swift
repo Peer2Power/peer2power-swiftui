@@ -19,6 +19,9 @@ struct DBTeam: Identifiable, Codable {
 }
 
 struct ClubsListView: View {
+    @State private var fetchingTeams = true
+    @State private var fetchProgress: Double = 0
+    
     @State private var dbTeams: [DBTeam] = [DBTeam]()
     
     @State private var searchText = ""
@@ -31,6 +34,8 @@ struct ClubsListView: View {
     
     @State private var showingJoinedTeamBanner = false
     @State private var showingResendConfirmView = false
+    
+    private var observation: NSKeyValueObservation?
     
     @MainActor var searchResults: [DBTeam] {
         if searchText.isEmpty {
@@ -95,15 +100,25 @@ struct ClubsListView: View {
                         }
                     }
                 } else {
-                    VStack(spacing: 10.0) {
-                        Text("No Teams Found")
-                            .font(.title)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 15)
-                        Text("No teams could be found. Please change your search terms and try again.")
-                            .font(.callout)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 15)
+                    if fetchingTeams {
+                        HStack {
+                            Spacer()
+                            ProgressView {
+                                Text("Fetching teams...")
+                            }
+                            Spacer()
+                        }
+                    } else {
+                        VStack(spacing: 10.0) {
+                            Text("No Teams Found")
+                                .font(.title)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 15)
+                            Text("No teams could be found. Please change your search terms and try again.")
+                                .font(.callout)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 15)
+                        }
                     }
                 }
             }
@@ -187,6 +202,8 @@ extension ClubsListView {
                 let toInsert = DBTeam(id: id, name: name)
                 dbTeams.append(toInsert)
             }
+            
+            fetchingTeams = false
         }
         
         task.resume()
