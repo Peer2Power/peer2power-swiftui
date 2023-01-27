@@ -13,10 +13,11 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
     
     private func generateConsentDocument() -> ORKConsentDocument {
         let consentDocument = ORKConsentDocument()
+        consentDocument.title = "Peer2Power: Grassroots Lobbying Informed Consent Agreement"
         
         let section1 = ORKConsentSection(type: .overview)
         section1.title = "Key Information"
-        section1.content = "We are seeking your consent to participate in a non-partisan, voluntary study of civic engagement and political participation. You were invited to this survey because you are connected to a campus community. Participating in this study should involve no more than the minimal risks of political volunteering work in congressional campaigns and/or responding to political surveys. You will not receive direct benefits for participating in this study, but your participation will improve our understanding of American politics and help college students interested in public service."
+        section1.content = "We are seeking your consent to participate in a non-partisan, voluntary study of grassroots lobbying. You were invited to this survey because you are connected to a campus community. Participating in this study should involve no more than the minimal risks of sending emails to elected representatives and/or responding to political surveys. You will not receive direct benefits for participating in this study, but your participation will improve our understanding of American politics and help college students interested in public service."
         
         let section2 = ORKConsentSection(type: .custom)
         section2.title = "Eligibility"
@@ -28,11 +29,11 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section4 = ORKConsentSection(type: .custom)
         section4.title = "Procedures"
-        section4.content = "The study will run between Wednesday, November 16th and Saturday, December 31st."
+        section4.content = "The study will run between Tuesday, February 7th and Friday, April, 28th."
         
         let section5 = ORKConsentSection(type: .custom)
         section5.title = "Risks"
-        section5.content = "This study is expected to involve no more than the minimal risks of volunteering for a political campaign and/or completing a political survey."
+        section5.content = "This study is expected to involve no more than the minimal risks of sending an email to an elected representative and/or completing a political survey."
         
         let section6 = ORKConsentSection(type: .custom)
         section6.title = "Benefits"
