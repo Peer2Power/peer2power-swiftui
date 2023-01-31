@@ -96,9 +96,6 @@ extension SettingsView {
                 print("Subtracted a point from this team's score.")
                 
                 for contact in team.contacts.filter("owner_id = %@", app.currentUser!.id) {
-                    realm.delete(contact)
-                    team.score -= 2
-                    
                     for outreachAttempt in team.outreachAttempts.filter("to = %@", contact.contact_id) {
                         let volunteerStatus = outreachAttempt.volunteerStatus
                         realm.delete(outreachAttempt)
@@ -114,6 +111,9 @@ extension SettingsView {
                         }
                     }
                     
+                    realm.delete(contact)
+                    team.score -= 2
+
                     print("Deleted a contact and subtracted two points.")
                 }
                 
