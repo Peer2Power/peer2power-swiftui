@@ -183,8 +183,8 @@ extension ClubsListView {
         let bodyData = try? JSONSerialization.data(withJSONObject: bodyJSON)
         
         request.httpBody = bodyData
-        
         request.httpMethod = "POST"
+        request.cachePolicy = .returnCacheDataElseLoad
        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
