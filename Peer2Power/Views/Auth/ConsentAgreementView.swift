@@ -13,7 +13,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
     
     private func generateConsentDocument() -> ORKConsentDocument {
         let consentDocument = ORKConsentDocument()
-        consentDocument.title = "Peer2Power: Grassroots Lobbying"
+        consentDocument.title = "The Peer2Power Study"
         
         let section1 = ORKConsentSection(type: .overview)
         section1.title = "Key Information"
@@ -25,11 +25,11 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section3 = ORKConsentSection(type: .studySurvey)
         section3.title = "Purpose"
-        section3.content = "The purpose of this study is to assess the most effective means of recruiting volunteers to political campaigns. The anonymized information we gather from this study will be used to shape class discussion, to advise college students interested in electoral politics, and to conduct research on American campaigns."
+        section3.content = "The purpose of this study is to better understand the motives and experiences of civic engagement. The information we gather from this study will be used to shape class discussion, to advise college students interested in American politics, and to conduct research on political mobilization."
         
         let section4 = ORKConsentSection(type: .custom)
         section4.title = "Procedures"
-        section4.content = "The study will run between Tuesday, February 7th and Friday, April, 28th."
+        section4.content = "The study will run between Tuesday, February 7th, 2023 and Friday, April, 28th, 2023."
         
         let section5 = ORKConsentSection(type: .custom)
         section5.title = "Risks"
@@ -49,7 +49,7 @@ struct ConsentAgreementView: UIViewControllerRepresentable {
         
         let section9 = ORKConsentSection(type: .dataUse)
         section9.title = "Confidentiality"
-        section9.content = "The information you give in this study will not be encrypted while the study is running. This is because we will need the email addresses of contacts assigned to the generic contact group to send them general information about volunteering for political campaigns. Once the study is complete, we will delete all identifiable information. Any data exported for analysis will remain anonymous, and we will not share your data with any third-party groups or organizations. If any publication results from this research, you will not be identified by name."
+        section9.content = "The information you give in this study will not be encrypted while the study is running. This is because we will need the email addresses of contacts assigned to the generic contact group to send them general information about contacting elected representatives. Once the study is complete, we will delete all identifiable information. Any data exported for analysis will remain anonymous, and we will not share your data with any third-party groups or organizations. If any publication results from this research, you will not be identified by name."
         
         let section10 = ORKConsentSection(type: .withdrawing)
         section10.title = "Statement of Rights"
