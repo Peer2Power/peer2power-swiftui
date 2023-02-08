@@ -75,7 +75,9 @@ struct LoggedInView: View {
             })
             .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
                 EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
-                    .ignoresSafeArea()
+                    .ignoresSafeArea(.container, edges: .bottom)
+                    .ignoresSafeArea(.container, edges: .top)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
             }
             .alert("Major Error", isPresented: $showingFatalErrorAlert, actions: {
                 Button("OK", role: .cancel, action: {})
