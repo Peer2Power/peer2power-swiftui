@@ -34,6 +34,8 @@ struct ClubsListView: View {
     
     @State private var showingJoinedTeamBanner = false
     @State private var showingResendConfirmView = false
+    @State private var showingConfirmLogOutAlert = false
+    @State private var showingConfirmTeamSelectionAlert = false
     
     private var observation: NSKeyValueObservation?
     
@@ -136,6 +138,34 @@ struct ClubsListView: View {
                                teamSelected: $showingLoginSheet)
                 }
             })
+            .alert("Are you sure you want to log out?", isPresented: $showingConfirmLogOutAlert, actions: {
+                Button("Cancel", role: .cancel, action: {})
+                Button("Log Out", role: .destructive) {
+                    if let currentUser = app.currentUser {
+                        currentUser.logOut(completion: { error in
+                            if error == nil {
+                                print("Logged the current user out successfully.")
+                            } else {
+                                print("An error occurred while logging out the user: \(error?.localizedDescription)")
+                            }
+                        })
+                    }
+                }
+            })
+            .alert("Are you sure you want to join this team?", isPresented: $showingConfirmTeamSelectionAlert, actions: {
+                Button("Cancel", role: .cancel, action: {})
+                Button("Join") {
+                    do {
+                        let objectId = try ObjectId(string: selectedTeamID)
+                        
+                        getRealmToAddUserToTeam(with: objectId)
+                    } catch {
+                        print("Error creating object ID: \(error.localizedDescription)")
+                    }
+                }
+            }, message: {
+                Text("You won't be able to change your team after you join.")
+            })
             .toast(isPresenting: $showingJoinedTeamBanner) {
                 AlertToast(displayMode: .banner(.pop),
                            type: .complete(Color(uiColor: .systemGreen)),
@@ -155,6 +185,10 @@ struct ClubsListView: View {
                     showingLoginSheet.toggle()
                 }
                 .padding(.horizontal, 15)
+            } else {
+                Button("Log Out", role: .destructive) {
+                    showingConfirmLogOutAlert.toggle()
+                }
             }
         }
         .onAppear(perform: fetchTeams)
@@ -221,13 +255,9 @@ extension ClubsListView {
             return
         }
         
-        do {
-            let objectId = try ObjectId(string: team.id)
-            
-            getRealmToAddUserToTeam(with: objectId)
-        } catch {
-            print("Error creating object ID: \(error.localizedDescription)")
-        }
+        showingConfirmTeamSelectionAlert.toggle()
+        
+        
     }
     
     func getRealmToAddUserToTeam(with id: ObjectId) {
