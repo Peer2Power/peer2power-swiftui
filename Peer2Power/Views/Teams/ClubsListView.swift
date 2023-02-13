@@ -256,8 +256,6 @@ extension ClubsListView {
         }
         
         showingConfirmTeamSelectionAlert.toggle()
-        
-        
     }
     
     func getRealmToAddUserToTeam(with id: ObjectId) {
