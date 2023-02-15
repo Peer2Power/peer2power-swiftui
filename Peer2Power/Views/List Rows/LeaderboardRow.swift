@@ -20,9 +20,19 @@ struct LeaderboardRow: View {
                     .font(.title2)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
-                Text(team.name)
-                    .font(.title2)
-                    .multilineTextAlignment(.leading)
+                VStack(alignment: .leading, spacing: 5.0) {
+                    Text(team.name)
+                        .font(.title2)
+                        .multilineTextAlignment(.leading)
+                    
+                    if team.member_ids.contains(where: { id in
+                        return id == app.currentUser?.id
+                    }) {
+                        Text("Your Team".uppercased())
+                            .foregroundColor(Color(uiColor: .systemBlue))
+                            .multilineTextAlignment(.leading)
+                    }
+                }
             }
             Spacer()
             Text(team.score == 1 ? "1 point" : "\(team.score) points")
