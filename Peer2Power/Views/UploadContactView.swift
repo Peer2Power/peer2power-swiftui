@@ -155,7 +155,7 @@ extension UploadContactView {
         let randomInt = Int.random(in: 0...1)
         contact.group = randomInt
         
-        if randomInt == 1 {
+        if contact.group == 1 {
             print("Contact was assigned to the treatment group.")
         } else {
             print("Contact was assigned to the control group.")
@@ -169,7 +169,10 @@ extension UploadContactView {
             try realm.write {
                 team.score += 2
                 print("Awarded 2 points for uploading a contact.")
-                showingContactUploadedBanner.toggle()
+                
+                if contact.group == 1 {
+                    showingContactUploadedBanner.toggle()
+                }
                 
                 dismiss()
             }

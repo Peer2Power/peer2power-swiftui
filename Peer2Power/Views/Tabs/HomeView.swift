@@ -124,10 +124,11 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fit)
                 }
             }
-            .alert("Contact Not Visible", isPresented: $showingControlGroupAlert) {
-                Button("OK", role: .cancel, action: {})
-            } message: {
-                Text("\(lastContactName) was randomly assigned to not be recruited to email an elected representative, so you will not see them in your contacts list. Your team still received 2 points for uploading this contact.")
+            .toast(isPresenting: $showingControlGroupAlert, duration: 4.0) {
+                AlertToast(displayMode: .banner(.pop),
+                           type: .regular,
+                           title: "Contact Not Visible",
+                           subTitle: "\(lastContactName) was randomly assigned to not be contacted. 2 points were still awarded.")
             }
             .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
                 AlertToast(displayMode: .banner(.pop),
