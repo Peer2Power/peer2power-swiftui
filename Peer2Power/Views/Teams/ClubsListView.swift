@@ -30,7 +30,6 @@ struct ClubsListView: View {
     @State private var showingSignUpSheet = false
     
     @State private var selectedTeamID = ""
-    @State private var selectedParty: Party = .selectParty
     
     @State private var showingJoinedTeamBanner = false
     @State private var showingResendConfirmView = false
