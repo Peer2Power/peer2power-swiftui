@@ -37,8 +37,6 @@ struct ClubsListView: View {
     @State private var showingConfirmLogOutAlert = false
     @State private var showingConfirmTeamSelectionAlert = false
     
-    private var observation: NSKeyValueObservation?
-    
     @MainActor var searchResults: [DBTeam] {
         if searchText.isEmpty {
             return dbTeams.sorted { $0.name.uppercased() < $1.name.uppercased() }
