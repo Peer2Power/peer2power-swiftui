@@ -63,13 +63,13 @@ struct OutreachAttemptsListView: View {
                     }
                     .toast(isPresenting: $showingAttemptLoggedBanner, duration: 4.0) {
                         AlertToast(displayMode: .banner(.pop),
-                                   type: .complete(Color(uiColor: .systemGreen)),
+                                   type: .complete(Color(.systemGreen)),
                                    title: "Outreach Attempt Logged!",
                                    subTitle: "Your team received 4 points!")
                     }
                     .toast(isPresenting: $showingDidVolunteerBanner, duration: 4.0) {
                         AlertToast(displayMode: .banner(.pop),
-                                   type: .complete(Color(uiColor: .systemGreen)),
+                                   type: .complete(Color(.systemGreen)),
                                    title: "Outreach Attempt Logged!",
                                    subTitle: "Your team received 7 points!")
                     }

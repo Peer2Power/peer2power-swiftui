@@ -165,7 +165,7 @@ struct ClubsListView: View {
             })
             .toast(isPresenting: $showingJoinedTeamBanner) {
                 AlertToast(displayMode: .banner(.pop),
-                           type: .complete(Color(uiColor: .systemGreen)),
+                           type: .complete(Color(.systemGreen)),
                            title: "Points Received!",
                            subTitle: "Your team received 1 point!")
             }

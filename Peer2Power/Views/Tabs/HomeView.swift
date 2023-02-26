@@ -132,7 +132,7 @@ struct HomeView: View {
             }
             .toast(isPresenting: $showingContactUploadedBanner, duration: 4.0) {
                 AlertToast(displayMode: .banner(.pop),
-                           type: .complete(Color(uiColor: .systemGreen)),
+                           type: .complete(Color(.systemGreen)),
                            title: "Contact Uploaded",
                            subTitle: "Your team received 2 points!")
             }

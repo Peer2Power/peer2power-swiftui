@@ -15,7 +15,7 @@ struct UploadContactView: View {
     
     @ObservedRealmObject var userTeam: Team
     
-    @ObservedRealmObject var contact: Contact
+    var contact: Contact
     
     var isUpdating: Bool {
         contact.realm != nil
@@ -35,6 +35,9 @@ struct UploadContactView: View {
     @State private var selectedRelationship = "Select Relationship"
     @State private var selectedLikelihood = "Select Likelihood"
     
+    @State private var contactName: String = ""
+    @State private var contactEmail: String = ""
+    
     enum Field: Hashable {
         case name
         case email
@@ -45,17 +48,39 @@ struct UploadContactView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Name", text: $contact.name)
-                    .textContentType(.name)
-                    .autocapitalization(.words)
-                    .focused($focusedField, equals: .name)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .email
+                HStack(alignment: .center) {
+                    TextField("Name", text: $contactName)
+                        .textContentType(.name)
+                        .autocapitalization(.words)
+                        .focused($focusedField, equals: .name)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            focusedField = .email
+                        }
+                    if focusedField == .name {
+                        Button {
+                            contactName = ""
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(Color(.systemGray2))
+                        }
                     }
-                TextField("Email", text: $contact.email).textContentType(.emailAddress).autocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                    .focused($focusedField, equals: .email)
+                }
+                .buttonStyle(.plain)
+                HStack(alignment: .center) {
+                    TextField("Email", text: $contactEmail).textContentType(.emailAddress).autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                        .focused($focusedField, equals: .email)
+                    if focusedField == .email {
+                        Button {
+                            contactEmail = ""
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(Color(.systemGray2))
+                        }
+                    }
+                }
+                .buttonStyle(.plain)
                 if !isUpdating {
                     Toggle(isOn: $isAdult) {
                         Text("I certify that this person is 18 or older.")
@@ -93,7 +118,7 @@ struct UploadContactView: View {
                             uploadNewContact()
                         }
                     }
-                    .disabled(contact.name.isEmpty || contact.email.isEmpty || !isAdult)
+                    .disabled(contactName.isEmpty || contactEmail.isEmpty || !isAdult)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     if !isUpdating {
@@ -117,7 +142,7 @@ struct UploadContactView: View {
                isPresented: $showingInvalidEmailAlert) {
             Button("OK", role: .cancel, action: {})
         } message: {
-            Text("The email address you provided for your contact is invalid. Please enter a revised email address and try again.")
+            Text("The email address you provided for your contact is invalid. Please enter a valid email address and try again.")
         }
         .onChange(of: isAdult, perform: { newValue in
             focusedField = nil
@@ -137,12 +162,12 @@ extension UploadContactView {
     }
     
     private func uploadNewContact() {
-        guard isValidEmail(contact.email) else {
+        guard isValidEmail(contactEmail) else {
             showingInvalidEmailAlert.toggle()
             return
         }
         
-        guard userTeam.contacts.filter("email = %@", contact.email).isEmpty else {
+        guard userTeam.contacts.filter("email = %@", contactEmail).isEmpty else {
             showingDuplicateContactAlert.toggle()
             return
         }
@@ -151,6 +176,8 @@ extension UploadContactView {
         contact.volunteerLikelihood = selectedLikelihood
         contact.ageBracket = selectedAgeBracket
         contact.relationship = selectedRelationship
+        contact.name = contactName
+        contact.email = contactEmail
         
         let randomInt = Int.random(in: 0...1)
         contact.group = randomInt

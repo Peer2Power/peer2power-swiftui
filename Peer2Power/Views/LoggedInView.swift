@@ -85,7 +85,7 @@ struct LoggedInView: View {
                 Text("A major error has occurred. Please force quit the app and reopen it.")
             })
             .toast(isPresenting: $showingSurveyResponseUploadedBanner, duration: 4) {
-                AlertToast(displayMode: .banner(.pop), type: .complete(Color(uiColor: .systemGreen)), title: "Response Uploaded!", subTitle: "Your team received 12 points!")
+                AlertToast(displayMode: .banner(.pop), type: .complete(Color(.systemGreen)), title: "Response Uploaded!", subTitle: "Your team received 12 points!")
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {

@@ -84,7 +84,7 @@ struct ResetOrResendView: View {
             })
             .toast(isPresenting: $showingEmailSentAlert, duration: 4.0) {
                 AlertToast(displayMode: .banner(.pop),
-                           type: .complete(Color(uiColor: .systemGreen)),
+                           type: .complete(Color(.systemGreen)),
                            title: bannerTitle,
                            subTitle: bannerMessage)
             }

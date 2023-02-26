@@ -29,7 +29,7 @@ struct LeaderboardRow: View {
                         return id == app.currentUser?.id
                     }) {
                         Text("Your Team".uppercased())
-                            .foregroundColor(Color(uiColor: .systemBlue))
+                            .foregroundColor(Color(.systemBlue))
                             .multilineTextAlignment(.leading)
                     }
                 }
