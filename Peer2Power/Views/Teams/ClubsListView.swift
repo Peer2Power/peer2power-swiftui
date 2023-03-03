@@ -149,7 +149,7 @@ struct ClubsListView: View {
                     }
                 }
             })
-            .alert("Are you sure you want to join this team?", isPresented: $showingConfirmTeamSelectionAlert, actions: {
+            .alert("Are you sure you want to join \(selectedTeamName)?", isPresented: $showingConfirmTeamSelectionAlert, actions: {
                 Button("Cancel", role: .cancel, action: {})
                 Button("Join") {
                     do {
@@ -306,6 +306,17 @@ extension ClubsListView {
     func awardPointForSignUp(to team: Team) {
         team.score += 1
         showingJoinedTeamBanner.toggle()
+    }
+    
+    private var selectedTeamName: String {
+        guard !selectedTeamID.isEmpty else { return "" }
+        guard !dbTeams.isEmpty else { return "" }
+        
+        guard let selectedTeam = dbTeams.first(where: { team in
+            return team.id == selectedTeamID
+        }) else { return "" }
+        
+        return selectedTeam.name
     }
 }
  
