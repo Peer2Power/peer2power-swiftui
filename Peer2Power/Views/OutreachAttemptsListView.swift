@@ -50,6 +50,7 @@ struct OutreachAttemptsListView: View {
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
             }
             .padding(.horizontal, 15.0)
+            .navigationTitle(contact.name)
             .navigationBarTitleDisplayMode(.inline)
         } else {
             VStack {
