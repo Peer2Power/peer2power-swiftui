@@ -23,6 +23,10 @@ struct OutreachAttemptsListView: View {
     @State private var showingAttemptLoggedBanner = false
     @State private var showingDidVolunteerBanner = false
     
+    @State private var showingOutreachSteps = false
+    
+    private let imageNames = ["OutreachStep1", "OutreachStep2", "OutreachStep3"]
+    
     @Environment(\.realm) var realm
     
     var body: some View {
@@ -35,6 +39,15 @@ struct OutreachAttemptsListView: View {
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 20)
+                TabView {
+                    ForEach(imageNames, id: \.self) { name in
+                        Image(name)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                }
+                .tabViewStyle(.page)
+                .indexViewStyle(.page(backgroundDisplayMode: .always))
             }
             .padding(.horizontal, 15.0)
             .navigationBarTitleDisplayMode(.inline)
@@ -73,19 +86,38 @@ struct OutreachAttemptsListView: View {
                                    title: "Outreach Attempt Logged!",
                                    subTitle: "Your team received 7 points!")
                     }
+                    Button("Show Outreach Steps") {
+                        showingOutreachSteps.toggle()
+                    }
+                    .sheet(isPresented: $showingOutreachSteps) {
+                        if #available(iOS 16.0, *) {
+                            TabView {
+                                ForEach(imageNames, id: \.self) { name in
+                                    Image(name)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                            }
+                            .tabViewStyle(.page)
+                            .indexViewStyle(.page(backgroundDisplayMode: .always))
+                            .presentationDetents([.medium, .large])
+                        } else {
+                            // Fallback on earlier versions
+                            
+                            TabView {
+                                ForEach(imageNames, id: \.self) { name in
+                                    Image(name)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                            }
+                            .tabViewStyle(.page)
+                            .indexViewStyle(.page(backgroundDisplayMode: .always))
+                        }
+                    }
                 }
             }
         }
-        // Used for disabling logging of attempts after a contact has been marked as having already volunteered. For emailing reps, users should be able to log multiple instances of volunteering (sending an email).
-        /* if !team.outreachAttempts.filter("to = %@", contact.contact_id).filter("volunteerStatus = %@", "I have confirmed that they volunteered.").isEmpty {
-            Text("This contact volunteered.")
-                .multilineTextAlignment(.center)
-        }
-        if !team.endOfStudyResponses.filter("%@ in contact_ids", contact.contact_id.stringValue).isEmpty {
-            Text("A team member already marked this contact as a confirmed volunteer.")
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 15)
-        } */
         Button {
             presentingLogOutreachForm.toggle()
         } label: {
@@ -99,23 +131,6 @@ struct OutreachAttemptsListView: View {
                 .ignoresSafeArea(.container, edges: .top)
                 .ignoresSafeArea(.keyboard, edges: .bottom)
         }
-        // HStack {
-            
-            // FIXME: give this button functionality.
-            /*
-            Spacer()
-            Button {
-                presentingEditContactInfoForm.toggle()
-            } label: {
-                Label("Edit Contact Info", systemImage: "person.text.rectangle")
-            }
-            .buttonStyle(.bordered)
-            .sheet(isPresented: $presentingEditContactInfoForm) {
-                UploadContactView(userTeam: team)
-            }
-            */
-        /* }
-        .padding(.horizontal, 15.0) */
     }
 }
 
