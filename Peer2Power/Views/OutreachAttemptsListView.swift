@@ -89,7 +89,7 @@ struct OutreachAttemptsListView: View {
                             if requests.contains(where: { request in
                                 return request.identifier == outreachAttemptNotifIdentifier
                             }) {
-                                removeUploadReminderNotification()
+                                removeOutreachAttemptReminderNotification()
                             }
                         }
                     })

@@ -163,7 +163,7 @@ extension LoggedInView {
                         return
                     }
                     
-                    print("Scheduled reminder notification.")
+                    print("Scheduled upload contact reminder notification.")
                 }
             }
         }
@@ -181,12 +181,12 @@ extension LoggedInView {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
-        let request = UNNotificationRequest(identifier: uploadReminderNotifIdentifier, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: outreachAttemptNotifIdentifier, content: content, trigger: trigger)
         
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getPendingNotificationRequests { requests in
             if !requests.contains(where: { request in
-                return request.identifier == uploadReminderNotifIdentifier
+                return request.identifier == outreachAttemptNotifIdentifier
             }) {
                 print("Adding scheduled reminder notification...")
                 notificationCenter.add(request) { error in
@@ -195,7 +195,7 @@ extension LoggedInView {
                         return
                     }
                     
-                    print("Scheduled reminder notification.")
+                    print("Scheduled outreach attempt reminder notification.")
                 }
             }
         }
