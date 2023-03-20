@@ -65,7 +65,7 @@ struct HomeView: View {
                     } else {
                         List {
                             Section {
-                                ForEach(userTeam.contacts.sorted(by: \Contact.name, ascending: false).filter("group = %i", 1)) { contact in
+                                ForEach(userTeam.contacts.sorted(by: \Contact.name, ascending: true).filter("group = %i", 1)) { contact in
                                     NavigationLink {
                                         OutreachAttemptsListView(contact: contact, team: userTeam)
                                     } label: {
@@ -160,7 +160,7 @@ extension HomeView {
         do {
             try realm.write {
                 for i in offsets {
-                    let filteredContacts = team.contacts.filter("group = %i", 1).sorted(by: \Contact.name, ascending: false)
+                    let filteredContacts = team.contacts.filter("group = %i", 1).sorted(by: \Contact.name, ascending: true)
                     let contactToDelete = filteredContacts[i]
                     
                     guard contactToDelete.owner_id == app.currentUser!.id else {
