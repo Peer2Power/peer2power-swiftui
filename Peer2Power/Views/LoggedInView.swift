@@ -19,8 +19,6 @@ struct LoggedInView: View {
     @State private var showingSurveyResponseUploadedBanner = false
     @State private var showingFatalErrorAlert = false
     
-    let reminderNotificationIdentifier = "uploadReminder"
-    
     @ObservedResults(Team.self,
                      where: {$0.member_ids.contains(app.currentUser!.id)})
     var teams
@@ -137,12 +135,12 @@ extension LoggedInView {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
-        let request = UNNotificationRequest(identifier: reminderNotificationIdentifier, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: uploadReminderNotifIdentifier, content: content, trigger: trigger)
         
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getPendingNotificationRequests { requests in
             if !requests.contains(where: { request in
-                return request.identifier == reminderNotificationIdentifier
+                return request.identifier == uploadReminderNotifIdentifier
             }) {
                 print("Adding scheduled reminder notification...")
                 notificationCenter.add(request) { error in
