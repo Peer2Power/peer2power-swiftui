@@ -19,6 +19,8 @@ struct LoggedInView: View {
     @State private var showingSurveyResponseUploadedBanner = false
     @State private var showingFatalErrorAlert = false
     
+    let reminderNotificationIdentifier = "uploadReminder"
+    
     @ObservedResults(Team.self,
                      where: {$0.member_ids.contains(app.currentUser!.id)})
     var teams
@@ -90,11 +92,13 @@ struct LoggedInView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     checkEndOfStudyAvailability()
+                    scheduleReminderNotification()
                 }
             }
             .onAppear {
                 checkEndOfStudyAvailability()
                 addSyncErrorHandler()
+                scheduleReminderNotification()
             }
         }
     }
@@ -119,6 +123,38 @@ extension LoggedInView {
         guard !pastSurveyCloseDate else { return }
         
         showPromptIfAllowed()
+    }
+    
+    private func scheduleReminderNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder to Upload Contacts!"
+        content.body = "Remember to upload some contacts you want to encourage to email their elected representatives!"
+        
+        var dateComponents = DateComponents()
+        dateComponents.calendar = .current
+        dateComponents.weekday = 4 // Wednesday
+        dateComponents.hour = 12 // 12:00 hours
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: reminderNotificationIdentifier, content: content, trigger: trigger)
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getPendingNotificationRequests { requests in
+            if !requests.contains(where: { request in
+                return request.identifier == reminderNotificationIdentifier
+            }) {
+                print("Adding scheduled reminder notification...")
+                notificationCenter.add(request) { error in
+                    guard error == nil else {
+                        print("Error scheduling reminder notification: \(error?.localizedDescription)")
+                        return
+                    }
+                    
+                    print("Scheduled reminder notification.")
+                }
+            }
+        }
     }
     
     private func showPromptIfAllowed() {
