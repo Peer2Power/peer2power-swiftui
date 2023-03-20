@@ -90,12 +90,14 @@ struct LoggedInView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     checkEndOfStudyAvailability()
+                    requestNotificationPermissions()
                     scheduleReminderNotification()
                 }
             }
             .onAppear {
                 checkEndOfStudyAvailability()
                 addSyncErrorHandler()
+                requestNotificationPermissions()
                 scheduleReminderNotification()
             }
         }
@@ -121,6 +123,16 @@ extension LoggedInView {
         guard !pastSurveyCloseDate else { return }
         
         showPromptIfAllowed()
+    }
+    
+    private func requestNotificationPermissions() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            guard error == nil else {
+                print("Error requesting notification permission: \(error?.localizedDescription)")
+                return
+            }
+        }
     }
     
     private func scheduleReminderNotification() {

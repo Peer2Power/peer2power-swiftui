@@ -136,6 +136,18 @@ struct HomeView: View {
                            title: "Contact Uploaded",
                            subTitle: "Your team received 2 points!")
             }
+            .onChange(of: showingContactUploadedBanner) { newValue in
+                guard newValue == true else { return }
+                
+                let notificationCenter = UNUserNotificationCenter.current()
+                notificationCenter.getPendingNotificationRequests { requests in
+                    if requests.contains(where: { request in
+                        return request.identifier == uploadReminderNotifIdentifier
+                    }) {
+                        removeUploadReminderNotification()
+                    }
+                }
+            }
         }
     }
 }
@@ -148,7 +160,7 @@ extension HomeView {
         do {
             try realm.write {
                 for i in offsets {
-                    let filteredContacts = team.contacts.filter("group = %i", 1)
+                    let filteredContacts = team.contacts.filter("group = %i", 1).sorted(by: \Contact.name, ascending: false)
                     let contactToDelete = filteredContacts[i]
                     
                     guard contactToDelete.owner_id == app.currentUser!.id else {
@@ -220,6 +232,13 @@ extension HomeView {
         guard let lastContact = userTeam.contacts.last else { return "" }
         
         return lastContact.name
+    }
+    
+    private func removeUploadReminderNotification() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [uploadReminderNotifIdentifier])
+        
+        print("Removed upload contact reminder notification.")
     }
 }
 
