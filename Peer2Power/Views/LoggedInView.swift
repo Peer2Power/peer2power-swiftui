@@ -91,14 +91,16 @@ struct LoggedInView: View {
                 if newPhase == .active {
                     checkEndOfStudyAvailability()
                     requestNotificationPermissions()
-                    scheduleReminderNotification()
+                    scheduleOutreachAttemptReminderNotification()
+                    scheduleUploadContactReminderNotification()
                 }
             }
             .onAppear {
                 checkEndOfStudyAvailability()
                 addSyncErrorHandler()
                 requestNotificationPermissions()
-                scheduleReminderNotification()
+                scheduleOutreachAttemptReminderNotification()
+                scheduleUploadContactReminderNotification()
             }
         }
     }
@@ -127,7 +129,7 @@ extension LoggedInView {
     
     private func requestNotificationPermissions() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        center.requestAuthorization(options: [.alert, .sound, .badge, .provisional]) { granted, error in
             guard error == nil else {
                 print("Error requesting notification permission: \(error?.localizedDescription)")
                 return
@@ -135,14 +137,46 @@ extension LoggedInView {
         }
     }
     
-    private func scheduleReminderNotification() {
+    private func scheduleUploadContactReminderNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Reminder to Upload Contacts!"
-        content.body = "Remember to upload some contacts you want to encourage to email their elected representatives!"
+        content.body = "Remember to upload some contacts you want to encourage to email elected representatives!"
         
         var dateComponents = DateComponents()
         dateComponents.calendar = .current
         dateComponents.weekday = 4 // Wednesday
+        dateComponents.hour = 12 // 12:00 hours
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: uploadReminderNotifIdentifier, content: content, trigger: trigger)
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getPendingNotificationRequests { requests in
+            if !requests.contains(where: { request in
+                return request.identifier == uploadReminderNotifIdentifier
+            }) {
+                print("Adding scheduled reminder notification...")
+                notificationCenter.add(request) { error in
+                    guard error == nil else {
+                        print("Error scheduling reminder notification: \(error?.localizedDescription)")
+                        return
+                    }
+                    
+                    print("Scheduled reminder notification.")
+                }
+            }
+        }
+    }
+    
+    private func scheduleOutreachAttemptReminderNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder to Log Outreach Attempts!"
+        content.body = "Remember to reach out to your contacts to get them to email elected representatives and log each attempt!"
+        
+        var dateComponents = DateComponents()
+        dateComponents.calendar = .current
+        dateComponents.weekday = 3 // Tuesday
         dateComponents.hour = 12 // 12:00 hours
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

@@ -81,6 +81,18 @@ struct OutreachAttemptsListView: View {
                                    title: "Outreach Attempt Logged!",
                                    subTitle: "Your team received 4 points!")
                     }
+                    .onChange(of: showingAttemptLoggedBanner, perform: { newValue in
+                        guard newValue == true else { return }
+                        
+                        let notificationCenter = UNUserNotificationCenter.current()
+                        notificationCenter.getPendingNotificationRequests { requests in
+                            if requests.contains(where: { request in
+                                return request.identifier == outreachAttemptNotifIdentifier
+                            }) {
+                                removeUploadReminderNotification()
+                            }
+                        }
+                    })
                     .toast(isPresenting: $showingDidVolunteerBanner, duration: 4.0) {
                         AlertToast(displayMode: .banner(.pop),
                                    type: .complete(Color(.systemGreen)),
@@ -167,6 +179,13 @@ extension OutreachAttemptsListView {
         } catch {
             print("Error deleting outreach attempt: \(error.localizedDescription)")
         }
+    }
+    
+    private func removeOutreachAttemptReminderNotification() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [outreachAttemptNotifIdentifier])
+        
+        print("Removed outreach attempt reminder notification.")
     }
     
     private var isPastCompDate: Bool {
