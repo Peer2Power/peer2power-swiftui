@@ -76,8 +76,19 @@ struct HomeView: View {
                                     offsetsToDelete = offsets
                                     showingDeleteAlert.toggle()
                                 }
+                            } header: {
+                                Text("Contacts to be recruited")
                             } footer: {
-                                Text("You can only see the contacts who your team should recruit to email an elected representative.")
+                                Text("These are the contacts who your team should recruit to email an elected representative.")
+                            }
+                            Section {
+                                ForEach(userTeam.contacts.sorted(by: \Contact.name, ascending: true).filter("group = %i", 0)) { contact in
+                                    Text("\(contact.name)")
+                                }
+                            } header: {
+                                Text("Contacts to not recruit")
+                            } footer: {
+                                Text("Your team should not recruit these contacts. This list is here to remind you which contacts were already uploaded.")
                             }
                         }
                         .listStyle(.insetGrouped)
