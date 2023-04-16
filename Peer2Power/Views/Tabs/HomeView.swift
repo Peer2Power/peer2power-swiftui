@@ -21,9 +21,16 @@ struct HomeView: View {
     @State private var showingControlGroupAlert = false
     @State private var showingContactUploadedBanner = false
     
+    @State private var currentContactGroup: ContactGroup = .treatment
+    
     @ObservedRealmObject var userTeam: Team
     
     @Environment(\.realm) private var realm
+    
+    enum ContactGroup {
+        case control
+        case treatment
+    }
     
     var body: some View {
         if isPastCompDate {
@@ -74,6 +81,7 @@ struct HomeView: View {
                                 }
                                 .onDelete { offsets in
                                     offsetsToDelete = offsets
+                                    currentContactGroup = .treatment
                                     showingDeleteAlert.toggle()
                                 }
                             } header: {
@@ -84,6 +92,11 @@ struct HomeView: View {
                             Section {
                                 ForEach(userTeam.contacts.sorted(by: \Contact.name, ascending: true).filter("group = %i", 0)) { contact in
                                     Text("\(contact.name)")
+                                }
+                                .onDelete { offsets in
+                                    offsetsToDelete = offsets
+                                    currentContactGroup = .control
+                                    showingDeleteAlert.toggle()
                                 }
                             } header: {
                                 Text("Contacts to not recruit")
@@ -98,7 +111,7 @@ struct HomeView: View {
                         .alert("Are you sure you want to delete this contact?",
                                isPresented: $showingDeleteAlert) {
                             Button("Cancel", role: .cancel, action: {})
-                            Button("Delete", role: .destructive, action: deleteContact)
+                            Button("Delete", role: .destructive, action: getGroupToDeleteContactFrom)
                         } message: {
                             Text("Your team will lose any points it received for uploading this contact. All outreach attempts for this contact will also be deleted and your team will lose all points awarded for logging these.")
                         }
@@ -164,48 +177,55 @@ struct HomeView: View {
 }
 
 extension HomeView {
-    private func deleteContact() {
+    private func getGroupToDeleteContactFrom() {
         guard let team = userTeam.thaw() else { return }
         guard let offsets = offsetsToDelete else { return }
         
         do {
             try realm.write {
                 for i in offsets {
-                    let filteredContacts = team.contacts.filter("group = %i", 1).sorted(by: \Contact.name, ascending: true)
-                    let contactToDelete = filteredContacts[i]
-                    
-                    guard contactToDelete.owner_id == app.currentUser!.id else {
-                        showingDeleteNotAllowedAlert.toggle()
-                        return
+                    if currentContactGroup == .treatment {
+                        let treatmentContacts = team.contacts.filter("group = %i", 1).sorted(by: \Contact.name, ascending: true)
+                        delete(contact: treatmentContacts[i], from: team)
+                    } else if currentContactGroup == .control {
+                        let controlContacts = team.contacts.filter("group = %i", 0).sorted(by: \Contact.name, ascending: true)
+                        delete(contact: controlContacts[i], from: team)
                     }
-                    
-                    let contactID = contactToDelete.contact_id
-                    
-                    realm.delete(contactToDelete)
-                    
-                    guard team.score > 0 else { return }
-                    team.score -= 2
-                    
-                    for outreachAttempt in team.outreachAttempts.filter("to = %@", contactID) {
-                        let volunteerStatus = outreachAttempt.volunteerStatus
-                        
-                        realm.delete(outreachAttempt)
-                        
-                        if volunteerStatus == theyVolunteeredText {
-                            team.score -= 7
-                            print("Deleted an outreach attempt and subtracted seven points from the team's score.")
-                        } else {
-                            team.score -= 4
-                            print("Deleted an outreach attempt and subtracted four points from the team's score.")
-                        }
-                    }
-                    
-                    print("Deleted a contact and subtracted two points.")
                 }
             }
         } catch {
             print("Error deleting contact: \(error.localizedDescription)")
         }
+    }
+    
+    private func delete(contact: Contact, from team: Team) {
+        guard contact.owner_id == app.currentUser!.id else {
+            showingDeleteNotAllowedAlert.toggle()
+            return
+        }
+        
+        let contactID = contact.contact_id
+        
+        realm.delete(contact)
+        
+        guard team.score > 0 else { return }
+        team.score -= 2
+        
+        for outreachAttempt in team.outreachAttempts.filter("to = %@", contactID) {
+            let volunteerStatus = outreachAttempt.volunteerStatus
+            
+            realm.delete(outreachAttempt)
+            
+            if volunteerStatus == theyVolunteeredText {
+                team.score -= 7
+                print("Deleted an outreach attempt and subtracted seven points from the team's score.")
+            } else {
+                team.score -= 4
+                print("Deleted an outreach attempt and subtracted four points from the team's score.")
+            }
+        }
+        
+        print("Deleted a contact and subtracted two points.")
     }
     
     private var isPastCompDate: Bool {
