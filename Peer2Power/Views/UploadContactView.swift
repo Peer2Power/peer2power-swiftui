@@ -26,6 +26,7 @@ struct UploadContactView: View {
     
     @State private var showingDuplicateContactAlert = false
     @State private var showingInvalidEmailAlert = false
+    @State private var showingConfirmCancelAlert = false
     
     let ageBrackets = ["18 - 25", "26-39", "40+"]
     let relationships = ["Friend", "Family"]
@@ -123,7 +124,11 @@ struct UploadContactView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     if !isUpdating {
                         Button {
-                            dismiss()
+                            if !contactName.isEmpty || !contactEmail.isEmpty {
+                                showingConfirmCancelAlert.toggle()
+                            } else {
+                                dismiss()
+                            }
                         } label: {
                             Text("Cancel")
                         }
@@ -136,7 +141,7 @@ struct UploadContactView: View {
                actions: {
             Button("OK", role: .cancel, action: {})
         }, message: {
-            Text("You or someone on your team has already uploaded a contact with this email address. Please use a different email address and try again.")
+            Text("Your team or another team has already uploaded a contact with this email address. Please use a different email address and try again.")
         })
         .alert("Invalid Email Address",
                isPresented: $showingInvalidEmailAlert) {
@@ -144,6 +149,14 @@ struct UploadContactView: View {
         } message: {
             Text("The email address you provided for your contact is invalid. Please enter a valid email address and try again.")
         }
+        .confirmationDialog("Alert", isPresented: $showingConfirmCancelAlert, titleVisibility: .hidden, actions: {
+            Button("Discard Contact", role: .destructive) {
+                dismiss()
+            }
+            Button("Cancel", role: .cancel, action: {})
+        }, message: {
+            Text("Are you sure you want to discard this contact?")
+        })
         .onChange(of: isAdult, perform: { newValue in
             focusedField = nil
         })
@@ -167,7 +180,9 @@ extension UploadContactView {
             return
         }
         
-        guard userTeam.contacts.filter("email = %@", contactEmail).isEmpty else {
+        guard realm.objects(Team.self).where({ predTeam in
+            return predTeam.contacts.email == contactEmail
+        }).isEmpty else {
             showingDuplicateContactAlert.toggle()
             return
         }
