@@ -19,6 +19,8 @@ struct LoggedInView: View {
     @State private var showingSurveyResponseUploadedBanner = false
     @State private var showingFatalErrorAlert = false
     
+    @State private var canUploadOrLog = true
+    
     @ObservedResults(Team.self,
                      where: {$0.member_ids.contains(app.currentUser!.id)})
     var teams
@@ -35,7 +37,7 @@ struct LoggedInView: View {
         } else {
             TabView {
                 NavigationView {
-                    HomeView(userTeam: teams.first!)                        
+                    HomeView(canUploadContacts: $canUploadOrLog, userTeam: teams.first!)                        
                 }
                 .tabItem {
                     Label("Contacts", systemImage: "person.3.sequence")
@@ -64,7 +66,7 @@ struct LoggedInView: View {
                     showingConfirmDontShowAlert.toggle()
                 }
             } message: {
-                Text("The election is over! To score your final points, we need you to let us know how many of your friends and family actually volunteered for a Georgia runoff campaign!")
+                Text("The competition is over! To score your final points, we need you to let us know how many of your friends and family actually emailed an elected representative.")
             }
             .alert("Are you sure you want to quit the competition?", isPresented: $showingConfirmDontShowAlert, actions: {
                 Button("No, I'd Like to Fill Out the Survey", action: showSurveyIfAllowed)
@@ -123,6 +125,8 @@ extension LoggedInView {
         
         guard pastSurveyOpenDate else { return }
         guard !pastSurveyCloseDate else { return }
+        
+        canUploadOrLog = false
         
         showPromptIfAllowed()
     }
@@ -207,14 +211,14 @@ extension LoggedInView {
         guard let team = teams.first else { return }
         guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
         
-        showingSurveyAlert.toggle()
+        showingSurveyAlert = true
     }
     
     private func showSurveyIfAllowed() {
         guard let team = teams.first else { return }
         guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
         
-        showingEndOfStudySurvey.toggle()
+        showingEndOfStudySurvey = true
     }
     
     private func neverShowEndOfStudySurvey() {

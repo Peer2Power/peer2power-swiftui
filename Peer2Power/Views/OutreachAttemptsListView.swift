@@ -13,6 +13,7 @@ import FirebaseRemoteConfig
 struct OutreachAttemptsListView: View {
     @ObservedRealmObject var contact: Contact
     @ObservedRealmObject var team: Team
+    @Binding var canLogOutreachAttempts: Bool
     
     @State private var presentingLogOutreachForm = false
     @State private var presentingEditContactInfoForm = false
@@ -99,33 +100,35 @@ struct OutreachAttemptsListView: View {
                                    title: "Outreach Attempt Logged!",
                                    subTitle: "Your team received 7 points!")
                     }
-                    Button("Show Outreach Steps") {
-                        showingOutreachSteps.toggle()
-                    }
-                    .sheet(isPresented: $showingOutreachSteps) {
-                        if #available(iOS 16.0, *) {
-                            TabView {
-                                ForEach(imageNames, id: \.self) { name in
-                                    Image(name)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                    if (canLogOutreachAttempts) {
+                        Button("Show Outreach Steps") {
+                            showingOutreachSteps.toggle()
+                        }
+                        .sheet(isPresented: $showingOutreachSteps) {
+                            if #available(iOS 16.0, *) {
+                                TabView {
+                                    ForEach(imageNames, id: \.self) { name in
+                                        Image(name)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    }
                                 }
-                            }
-                            .tabViewStyle(.page)
-                            .indexViewStyle(.page(backgroundDisplayMode: .always))
-                            .presentationDetents([.medium, .large])
-                        } else {
-                            // Fallback on earlier versions
-                            
-                            TabView {
-                                ForEach(imageNames, id: \.self) { name in
-                                    Image(name)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                                .tabViewStyle(.page)
+                                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                                .presentationDetents([.medium, .large])
+                            } else {
+                                // Fallback on earlier versions
+                                
+                                TabView {
+                                    ForEach(imageNames, id: \.self) { name in
+                                        Image(name)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    }
                                 }
+                                .tabViewStyle(.page)
+                                .indexViewStyle(.page(backgroundDisplayMode: .always))
                             }
-                            .tabViewStyle(.page)
-                            .indexViewStyle(.page(backgroundDisplayMode: .always))
                         }
                     }
                 }
@@ -136,7 +139,7 @@ struct OutreachAttemptsListView: View {
         } label: {
             Label("Log Outreach Attempt", systemImage: "square.and.pencil")
         }
-        .disabled(isPastCompDate)
+        .disabled(!canLogOutreachAttempts)
         .buttonStyle(.borderedProminent)
         .fullScreenCover(isPresented: $presentingLogOutreachForm) {
             LogOutreachView(contact: contact, team: team, showDidVolunteerBanner: $showingDidVolunteerBanner, showAttemptLoggedBanner: $showingAttemptLoggedBanner)

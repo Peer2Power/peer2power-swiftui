@@ -23,6 +23,7 @@ struct HomeView: View {
     
     @State private var currentContactGroup: ContactGroup = .treatment
     
+    @Binding var canUploadContacts: Bool
     @ObservedRealmObject var userTeam: Team
     
     @Environment(\.realm) private var realm
@@ -74,7 +75,7 @@ struct HomeView: View {
                             Section {
                                 ForEach(userTeam.contacts.sorted(by: \Contact.name, ascending: true).filter("group = %i", 1)) { contact in
                                     NavigationLink {
-                                        OutreachAttemptsListView(contact: contact, team: userTeam)
+                                        OutreachAttemptsListView(contact: contact, team: userTeam, canLogOutreachAttempts: $canUploadContacts)
                                     } label: {
                                         ContactListRow(contact: contact, team: userTeam)
                                     }
@@ -128,7 +129,7 @@ struct HomeView: View {
                     Label("Upload a Contact", systemImage: "person.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(isPastCompDate)
+                .disabled(!canUploadContacts)
                 .sheet(isPresented: $showingUploadForm, onDismiss: {
                     guard let uploadedContact = userTeam.contacts.last else { return }
                     
@@ -275,6 +276,6 @@ extension HomeView {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(userTeam: Team())
+        HomeView(canUploadContacts: .constant(true), userTeam: Team())
     }
 }
