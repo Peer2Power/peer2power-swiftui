@@ -24,6 +24,7 @@ struct HomeView: View {
     @State private var currentContactGroup: ContactGroup = .treatment
     
     @Binding var canUploadContacts: Bool
+    @Binding var isPastCompDate: Bool
     @ObservedRealmObject var userTeam: Team
     
     @Environment(\.realm) private var realm
@@ -122,6 +123,12 @@ struct HomeView: View {
                         })
                     }
                 }
+                if !canUploadContacts && !isPastCompDate {
+                    Text("You can no longer upload any contacts or log any outreach attempts. Please complete the end of study survey.")
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
+                }
                 Button {
                     showingUploadForm.toggle()
                 } label: {
@@ -139,7 +146,8 @@ struct HomeView: View {
                     UploadContactView(userTeam: userTeam, contact: Contact(), showingContactUploadedBanner: $showingContactUploadedBanner)
                 })
                 .padding(.horizontal, 15)
-                .padding(.vertical, 5)
+                .padding(.top, 5)
+                .padding(.bottom, 10)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -228,37 +236,6 @@ extension HomeView {
         print("Deleted a contact and subtracted two points.")
     }
     
-    private var isPastCompDate: Bool {
-        let remoteConfig = RemoteConfig.remoteConfig()
-        
-        Task {
-            do {
-                let status = try await remoteConfig.fetchAndActivate()
-                
-                if status == .successFetchedFromRemote || status == .successUsingPreFetchedData {
-                    guard let fetchedDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
-                    print("Got end of study date \(fetchedDate)")
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-                    dateFormatter.timeZone = TimeZone(abbreviation: "EST")
-                    
-                    guard let date = dateFormatter.date(from: fetchedDate) else { return false }
-                    let compareResult = Date().compare(date)
-                    
-                    return compareResult == .orderedSame || compareResult == .orderedDescending
-                }
-            } catch {
-                print("Error fetching from remote config: \(error.localizedDescription)")
-                return false
-            }
-            
-            return false
-        }
-        
-        return false
-    }
-    
     private var lastContactName: String {
         guard let lastContact = userTeam.contacts.last else { return "" }
         
@@ -275,6 +252,6 @@ extension HomeView {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(canUploadContacts: .constant(true), userTeam: Team())
+        HomeView(canUploadContacts: .constant(true), isPastCompDate: .constant(false), userTeam: Team())
     }
 }

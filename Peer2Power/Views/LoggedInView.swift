@@ -37,7 +37,7 @@ struct LoggedInView: View {
         } else {
             TabView {
                 NavigationView {
-                    HomeView(canUploadContacts: $canUploadOrLog, userTeam: teams.first!)                        
+                    HomeView(canUploadContacts: $canUploadOrLog, isPastCompDate: .constant(pastSurveyCloseDate), userTeam: teams.first!)
                 }
                 .tabItem {
                     Label("Contacts", systemImage: "person.3.sequence")
@@ -91,17 +91,11 @@ struct LoggedInView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     checkEndOfStudyAvailability()
-                    requestNotificationPermissions()
-                    scheduleOutreachAttemptReminderNotification()
-                    scheduleUploadContactReminderNotification()
                 }
             }
             .onAppear {
                 checkEndOfStudyAvailability()
                 addSyncErrorHandler()
-                requestNotificationPermissions()
-                scheduleOutreachAttemptReminderNotification()
-                scheduleUploadContactReminderNotification()
             }
         }
     }
@@ -128,80 +122,6 @@ extension LoggedInView {
         canUploadOrLog = false
         
         showPromptIfAllowed()
-    }
-    
-    private func requestNotificationPermissions() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge, .provisional]) { granted, error in
-            guard error == nil else {
-                print("Error requesting notification permission: \(error?.localizedDescription)")
-                return
-            }
-        }
-    }
-    
-    private func scheduleUploadContactReminderNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Reminder to Upload Contacts!"
-        content.body = "Remember to upload some contacts you want to encourage to email elected representatives!"
-        
-        var dateComponents = DateComponents()
-        dateComponents.calendar = .current
-        dateComponents.weekday = 4 // Wednesday
-        dateComponents.hour = 12 // 12:00 hours
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: uploadReminderNotifIdentifier, content: content, trigger: trigger)
-        
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.getPendingNotificationRequests { requests in
-            if !requests.contains(where: { request in
-                return request.identifier == uploadReminderNotifIdentifier
-            }) {
-                print("Adding scheduled reminder notification...")
-                notificationCenter.add(request) { error in
-                    guard error == nil else {
-                        print("Error scheduling reminder notification: \(error?.localizedDescription)")
-                        return
-                    }
-                    
-                    print("Scheduled upload contact reminder notification.")
-                }
-            }
-        }
-    }
-    
-    private func scheduleOutreachAttemptReminderNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Reminder to Log Outreach Attempts!"
-        content.body = "Remember to reach out to your contacts to get them to email elected representatives and log each attempt!"
-        
-        var dateComponents = DateComponents()
-        dateComponents.calendar = .current
-        dateComponents.weekday = 3 // Tuesday
-        dateComponents.hour = 12 // 12:00 hours
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: outreachAttemptNotifIdentifier, content: content, trigger: trigger)
-        
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.getPendingNotificationRequests { requests in
-            if !requests.contains(where: { request in
-                return request.identifier == outreachAttemptNotifIdentifier
-            }) {
-                print("Adding scheduled reminder notification...")
-                notificationCenter.add(request) { error in
-                    guard error == nil else {
-                        print("Error scheduling reminder notification: \(error?.localizedDescription)")
-                        return
-                    }
-                    
-                    print("Scheduled outreach attempt reminder notification.")
-                }
-            }
-        }
     }
     
     private func showPromptIfAllowed() {
@@ -234,11 +154,11 @@ extension LoggedInView {
         let remoteConfig = RemoteConfig.remoteConfig()
         
         guard let surveyOpenDate = remoteConfig["endOfStudySurveyAvailableDate"].stringValue else { return false }
-        print("Got end of study date \(surveyOpenDate)")
+        print("Got end of study available date \(surveyOpenDate)")
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
         
         guard let date = dateFormatter.date(from: surveyOpenDate) else { return false }
         let compareResult = Date().compare(date)
@@ -260,11 +180,11 @@ extension LoggedInView {
         let remoteConfig = RemoteConfig.remoteConfig()
         
         guard let surveyCloseDate = remoteConfig["endOfStudySurveyCloseDate"].stringValue else { return false }
-        print("Got end of study date \(surveyCloseDate)")
+        print("Got end of study close date \(surveyCloseDate)")
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+        dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
         
         guard let date = dateFormatter.date(from: surveyCloseDate) else { return false }
         let compareResult = Date().compare(date)
