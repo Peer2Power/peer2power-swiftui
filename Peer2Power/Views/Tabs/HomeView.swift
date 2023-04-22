@@ -105,7 +105,6 @@ struct HomeView: View {
                                 Text("Your team should not recruit these contacts. This list is here to remind you which contacts were already uploaded.")
                             }
                         }
-                        .listStyle(.insetGrouped)
                         .toolbar {
                             EditButton()
                         }
