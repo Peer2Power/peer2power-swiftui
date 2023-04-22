@@ -20,6 +20,8 @@ struct SettingsView: View {
     @ObservedRealmObject var userTeam: Team
     @Environment(\.realm) private var realm
     
+    @Binding var canUploadOrLog: Bool
+    
     var body: some View {
         List {
             // TODO: revisit this to finalize the end-of-study survey.
@@ -42,14 +44,18 @@ struct SettingsView: View {
                 }
                 Text("Questions or want to report a problem? Email lafayette@peer2power.org.")
             }
-            /* Section {
-                Button("Show End of Study Survey") {
-                    showingEndOfStudySurvey.toggle()
+            if !canUploadOrLog && userTeam.endOfStudyResponses.where({ response in
+                return response.owner_id == app.currentUser!.id
+            }).isEmpty {
+                Section {
+                    Button("Fill Out End of Study Survey") {
+                        showingEndOfStudySurvey.toggle()
+                    }
+                    .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
+                        EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingBanner)
+                    }
                 }
-                .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
-                    EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingBanner)
-                }
-            } */
+            }
             Section {
                 Button("Log Out", role: .destructive) {
                     showingLogOutAlert.toggle()
@@ -165,6 +171,6 @@ extension SettingsView {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(userTeam: Team())
+        SettingsView(userTeam: Team(), canUploadOrLog: .constant(true))
     }
 }
