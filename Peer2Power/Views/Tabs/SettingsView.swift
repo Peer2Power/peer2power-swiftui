@@ -53,6 +53,8 @@ struct SettingsView: View {
                     }
                     .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
                         EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingBanner)
+                            .ignoresSafeArea(.container, edges: .bottom)
+                            .ignoresSafeArea(.keyboard, edges: .bottom)
                     }
                 }
             }
