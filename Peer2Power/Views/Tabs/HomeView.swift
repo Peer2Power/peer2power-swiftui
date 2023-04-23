@@ -124,10 +124,15 @@ struct HomeView: View {
                     }
                 }
                 if !canUploadContacts && !isPastCompDate {
-                    Text("You can no longer upload any contacts or log any outreach attempts. Please complete the end of study survey.")
+                    Text("You can no longer upload any contacts or log any outreach attempts.")
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 15)
-                        .padding(.vertical, 5)
+                    Button("Please complete the end of study survey.") {
+                        
+                    }
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
                 }
                 Button {
                     showingUploadForm.toggle()

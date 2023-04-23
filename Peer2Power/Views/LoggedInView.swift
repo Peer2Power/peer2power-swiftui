@@ -13,10 +13,6 @@ import AlertToast
 struct LoggedInView: View {
     @Environment(\.scenePhase) var scenePhase
     
-    @State private var showingSurveyAlert = false
-    @State private var showingEndOfStudySurvey = false
-    @State private var showingConfirmDontShowAlert = false
-    @State private var showingSurveyResponseUploadedBanner = false
     @State private var showingFatalErrorAlert = false
     
     @State private var canUploadOrLog = true
@@ -59,35 +55,11 @@ struct LoggedInView: View {
                     Label("Settings", systemImage: "gear")
                 }
             }
-            .alert("Are you ready to complete the Peer2Power competition?", isPresented: $showingSurveyAlert) {
-                Button("I'm Ready", action: showSurveyIfAllowed)
-                Button("Maybe Later", action: setShowLater)
-                Button("Don't Ask Again", role: .cancel) {
-                    showingConfirmDontShowAlert.toggle()
-                }
-            } message: {
-                Text("The competition is over! To score your final points, we need you to let us know how many of your friends and family actually emailed an elected representative.")
-            }
-            .alert("Are you sure you want to quit the competition?", isPresented: $showingConfirmDontShowAlert, actions: {
-                Button("No, I'd Like to Fill Out the Survey", action: showSurveyIfAllowed)
-                Button("No, Show Me This Again Later", action: setShowLater)
-                Button("Yes, Never Ask Me Again", role: .cancel, action: neverShowEndOfStudySurvey)
-            }, message: {
-                Text("Failing to complete the end-of-study survey means your team will miss an opportunity to gain a significant number of points.")
-            })
-            .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
-                EndOfStudySurveyView(team: teams.first!, showResponseUploadedBanner: $showingSurveyResponseUploadedBanner)
-                    .ignoresSafeArea(.container, edges: .bottom)
-                    .ignoresSafeArea(.keyboard, edges: .bottom)
-            }
             .alert("Major Error", isPresented: $showingFatalErrorAlert, actions: {
                 Button("OK", role: .cancel, action: {})
             }, message: {
                 Text("A major error has occurred. Please force quit the app and reopen it.")
             })
-            .toast(isPresenting: $showingSurveyResponseUploadedBanner, duration: 4) {
-                AlertToast(displayMode: .banner(.pop), type: .complete(Color(.systemGreen)), title: "Response Uploaded!", subTitle: "Your team received 12 points!")
-            }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     checkEndOfStudyAvailability()
@@ -113,41 +85,9 @@ extension LoggedInView {
     }
     
     private func handleFetchedDate() {
-        let hasDeclinedSurvey = UserDefaults.standard.bool(forKey: "declinedEndOfStudySurvey")
-        guard !hasDeclinedSurvey else { return }
-        
         guard pastSurveyOpenDate else { return }
-        guard !pastSurveyCloseDate else { return }
         
         canUploadOrLog = false
-        
-        showPromptIfAllowed()
-    }
-    
-    private func showPromptIfAllowed() {
-        guard pastRemindLaterDate else { return }
-    
-        guard let team = teams.first else { return }
-        guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
-        
-        showingSurveyAlert = true
-    }
-    
-    private func showSurveyIfAllowed() {
-        guard let team = teams.first else { return }
-        guard team.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty else { return }
-        
-        showingEndOfStudySurvey = true
-    }
-    
-    private func neverShowEndOfStudySurvey() {
-        let defaults = UserDefaults.standard
-        defaults.set(true, forKey: "declinedEndOfStudySurvey")
-    }
-    
-    private func setShowLater() {
-        let defaults = UserDefaults.standard
-        defaults.set(Date(), forKey: "remindLaterPressedDate")
     }
     
     private var pastSurveyOpenDate: Bool {
