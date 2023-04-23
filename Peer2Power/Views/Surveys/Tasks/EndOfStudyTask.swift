@@ -12,7 +12,7 @@ class EndOfStudyTask: ORKOrderedTask {
     static func welcomeStep() -> ORKInstructionStep {
         let step = ORKInstructionStep(identifier: String(describing: Identifier.endOfStudyWelcomeStep))
         step.title = "End Of Study Survey"
-        step.text = "This survey is the last step of the competition. Please not that you can only submit *ONE* response. After you select \"Done\" you will not be able to return to this survey."
+        step.text = "This survey is the last step of the competition. Please note that you can only submit ONE response. After you select \"Done\" on the completion screen, you will not be able to submit another response."
         
         return step
     }
@@ -64,7 +64,7 @@ class EndOfStudyTask: ORKOrderedTask {
         let step = ORKCompletionStep(identifier: String(describing: Identifier.endOfStudyCompletionStep))
         
         step.title = "Thank you for participating in the Peer2Power competition!"
-        step.detailText = "Thank you for participating in the political process and encouraging others to do so! We hope you keep up the good work!"
+        step.detailText = "Thank you for participating in the political process and encouraging others to do so! We hope you keep up the good work! \n\nOnce you press \"Done\", your response will be submitted and you will not be able to submit another one."
         
         return step
     }
