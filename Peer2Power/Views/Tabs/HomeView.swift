@@ -20,6 +20,8 @@ struct HomeView: View {
     
     @State private var showingControlGroupAlert = false
     @State private var showingContactUploadedBanner = false
+    @State private var showingEndOfStudySurvey = false
+    @State private var showingSurveyCompleteBanner = false
     
     @State private var currentContactGroup: ContactGroup = .treatment
     
@@ -124,15 +126,22 @@ struct HomeView: View {
                     }
                 }
                 if !canUploadContacts && !isPastCompDate {
-                    Text("You can no longer upload any contacts or log any outreach attempts.")
+                    Text("You can no longer upload any contacts or log any outreach attempts. Complete the end of study survey to finish the competition.")
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 15)
-                    Button("Please complete the end of study survey.") {
-                        
+                    if userTeam.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty {
+                        Button("Take the end of study survey.") {
+                            showingEndOfStudySurvey.toggle()
+                        }
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
+                        .fullScreenCover(isPresented: $showingEndOfStudySurvey) {
+                            EndOfStudySurveyView(team: userTeam, showResponseUploadedBanner: $showingSurveyCompleteBanner)
+                                .ignoresSafeArea(.container, edges: .bottom)
+                                .ignoresSafeArea(.keyboard, edges: .bottom)
+                        }
                     }
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 5)
                 }
                 Button {
                     showingUploadForm.toggle()
@@ -172,6 +181,12 @@ struct HomeView: View {
                            type: .complete(Color(.systemGreen)),
                            title: "Contact Uploaded",
                            subTitle: "Your team received 2 points!")
+            }
+            .toast(isPresenting: $showingSurveyCompleteBanner, duration: 4.0) {
+                AlertToast(displayMode: .banner(.pop),
+                           type: .complete(Color(.systemGreen)),
+                           title: "End Of Study Survey Response Submitted",
+                           subTitle: "Your team received 12 points!")
             }
             .onChange(of: showingContactUploadedBanner) { newValue in
                 guard newValue == true else { return }

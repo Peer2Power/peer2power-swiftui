@@ -9,6 +9,14 @@ import ResearchKit
 import RealmSwift
 
 class EndOfStudyTask: ORKOrderedTask {
+    static func welcomeStep() -> ORKInstructionStep {
+        let step = ORKInstructionStep(identifier: String(describing: Identifier.endOfStudyWelcomeStep))
+        step.title = "End Of Study Survey"
+        step.text = "This survey is the last step of the competition. Please not that you can only submit *ONE* response. After you select \"Done\" you will not be able to return to this survey."
+        
+        return step
+    }
+    
     static func whoVolunteeredStep(team: Team) -> ORKQuestionStep {
         let step = ORKQuestionStep(identifier: String(describing: Identifier.whichVolunteeredStep),
                                    title: nil,
@@ -27,7 +35,7 @@ class EndOfStudyTask: ORKOrderedTask {
             }
         }
         
-        let noneTextChoice = ORKTextChoice(text: "None of the contacts I know emailed an elected representative.", value: "None of the contacts I know emailed an elected representative." as NSString)
+        let noneTextChoice = ORKTextChoice(text: "None of the contacts listed above who I know emailed an elected representative.", value: "None of the contacts listed above who I know emailed an elected representative." as NSString)
         textChoices.append(noneTextChoice)
         
         let dontKnowTextChoice = ORKTextChoice(text: "I don't know anyone on this list.", value: "I don't know anyone on this list." as NSString)

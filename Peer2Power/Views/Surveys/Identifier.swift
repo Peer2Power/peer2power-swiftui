@@ -49,6 +49,7 @@ enum Identifier {
     case futureRecruitmentLikelihoodScaleStep
     
     case endOfStudyTask
+    case endOfStudyWelcomeStep
     case whichVolunteeredStep
     case knownContactsFormStep
     case knownContactFormItem
