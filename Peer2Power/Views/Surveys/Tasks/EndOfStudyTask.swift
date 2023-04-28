@@ -64,7 +64,7 @@ class EndOfStudyTask: ORKOrderedTask {
         let step = ORKCompletionStep(identifier: String(describing: Identifier.endOfStudyCompletionStep))
         
         step.title = "Thank you for participating in the Peer2Power competition!"
-        step.detailText = "Thank you for participating in the political process and encouraging others to do so! We hope you keep up the good work! \n\nOnce you press \"Done\", your response will be submitted and you will not be able to submit another one."
+        step.detailText = "Thank you for participating in the political process and encouraging others to do so! We hope you keep up the good work! \n\nOnce you press \"Done,\" your response will be submitted and you will not be able to submit another one."
         
         return step
     }
