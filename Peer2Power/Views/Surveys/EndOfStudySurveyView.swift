@@ -66,6 +66,10 @@ struct EndOfStudySurveyView: UIViewControllerRepresentable {
             taskViewController.dismiss(animated: true)
         }
         
+        func taskViewControllerSupportsSaveAndRestore(_ taskViewController: ORKTaskViewController) -> Bool {
+            return true
+        }
+        
         private func getResults(from taskViewController: ORKTaskViewController) {
             guard let currentUser = app.currentUser else { return }
             newResponse.owner_id = currentUser.id
