@@ -207,7 +207,7 @@ extension ClubsListView {
         let bodyJSON: [String: Any] = [
             "collection": "Team",
             "database": "govlab",
-            "dataSource": "production",
+            "dataSource": "Demo",
             "sort": ["name": 1],
             "projection": ["_id": 1, "name": 1]
         ]
