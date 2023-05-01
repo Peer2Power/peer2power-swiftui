@@ -118,7 +118,7 @@ struct HomeView: View {
                 Text("You can no longer upload any contacts or log any outreach attempts. Complete the end of study survey to finish the competition.")
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 15)
-                // if userTeam.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty {
+                if userTeam.endOfStudyResponses.filter("owner_id = %@", app.currentUser!.id).isEmpty {
                 Button("Take the end of study survey.") {
                     showingEndOfStudySurvey.toggle()
                 }
@@ -130,7 +130,7 @@ struct HomeView: View {
                         .ignoresSafeArea(.container, edges: .bottom)
                         .ignoresSafeArea(.keyboard, edges: .bottom)
                 }
-                // }
+                }
             }
             Button {
                 showingUploadForm.toggle()
