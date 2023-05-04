@@ -194,8 +194,8 @@ extension UploadContactView {
         contact.name = contactName
         contact.email = contactEmail
         
-        // let randomInt = Int.random(in: 0...1)
-        contact.group = 1
+        let randomInt = Int.random(in: 0...1)
+        contact.group = randomInt
         
         if contact.group == 1 {
             print("Contact was assigned to the treatment group.")
